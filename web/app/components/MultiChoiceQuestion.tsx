@@ -48,11 +48,11 @@ export function MultiChoiceQuestion() {
                             </div>
                         )}
                         <div className="answer-text"><Latex tex={(answer as any).text} /></div>
-                        {showResults && (
+                        {/* {showResults && (
                             <div className="answer-result">
                                 <span className="icon">{isCorrect ? "✓" : "✕"}</span>
                             </div>
-                        )}
+                        )} */}
                     </div>
                 );
             })}
