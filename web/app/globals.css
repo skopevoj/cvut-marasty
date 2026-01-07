@@ -12,18 +12,40 @@
 }
 
 :root {
-  --bg-color: #000000;
+  --bg-color: #030303;
   --surface-color: #0a0a0c;
   --border-color: #1a1a1e;
-  --text-primary: #ffffff;
-  --text-secondary: #888888;
+
+  --fg-primary: #ffffff;
+  --fg-muted: #888888;
+  --fg-subtle: #444444;
+
+  --bg-surface: #0a0a0c;
+  --bg-surface-hover: #151518;
+  --bg-elevated: #1a1a1e;
+
+  --border-default: rgba(255, 255, 255, 0.05);
+  --border-hover: rgba(255, 255, 255, 0.1);
+
   --subject-primary: #a855f7;
   --subject-secondary: #c084fc;
 }
 
+.glass-card-themed {
+  background: linear-gradient(to bottom,
+      color-mix(in srgb, var(--subject-primary) 10%, transparent),
+      color-mix(in srgb, var(--subject-primary) 2%, transparent));
+  backdrop-filter: blur(20px);
+  border: 1px solid color-mix(in srgb, var(--subject-primary) 20%, transparent);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--subject-primary) 10%, transparent),
+    0 4px 25px rgba(0, 0, 0, 0.948),
+    0 0 25px color-mix(in srgb, var(--subject-primary) 15%, transparent);
+}
+
 body {
   background-color: var(--bg-color);
-  color: var(--text-primary);
+  color: var(--fg-primary);
   font-family: system-ui, -apple-system, sans-serif;
   min-height: 100vh;
 }
