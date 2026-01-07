@@ -53,13 +53,13 @@ export function QuizProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const subRes = await fetch('/subjects.json');
+        const subRes = await fetch('subjects.json');
         const { subjects: subList } = await subRes.json();
         setSubjects(subList);
 
         const allQuestions: Question[] = [];
         for (const sub of subList) {
-          const qListRes = await fetch(`/subjects/${sub.code}/questions.json`);
+          const qListRes = await fetch(`subjects/${sub.code}/questions.json`);
           if (!qListRes.ok) continue;
           const { topics } = await qListRes.json();
 
@@ -71,10 +71,10 @@ export function QuizProvider({ children }: { children: ReactNode }) {
 
           for (const [topicId, topicData] of Object.entries(topics) as any) {
             for (const qid of topicData.questions) {
-              const qRes = await fetch(`/subjects/${sub.code}/topics/${topicId}/${qid}/question.json`);
+              const qRes = await fetch(`subjects/${sub.code}/topics/${topicId}/${qid}/question.json`);
               if (qRes.ok) {
                 const qData = await qRes.json();
-                const questionPath = `/subjects/${sub.code}/topics/${topicId}/${qid}`;
+                const questionPath = `subjects/${sub.code}/topics/${topicId}/${qid}`;
 
                 const answersWithIndex = (qData.answers || []).map((a: any, index: number) => ({
                   ...a,
@@ -112,7 +112,7 @@ export function QuizProvider({ children }: { children: ReactNode }) {
 
     if (sub) {
       try {
-        const subDetailsRes = await fetch(`/subjects/${sub.code}/subject.json`);
+        const subDetailsRes = await fetch(`subjects/${sub.code}/subject.json`);
         if (subDetailsRes.ok) {
           const subDetails = await subDetailsRes.json();
           setCurrentSubjectDetails(subDetails);
