@@ -18,7 +18,7 @@ export function QuestionHistory() {
     const recentHistory = [...history].reverse().slice(-15);
 
     return (
-        <div className="flex items-center justify-between gap-4 px-5 py-1.5 glass-card-themed rounded-xl mb-3 text-[10px] md:text-xs font-medium border-b-0">
+        <div className="flex items-center justify-between gap-4 px-5 py-3.5 glass-card-themed rounded-xl mb-3 text-[10px] md:text-xs font-medium border-b-0">
             <div className="flex items-center gap-1.5 min-w-fit">
                 <span className="text-[var(--fg-muted)] uppercase tracking-wider">Úspěšnost</span>
                 <span
@@ -33,8 +33,8 @@ export function QuestionHistory() {
                     <div
                         key={attempt.timestamp + i}
                         className={`flex items-center justify-center w-4 h-4 rounded-sm border ${attempt.isCorrect
-                                ? "border-[var(--success)]/30 bg-[var(--success)]/10 text-[var(--success)]"
-                                : "border-[var(--error)]/30 bg-[var(--error)]/10 text-[var(--error)]"
+                            ? "border-[var(--success)]/30 bg-[var(--success)]/10 text-[var(--success)]"
+                            : "border-[var(--error)]/30 bg-[var(--error)]/10 text-[var(--error)]"
                             }`}
                     >
                         {attempt.isCorrect ? <Check size={10} /> : <X size={10} />}

@@ -40,7 +40,7 @@ export function QuestionCard() {
                         border: '1px solid var(--subject-border)',
                     }}
                 >
-                    {currentQuestion.topic}
+                    {(currentQuestion as any).topicName || currentQuestion.topic}
                 </span>
                 <span className="ml-2 font-mono text-[10px] tracking-wider text-[var(--fg-subtle)]">
                     #{currentQuestion.id || 'N/A'}
