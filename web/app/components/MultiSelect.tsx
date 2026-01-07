@@ -4,9 +4,9 @@ import { useState, useRef, useEffect } from 'react';
 import { ChevronDown, Check } from 'lucide-react';
 
 interface MultiSelectProps {
-    options: string[];
+    options: { id: string, name: string }[];
     selected: string[];
-    onToggle: (option: string) => void;
+    onToggle: (id: string) => void;
     label: string;
 }
 
@@ -58,15 +58,15 @@ export function MultiSelect({ options, selected, onToggle, label }: MultiSelectP
                 >
                     <div className="max-h-[300px] overflow-y-auto">
                         {options.map(option => {
-                            const isSelected = selected.includes(option);
+                            const isSelected = selected.includes(option.id);
                             return (
                                 <div
-                                    key={option}
+                                    key={option.id}
                                     className={`group flex cursor-pointer items-center justify-between rounded-lg px-3 py-2.5 text-[13px] transition-all hover:bg-white/[0.05] ${isSelected ? 'text-[var(--subject-primary)] bg-[var(--subject-primary)]/5' : 'text-text-secondary hover:text-text-primary'
                                         }`}
-                                    onClick={() => onToggle(option)}
+                                    onClick={() => onToggle(option.id)}
                                 >
-                                    <span className="truncate">{option}</span>
+                                    <span className="truncate">{option.name}</span>
                                     <div className={`flex h-4 w-4 items-center justify-center rounded border transition-all ${isSelected
                                         ? 'border-[var(--subject-primary)] bg-[var(--subject-primary)] text-white'
                                         : 'border-white/10 bg-white/5 group-hover:border-white/20'

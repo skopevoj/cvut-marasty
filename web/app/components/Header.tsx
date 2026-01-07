@@ -5,13 +5,22 @@ import { MultiSelect } from "./MultiSelect";
 import { Search, Star, ChevronDown, User, Trophy } from "lucide-react";
 
 export function Header() {
-    const { subjects, currentSubject, selectSubject, toggleTopic, selectedTopics, questions } = useQuiz();
+    const { subjects, currentSubject, currentSubjectDetails, selectSubject, toggleTopic, selectedTopics, questions } = useQuiz();
+
+    // Map of topic id -> topic name from subject details
+    const topicMap = (currentSubjectDetails?.topics || []).reduce((acc: any, t: any) => {
+        acc[t.id] = t.name;
+        return acc;
+    }, {});
 
     const availableTopics = Array.from(new Set(
         questions
             .filter(q => q.subjectCode === currentSubject?.code)
             .map(q => q.topic)
-    ));
+    )).map(id => ({
+        id,
+        name: topicMap[id] || id
+    }));
 
     return (
         <header className="glass-card-themed relative z-50 rounded-3xl p-3 px-3 transition-all duration-300 md:p-4">

@@ -63,12 +63,18 @@ export function QuizProvider({ children }: { children: ReactNode }) {
           if (!qListRes.ok) continue;
           const { topics } = await qListRes.json();
 
-          for (const [topicName, topicData] of Object.entries(topics) as any) {
+          // Map topic IDs to names from the subject data
+          const topicMap = (sub.topics || []).reduce((acc: any, t: any) => {
+            acc[t.id] = t.name;
+            return acc;
+          }, {});
+
+          for (const [topicId, topicData] of Object.entries(topics) as any) {
             for (const qid of topicData.questions) {
-              const qRes = await fetch(`/subjects/${sub.code}/topics/${topicName}/${qid}/question.json`);
+              const qRes = await fetch(`/subjects/${sub.code}/topics/${topicId}/${qid}/question.json`);
               if (qRes.ok) {
                 const qData = await qRes.json();
-                const questionPath = `/subjects/${sub.code}/topics/${topicName}/${qid}`;
+                const questionPath = `/subjects/${sub.code}/topics/${topicId}/${qid}`;
 
                 const answersWithIndex = (qData.answers || []).map((a: any, index: number) => ({
                   ...a,
@@ -80,7 +86,8 @@ export function QuizProvider({ children }: { children: ReactNode }) {
                   answers: answersWithIndex,
                   subjectCode: sub.code,
                   id: qid,
-                  topic: topicName,
+                  topic: topicId,
+                  topicName: topicMap[topicId] || topicId,
                   photo: qData.photo === true ? `${questionPath}/photo.png` : qData.photo,
                   quizPhoto: qData.quizPhoto === true ? `${questionPath}/quiz.png` : qData.quizPhoto
                 });
