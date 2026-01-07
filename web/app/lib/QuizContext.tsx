@@ -3,6 +3,8 @@
 import { createContext, useContext, useEffect, useState, ReactNode, useMemo } from 'react';
 import { Subject } from './types/subject';
 import { Question } from './types/question';
+import { statsHelper } from './statsHelper';
+import { useStats } from './StatsContext';
 
 interface QuizContextType {
   subjects: Subject[];
@@ -13,6 +15,10 @@ interface QuizContextType {
   quizQueue: Question[];
   currentQuestionIndex: number;
   currentQuestion: Question | null;
+  currentQuestionStats: {
+    totalAnswered: number;
+    history: { timestamp: number; isCorrect: boolean }[];
+  } | null;
   userAnswers: Record<number, number>;
   userTextAnswer: string;
   showResults: boolean;
@@ -30,6 +36,7 @@ interface QuizContextType {
 const QuizContext = createContext<QuizContextType | undefined>(undefined);
 
 export function QuizProvider({ children }: { children: ReactNode }) {
+  const { attempts } = useStats();
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -63,8 +70,14 @@ export function QuizProvider({ children }: { children: ReactNode }) {
                 const qData = await qRes.json();
                 const questionPath = `/subjects/${sub.code}/topics/${topicName}/${qid}`;
 
+                const answersWithIndex = (qData.answers || []).map((a: any, index: number) => ({
+                  ...a,
+                  index: index + 1
+                }));
+
                 allQuestions.push({
                   ...qData,
+                  answers: answersWithIndex,
                   subjectCode: sub.code,
                   id: qid,
                   topic: topicName,
@@ -131,6 +144,21 @@ export function QuizProvider({ children }: { children: ReactNode }) {
 
   const currentQuestion = quizQueue[currentQuestionIndex] || null;
 
+  const currentQuestionStats = useMemo(() => {
+    if (!currentQuestion) return null;
+    const questionAttempts = attempts
+      .filter(a => a.questionId === currentQuestion.id)
+      .sort((a, b) => b.timestamp - a.timestamp);
+
+    return {
+      totalAnswered: questionAttempts.length,
+      history: questionAttempts.map(a => ({
+        timestamp: a.timestamp,
+        isCorrect: statsHelper.isAttemptCorrect(a, currentQuestion)
+      }))
+    };
+  }, [currentQuestion, attempts]);
+
   const nextQuestion = () => {
     if (currentQuestionIndex < quizQueue.length - 1) {
       setCurrentQuestionIndex(prev => prev + 1);
@@ -168,13 +196,49 @@ export function QuizProvider({ children }: { children: ReactNode }) {
   };
 
   const evaluate = () => {
+    if (!currentQuestion) return;
+
+    let isCorrect = false;
+    const qType = (currentQuestion.questionType || currentQuestion.question_type || 'multichoice').toLowerCase();
+
+    if (qType === 'open') {
+      const correctAnswers = (currentQuestion.answers || [])
+        .filter((a: any) => a.isCorrect ?? a.is_correct ?? false)
+        .map((a) => (a.text || "").trim());
+      isCorrect = correctAnswers.some(c => c === (userTextAnswer || "").trim());
+    } else {
+      // For multichoice, check if all correct answers are selected as 1 (correct)
+      // and no incorrect answers are selected as 1
+      isCorrect = currentQuestion.answers.every((ans, i) => {
+        const isActuallyCorrect = !!(ans.isCorrect ?? ans.is_correct ?? false);
+        const userState = userAnswers[i] || 0;
+        return isActuallyCorrect === (userState === 1);
+      });
+    }
+
+    const statsUserAnswers = qType === 'open'
+      ? userTextAnswer
+      : currentQuestion.answers.reduce((acc, ans, i) => {
+        acc[ans.index] = userAnswers[i] === 1;
+        return acc;
+      }, {} as Record<number, boolean>);
+
+    statsHelper.saveAttempt({
+      questionId: currentQuestion.id || 'unknown',
+      subjectCode: currentQuestion.subjectCode,
+      topic: currentQuestion.topic,
+      timestamp: Date.now(),
+      type: qType as any,
+      userAnswers: statsUserAnswers
+    });
+
     setShowResults(true);
   };
 
   return (
     <QuizContext.Provider value={{
       subjects, questions, currentSubject, currentSubjectDetails, selectedTopics,
-      quizQueue, currentQuestionIndex, currentQuestion,
+      quizQueue, currentQuestionIndex, currentQuestion, currentQuestionStats,
       userAnswers, userTextAnswer, showResults,
       isLoading, error, selectSubject, toggleTopic, nextQuestion, prevQuestion,
       setAnswerState, setTextAnswer, evaluate
