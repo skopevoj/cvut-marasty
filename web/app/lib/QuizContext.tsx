@@ -61,12 +61,15 @@ export function QuizProvider({ children }: { children: ReactNode }) {
               const qRes = await fetch(`/subjects/${sub.code}/topics/${topicName}/${qid}/question.json`);
               if (qRes.ok) {
                 const qData = await qRes.json();
+                const questionPath = `/subjects/${sub.code}/topics/${topicName}/${qid}`;
 
                 allQuestions.push({
                   ...qData,
                   subjectCode: sub.code,
                   id: qid,
-                  topic: topicName
+                  topic: topicName,
+                  photo: qData.photo === true ? `${questionPath}/photo.png` : qData.photo,
+                  quizPhoto: qData.quizPhoto === true ? `${questionPath}/quiz.png` : qData.quizPhoto
                 });
               }
             }
@@ -86,7 +89,7 @@ export function QuizProvider({ children }: { children: ReactNode }) {
   const selectSubject = async (code: string | null) => {
     const sub = subjects.find(s => s.code === code) || null;
     setCurrentSubject(sub);
-    
+
     if (sub) {
       try {
         const subDetailsRes = await fetch(`/subjects/${sub.code}/subject.json`);
@@ -100,7 +103,7 @@ export function QuizProvider({ children }: { children: ReactNode }) {
     } else {
       setCurrentSubjectDetails(null);
     }
-    
+
     setSelectedTopics([]);
     setCurrentQuestionIndex(0);
     setUserAnswers({});

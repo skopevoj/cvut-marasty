@@ -12,4 +12,6 @@ export interface Question {
     topic: string;
     answers: Answer[];
     subjectCode: string;
+    photo?: string | boolean | null;
+    quizPhoto?: string | boolean | null;
 }
