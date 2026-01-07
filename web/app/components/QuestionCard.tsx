@@ -1,9 +1,11 @@
 
+
 'use client';
 
 import { useQuiz } from "../lib/QuizContext";
 import MultiChoiceQuestion from "./MultiChoiceQuestion";
 import OpenQuestion from "./OpenQuestion";
+import Latex from "./Latex";
 
 export function QuestionCard() {
     const { currentQuestion } = useQuiz();
@@ -20,7 +22,7 @@ export function QuestionCard() {
             </div>
 
             <div className="question-text">
-                {currentQuestion.question}
+                <Latex tex={currentQuestion.question} block />
             </div>
             {(() => {
                 const qType = (currentQuestion.questionType || currentQuestion.question_type || 'multichoice').toLowerCase();
