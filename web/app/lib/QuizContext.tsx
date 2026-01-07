@@ -36,7 +36,7 @@ interface QuizContextType {
 const QuizContext = createContext<QuizContextType | undefined>(undefined);
 
 export function QuizProvider({ children }: { children: ReactNode }) {
-  const { attempts } = useStats();
+  const { attempts, saveAttempt } = useStats();
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -223,7 +223,7 @@ export function QuizProvider({ children }: { children: ReactNode }) {
         return acc;
       }, {} as Record<number, boolean>);
 
-    statsHelper.saveAttempt({
+    saveAttempt({
       questionId: currentQuestion.id || 'unknown',
       subjectCode: currentQuestion.subjectCode,
       topic: currentQuestion.topic,

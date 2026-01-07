@@ -1,4 +1,5 @@
 export interface Answer {
+    index: number;
     text: string;
     isCorrect?: boolean;
     is_correct?: boolean;
