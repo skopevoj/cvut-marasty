@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 import { useQuiz } from "../lib/QuizContext";
+import Latex from "./Latex";
 
 export function OpenQuestion() {
     const { currentQuestion, userTextAnswer, setTextAnswer, showResults } = useQuiz();
@@ -27,7 +28,14 @@ export function OpenQuestion() {
             />
             {showResults && (
                 <div className="open-answer-feedback">
-                    {isCorrect ? "Correct" : `Correct answer: ${correctAnswers[0] ?? ""}`}
+                    {isCorrect ? (
+                        "Correct"
+                    ) : (
+                        <>
+                            <span>Correct answer: </span>
+                            <Latex tex={correctAnswers[0] ?? ""} />
+                        </>
+                    )}
                 </div>
             )}
         </div>

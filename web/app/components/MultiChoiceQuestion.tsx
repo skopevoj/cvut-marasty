@@ -1,6 +1,7 @@
 "use client";
 
 import { useQuiz } from "../lib/QuizContext";
+import Latex from "./Latex";
 
 export function MultiChoiceQuestion() {
     const { currentQuestion, userAnswers, setAnswerState, showResults } = useQuiz();
@@ -46,7 +47,7 @@ export function MultiChoiceQuestion() {
                                 </button>
                             </div>
                         )}
-                        <div className="answer-text">{answer.text}</div>
+                        <div className="answer-text"><Latex tex={(answer as any).text} /></div>
                         {showResults && (
                             <div className="answer-result">
                                 <span className="icon">{isCorrect ? "✓" : "✕"}</span>
