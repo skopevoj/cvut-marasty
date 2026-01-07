@@ -1,0 +1,10 @@
+{
+    "subjects": [
+        {
+            "id": 1,
+            "name": "Mathematics",
+            "description": "The study of numbers, quantities, shapes, and patterns.",
+            "code": "MATH101"
+        }
+    ]
+}
