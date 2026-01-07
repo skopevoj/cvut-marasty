@@ -3,6 +3,7 @@
 import { useQuiz } from "./lib/QuizContext";
 import { Header } from "./components/Header";
 import { QuestionCard } from "./components/QuestionCard";
+import { QuestionHistory } from "./components/QuestionHistory";
 import { ControlPanel } from "./components/ControlPanel";
 
 export default function Home() {
@@ -17,25 +18,30 @@ export default function Home() {
   } as React.CSSProperties : {};
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-[1000px] flex-col gap-10 px-5 py-10" data-theme="default" style={containerStyle}>
+    <div className="mx-auto flex min-h-screen max-w-[1000px] flex-col px-5 py-10" data-theme="default" style={containerStyle}>
       <Header />
 
-      {currentSubject ? (
-        quizQueue.length > 0 ? (
-          <div className="flex flex-col gap-10">
-            <QuestionCard />
-            <ControlPanel />
-          </div>
+      <div className="flex flex-1 flex-col justify-center">
+        {currentSubject ? (
+          quizQueue.length > 0 ? (
+            <div className="flex flex-col gap-10 py-10">
+              <div>
+                <QuestionHistory />
+                <QuestionCard />
+              </div>
+              <ControlPanel />
+            </div>
+          ) : (
+            <div className="text-center text-text-secondary">
+              No questions match your selection
+            </div>
+          )
         ) : (
-          <div className="mt-10 text-center text-text-secondary">
-            No questions match your selection
+          <div className="text-center text-text-secondary">
+            Please select a subject to start the quiz
           </div>
-        )
-      ) : (
-        <div className="mt-10 text-center text-text-secondary">
-          Please select a subject to start the quiz
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

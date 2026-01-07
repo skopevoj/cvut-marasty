@@ -31,14 +31,17 @@ export const statsHelper = {
 
         if (attempt.type === 'open') {
             const correctAnswers = (question.answers || [])
-                .filter((a: any) => a.isCorrect || a.is_correct)
+                .filter((a: any) => !!(a.isCorrect ?? a.is_correct ?? false))
                 .map((a: any) => (a.text || "").trim());
-            return correctAnswers.includes((attempt.userAnswers as string).trim());
+            const userAnswer = typeof attempt.userAnswers === 'string'
+                ? attempt.userAnswers.trim()
+                : "";
+            return correctAnswers.includes(userAnswer);
         } else {
             const userAnswers = attempt.userAnswers as Record<number, boolean>;
             return question.answers.every((ans: any) => {
-                const isActuallyCorrect = ans.isCorrect || ans.is_correct;
-                const userChoice = userAnswers[ans.index] || false;
+                const isActuallyCorrect = !!(ans.isCorrect ?? ans.is_correct ?? false);
+                const userChoice = !!userAnswers[ans.index];
                 return isActuallyCorrect === userChoice;
             });
         }
