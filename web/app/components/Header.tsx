@@ -2,7 +2,8 @@
 
 import { useQuiz } from "../lib/QuizContext";
 import { MultiSelect } from "./MultiSelect";
-import { Search, Star } from "lucide-react";
+import { Search, Star, ChevronDown, User, Trophy } from "lucide-react";
+
 export function Header() {
     const { subjects, currentSubject, selectSubject, toggleTopic, selectedTopics, questions } = useQuiz();
 
@@ -13,34 +14,62 @@ export function Header() {
     ));
 
     return (
-        <header className="flex items-center justify-between rounded-[24px] border border-border-color bg-surface px-5 py-3">
-            <div className="flex gap-3">
-                <select
-                    className="flex min-w-[150px] cursor-pointer items-center justify-between rounded-lg border border-border-color bg-[#151518] px-4 py-2 text-[14px] text-text-primary"
-                    value={currentSubject?.code || ''}
-                    onChange={(e) => selectSubject(e.target.value)}
-                >
-                    <option value="">Select Subject</option>
-                    {subjects.map(s => <option key={s.id} value={s.code}>{s.name}</option>)}
-                </select>
+        <header className="glass-card-themed relative z-50 rounded-3xl p-3 px-3 transition-all duration-300 md:p-4">
+            <div
+                className="absolute bottom-0 left-0 right-0 h-px opacity-50"
+                style={{
+                    background: `linear-gradient(90deg, transparent, var(--subject-primary), transparent)`,
+                }}
+            />
 
-                {currentSubject && (
-                    <MultiSelect
-                        label="Kategorie"
-                        options={availableTopics}
-                        selected={selectedTopics}
-                        onToggle={toggleTopic}
-                    />
-                )}
-            </div>
+            <div className="flex items-center justify-between gap-3">
+                <div className="flex flex-1 items-center gap-3 min-w-0">
+                    {/* Subject Selector */}
+                    <div className="relative">
+                        <select
+                            className="focus-ring appearance-none rounded-lg border border-[var(--border-default)] bg-[var(--bg-surface)] py-2 pl-3 pr-8 text-sm font-semibold transition-all duration-200 hover:border-[var(--border-hover)] hover:bg-[var(--bg-surface-hover)]"
+                            value={currentSubject?.code || ''}
+                            onChange={(e) => selectSubject(e.target.value)}
+                            style={{ color: currentSubject ? 'var(--subject-primary)' : 'var(--fg-muted)' }}
+                        >
+                            <option value="" style={{ color: 'var(--fg-primary)', background: 'var(--bg-elevated)' }}>Select Subject</option>
+                            {subjects?.map(s => (
+                                <option
+                                    key={s.id}
+                                    value={s.code}
+                                    style={{ color: 'var(--fg-primary)', background: 'var(--bg-elevated)' }}
+                                >
+                                    {s.name}
+                                </option>
+                            ))}
+                        </select>
+                        <ChevronDown
+                            className="pointer-events-none absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2"
+                            style={{ color: currentSubject ? 'var(--subject-primary)' : 'var(--fg-muted)' }}
+                        />
+                    </div>
+                    <div className="hidden h-6 w-px bg-[var(--border-default)] shrink-0 sm:block" />
 
-            <div className="flex gap-3">
-                <button className="flex h-[44px] w-[44px] cursor-pointer items-center justify-center rounded-xl border border-border-color bg-[#151518] text-text-secondary transition-all hover:border-[#444] hover:bg-white/10 active:scale-95">
-                    <Search size={20} />
-                </button>
-                <button className="flex h-[44px] w-[44px] cursor-pointer items-center justify-center rounded-xl border border-border-color bg-[#151518] text-text-secondary transition-all hover:border-[#444] hover:bg-white/10 active:scale-95">
-                    <Star size={20} />
-                </button>
+                    <div className="flex-1 min-w-0">
+                        {currentSubject && (
+                            <MultiSelect
+                                label="Kategorie"
+                                options={availableTopics}
+                                selected={selectedTopics}
+                                onToggle={toggleTopic}
+                            />
+                        )}
+                    </div>
+                </div>
+
+                <div className="flex shrink-0 items-center gap-2">
+                    <button className="rounded-lg border border-[var(--border-default)] bg-[var(--bg-surface)] p-2 text-[var(--fg-muted)] transition-all duration-200 hover:border-[var(--border-hover)] hover:text-[var(--fg-primary)] active:scale-95">
+                        <Search size={18} />
+                    </button>
+                    <button className="rounded-lg border border-[var(--border-default)] bg-[var(--bg-surface)] p-2 text-[var(--fg-muted)] transition-all duration-200 hover:border-[var(--border-hover)] hover:text-[var(--fg-primary)] active:scale-95" title="Oblíbené">
+                        <Star size={18} />
+                    </button>
+                </div>
             </div>
         </header>
     );
