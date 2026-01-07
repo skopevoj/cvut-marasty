@@ -12,12 +12,16 @@ interface QuizContextType {
   quizQueue: Question[];
   currentQuestionIndex: number;
   currentQuestion: Question | null;
+  userAnswers: Record<number, number>;
+  showResults: boolean;
   isLoading: boolean;
   error: string | null;
   selectSubject: (subjectCode: string | null) => void;
   toggleTopic: (topicId: string) => void;
   nextQuestion: () => void;
   prevQuestion: () => void;
+  setAnswerState: (index: number, state: number) => void;
+  evaluate: () => void;
 }
 
 const QuizContext = createContext<QuizContextType | undefined>(undefined);
@@ -31,6 +35,8 @@ export function QuizProvider({ children }: { children: ReactNode }) {
   const [currentSubject, setCurrentSubject] = useState<Subject | null>(null);
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [userAnswers, setUserAnswers] = useState<Record<number, number>>({});
+  const [showResults, setShowResults] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -77,6 +83,8 @@ export function QuizProvider({ children }: { children: ReactNode }) {
     setCurrentSubject(sub);
     setSelectedTopics([]);
     setCurrentQuestionIndex(0);
+    setUserAnswers({});
+    setShowResults(false);
   };
 
   const toggleTopic = (topicId: string) => {
@@ -84,6 +92,8 @@ export function QuizProvider({ children }: { children: ReactNode }) {
       prev.includes(topicId) ? prev.filter(id => id !== topicId) : [...prev, topicId]
     );
     setCurrentQuestionIndex(0);
+    setUserAnswers({});
+    setShowResults(false);
   };
 
   const quizQueue = useMemo(() => {
@@ -99,20 +109,43 @@ export function QuizProvider({ children }: { children: ReactNode }) {
   const nextQuestion = () => {
     if (currentQuestionIndex < quizQueue.length - 1) {
       setCurrentQuestionIndex(prev => prev + 1);
+      setUserAnswers({});
+      setShowResults(false);
     }
   };
 
   const prevQuestion = () => {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex(prev => prev - 1);
+      setUserAnswers({});
+      setShowResults(false);
     }
+  };
+
+  const setAnswerState = (index: number, state: number) => {
+    if (showResults) return;
+    setUserAnswers(prev => {
+      const newAnswers = { ...prev };
+      if (state === 0) {
+        delete newAnswers[index];
+      } else {
+        newAnswers[index] = state;
+      }
+      return newAnswers;
+    });
+  };
+
+  const evaluate = () => {
+    setShowResults(true);
   };
 
   return (
     <QuizContext.Provider value={{
       subjects, questions, currentSubject, selectedTopics,
       quizQueue, currentQuestionIndex, currentQuestion,
-      isLoading, error, selectSubject, toggleTopic, nextQuestion, prevQuestion
+      userAnswers, showResults,
+      isLoading, error, selectSubject, toggleTopic, nextQuestion, prevQuestion,
+      setAnswerState, evaluate
     }}>
       {children}
     </QuizContext.Provider>
