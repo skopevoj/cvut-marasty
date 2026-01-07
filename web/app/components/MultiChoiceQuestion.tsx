@@ -11,14 +11,16 @@ export function MultiChoiceQuestion() {
         <div className="flex flex-col gap-3">
             {currentQuestion.answers.map((answer, i) => {
                 const answerState = userAnswers[i] || 0;
-                const isSelected = answerState > 0;
-                const isCorrect = (answer as any).isCorrect || (answer as any).is_correct;
+                const isCorrect = !!((answer as any).isCorrect ?? (answer as any).is_correct ?? false);
+                const userMarkedCorrect = answerState === 1;
+                const isUserCorrect = userMarkedCorrect === isCorrect;
 
                 let statusClass = "bg-white/[0.03] border-white/[0.03]";
                 if (showResults) {
-                    if (isCorrect) statusClass = "bg-success/10 border-success/10 border-1";
-                    else if (isSelected) statusClass = "border-error/10 bg-error/10 border-1";
-                } else if (isSelected) {
+                    statusClass = isUserCorrect
+                        ? "bg-success/10 border-success/20 border-1"
+                        : "bg-error/10 border-error/20 border-1";
+                } else if (answerState > 0) {
                     statusClass = "border-white/[0.06] bg-white/[0.06]";
                 }
 
