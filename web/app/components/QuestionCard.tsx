@@ -18,7 +18,7 @@ export function QuestionCard() {
         <main className="glass-card-themed relative overflow-hidden rounded-3xl p-4 transition-all duration-300 md:p-8">
             {/* Top Gradient Line */}
             <div
-                className="absolute top-0 left-0 right-0 h-px opacity-50"
+                className="absolute top-0 left-0 right-0 h-px opacity-80"
                 style={{
                     background: `linear-gradient(90deg, transparent, var(--subject-primary), transparent)`,
                 }}
@@ -66,7 +66,7 @@ export function QuestionCard() {
             </div>
 
             <div className="pt-10">
-                <div className="mb-6 text-[1.2rem] leading-relaxed text-[var(--fg-primary)]">
+                <div className="mb-6 text-md leading-relaxed text-[var(--fg-primary)]">
                     <Latex tex={currentQuestion.question} />
                 </div>
                 {(() => {
