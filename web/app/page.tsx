@@ -1,23 +1,37 @@
 'use client';
 
 import { useQuiz } from "./lib/QuizContext";
+import { Header } from "./components/Header";
+import { QuestionCard } from "./components/QuestionCard";
+import { ControlPanel } from "./components/ControlPanel";
+import "./quiz.css";
 
 export default function Home() {
-  const { subjects, isLoading, error } = useQuiz();
+  const { isLoading, error, currentSubject, quizQueue } = useQuiz();
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (isLoading) return <div className="quiz-container">Loading...</div>;
+  if (error) return <div className="quiz-container">Error: {error}</div>;
 
   return (
-    <div className="p-8">
-      <h1 className="text-2xl font-bold mb-4">Subjects</h1>
-      <ul className="list-disc pl-5">
-        {subjects.map((subject) => (
-          <li key={subject.id}>
-            <strong>{subject.code}</strong>: {subject.name} - {subject.description}
-          </li>
-        ))}
-      </ul>
+    <div className="quiz-container" data-theme="default">
+      <Header />
+
+      {currentSubject ? (
+        quizQueue.length > 0 ? (
+          <>
+            <QuestionCard />
+            <ControlPanel />
+          </>
+        ) : (
+          <div className="text-secondary" style={{ textAlign: 'center', marginTop: '40px' }}>
+            No questions match your selection
+          </div>
+        )
+      ) : (
+        <div className="text-secondary" style={{ textAlign: 'center', marginTop: '40px' }}>
+          Please select a subject to start the quiz
+        </div>
+      )}
     </div>
   );
 }
