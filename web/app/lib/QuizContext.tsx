@@ -17,6 +17,7 @@ interface QuizContextType {
   selectSubject: (subjectCode: string | null) => void;
   toggleTopic: (topicId: string) => void;
   nextQuestion: () => void;
+  prevQuestion: () => void;
 }
 
 const QuizContext = createContext<QuizContextType | undefined>(undefined);
@@ -49,7 +50,13 @@ export function QuizProvider({ children }: { children: ReactNode }) {
               const qRes = await fetch(`/subjects/${sub.code}/topics/${topicName}/${qid}/question.json`);
               if (qRes.ok) {
                 const qData = await qRes.json();
-                allQuestions.push({ ...qData, subjectCode: sub.code, id: qid });
+
+                allQuestions.push({
+                  ...qData,
+                  subjectCode: sub.code,
+                  id: qid,
+                  topic: topicName
+                });
               }
             }
           }
@@ -95,11 +102,17 @@ export function QuizProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const prevQuestion = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(prev => prev - 1);
+    }
+  };
+
   return (
     <QuizContext.Provider value={{
       subjects, questions, currentSubject, selectedTopics,
       quizQueue, currentQuestionIndex, currentQuestion,
-      isLoading, error, selectSubject, toggleTopic, nextQuestion
+      isLoading, error, selectSubject, toggleTopic, nextQuestion, prevQuestion
     }}>
       {children}
     </QuizContext.Provider>
