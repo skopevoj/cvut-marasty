@@ -8,6 +8,7 @@ interface QuizContextType {
   subjects: Subject[];
   questions: Question[];
   currentSubject: Subject | null;
+  currentSubjectDetails: any | null;
   selectedTopics: string[];
   quizQueue: Question[];
   currentQuestionIndex: number;
@@ -35,6 +36,7 @@ export function QuizProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState<string | null>(null);
 
   const [currentSubject, setCurrentSubject] = useState<Subject | null>(null);
+  const [currentSubjectDetails, setCurrentSubjectDetails] = useState<any | null>(null);
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState<Record<number, number>>({});
@@ -81,9 +83,24 @@ export function QuizProvider({ children }: { children: ReactNode }) {
     fetchData();
   }, []);
 
-  const selectSubject = (code: string | null) => {
+  const selectSubject = async (code: string | null) => {
     const sub = subjects.find(s => s.code === code) || null;
     setCurrentSubject(sub);
+    
+    if (sub) {
+      try {
+        const subDetailsRes = await fetch(`/subjects/${sub.code}/subject.json`);
+        if (subDetailsRes.ok) {
+          const subDetails = await subDetailsRes.json();
+          setCurrentSubjectDetails(subDetails);
+        }
+      } catch (err) {
+        console.error('Error loading subject details:', err);
+      }
+    } else {
+      setCurrentSubjectDetails(null);
+    }
+    
     setSelectedTopics([]);
     setCurrentQuestionIndex(0);
     setUserAnswers({});
@@ -153,7 +170,7 @@ export function QuizProvider({ children }: { children: ReactNode }) {
 
   return (
     <QuizContext.Provider value={{
-      subjects, questions, currentSubject, selectedTopics,
+      subjects, questions, currentSubject, currentSubjectDetails, selectedTopics,
       quizQueue, currentQuestionIndex, currentQuestion,
       userAnswers, userTextAnswer, showResults,
       isLoading, error, selectSubject, toggleTopic, nextQuestion, prevQuestion,
