@@ -13,10 +13,10 @@ export function Header() {
     ));
 
     return (
-        <header className="header-nav">
-            <div className="nav-group">
+        <header className="flex items-center justify-between rounded-[24px] border border-border-color bg-surface px-5 py-3">
+            <div className="flex gap-3">
                 <select
-                    className="nav-select"
+                    className="flex min-w-[150px] cursor-pointer items-center justify-between rounded-lg border border-border-color bg-[#151518] px-4 py-2 text-[14px] text-text-primary"
                     value={currentSubject?.code || ''}
                     onChange={(e) => selectSubject(e.target.value)}
                 >
@@ -34,9 +34,13 @@ export function Header() {
                 )}
             </div>
 
-            <div className="nav-group icons-group">
-                <button className="nav-btn"><Search /></button>
-                <button className="nav-btn"><Star /></button>
+            <div className="flex gap-3">
+                <button className="flex h-[44px] w-[44px] cursor-pointer items-center justify-center rounded-xl border border-border-color bg-[#151518] text-text-secondary transition-all hover:border-[#444] hover:bg-white/10 active:scale-95">
+                    <Search size={20} />
+                </button>
+                <button className="flex h-[44px] w-[44px] cursor-pointer items-center justify-center rounded-xl border border-border-color bg-[#151518] text-text-secondary transition-all hover:border-[#444] hover:bg-white/10 active:scale-95">
+                    <Star size={20} />
+                </button>
             </div>
         </header>
     );
