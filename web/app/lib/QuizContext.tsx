@@ -13,6 +13,7 @@ interface QuizContextType {
   currentQuestionIndex: number;
   currentQuestion: Question | null;
   userAnswers: Record<number, number>;
+  userTextAnswer: string;
   showResults: boolean;
   isLoading: boolean;
   error: string | null;
@@ -21,6 +22,7 @@ interface QuizContextType {
   nextQuestion: () => void;
   prevQuestion: () => void;
   setAnswerState: (index: number, state: number) => void;
+  setTextAnswer: (value: string) => void;
   evaluate: () => void;
 }
 
@@ -36,6 +38,7 @@ export function QuizProvider({ children }: { children: ReactNode }) {
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState<Record<number, number>>({});
+  const [userTextAnswer, setUserTextAnswer] = useState<string>("");
   const [showResults, setShowResults] = useState(false);
 
   useEffect(() => {
@@ -84,6 +87,7 @@ export function QuizProvider({ children }: { children: ReactNode }) {
     setSelectedTopics([]);
     setCurrentQuestionIndex(0);
     setUserAnswers({});
+    setUserTextAnswer("");
     setShowResults(false);
   };
 
@@ -93,6 +97,7 @@ export function QuizProvider({ children }: { children: ReactNode }) {
     );
     setCurrentQuestionIndex(0);
     setUserAnswers({});
+    setUserTextAnswer("");
     setShowResults(false);
   };
 
@@ -110,6 +115,7 @@ export function QuizProvider({ children }: { children: ReactNode }) {
     if (currentQuestionIndex < quizQueue.length - 1) {
       setCurrentQuestionIndex(prev => prev + 1);
       setUserAnswers({});
+      setUserTextAnswer("");
       setShowResults(false);
     }
   };
@@ -118,6 +124,7 @@ export function QuizProvider({ children }: { children: ReactNode }) {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex(prev => prev - 1);
       setUserAnswers({});
+      setUserTextAnswer("");
       setShowResults(false);
     }
   };
@@ -135,6 +142,11 @@ export function QuizProvider({ children }: { children: ReactNode }) {
     });
   };
 
+  const setTextAnswer = (value: string) => {
+    if (showResults) return;
+    setUserTextAnswer(value);
+  };
+
   const evaluate = () => {
     setShowResults(true);
   };
@@ -143,9 +155,9 @@ export function QuizProvider({ children }: { children: ReactNode }) {
     <QuizContext.Provider value={{
       subjects, questions, currentSubject, selectedTopics,
       quizQueue, currentQuestionIndex, currentQuestion,
-      userAnswers, showResults,
+      userAnswers, userTextAnswer, showResults,
       isLoading, error, selectSubject, toggleTopic, nextQuestion, prevQuestion,
-      setAnswerState, evaluate
+      setAnswerState, setTextAnswer, evaluate
     }}>
       {children}
     </QuizContext.Provider>
