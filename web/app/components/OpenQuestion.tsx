@@ -17,21 +17,25 @@ export function OpenQuestion() {
     const isCorrect = showResults && correctAnswers.some(c => c === (userTextAnswer || "").trim());
 
     return (
-        <div className={`open-answer ${showResults ? (isCorrect ? "correct" : "incorrect") : ""}`}>
+        <div className={`mt-4 space-y-3 ${showResults ? (isCorrect ? "text-success" : "text-error") : ""}`}>
             <input
                 type="text"
-                className="open-answer-input"
+                className="w-full rounded-xl border border-border-color bg-white/[0.03] px-5 py-4 text-text-primary outline-none transition-all placeholder:text-text-secondary focus:border-subject-primary focus:bg-white/[0.05] disabled:cursor-not-allowed disabled:opacity-70"
                 placeholder="Type your answer here..."
                 value={userTextAnswer}
                 onChange={(e) => setTextAnswer(e.target.value)}
                 disabled={showResults}
             />
             {showResults && (
-                <div className="open-answer-feedback">
+                <div className="flex items-center gap-2 text-sm font-medium">
                     {isCorrect ? (
-                        "Correct"
+                        <>
+                            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-success/20 text-[10px]">✓</span>
+                            <span>Correct</span>
+                        </>
                     ) : (
                         <>
+                            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-error/20 text-[10px]">✕</span>
                             <span>Correct answer: </span>
                             <Latex tex={correctAnswers[0] ?? ""} />
                         </>
