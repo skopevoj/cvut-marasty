@@ -27,10 +27,15 @@ export function Header() {
                     {/* Subject Selector */}
                     <div className="relative">
                         <select
-                            className="focus-ring appearance-none rounded-lg border border-[var(--border-default)] bg-[var(--bg-surface)] py-2 pl-3 pr-8 text-sm font-semibold transition-all duration-200 hover:border-[var(--border-hover)] hover:bg-[var(--bg-surface-hover)]"
+                            className="focus-ring h-[44px] appearance-none rounded-xl border px-4 pr-10 text-[14px] font-medium transition-all duration-200 outline-none"
                             value={currentSubject?.code || ''}
                             onChange={(e) => selectSubject(e.target.value)}
-                            style={{ color: currentSubject ? 'var(--subject-primary)' : 'var(--fg-muted)' }}
+                            style={{
+                                color: 'var(--fg-primary)',
+                                borderColor: 'color-mix(in srgb, var(--subject-primary) 20%, transparent)',
+                                background: 'color-mix(in srgb, var(--subject-primary) 2%, rgba(255,255,255,0.03))',
+                                backdropFilter: 'blur(10px)'
+                            }}
                         >
                             <option value="" style={{ color: 'var(--fg-primary)', background: 'var(--bg-elevated)' }}>Select Subject</option>
                             {subjects?.map(s => (
@@ -44,8 +49,8 @@ export function Header() {
                             ))}
                         </select>
                         <ChevronDown
-                            className="pointer-events-none absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2"
-                            style={{ color: currentSubject ? 'var(--subject-primary)' : 'var(--fg-muted)' }}
+                            className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 opacity-60"
+                            style={{ color: 'var(--fg-primary)' }}
                         />
                     </div>
                     <div className="hidden h-6 w-px bg-[var(--border-default)] shrink-0 sm:block" />

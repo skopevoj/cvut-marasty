@@ -39,11 +39,11 @@
       color-mix(in srgb, var(--subject-primary) 10%, transparent),
       color-mix(in srgb, var(--subject-primary) 2%, transparent));
   backdrop-filter: blur(20px);
-  border: 1px solid color-mix(in srgb, var(--subject-primary) 20%, transparent);
+  border: 1px solid color-mix(in srgb, var(--subject-primary) 10%, transparent);
 
-  -webkit-box-shadow: 0px 0px 135px 0px color-mix(in srgb, var(--subject-primary) 20%, transparent);
-  -moz-box-shadow: 0px 0px 135px 0px color-mix(in srgb, var(--subject-primary) 20%, transparent);
-  box-shadow: 0px 0px 135px 0px color-mix(in srgb, var(--subject-primary) 20%, transparent);
+  -webkit-box-shadow: 0px 0px 135px 0px color-mix(in srgb, var(--subject-primary) 15%, transparent);
+  -moz-box-shadow: 0px 0px 135px 0px color-mix(in srgb, var(--subject-primary) 15%, transparent);
+  box-shadow: 0px 0px 135px 0px color-mix(in srgb, var(--subject-primary) 15%, transparent);
 
   /* box-shadow:
     0 0 0 1px color-mix(in srgb, var(--subject-primary) 10%, transparent),

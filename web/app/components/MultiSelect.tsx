@@ -28,10 +28,13 @@ export function MultiSelect({ options, selected, onToggle, label }: MultiSelectP
         <div className="relative" ref={dropdownRef}>
             <button
                 type="button"
-                className={`flex h-[44px] min-w-[160px] cursor-pointer items-center justify-between rounded-xl border px-4 text-[14px] font-medium transition-all outline-none ${isOpen
-                    ? 'border-[var(--subject-primary)] bg-white/10 text-text-primary'
-                    : 'border-border-color bg-[#151518] text-text-secondary hover:border-[#444] hover:text-text-primary'
-                    }`}
+                className="flex h-[44px] min-w-[160px] cursor-pointer items-center justify-between rounded-xl border px-4 text-[14px] font-medium transition-all outline-none"
+                style={{
+                    color: 'var(--fg-primary)',
+                    borderColor: 'color-mix(in srgb, var(--subject-primary) 20%, transparent)',
+                    background: 'color-mix(in srgb, var(--subject-primary) 2%, rgba(255,255,255,0.03))',
+                    backdropFilter: 'blur(10px)'
+                }}
                 onClick={() => setIsOpen(!isOpen)}
             >
                 <div className="flex items-center gap-2">
@@ -46,7 +49,13 @@ export function MultiSelect({ options, selected, onToggle, label }: MultiSelectP
             </button>
 
             {isOpen && (
-                <div className="absolute top-[calc(100%+8px)] left-0 z-100 min-w-[200px] overflow-hidden rounded-2xl border border-border-color bg-surface p-1.5 shadow-[0_12px_40px_rgba(0,0,0,0.7)] backdrop-blur-md">
+                <div
+                    className="absolute top-[calc(100%+8px)] left-0 z-100 min-w-[200px] overflow-hidden rounded-2xl border p-1.5 shadow-[0_12px_40px_rgba(0,0,0,0.7)] backdrop-blur-md"
+                    style={{
+                        borderColor: 'color-mix(in srgb, var(--subject-primary) 30%, transparent)',
+                        background: 'color-mix(in srgb, var(--bg-surface) 80%, transparent)',
+                    }}
+                >
                     <div className="max-h-[300px] overflow-y-auto">
                         {options.map(option => {
                             const isSelected = selected.includes(option);
