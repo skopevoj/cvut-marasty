@@ -20,7 +20,7 @@ export function OpenQuestion() {
         <div className={`mt-4 space-y-3 ${showResults ? (isCorrect ? "text-success" : "text-error") : ""}`}>
             <input
                 type="text"
-                className="w-full rounded-xl border border-border-color bg-white/[0.03] px-5 py-4 text-text-primary outline-none transition-all placeholder:text-text-secondary focus:border-subject-primary focus:bg-white/[0.05] disabled:cursor-not-allowed disabled:opacity-70"
+                className="w-full rounded-xl border border-border-color bg-white/[0.03] px-5 py-4 text-text-primary outline-none transition-all placeholder:text-text-secondary focus:border-[var(--subject-primary)] focus:bg-white/[0.05] focus:shadow-[0_0_20px_color-mix(in_srgb,var(--subject-primary)_20%,transparent)] disabled:cursor-not-allowed disabled:opacity-70"
                 placeholder="Type your answer here..."
                 value={userTextAnswer}
                 onChange={(e) => setTextAnswer(e.target.value)}

@@ -14,16 +14,16 @@ export function MultiChoiceQuestion() {
                 const isSelected = answerState > 0;
                 const isCorrect = (answer as any).isCorrect || (answer as any).is_correct;
 
-                let statusClass = "border-border-color bg-white/[0.03]";
+                let statusClass = "bg-white/[0.03] border-white/[0.03]";
                 if (showResults) {
-                    if (isCorrect) statusClass = "border-success bg-success/10";
+                    if (isCorrect) statusClass = "bg-success/10";
                     else if (isSelected) statusClass = "border-error bg-error/10";
                 } else if (isSelected) {
-                    statusClass = "border-[#444] bg-white/[0.06]";
+                    statusClass = "border-white/[0.06] bg-white/[0.06]";
                 }
 
                 return (
-                    <div key={i} className={`flex items-center justify-between gap-4 rounded-xl border p-4 transition-all hover:border-[#333] hover:bg-white/[0.05] ${statusClass}`}>
+                    <div key={i} className={`flex items-center justify-between gap-4 rounded-xl border p-4 transition-all  ${statusClass}`}>
                         {(
                             <div className="flex items-center gap-2" aria-label="Answer state">
                                 <button
