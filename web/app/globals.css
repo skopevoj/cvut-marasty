@@ -41,9 +41,9 @@
   backdrop-filter: blur(20px);
   border: 1px solid color-mix(in srgb, var(--subject-primary) 10%, transparent);
 
-  -webkit-box-shadow: 0px 0px 135px 0px color-mix(in srgb, var(--subject-primary) 15%, transparent);
-  -moz-box-shadow: 0px 0px 135px 0px color-mix(in srgb, var(--subject-primary) 15%, transparent);
-  box-shadow: 0px 0px 135px 0px color-mix(in srgb, var(--subject-primary) 15%, transparent);
+  -webkit-box-shadow: 0px 0px 30px 0px color-mix(in srgb, var(--subject-primary) 15%, transparent);
+  -moz-box-shadow: 0px 0px 30px 0px color-mix(in srgb, var(--subject-primary) 15%, transparent);
+  box-shadow: 0px 0px 30px 0px color-mix(in srgb, var(--subject-primary) 15%, transparent);
 
   /* box-shadow:
     0 0 0 1px color-mix(in srgb, var(--subject-primary) 10%, transparent),
@@ -56,4 +56,13 @@ body {
   color: var(--fg-primary);
   font-family: system-ui, -apple-system, sans-serif;
   min-height: 100vh;
+}
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }

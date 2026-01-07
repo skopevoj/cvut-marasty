@@ -1,7 +1,0 @@
-{
-    "question": "Uvažujte konečný automat $M = (\\{A, B\\}, \\{0, 1\\}, \\delta, A, \\emptyset)$. O každém z tvrzení níže rozhodněte, zdali je pravdivé (\\checkmark) či nepravdivé (\\times).",
-    "question_type": "multichoice",
-    "answers": [],
-    "quizPhoto": true,
-    "photo": false
-}

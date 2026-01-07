@@ -1,7 +1,0 @@
-{
-    "question": "Nechť $PG = (N, \\Sigma, D, R, S)$ je překladová gramatika. O každém z následujících tvrzení rozhodněte, zdali je pravdivé ($\\checkmark$), nebo nepravdivé ($\\times$).",
-    "question_type": "multichoice",
-    "answers": [],
-    "quizPhoto": true,
-    "photo": false
-}

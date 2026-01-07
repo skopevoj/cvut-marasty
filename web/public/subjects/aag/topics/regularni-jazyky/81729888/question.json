@@ -1,7 +1,0 @@
-{
-    "question": "Uvažujte metodu sousedů (Glushkov) pro převod regulárního výrazu $V$ na konečný automat $M$. O každém z následujících tvrzení rozhodněte, zdali je pravdivé ($\\checkmark$) či nepravdivé ($\\times$):",
-    "question_type": "multichoice",
-    "answers": [],
-    "quizPhoto": true,
-    "photo": false
-}
