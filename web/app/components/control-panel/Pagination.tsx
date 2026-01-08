@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { IconButton } from "../IconButton";
 
@@ -11,6 +12,26 @@ interface PaginationProps {
 }
 
 export function Pagination({ currentIndex, total, onPrev, onNext }: PaginationProps) {
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            // Check if user is typing in an input, textarea or contentEditable
+            const isInputFocused = document.activeElement?.tagName === 'INPUT' ||
+                document.activeElement?.tagName === 'TEXTAREA' ||
+                (document.activeElement as HTMLElement)?.isContentEditable;
+
+            if (isInputFocused) return;
+
+            if (e.key === 'ArrowLeft') {
+                if (currentIndex > 0) onPrev();
+            } else if (e.key === 'ArrowRight') {
+                if (currentIndex < total - 1) onNext();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [currentIndex, total, onPrev, onNext]);
+
     return (
         <div className="flex items-center justify-center gap-2 md:gap-3">
             <IconButton
