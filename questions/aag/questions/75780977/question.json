@@ -1,0 +1,27 @@
+{
+    "question": "Co je součástí regulárních výrazů (RV)?",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "$x^+$",
+            "is_correct": false
+        },
+        {
+            "text": "$\\epsilon$",
+            "is_correct": true
+        },
+        {
+            "text": "$x^*$, kde $x$ je RV",
+            "is_correct": true
+        },
+        {
+            "text": "$x \\cdot y$, kde $x, y$ jsou RV",
+            "is_correct": true
+        }
+    ],
+    "topics": [
+        "regularni-jazyky",
+        "google-doc"
+    ],
+    "original_text": "86) Co je součásti RV?\na) x^+\nb) ε\nc) x*, kde x je RV \nd) x.y kde x,y jsou RV \nB,C,D   ."
+}

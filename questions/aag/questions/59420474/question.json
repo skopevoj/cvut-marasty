@@ -1,0 +1,27 @@
+{
+    "question": "Zásobníkový automat, metoda shora dolů $L(Z) = L(G)$:",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "neobsahuje cykly",
+            "is_correct": false
+        },
+        {
+            "text": "počet stavů je roven počtu pravidel v $G$",
+            "is_correct": false
+        },
+        {
+            "text": "počet stavů je roven počtu neterminálů v $G$",
+            "is_correct": false
+        },
+        {
+            "text": "přijímá bezkontextový jazyk",
+            "is_correct": true
+        }
+    ],
+    "topics": [
+        "bezkontextove-gramatiky",
+        "google-doc"
+    ],
+    "original_text": "--- QUESTION 4 ---\n141) Zásobníkový automat, metoda shora dolů L(Z) = L(G) = prázdná množina\nneobsahuje cykly\npočet stavů je roven počtu pravidel v G\npočet stavů je roven počtu neterminálů v G\npřijímá bezkontextový jazyk\nD           ."
+}

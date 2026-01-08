@@ -1,0 +1,27 @@
+{
+    "question": "Konečný jazyk (obsahuje konečný počet slov) patří do třídy jazyků:",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "regulárních",
+            "is_correct": true
+        },
+        {
+            "text": "kontextových",
+            "is_correct": true
+        },
+        {
+            "text": "bezkontextových",
+            "is_correct": true
+        },
+        {
+            "text": "záleží na konkrétním jazyku",
+            "is_correct": false
+        }
+    ],
+    "topics": [
+        "regularni-jazyky",
+        "google-doc"
+    ],
+    "original_text": "--- QUESTION 1 ---\n1) Konečný jazyk (obsahuje konečný počet slov) patří do třídy jazyků:\na) regulárních\n     b) kontextových \nc) bezkontextových\nd) záleží na konkrétním jazyku\nC  A, B,"
+}

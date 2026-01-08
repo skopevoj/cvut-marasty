@@ -1,0 +1,28 @@
+{
+    "question": "Vyberte, které jazyky nejsou kontextové.",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "$L = \\{ a^m b^m c^m : m \\ge 0 \\}$",
+            "is_correct": false
+        },
+        {
+            "text": "$L = \\{ a^m b^n : m \\ge 0, n \\ge 0 \\}$",
+            "is_correct": false
+        },
+        {
+            "text": "$L = \\{ a^m b^n : m \\ge n \\}$",
+            "is_correct": false
+        },
+        {
+            "text": "$L = \\{ a^m : m \\ge 0 \\}$",
+            "is_correct": false
+        }
+    ],
+    "topics": [
+        "kontextove-jazyky",
+        "formalni-jazyky-gramatiky-a-jejich-klasifikace",
+        "google-doc"
+    ],
+    "original_text": "--- QUESTION 3 ---\n130) Vyberte, které jazyky nejsou kontextové.\na) L = { a^m b^m c^m,  m>=0 }\nb) L = { a^m b^n, m>=0, n>=0 }\nc) L = { a^m b^n, m>=n }\nd) L = { a^m, m>=0 }\nnic        ."
+}

@@ -1,0 +1,31 @@
+{
+    "question": "Pro pumping-lemma u regulárních jazyků platí:",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "dokazuje, zda je jazyk bezkontextový",
+            "is_correct": false
+        },
+        {
+            "text": "dokazuje, zda je jazyk regulární",
+            "is_correct": false
+        },
+        {
+            "text": "dokazuje, že jazyk není regulární",
+            "is_correct": true
+        },
+        {
+            "text": "popisuje jednu z vlastností regulárních jazyků",
+            "is_correct": true
+        },
+        {
+            "text": "dokazuje, že jazyk není bezkontextový",
+            "is_correct": false
+        }
+    ],
+    "topics": [
+        "regularni-jazyky",
+        "google-doc"
+    ],
+    "original_text": "57) Pro pumping-lemma u reg. jazyk platí:\na) dokazuje, zda je jazyk bezkontextový\nb) dokazuje, zda je jazyk regulární\nc) dokazuje, že jazyk není regulární\nd) popisuje 1 z vlastností regulárních jazyků\ne) dokazuje, že jazyk není bezkontextový\nC,D      ."
+}

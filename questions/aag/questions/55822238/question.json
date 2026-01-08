@@ -1,0 +1,27 @@
+{
+    "question": "Formální jazyk je:",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "Binární relace",
+            "is_correct": false
+        },
+        {
+            "text": "Množina dvojic",
+            "is_correct": false
+        },
+        {
+            "text": "Množina symbolů",
+            "is_correct": false
+        },
+        {
+            "text": "Posloupnost symbolů",
+            "is_correct": false
+        }
+    ],
+    "topics": [
+        "formalni-jazyky-gramatiky-a-jejich-klasifikace",
+        "google-doc"
+    ],
+    "original_text": "91) Formální jazyk je: \na) Binární relace\nb) Množina dvojic\nc) Množina symbolů\nd) Posloupnost symbolů\nnic      ."
+}

@@ -1,0 +1,27 @@
+{
+    "question": "Algoritmus CYK pracuje na základě:",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "regulární gramatiky",
+            "is_correct": false
+        },
+        {
+            "text": "libovolné bezkontextové gramatiky",
+            "is_correct": false
+        },
+        {
+            "text": "bezkontextové gramatiky v Chomského normálním tvaru",
+            "is_correct": true
+        },
+        {
+            "text": "bezkontextové gramatiky v normálním tvaru podle Greibachové",
+            "is_correct": false
+        }
+    ],
+    "topics": [
+        "bezkontextove-gramatiky",
+        "google-doc"
+    ],
+    "original_text": "10) Algoritmus CYK pracuje na základě\na) regulární gramatiky\nb) libovolné bezkontextové gramatiky\nc) bezkontextové gramatiky v Chomského normálním tvaru\nd) bezkontextové gramatiky v normální tvaru podle Greibachové\n           C."
+}

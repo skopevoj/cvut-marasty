@@ -1,0 +1,23 @@
+{
+    "question": "Jazyk $L$ (regulární) je možné:",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "přijímat konečným automatem",
+            "is_correct": true
+        },
+        {
+            "text": "přijímat zásobníkovým automatem",
+            "is_correct": true
+        },
+        {
+            "text": "popsat regulárním výrazem",
+            "is_correct": true
+        }
+    ],
+    "topics": [
+        "regularni-jazyky",
+        "google-doc"
+    ],
+    "original_text": "11) Jazyk  je možné: \na) přijímat konečným automatem  \nb) přijímat zásobníkovým automatem \nc) popsat regulárním výrazem\nA,B,C     ."
+}

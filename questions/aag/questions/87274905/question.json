@@ -1,0 +1,27 @@
+{
+    "question": "Uvažujme Pumping lemma pro jazyk $L = \\{ ww : w \\in \\{a, b\\}^* \\}$. Které z následujících rozdělení (slov) se hodí pro dokázání (vyvrácení) regulárnosti tohoto jazyka?",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "$a^p b^p$",
+            "is_correct": false
+        },
+        {
+            "text": "$a b^p b^p a$",
+            "is_correct": false
+        },
+        {
+            "text": "$b a^p a^p b$",
+            "is_correct": false
+        },
+        {
+            "text": "$w^p w^p$",
+            "is_correct": false
+        }
+    ],
+    "topics": [
+        "regularni-jazyky",
+        "google-doc"
+    ],
+    "original_text": "--- QUESTION 5 ---\n126) Pumping lemma pro jazyk L = { ww ; w {a,b}* }. Ktere rozdeleni se hodi for dokazani (vyvraceni) regularnosti ?\na)a^pb^p\nb)ab^pb^pa\nc)ba^pa^pb\nd)w^pw^p\nnic      ."
+}

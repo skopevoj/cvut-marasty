@@ -1,0 +1,32 @@
+{
+    "question": "Pro iteraci platí:",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "Může platit $L_1^* = L_1$",
+            "is_correct": true
+        },
+        {
+            "text": "Když $L_1$ je regulární a $L_2 = L_1^*$, tak $L_2$ musí být regulární",
+            "is_correct": true
+        },
+        {
+            "text": "Když $L_1^* = L_2$ a $L_2^* = L_3$, pak $L_1^* = L_3$",
+            "is_correct": true
+        },
+        {
+            "text": "Když $L_1$ je bezkontextový a $L_2 = L_1^*$, tak $L_2$ může být regulární",
+            "is_correct": true
+        },
+        {
+            "text": "Když $L_1^* = L_2$ a $L_2^* = L_3$, pak $L_2 = L_3$",
+            "is_correct": true
+        }
+    ],
+    "topics": [
+        "regularni-jazyky",
+        "bezkontextove-gramatiky",
+        "google-doc"
+    ],
+    "original_text": "75) Pro iteraci plati:\na) Muze platit L1* = L1\nb) Kdyz L1 je regularni, L2 = L1*, tak L2 musi byt regularni\nc) Kdyz L1* = L2, L2* = L3 pak L1* = L3 \nd) Kdyz L1 je bezkontextový, L2 = L1* tak L2 muze byt regularni\ne) Kdyz L1* = L2, L2* = L3, pak L2 = L3\nA,B,C,D,E."
+}

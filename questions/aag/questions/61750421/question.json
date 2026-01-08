@@ -1,0 +1,27 @@
+{
+    "question": "Nechť $M$ je deterministický konečný automat přijímající konečný jazyk $L = \\{aaa, aba, a, \\epsilon\\}$. Potom platí, že:",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "Automat $M$ má alespoň jeden koncový stav.",
+            "is_correct": true
+        },
+        {
+            "text": "Přechodový diagram automatu $M$ musí obsahovat cyklus.",
+            "is_correct": false
+        },
+        {
+            "text": "Automat $M$ přijímá právě 4 slova.",
+            "is_correct": true
+        },
+        {
+            "text": "Automat $M$ nelze sestrojit.",
+            "is_correct": false
+        }
+    ],
+    "topics": [
+        "regularni-jazyky",
+        "google-doc"
+    ],
+    "original_text": "--- QUESTION 5 ---\n137) Nechť M je deterministický konečný automat přijímající konečný jazyk L = {aaa, aba, a, ε}. Potom platí, že:\nAutomat M má alespoň jeden koncový stav.\nPřechodový diagram automatu M musí obsahovat cyklus.\nAutomat M přijímá právě 4 slova.\nAutomat M nelze sestrojit.\nA,C        ."
+}

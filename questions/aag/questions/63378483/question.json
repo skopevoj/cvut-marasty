@@ -1,0 +1,27 @@
+{
+    "question": "Mějme jazyk $L = \\{a^n b^m \\mid m \\ge n \\ge 0\\} \\cup \\{a^n b^m \\mid n \\ge m \\ge 0\\}$. Platí, že tento jazyk je:",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "přijímán konečným automatem (KA)",
+            "is_correct": true
+        },
+        {
+            "text": "popsán regulárním výrazem (RV)",
+            "is_correct": true
+        },
+        {
+            "text": "přijímán Turingovým strojem (TS)",
+            "is_correct": true
+        },
+        {
+            "text": "přijímán zásobníkovým automatem (ZA)",
+            "is_correct": true
+        }
+    ],
+    "topics": [
+        "regularni-jazyky",
+        "google-doc"
+    ],
+    "original_text": "120) Jazyk L={(a^n b^m : m >=n>=0) U (a^n b^m : n >=m>=0)}\na) jazyk přijímán KA\nb) popsán RV\nc) přijímán TS \nd) přijímán ZA\nA,B,C,D."
+}

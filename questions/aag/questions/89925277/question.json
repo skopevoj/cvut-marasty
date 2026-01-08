@@ -1,0 +1,27 @@
+{
+    "question": "Určete, zdali je daná gramatika jednoznačná.",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "$G = (\\{S\\}, \\{a, b\\}, \\{S \\to aS \\mid bS\\}, S)$",
+            "is_correct": true
+        },
+        {
+            "text": "$G = (\\{S\\}, \\{a, b\\}, \\{S \\to aSb \\mid bS\\}, S)$",
+            "is_correct": true
+        },
+        {
+            "text": "$G = (\\{S\\}, \\{a, b\\}, \\{S \\to Sb \\mid Sa\\}, S)$",
+            "is_correct": true
+        },
+        {
+            "text": "$G = (\\{S\\}, \\{a, b\\}, \\{S \\to aSb \\mid Sb\\}, S)$",
+            "is_correct": true
+        }
+    ],
+    "topics": [
+        "bezkontextove-gramatiky",
+        "google-doc"
+    ],
+    "original_text": "111) Určete, zdali je daná gramatika jednoznačná.\n a) ({S},{a,b}, {S->aS|bS}, S)\n b) ({S},{a,b}, {S->aSb|bS}, S)\n c) ({S},{a,b}, {S->Sb|Sa}, S)\n d) ({S},{a,b}, {S->aSb|Sb}, S)\n  A,B,C, D."
+}

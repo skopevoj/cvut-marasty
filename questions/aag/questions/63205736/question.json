@@ -1,0 +1,43 @@
+{
+    "question": "Automaty $A_1$ a $B_1$ přijímají stejný jazyk. $A_1$ má $n$ stavů, $B_1$ má $m$ stavů, $n > m$. Determinizací a minimalizací $A_1$ vznikne automat $A_2$. Determinizací a minimalizací $B_1$ vznikne $B_2$. Co platí o automatech $A_2$ a $B_2$?",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "Automat $A_2$ bude mít více stavů než $B_2$.",
+            "is_correct": false
+        },
+        {
+            "text": "Automat $A_2$ bude mít méně stavů než $B_2$.",
+            "is_correct": false
+        },
+        {
+            "text": "Nelze obecně určit vztah mezi počtem stavů $A_2$ a $B_2$.",
+            "is_correct": false
+        },
+        {
+            "text": "Automat $A_2$ bude mít více přechodů než $B_2$.",
+            "is_correct": false
+        },
+        {
+            "text": "Automat $A_2$ bude mít méně přechodů než $B_2$.",
+            "is_correct": false
+        },
+        {
+            "text": "Nelze obecně určit vztah mezi počtem přechodů $A_2$ a $B_2$.",
+            "is_correct": false
+        },
+        {
+            "text": "Automat $A_2$ bude mít stejně stavů jako $B_2$.",
+            "is_correct": true
+        },
+        {
+            "text": "Automat $A_2$ bude mít stejně přechodů jako $B_2$.",
+            "is_correct": true
+        }
+    ],
+    "topics": [
+        "regularni-jazyky",
+        "google-doc"
+    ],
+    "original_text": "--- QUESTION 3 ---\n103) Automaty A1 a B1 přijímají stejný jazyk. A má n stavů, B má m stavů, n > m. Determinizací a minimalizací A1 vznikne automat A2. Determinizací a minimalizací B1 vznikne B2. Co platí o automatech A2 a B2?\na) automat A2 bude mít více stavů než B2\nb) automat A2 bude mít méně stavů než B2\nc) nelze obecně určit vztah mezi počtem stavů A2 a B2\nd) automat A2 bude mít více přechodů než B2\ne) automat A2 bude mít méně přechodů než B2\nf) nelze obecně určit vztah mezi počtem přechodů A2 a B2\ng)  automat A2 bude mít stejně stavů jako B2\nh)  automat A2 bude mít stejně přechodů jako B2\n G,H                       ."
+}

@@ -1,0 +1,19 @@
+{
+    "question": "Pumpovací vlastnost pro jazyk $L = \\{w u w^R : w \\in \\{0,1\\}^*, u \\in \\{0,1\\}\\}$:",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "neplatí",
+            "is_correct": true
+        },
+        {
+            "text": "platí",
+            "is_correct": false
+        }
+    ],
+    "topics": [
+        "regularni-jazyky",
+        "google-doc"
+    ],
+    "original_text": "--- QUESTION 2 ---\n66) Pumpovací vlastnost pro jazyk {wuw^r, w ∈ {0,1}*, u ∈ {0,1}}  \na) neplatí\nb) platí\n      .A"
+}

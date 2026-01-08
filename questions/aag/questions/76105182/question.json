@@ -1,0 +1,23 @@
+{
+    "question": "Konečný jazyk se dá přijímat:",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "Konečným automatem",
+            "is_correct": true
+        },
+        {
+            "text": "Zásobníkovým automatem",
+            "is_correct": true
+        },
+        {
+            "text": "Turingovým strojem",
+            "is_correct": true
+        }
+    ],
+    "topics": [
+        "regularni-jazyky",
+        "google-doc"
+    ],
+    "original_text": "144) Konečný jazyk se dá přijímat\nKonečným automatem\nZásobníkovým automatem\nTuringovým strojem\nA,B,C   ."
+}

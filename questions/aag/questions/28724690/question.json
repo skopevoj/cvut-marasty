@@ -1,0 +1,28 @@
+{
+    "question": "Která z následujících tvrzení o jazycích jsou pravdivá?",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "Jsou-li $L_1, L_2$ regulární jazyky a platí $L_1 \\cdot L_3 = L_2$, pak $L_3$ musí být regulární.",
+            "is_correct": false
+        },
+        {
+            "text": "Jsou-li $L_1, L_2$ regulární jazyky a platí $L_3 \\cdot L_1 = L_2$, pak $L_3$ musí být regulární.",
+            "is_correct": false
+        },
+        {
+            "text": "Jsou-li $L_1, L_2$ regulární jazyky a platí $L_1 \\cdot L_2 = L_3$, pak $L_3$ musí být regulární.",
+            "is_correct": true
+        },
+        {
+            "text": "Jsou-li $L_1, L_2$ bezkontextové jazyky a platí $L_1 \\cdot L_2 = L_3$, pak $L_3$ může být regulární.",
+            "is_correct": true
+        }
+    ],
+    "topics": [
+        "regularni-jazyky",
+        "bezkontextove-gramatiky",
+        "google-doc"
+    ],
+    "original_text": "52) Co platí:\na) L1, L2 jsou regulární jazyky, L1 . L3 = L2, L3 musí být regulární\nb) L1, L2 jsou regulární jazyky, L3 . L1 = L2, L3 musí být regulární\nc) L1, L2 jsou regulární jazyky, L1 . L2 = L3, L3 musí být regulární\nd) L1, L2 jsou bezkontextové jazyky, L1 . L2 = L3, L3 může být regulární\nC,D        ."
+}

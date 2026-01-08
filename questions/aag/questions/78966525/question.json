@@ -1,0 +1,27 @@
+{
+    "question": "Uvažujeme toto tvrzení $T$: Nechť $L_p = \\{ a^n : n \\text{ je prvočíslo} \\} \\cup \\{ a^n : n > 10 \\}$, potom $\\exists p \\ge 1; \\forall w \\in L_p$, které splňují $|w| \\ge p, \\exists x,y,z$ takové, že $w = xyz; |xy| \\le p, |y| > 0; \\forall i \\ge 0; xy^iz \\in L_p$.",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "Nejmenší možná konstanta $p$ z tvrzení $T$ pro jazyk $L_p$ tak, aby dále platilo, je: 6",
+            "is_correct": true
+        },
+        {
+            "text": "Tento jazyk není regulární a tvrzení $T$ pro něj neplatí.",
+            "is_correct": false
+        },
+        {
+            "text": "Tvrzení $T$ platí, ale konkrétní konstantu $p$, od které pro slova větší délky platí, nelze určit.",
+            "is_correct": false
+        },
+        {
+            "text": "Tvrzení $T$ platí pro všechna slova tohoto jazyka s $p = 0$.",
+            "is_correct": false
+        }
+    ],
+    "topics": [
+        "regularni-jazyky",
+        "google-doc"
+    ],
+    "original_text": "--- QUESTION 2 ---\n129) Uvažujeme toto tvrzení T: Nechť L_p = { a^n: n je prvočíslo } U { a^n: n > 10 }, potom ∃p ≥ 1; ∀w ∈ L_p, které splňují |w| ≥ p, ∃x,y,z takové, že w = xyz; |xy| ≤ p, |y| > 0; ∀i ≥ 0; xy^iz ∈ L_p.\n a) Nejmenší možná konstanta p z tvrzení T pro jazyk L_p tak, aby dále platilo, je: ______\n b) Tento jazyk není regulární a tvrzení T pro něj neplatí.\n c) Tvrzení T platí, ale konkrétní konstantu p, od které pro slova větší délky platí, nelze určit.\n d) Tvrzení T platí pro všechna slova tohoto jazyka s p = 0.\nA  p=6    ."
+}

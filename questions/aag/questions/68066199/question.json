@@ -1,0 +1,27 @@
+{
+    "question": "Jaké jsou metody převodu konečného automatu ($KA$) na regulární výraz ($RV$)?",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "derivace",
+            "is_correct": false
+        },
+        {
+            "text": "integrálů",
+            "is_correct": true
+        },
+        {
+            "text": "eliminaci neterminálů",
+            "is_correct": false
+        },
+        {
+            "text": "sousedů",
+            "is_correct": false
+        }
+    ],
+    "topics": [
+        "regularni-jazyky",
+        "google-doc"
+    ],
+    "original_text": "--- QUESTION 1 ---\n60) Metody převodu KA do RV\na) derivace\nb) integrálů\nc) eliminaci neterminálů\nd) sousedů \nB        ."
+}

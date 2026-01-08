@@ -1,0 +1,27 @@
+{
+    "question": "Tvrzení, že je jazyk nejednoznačný, je ekvivalentní s:",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "Existuje nějaká gramatika generující daný jazyk, která je nejednoznačná.",
+            "is_correct": false
+        },
+        {
+            "text": "Existuje alespoň jedna věta, která má více než jeden derivační strom v nějaké gramatice generující daný jazyk.",
+            "is_correct": false
+        },
+        {
+            "text": "Existuje více gramatik generujících daný jazyk.",
+            "is_correct": false
+        },
+        {
+            "text": "Každá věta z jazyka má více než jeden derivační strom v nějaké gramatice generující daný jazyk.",
+            "is_correct": false
+        }
+    ],
+    "topics": [
+        "bezkontextove-gramatiky",
+        "google-doc"
+    ],
+    "original_text": "148) Tvrzení, že je jazyk nejednoznačný, je ekvivalentní s:\nExistuje nějaká gramatika generující daný jazyk, která je nejednoznačná.\nExistuje alespoň jedna věta, která má více než jeden derivační strom v nějaké gramatice generující daný jazyk.\nExistuje více gramatik generujících daný jazyk.\nKaždá věta z jazyka má více než jeden derivační strom v nějaké gramatice generující daný jazyk.\nnic        ."
+}

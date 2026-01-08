@@ -1,0 +1,27 @@
+{
+    "question": "Vyberte správné tvrzení:",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "Nechť $L_1$ je formální jazyk, $h(\\emptyset) \\cup L_1 = L_2$, pak platí $L_1 = L_2$.",
+            "is_correct": true
+        },
+        {
+            "text": "Nechť $L_1$ je formální jazyk, $h(\\emptyset) \\cdot L_1 = L_2$, pak platí $L_1 = L_2$.",
+            "is_correct": false
+        },
+        {
+            "text": "Nechť $L_1$ je formální jazyk, $h(\\varepsilon) \\cdot L_1 = L_2$, pak platí $L_1 = L_2$.",
+            "is_correct": true
+        },
+        {
+            "text": "Nechť $L_1$ je formální jazyk, $h(\\emptyset^*) \\cdot L_1 = L_2$, pak platí $L_1 = L_2$.",
+            "is_correct": true
+        }
+    ],
+    "topics": [
+        "formalni-jazyky-gramatiky-a-jejich-klasifikace",
+        "google-doc"
+    ],
+    "original_text": "--- QUESTION 3 ---\n124) Vyberte správné tvrzení:\nNechť L1 je formální jazyk, h(∅) U L1 = L2, platí L1 = L2\nNechť L1 je formální jazyk, h(∅).L1 = L2, platí L1 = L2\nNechť L1 je formální jazyk, h(ε).L1 = L2, platí L1 = L2\nNechť L1 je formální jazyk, h(∅*).L1 = L2, platí L1 = L2\nA,C,D   ."
+}

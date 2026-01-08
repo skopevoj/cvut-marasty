@@ -1,0 +1,27 @@
+{
+    "question": "Porovnání výpočetní síly nedeterministického a deterministického zásobníkového automatu (ZA):",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "nedeterministický je silnější",
+            "is_correct": true
+        },
+        {
+            "text": "deterministický je slabší",
+            "is_correct": true
+        },
+        {
+            "text": "deterministický je silnější",
+            "is_correct": false
+        },
+        {
+            "text": "nelze rozhodnout",
+            "is_correct": false
+        }
+    ],
+    "topics": [
+        "bezkontextove-gramatiky",
+        "google-doc"
+    ],
+    "original_text": "47) Porovnání výpočetní síly nedeterministického a deterministického ZA\na) nedeterministický je silnější\nb) deterministický je slabší \nc) deterministický je silnější\nd) nelze rozhodnout\nA,B      ."
+}

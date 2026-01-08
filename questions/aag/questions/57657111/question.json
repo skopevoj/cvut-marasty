@@ -1,0 +1,23 @@
+{
+    "question": "Formální jazyk je:",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "binární relace",
+            "is_correct": false
+        },
+        {
+            "text": "množina řetězců",
+            "is_correct": true
+        },
+        {
+            "text": "posloupnost symbolů",
+            "is_correct": false
+        }
+    ],
+    "topics": [
+        "formalni-jazyky-gramatiky-a-jejich-klasifikace",
+        "google-doc"
+    ],
+    "original_text": "98) Formální jazyk je\na) binární relace\nb) množina řetězců\nc) posloupnost symbolů\nB        ."
+}

@@ -1,0 +1,27 @@
+{
+    "question": "Platí tvrzení:",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "TS s počtem pásek $k \\ge 1$ přijímá právě rekurzivně spočetné jazyky",
+            "is_correct": true
+        },
+        {
+            "text": "deterministický TS přijímá právě rekurzivně spočetné jazyky",
+            "is_correct": true
+        },
+        {
+            "text": "lineárně omezený TS přijímá právě rekurzivně spočetné jazyky",
+            "is_correct": false
+        },
+        {
+            "text": "univerzální TS přijímá všechny dvojice $(\\text{kód}(R), a)$, přičemž TS $R$ přijímá slovo $a$",
+            "is_correct": true
+        }
+    ],
+    "topics": [
+        "rekurzivne-spocetne-jazyky",
+        "google-doc"
+    ],
+    "original_text": "--- QUESTION 1 ---\n65) Platí tvrzení:\na) TS s počtem pásek k>=1 přijímá právě rekurzivně spočetné jazyky\nb) deterministický TS přijímá právě rekurzivně spočetný jazyk\nc) lineárně omezený TS přijímá právě rekurzivně spočetný jazyk\nd) univerzální TS přijímá všechny dvojice (kód(R),a), přičemž TS R přijímá slovo a n  \nA,B   D,  ."
+}

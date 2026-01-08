@@ -1,0 +1,45 @@
+{
+    "question": "Uvažujme toto tvrzení $T$: Nechť $L_p = \\{ a^n : n \\text{ je prvočíslo}, 7 < n < 73 \\}$, potom $\\exists p \\ge 1; \\forall w \\in L_p$, které splňují $|w| \\ge p, \\exists x,y,z$ takové, že $w = xyz; |xy| \\le p, |y| > 0; \\forall k \\ge 0; xy^k z \\in L_p$.",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "Jazyk $L_p$ je kontextový, protože je bezkontextový.",
+            "is_correct": true
+        },
+        {
+            "text": "Jazyk $L_p$ je regulární, přestože pro něj neplatí Myhill-Nerodova věta.",
+            "is_correct": false
+        },
+        {
+            "text": "Jazyk $L_p$ je regulární, protože pro něj platí Myhill-Nerodova věta.",
+            "is_correct": true
+        },
+        {
+            "text": "Pro jazyk $L_p$ platí tvrzení $T$. Z toho obecně vyplývá, že je regulární.",
+            "is_correct": false
+        },
+        {
+            "text": "Pro jazyk $L_p$ neplatí tvrzení $T$. Z toho obecně vyplývá, že je regulární.",
+            "is_correct": false
+        },
+        {
+            "text": "Jazyk $L_p$ je regulární, přestože pro něj neplatí tvrzení $T$.",
+            "is_correct": false
+        },
+        {
+            "text": "Jazyk $L_p$ je kontextový, protože pro něj lze sestrojit lineárně omezený Turingův stroj.",
+            "is_correct": true
+        },
+        {
+            "text": "Jazyk $L_p$ lze vygenerovat nezkracující kontextovou gramatikou. Z toho obecně vyplývá, že je bezkontextový.",
+            "is_correct": false
+        }
+    ],
+    "topics": [
+        "regularni-jazyky",
+        "kontextove-jazyky",
+        "formalni-jazyky-gramatiky-a-jejich-klasifikace",
+        "google-doc"
+    ],
+    "original_text": "--- QUESTION 4 ---\n136) Uvažujme toto tvrzení T: Nechť L_p={ a^n : n je prvočíslo, 7 < n < 73 }, potom ∃p≥1;∀w∈L_p,  které splňují |w|≥p, ∃x,y,z takové, že w=xyz;|xy|≤p,|y|>0;∀k≥0;xy^kz∈L_p.\nJazyk L_p je kontextový, protože je bezkontextový.\nJazyk L_p je regulární, přestože pro něj neplatí Myhill-Nerodova věta.\nJazyk L_p je regulární, protože pro něj platí Myhill-Nerodova věta.\nPro jazyk L_p platí tvrzení T. Z toho obecně vyplývá, že je regulární.\nPro jazyk L_p neplatí tvrzení T. Z toho obecně vyplývá, že je regulární.\nJazyk L_p je regulární, přestože pro něj neplatí tvrzení T.\nJazyk L_p je kontextový, protože pro něj lze sestrojit lineárně omezený TS.\nJazyk L_p lze vygenerovat nezkracující kontextovou gramatikou. Z toho obecně vyplývá, že je bezkontextový.\nA,C,G          ."
+}

@@ -1,0 +1,27 @@
+{
+    "question": "Gramatika je nejednoznačná, což je ekvivalentní s tvrzením:",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "Každá věta generovaná gramatikou má více než jeden derivační strom",
+            "is_correct": false
+        },
+        {
+            "text": "Alespoň jedna věta generovaná gramatikou má více než jeden derivační strom",
+            "is_correct": true
+        },
+        {
+            "text": "Gramatika má více derivačních stromů",
+            "is_correct": false
+        },
+        {
+            "text": "Gramatika generuje alespoň jednu větu, jejíž levý rozklad se liší od pravého",
+            "is_correct": false
+        }
+    ],
+    "topics": [
+        "bezkontextove-gramatiky",
+        "google-doc"
+    ],
+    "original_text": "112) Gramatika je nejednoznačná je ekvivalentní s tvrzením:\n a) Každá věta generovaná gramatikou má více než jeden derivační strom\n b) Alespoň jedna věta generovaná gramatikou má více než jeden derivační strom\n c) Gramatika má více derivačních stromů\n d) Gramatika generuje alespoň jednu větu, jejíž levý rozklad se liší od pravého\nB           ."
+}

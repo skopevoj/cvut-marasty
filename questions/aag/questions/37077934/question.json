@@ -1,0 +1,27 @@
+{
+    "question": "Regulární jazyk je možné:",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "přijímat konečným automatem",
+            "is_correct": true
+        },
+        {
+            "text": "popsat regulárním výrazem",
+            "is_correct": true
+        },
+        {
+            "text": "přijímat zásobníkovým automatem",
+            "is_correct": true
+        },
+        {
+            "text": "přijímat Turingovým strojem",
+            "is_correct": true
+        }
+    ],
+    "topics": [
+        "regularni-jazyky",
+        "google-doc"
+    ],
+    "original_text": "--- QUESTION 2 ---\n33) Jazyk   je možné:\na) přijímat konečným automatem \nb) popsat regulárním výrazem\nc) přijímat zásobníkovým automatem\nd) přijímat Turingovým strojem\nA,B,C,D ."
+}

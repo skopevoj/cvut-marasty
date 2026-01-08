@@ -1,0 +1,27 @@
+{
+    "question": "Pro libovolný jazyk generovaný známou regulární gramatikou lze pro vstupní slovo délky $n$ určitě rozhodnout, zda slovo patří do jazyka, nejhůře v čase:",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "$\\Theta(n)$",
+            "is_correct": true
+        },
+        {
+            "text": "$\\Theta(n^2)$",
+            "is_correct": false
+        },
+        {
+            "text": "$\\Theta(2n)$",
+            "is_correct": true
+        },
+        {
+            "text": "$\\Theta(n+1)$",
+            "is_correct": true
+        }
+    ],
+    "topics": [
+        "regularni-jazyky",
+        "google-doc"
+    ],
+    "original_text": "--- QUESTION 2 ---\n38) Pro libovolný jazyk generovaný známou regulární gramatikou, lze pro vstupní slovo délky n určitě rozhodnout zda slovo patří do jazyka nejhůře v čase?\na) Θ(n)\nb) Θ(n^2)\nc) Θ(2n) \nd) Θ(n+1) \n   .A, C, D"
+}

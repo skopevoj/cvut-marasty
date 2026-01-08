@@ -1,0 +1,27 @@
+{
+    "question": "Lineárně omezený Turingův stroj:",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "má pásku, ze které lze pouze číst",
+            "is_correct": false
+        },
+        {
+            "text": "přijímá všechny bezkontextové jazyky",
+            "is_correct": true
+        },
+        {
+            "text": "má velikost pásky omezenou konstantou",
+            "is_correct": false
+        },
+        {
+            "text": "přijímá všechny kontextové jazyky",
+            "is_correct": true
+        }
+    ],
+    "topics": [
+        "kontextove-jazyky",
+        "google-doc"
+    ],
+    "original_text": "88) Lineárně omezený Turingův stroj:\na) má pásku, ze které lze pouze číst\nb) přijímá všechny bezkontextové jazyky\nc) má velikost pásky omezenou konstantou\nd) přijímá všechny kontextové jazyky\nB,D     ."
+}

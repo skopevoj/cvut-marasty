@@ -1,0 +1,27 @@
+{
+    "question": "Syntaktická analýza bezkontextových jazyků pomocí zásobníkového automatu metodou zdola nahoru zahrnuje operace:",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "$\\delta(q, a, \\epsilon) \\leftarrow \\{(q, a)\\}, \\forall a \\in \\Sigma$",
+            "is_correct": true
+        },
+        {
+            "text": "$\\delta(q, a, a) \\leftarrow \\{(q, \\epsilon)\\}, \\forall a \\in \\Sigma$",
+            "is_correct": false
+        },
+        {
+            "text": "$\\delta(q, \\epsilon, A) \\leftarrow \\{(q, \\alpha) : (A \\to \\alpha) \\in P\\}, \\forall A \\in N$",
+            "is_correct": false
+        },
+        {
+            "text": "$\\delta(q, \\epsilon, \\alpha) \\leftarrow \\{(q, A) : (A \\to \\alpha) \\in P\\}$",
+            "is_correct": true
+        }
+    ],
+    "topics": [
+        "bezkontextove-gramatiky",
+        "google-doc"
+    ],
+    "original_text": " 143) Syntaktická analýza bezkontextových jazyků pomocí zásobníkového automatu metodou zdola nahoru zahrnuje operace:\nδ(q, a, ε) ← {(q, a)}, ∀a, a ∈ Σ\nδ(q, a, a) ← {(q, ε)}, ∀a ∈ Σ\nδ(q, ε, A) ← {(q, α) : (A → α) ∈ P}, ∀A ∈ N\nδ(q, ε, α) ← {(q, A) : (A → α) ∈ P}\nA,D       ."
+}

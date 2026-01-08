@@ -1,0 +1,27 @@
+{
+    "question": "Co platí pro formální jazyky?",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "Jsou-li $L_1, L_2$ formální jazyky, je $L_3 = L_1 \\cdot L_2$ formální jazyk?",
+            "is_correct": true
+        },
+        {
+            "text": "Jsou-li $L_1, L_2$ formální jazyky, je $L_3 = L_1 \\cup L_2$ formální jazyk?",
+            "is_correct": true
+        },
+        {
+            "text": "Jsou-li $L_1, L_2$ formální jazyky a platí-li $L_1 \\cup h(\\emptyset) = L_2$, pak $L_1 = L_2$?",
+            "is_correct": true
+        },
+        {
+            "text": "Je-li $L_1$ formální jazyk a $L_1 \\cup h(\\emptyset) = L_2$, je $L_2$ formální jazyk?",
+            "is_correct": true
+        }
+    ],
+    "topics": [
+        "formalni-jazyky-gramatiky-a-jejich-klasifikace",
+        "google-doc"
+    ],
+    "original_text": "--- QUESTION 1 ---\n122) Co platí?\na) L1, L2 jsou formální jazyky, je L3=L1.L2 formální jazyk?\nb) L1, L2 jsou formální jazyky, je L3=L1 U L2 formální jazyk?\nc) L1, L2 jsou formální jazyky, je L1 U  h(∅) = L2 pak L1 = L2?\nd) L1 je formální jazyk, je L1 U  h(∅) = L2, L2 formální jazyk?\nA,B,C,D ."
+}

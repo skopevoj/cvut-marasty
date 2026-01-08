@@ -1,0 +1,28 @@
+{
+    "question": "Gramatika s pravidly $A \\to Ab, A \\to \\varepsilon$ generuje jazyk, který je v Chomského hierarchii klasifikován jako:",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "regulární jazyk",
+            "is_correct": true
+        },
+        {
+            "text": "bezkontextový jazyk",
+            "is_correct": true
+        },
+        {
+            "text": "kontextový jazyk",
+            "is_correct": true
+        },
+        {
+            "text": "rekurzivně spočetný jazyk",
+            "is_correct": true
+        }
+    ],
+    "topics": [
+        "formalni-jazyky-gramatiky-a-jejich-klasifikace",
+        "regularni-jazyky",
+        "google-doc"
+    ],
+    "original_text": "--- QUESTION 5 ---\n26) Gramatika s pravidly A->Ab, A->ε generuje: \na) regulární jazyk\nb) bezkontextový jazyk \nc) kontextový jazyk\nd) rekurzivně spočetný jazyk\nA,B,C,D  ."
+}

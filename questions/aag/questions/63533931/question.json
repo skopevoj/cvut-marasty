@@ -1,0 +1,27 @@
+{
+    "question": "Je dána gramatika $G$ s pravidly (typu regulární gramatiky). Platí, že $G$ generuje:",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "regulární jazyk",
+            "is_correct": true
+        },
+        {
+            "text": "bezkontextový jazyk",
+            "is_correct": true
+        },
+        {
+            "text": "kontextový jazyk",
+            "is_correct": true
+        },
+        {
+            "text": "rekurzivně spočetný jazyk",
+            "is_correct": true
+        }
+    ],
+    "topics": [
+        "formalni-jazyky-gramatiky-a-jejich-klasifikace",
+        "google-doc"
+    ],
+    "original_text": "19) Je dána gramatika s pravidly tvaru \t\t\t\nPlatí, že G generuje:\na) regulární jazyk\nb) bezkontextový jazyk \nc) kontextový jazyk\nd) rekurzivně spočetný jazyk\n A,B,C,D  ."
+}

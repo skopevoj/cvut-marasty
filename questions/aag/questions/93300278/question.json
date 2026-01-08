@@ -1,0 +1,27 @@
+{
+    "question": "Máme nedeterministický konečný automat o $n$ stavech. Pokud k němu vytvoříme ekvivalentní deterministický konečný automat, kolik může mít tento automat stavů?",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "Maximálně $2^n$",
+            "is_correct": true
+        },
+        {
+            "text": "Maximálně $n$",
+            "is_correct": false
+        },
+        {
+            "text": "Minimálně $1$",
+            "is_correct": true
+        },
+        {
+            "text": "Minimálně $n$",
+            "is_correct": false
+        }
+    ],
+    "topics": [
+        "regularni-jazyky",
+        "google-doc"
+    ],
+    "original_text": "49) Mame nedeterministicky konecny automat o „n“ stavech a lze vytvorit deterministicky KA, kolik bude mít stavů:\na) Max 2^n\nb) Max n\nc) Min 1\nd) Min n\n   A,C      ."
+}

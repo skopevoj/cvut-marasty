@@ -1,0 +1,15 @@
+{
+    "question": "Mějme následující jazyk $L$: $L = \\{a^{n^2} : n \\in \\mathbb{N} \\land n \\ge 1 \\land n < 12\\}$. Dále uvažujte následující tvrzení $T$: $(\\exists p \\ge 1)(\\forall w \\in L) [|w| \\ge p \\implies (\\exists x, y, z \\in \\Sigma^*) (w = xyz \\land |xy| \\le p \\land |y| \\ge 1 \\land (\\forall k \\ge 0) xy^kz \\in L)]$. Určete nejmenší možnou konstantu $p$ tak, aby tvrzení $T$ pro daný jazyk $L$ dále platilo. (Zadávejte pouze celé číslo v desítkové soustavě pomocí číslic bez zbytečných úvodních nul.)",
+    "question_type": "numeric",
+    "answers": [
+        {
+            "text": "122",
+            "is_correct": true
+        }
+    ],
+    "topics": [
+        "regularni-jazyky",
+        "google-doc"
+    ],
+    "original_text": "151) Mějme následující jazyk L: L={a^n^2 : n∈N∧n≥1∧n<12}\n  Dále uvažujte následující tvrzení T :\n(∃p≥1)(∀w∈L)[|w|≥p⟹(∃x,y,z∈Σ∗)(w=xyz∧|xy|≤p∧|y|≥1∧(∀k≥0)xy^kz∈L)]\n  Určete nejmenší možnou konstantu p tak, aby tvrzení T pro daný jazyk L dále platilo.    (Zadávejte pouze celé číslo v desítkové soustavě pomocí číslic bez zbytečných úvodních nul.)  \n 122   ."
+}

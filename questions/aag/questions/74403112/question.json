@@ -1,0 +1,27 @@
+{
+    "question": "Pro regulární jazyk platí:",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "lze jej přijímat konečným automatem",
+            "is_correct": true
+        },
+        {
+            "text": "lze jej popsat regulárním výrazem",
+            "is_correct": true
+        },
+        {
+            "text": "je přijímaný Turingovým strojem (TS)",
+            "is_correct": true
+        },
+        {
+            "text": "je přijímaný lineárně omezeným Turingovým strojem (LBA)",
+            "is_correct": true
+        }
+    ],
+    "topics": [
+        "regularni-jazyky",
+        "google-doc"
+    ],
+    "original_text": "95) Pro regulární jazyk platí:\n a) lze přijímat konečným automatem\n b) lze vytvořit regulární výraz\n c) je přijímaný TS\n d) je přijímaný lineárně omezeným TS\nA,B,C,D ."
+}

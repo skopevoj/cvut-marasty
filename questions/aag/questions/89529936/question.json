@@ -1,0 +1,27 @@
+{
+    "question": "Metodou postupné konstrukce vznikne:",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "deterministický automat",
+            "is_correct": false
+        },
+        {
+            "text": "konečný automat",
+            "is_correct": true
+        },
+        {
+            "text": "homogenní automat",
+            "is_correct": false
+        },
+        {
+            "text": "automat bez $\\epsilon$-přechodů",
+            "is_correct": false
+        }
+    ],
+    "topics": [
+        "regularni-jazyky",
+        "google-doc"
+    ],
+    "original_text": "--- QUESTION 3 ---\n39) Metodou postupné konstrukce vznikne\na) deterministický automat\nb) konečný automat\nc) homogenní automat\nd) automat bez ε přechodů \nB          ."
+}

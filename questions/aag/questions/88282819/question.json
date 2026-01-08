@@ -1,0 +1,27 @@
+{
+    "question": "Složitost rozpoznávání pro libovolný jazyk generovaný kontextovou gramatikou pro slovo délky $n$ je:",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "$\\Theta(n)$",
+            "is_correct": false
+        },
+        {
+            "text": "$\\Theta(n^3)$",
+            "is_correct": true
+        },
+        {
+            "text": "$\\Theta(n^2)$",
+            "is_correct": false
+        },
+        {
+            "text": "$\\Theta(2^n)$",
+            "is_correct": false
+        }
+    ],
+    "topics": [
+        "kontextove-jazyky",
+        "google-doc"
+    ],
+    "original_text": "83) Složitost pro libovolný jazyk generovaný kontextovou gramatikou pro slovo délky n je\na) Θ(n)\nb) Θ(n^3)\nc) Θ(n^2)\nd) Θ(2^n)\n         B."
+}

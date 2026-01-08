@@ -1,0 +1,23 @@
+{
+    "question": "Regulární výraz je:",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "(Definice regulárního výrazu)",
+            "is_correct": true
+        },
+        {
+            "text": "$X^* \\in A$",
+            "is_correct": false
+        },
+        {
+            "text": "Další možnost",
+            "is_correct": false
+        }
+    ],
+    "topics": [
+        "regularni-jazyky",
+        "google-doc"
+    ],
+    "original_text": "79) Regulární výraz je:\nb) X*∈A;  \nc) další\nA       ."
+}

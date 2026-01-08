@@ -1,0 +1,27 @@
+{
+    "question": "Rozhodněte, jakého typu je následující gramatika v Chomského klasifikaci gramatik (zadání gramatiky v textu chybí).",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "regulární",
+            "is_correct": false
+        },
+        {
+            "text": "bezkontextová",
+            "is_correct": false
+        },
+        {
+            "text": "kontextová",
+            "is_correct": false
+        },
+        {
+            "text": "neomezená",
+            "is_correct": false
+        }
+    ],
+    "topics": [
+        "formalni-jazyky-gramatiky-a-jejich-klasifikace",
+        "google-doc"
+    ],
+    "original_text": "--- QUESTION 2 ---\n3) Rozhodněte, jakého typu je následující gramatika v Chomského klasifikaci gramatik. \n, kde \na) regulární\nb) bezkontextová\nc) kontextová\nd) neomezená  \n     BACHA - c d nejsou ve vstupní abecedě! => nic"
+}

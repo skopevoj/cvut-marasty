@@ -1,0 +1,27 @@
+{
+    "question": "Gramatika $G = (\\{S, A, B, C\\}, \\{a, b, c\\}, P, S)$, kde $P$ obsahuje kontextová pravidla a pravidlo $BC \\to CB$, je gramatika:",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "neomezená",
+            "is_correct": true
+        },
+        {
+            "text": "kontextová",
+            "is_correct": false
+        },
+        {
+            "text": "bezkontextová",
+            "is_correct": false
+        },
+        {
+            "text": "regulární",
+            "is_correct": false
+        }
+    ],
+    "topics": [
+        "formalni-jazyky-gramatiky-a-jejich-klasifikace",
+        "google-doc"
+    ],
+    "original_text": "--- QUESTION 4 ---\n63) Gramatika G=({S,A,B,C},{a,b,c},{kontextová pravidla a BC→CB}, S}\na) neomezená\nb) kontextová\nc) bezkontextová\t\nd) regulární\nA          ."
+}

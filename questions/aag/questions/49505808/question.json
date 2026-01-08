@@ -1,0 +1,27 @@
+{
+    "question": "Pro konečné automaty platí:",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "Nedeterministický automat je silnější (přijímá širší třídu jazyků) než deterministický.",
+            "is_correct": false
+        },
+        {
+            "text": "Deterministický automat je silnější (přijímá širší třídu jazyků) než nedeterministický.",
+            "is_correct": false
+        },
+        {
+            "text": "Nelze rozhodnout, který je silnější.",
+            "is_correct": false
+        },
+        {
+            "text": "Deterministický automat je slabší než nedeterministický.",
+            "is_correct": false
+        }
+    ],
+    "topics": [
+        "regularni-jazyky",
+        "google-doc"
+    ],
+    "original_text": "51) Pro konečné automaty platí:\na) nedeterministický je silnější\nb) deterministický je silnější\nc) nelze rozhodnout\nd) deterministický je slabší\nnic       ."
+}

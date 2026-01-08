@@ -1,0 +1,27 @@
+{
+    "question": "Jak lze uplatnit Pumping Lemma (PL) na jazyk ve tvaru $L_1 = \\{c^n d^n a^m b^m : n, m \\ge 0\\}$?",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "$a^p$",
+            "is_correct": false
+        },
+        {
+            "text": "$ab^p b^p a$",
+            "is_correct": false
+        },
+        {
+            "text": "$abb^p a^p$",
+            "is_correct": false
+        },
+        {
+            "text": "$b^p aab^p$",
+            "is_correct": false
+        }
+    ],
+    "topics": [
+        "bezkontextove-gramatiky",
+        "google-doc"
+    ],
+    "original_text": "96) Jak lze uplatnit PL na jazyk ve tvaru L_1 = {c^nd^na^mb^m ; n,m >= 0} \t\n a) a^p\n b) ab^pb^pa \n c) abb^pa^p\n d) b^paab^p\nnic        ."
+}

@@ -1,0 +1,27 @@
+{
+    "question": "Určete, do jakých tříd Chomského hierarchie patří jazyk generovaný gramatikou $G = (\\{S, A, B\\}, \\{a, b, c\\}, \\{S \\to aS \\mid aA, A \\to bA \\mid b, SA \\to c\\}, S)$:",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "Regulární",
+            "is_correct": true
+        },
+        {
+            "text": "Bezkontextový",
+            "is_correct": true
+        },
+        {
+            "text": "Kontextový",
+            "is_correct": true
+        },
+        {
+            "text": "Rekurzivně-spočetný",
+            "is_correct": true
+        }
+    ],
+    "topics": [
+        "formalni-jazyky-gramatiky-a-jejich-klasifikace",
+        "google-doc"
+    ],
+    "original_text": "--- QUESTION 5 ---\n142) Určete, jaký jazyk generuje gramatika G = ({S,A,B}, {a,b,c}, {S->aS|aA, A->bA|b, SA->c}, S)\nRegulární\nBezkontextový\nKontextový\nRekurzivně-spočetný \nA,B,C,D ."
+}

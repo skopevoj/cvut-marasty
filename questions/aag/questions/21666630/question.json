@@ -1,0 +1,27 @@
+{
+    "question": "Pro převod konečného automatu na regulární výraz lze použít metodu:",
+    "question_type": "multichoice",
+    "answers": [
+        {
+            "text": "Eliminace neterminálních symbolů",
+            "is_correct": false
+        },
+        {
+            "text": "Eliminace stavů",
+            "is_correct": true
+        },
+        {
+            "text": "Řešení regulárních rovnic (příchozí přechody)",
+            "is_correct": true
+        },
+        {
+            "text": "Řešení regulárních rovnic (odchozí přechody)",
+            "is_correct": true
+        }
+    ],
+    "topics": [
+        "regularni-jazyky",
+        "google-doc"
+    ],
+    "original_text": "147) Pro převod konečného automatu na regulární výraz lze použít metodu:\nEliminace neterminálních symbolů\nEliminace stavů\nŘešení regulárních rovnic (příchozí přechody)\nŘešení regulárních rovnic (odchozí přechody)\nB,C,D   ."
+}
