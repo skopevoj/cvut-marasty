@@ -10,7 +10,7 @@ export function OpenQuestion() {
 
     const correctAnswers = useMemo(() => {
         return (currentQuestion.answers || [])
-            .filter((a: any) => !!(a.isCorrect ?? a.is_correct ?? false))
+            .filter((a) => a.isCorrect)
             .map((a) => (a.text || "").trim());
     }, [currentQuestion]);
 

@@ -11,7 +11,7 @@ export function MultiChoiceQuestion() {
         <div className="flex flex-col gap-3">
             {currentQuestion.answers.map((answer, i) => {
                 const answerState = userAnswers[i] || 0;
-                const isCorrect = !!((answer as any).isCorrect ?? (answer as any).is_correct ?? false);
+                const isCorrect = answer.isCorrect;
                 const isUserCorrect = (answerState === 1 && isCorrect) || (answerState === 3 && !isCorrect);
 
                 let statusClass = "bg-white/[0.03] border-white/[0.03]";
@@ -54,7 +54,7 @@ export function MultiChoiceQuestion() {
                                 ✕
                             </button>
                         </div>
-                        <div className="flex-1 px-2"><Latex tex={(answer as any).text} /></div>
+                        <div className="flex-1 px-2"><Latex tex={answer.text} /></div>
                     </div>
                 );
             })}

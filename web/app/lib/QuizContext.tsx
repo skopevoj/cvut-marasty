@@ -84,11 +84,7 @@ export function QuizProvider({ children }: { children: ReactNode }) {
             }
           }
 
-          // In both cases, ensure topics array exists for filtering
-          allQuestions.push(...subQuestions.map(q => ({
-            ...q,
-            topics: q.topics || (q.topic ? [q.topic] : [])
-          })));
+          allQuestions.push(...subQuestions);
         }
         setQuestions(allQuestions);
       } catch (err) {
@@ -109,8 +105,7 @@ export function QuizProvider({ children }: { children: ReactNode }) {
     const filtered = questions.filter(q =>
       q.subjectCode === currentSubject.code &&
       (selectedTopics.length === 0 ||
-        (q.topics || []).some((id: string) => selectedTopics.includes(id)) ||
-        (q.topic && selectedTopics.includes(q.topic))
+        (q.topics || []).some((id: string) => selectedTopics.includes(id))
       )
     );
     setQuizQueue(filtered);
@@ -250,17 +245,17 @@ export function QuizProvider({ children }: { children: ReactNode }) {
     if (!currentQuestion) return;
 
     let isCorrect = false;
-    const qType = (currentQuestion.questionType || currentQuestion.question_type || 'multichoice').toLowerCase();
+    const qType = (currentQuestion.questionType || 'multichoice').toLowerCase();
 
     if (qType === 'open') {
       const correctAnswers = (currentQuestion.answers || [])
-        .filter((a: any) => a.isCorrect ?? a.is_correct ?? false)
+        .filter((a) => a.isCorrect)
         .map((a) => (a.text || "").trim());
       isCorrect = correctAnswers.some(c => c === (userTextAnswer || "").trim());
     } else {
       // For multichoice, check if all correct answers are correctly identified
       isCorrect = currentQuestion.answers.every((ans, i) => {
-        const isActuallyCorrect = !!(ans.isCorrect ?? ans.is_correct ?? false);
+        const isActuallyCorrect = !!ans.isCorrect;
         const userState = userAnswers[i] || 0;
         return (userState === 1 && isActuallyCorrect) || (userState === 3 && !isActuallyCorrect);
       });
@@ -276,7 +271,7 @@ export function QuizProvider({ children }: { children: ReactNode }) {
     saveAttempt({
       questionId: currentQuestion.id || 'unknown',
       subjectCode: currentQuestion.subjectCode,
-      topic: currentQuestion.topic || currentQuestion.topics?.[0] || 'unknown',
+      topic: currentQuestion.topics?.[0] || 'unknown',
       topics: currentQuestion.topics,
       timestamp: Date.now(),
       type: qType as any,

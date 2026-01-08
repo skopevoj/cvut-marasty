@@ -29,7 +29,7 @@ export function QuestionCard() {
         return helpers.getDisplayedPhoto(currentQuestion, showQuizPhoto);
     }, [currentQuestion, showQuizPhoto]);
 
-    const questionType = (currentQuestion.questionType || currentQuestion.question_type || 'multichoice').toLowerCase();
+    const questionType = (currentQuestion.questionType || 'multichoice').toLowerCase();
 
     return (
         <main className="glass-card-themed relative overflow-hidden rounded-3xl p-4 transition-all duration-300 md:p-8">
@@ -47,7 +47,7 @@ export function QuestionCard() {
                 hasQuizPhoto={!!currentQuestion.quizPhoto}
                 showQuizPhoto={showQuizPhoto}
                 onToggleQuizPhoto={() => setShowQuizPhoto(!showQuizPhoto)}
-                hasOriginalText={!!(currentQuestion.original_text || currentQuestion.originalText)}
+                hasOriginalText={!!currentQuestion.originalText}
                 showOriginalText={showOriginalText}
                 onToggleOriginalText={toggleOriginalText}
             />
@@ -57,10 +57,10 @@ export function QuestionCard() {
                 photoUrl={photoUrl as string}
             />
 
-            {showOriginalText && (currentQuestion.original_text || currentQuestion.originalText) && (
+            {showOriginalText && currentQuestion.originalText && (
                 <div className="mb-6 rounded-2xl border border-dashed border-[var(--border-default)] bg-[var(--bg-secondary)]/30 p-4 font-mono text-xs whitespace-pre-wrap opacity-70">
                     <div className="mb-2 text-[10px] uppercase tracking-wider text-[var(--fg-muted)]">Původní text:</div>
-                    {currentQuestion.original_text || currentQuestion.originalText}
+                    {currentQuestion.originalText}
                 </div>
             )}
 

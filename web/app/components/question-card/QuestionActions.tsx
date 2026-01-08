@@ -12,9 +12,9 @@ interface QuestionActionsProps {
     onToggleOriginalText: () => void;
 }
 
-export function QuestionActions({ 
-    hasQuizPhoto, 
-    showQuizPhoto, 
+export function QuestionActions({
+    hasQuizPhoto,
+    showQuizPhoto,
     onToggleQuizPhoto,
     hasOriginalText,
     showOriginalText,
