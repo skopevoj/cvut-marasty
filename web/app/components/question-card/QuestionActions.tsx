@@ -1,6 +1,6 @@
 'use client';
 
-import { Star, Pencil, ImageIcon, FileText } from "lucide-react";
+import { Star, TriangleAlert, ImageIcon, FileText } from "lucide-react";
 import { IconButton } from "../IconButton";
 
 interface QuestionActionsProps {
@@ -41,7 +41,7 @@ export function QuestionActions({
                 />
             )}
             <IconButton
-                icon={Pencil}
+                icon={TriangleAlert}
                 title="Navrhnout úpravu"
                 size={16}
             />

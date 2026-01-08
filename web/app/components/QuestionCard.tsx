@@ -33,10 +33,12 @@ export function QuestionCard() {
 
     return (
         <main className="glass-card-themed relative overflow-hidden rounded-3xl p-4 transition-all duration-300 md:p-8">
-            <div className="absolute top-0 left-0 right-0 h-px opacity-80" style={{
+            <div className="absolute top-0 left-0 right-0 h-px opacity-50" style={{
                 background: `linear-gradient(90deg, transparent, var(--subject-primary), transparent)`,
             }} />
-
+            <div className="absolute bottom-0 left-0 right-0 h-px opacity-50" style={{
+                background: `linear-gradient(90deg, transparent, var(--subject-primary), transparent)`,
+            }} />
             <BadgeList
                 topics={topics}
                 topicMap={topicMap}

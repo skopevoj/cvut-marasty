@@ -1,10 +1,16 @@
 'use client';
 
 import { useQuiz } from "../lib/QuizContext";
+import { useSettings } from "../lib/SettingsContext";
 import { Check, X } from "lucide-react";
 
 export function QuestionHistory() {
     const { currentQuestionStats } = useQuiz();
+    const { settings } = useSettings();
+
+    if (!settings.showStatsBar) {
+        return null;
+    }
 
     const totalAnswered = currentQuestionStats?.totalAnswered || 0;
     const history = currentQuestionStats?.history || [];

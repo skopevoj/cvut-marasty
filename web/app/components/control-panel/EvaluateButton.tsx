@@ -17,7 +17,7 @@ export function EvaluateButton({ onClick, disabled, showResults }: EvaluateButto
                 boxShadow: `
                     0 0 0 1px color-mix(in srgb, var(--subject-primary) 50%, transparent),
                     0 4px 12px color-mix(in srgb, var(--subject-primary) 25%, transparent),
-                    inset 0 1px 0 0 rgba(255, 255, 255, 0.15)
+                    inset 0 4px 6px 0 rgba(255, 255, 255, 0.4)
                 `,
             }}
         >
