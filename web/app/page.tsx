@@ -5,6 +5,7 @@ import { Header } from "./components/Header";
 import { QuestionCard } from "./components/QuestionCard";
 import { QuestionHistory } from "./components/QuestionHistory";
 import { ControlPanel } from "./components/ControlPanel";
+import { Footer } from "./components/Footer";
 
 export default function Home() {
   const { isLoading, error, currentSubject, currentSubjectDetails, quizQueue } = useQuiz();
@@ -42,6 +43,7 @@ export default function Home() {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 }
