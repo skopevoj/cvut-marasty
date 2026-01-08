@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -21,6 +21,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.x'
+
+      - name: Validate questions
+        run: python validate_questions.py
 
       - name: Process questions
         run: python process_questions.py
@@ -51,3 +54,27 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Get Current Date
+        id: date
+        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+      - name: Create Release Package
+        run: |
+          zip -r release-data-${{ steps.date.outputs.date }}.zip questions
+          zip -r release-web-${{ steps.date.outputs.date }}.zip web/out
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.date.outputs.date }}.${{ github.run_number }}
+          name: Release ${{ steps.date.outputs.date }}
+          body: |
+            Automated release of CVUT Marasty.
+            Contains updated question data and the production build of the web app.
+          files: |
+            release-data-${{ steps.date.outputs.date }}.zip
+            release-web-${{ steps.date.outputs.date }}.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
