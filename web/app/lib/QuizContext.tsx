@@ -32,6 +32,7 @@ interface QuizContextType {
   setTextAnswer: (value: string) => void;
   evaluate: () => void;
   shuffleQueue: () => void;
+  goToQuestion: (questionId: string) => void;
 }
 
 const QuizContext = createContext<QuizContextType | undefined>(undefined);
@@ -152,6 +153,29 @@ export function QuizProvider({ children }: { children: ReactNode }) {
     setShowResults(false);
   };
 
+  const goToQuestion = async (questionId: string) => {
+    const q = questions.find(item => item.id === questionId);
+    if (!q) return;
+
+    if (!currentSubject || currentSubject.code !== q.subjectCode) {
+      await selectSubject(q.subjectCode);
+    }
+
+    setSelectedTopics([]);
+    
+    const filteredQuestions = questions.filter(item => 
+      item.subjectCode === q.subjectCode
+    );
+    const index = filteredQuestions.findIndex(item => item.id === q.id);
+
+    if (index !== -1) {
+      setCurrentQuestionIndex(index);
+      setUserAnswers({});
+      setUserTextAnswer("");
+      setShowResults(false);
+    }
+  };
+
   const currentQuestion = quizQueue[currentQuestionIndex] || null;
 
   const currentQuestionStats = useMemo(() => {
@@ -251,7 +275,7 @@ export function QuizProvider({ children }: { children: ReactNode }) {
       quizQueue, currentQuestionIndex, currentQuestion, currentQuestionStats,
       userAnswers, userTextAnswer, showResults,
       isLoading, error, selectSubject, toggleTopic, nextQuestion, prevQuestion,
-      setAnswerState, setTextAnswer, evaluate, shuffleQueue
+      setAnswerState, setTextAnswer, evaluate, shuffleQueue, goToQuestion
     }}>
       {children}
     </QuizContext.Provider>
