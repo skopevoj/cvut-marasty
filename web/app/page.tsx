@@ -13,19 +13,14 @@ export default function Home() {
   if (isLoading) return <div className="quiz-container">Loading...</div>;
   if (error) return <div className="quiz-container">Error: {error}</div>;
 
-  const containerStyle = currentSubjectDetails ? {
-    '--subject-primary': currentSubjectDetails.primaryColor,
-    '--subject-secondary': currentSubjectDetails.secondaryColor,
-  } as React.CSSProperties : {};
-
   return (
-    <div className="mx-auto flex min-h-screen max-w-[1000px] flex-col px-5 py-10" data-theme="default" style={containerStyle}>
+    <div className="mx-auto flex min-h-screen max-w-[1000px] flex-col px-5 py-4" data-theme="default">
       <Header />
 
       <div className="flex flex-1 flex-col justify-center">
         {currentSubject ? (
           quizQueue.length > 0 ? (
-            <div className="flex flex-col gap-10 py-10">
+            <div className="flex flex-col gap-10 py-4">
               <div>
                 <QuestionHistory />
                 <QuestionCard />

@@ -60,6 +60,13 @@ export function QuizProvider({ children }: { children: ReactNode }) {
   const [showOriginalText, setShowOriginalText] = useState(false);
 
   useEffect(() => {
+    if (currentSubjectDetails) {
+      document.documentElement.style.setProperty('--subject-primary', currentSubjectDetails.primaryColor);
+      document.documentElement.style.setProperty('--subject-secondary', currentSubjectDetails.secondaryColor);
+    }
+  }, [currentSubjectDetails]);
+
+  useEffect(() => {
     async function fetchData() {
       try {
         const subRes = await fetch('subjects.json');
@@ -187,7 +194,7 @@ export function QuizProvider({ children }: { children: ReactNode }) {
 
   const shuffledAnswers = useMemo(() => {
     if (!currentQuestion || !currentQuestion.answers) return [];
-    
+
     if (settings.shuffleAnswers) {
       const answers = [...currentQuestion.answers];
       // Fisher-Yates shuffle
@@ -197,7 +204,7 @@ export function QuizProvider({ children }: { children: ReactNode }) {
       }
       return answers;
     }
-    
+
     return currentQuestion.answers;
   }, [currentQuestion, currentQuestionIndex, settings.shuffleAnswers]);
 

@@ -4,7 +4,7 @@ import { Github, MessageSquare } from 'lucide-react';
 
 export function Footer() {
     return (
-        <footer className="mt-auto py-8">
+        <footer className="mt-auto py-0">
             <div className="flex flex-col items-center justify-center gap-4 text-[var(--fg-muted)]">
                 <div className="flex items-center gap-6">
                     <a
