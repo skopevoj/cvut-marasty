@@ -22,10 +22,12 @@ interface QuizContextType {
   userAnswers: Record<number, number>;
   userTextAnswer: string;
   showResults: boolean;
+  showOriginalText: boolean;
   isLoading: boolean;
   error: string | null;
   selectSubject: (subjectCode: string | null) => void;
   toggleTopic: (topicId: string) => void;
+  toggleOriginalText: () => void;
   nextQuestion: () => void;
   prevQuestion: () => void;
   setAnswerState: (index: number, state: number) => void;
@@ -52,6 +54,7 @@ export function QuizProvider({ children }: { children: ReactNode }) {
   const [userAnswers, setUserAnswers] = useState<Record<number, number>>({});
   const [userTextAnswer, setUserTextAnswer] = useState<string>("");
   const [showResults, setShowResults] = useState(false);
+  const [showOriginalText, setShowOriginalText] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -146,6 +149,10 @@ export function QuizProvider({ children }: { children: ReactNode }) {
     setUserAnswers({});
     setUserTextAnswer("");
     setShowResults(false);
+  };
+
+  const toggleOriginalText = () => {
+    setShowOriginalText(prev => !prev);
   };
 
   const shuffleQueue = () => {
@@ -283,8 +290,8 @@ export function QuizProvider({ children }: { children: ReactNode }) {
     <QuizContext.Provider value={{
       subjects, questions, currentSubject, currentSubjectDetails, selectedTopics,
       quizQueue, currentQuestionIndex, currentQuestion, currentQuestionStats,
-      userAnswers, userTextAnswer, showResults,
-      isLoading, error, selectSubject, toggleTopic, nextQuestion, prevQuestion,
+      userAnswers, userTextAnswer, showResults, showOriginalText,
+      isLoading, error, selectSubject, toggleTopic, toggleOriginalText, nextQuestion, prevQuestion,
       setAnswerState, setTextAnswer, evaluate, shuffleQueue, goToQuestion
     }}>
       {children}

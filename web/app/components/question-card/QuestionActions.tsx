@@ -1,17 +1,36 @@
 'use client';
 
-import { Star, Pencil, ImageIcon } from "lucide-react";
+import { Star, Pencil, ImageIcon, FileText } from "lucide-react";
 import { IconButton } from "../IconButton";
 
 interface QuestionActionsProps {
     hasQuizPhoto: boolean;
     showQuizPhoto: boolean;
     onToggleQuizPhoto: () => void;
+    hasOriginalText: boolean;
+    showOriginalText: boolean;
+    onToggleOriginalText: () => void;
 }
 
-export function QuestionActions({ hasQuizPhoto, showQuizPhoto, onToggleQuizPhoto }: QuestionActionsProps) {
+export function QuestionActions({ 
+    hasQuizPhoto, 
+    showQuizPhoto, 
+    onToggleQuizPhoto,
+    hasOriginalText,
+    showOriginalText,
+    onToggleOriginalText
+}: QuestionActionsProps) {
     return (
         <div className="absolute top-4 right-4 z-10 flex gap-2">
+            {hasOriginalText && (
+                <IconButton
+                    onClick={onToggleOriginalText}
+                    icon={FileText}
+                    active={showOriginalText}
+                    title="Zobrazit původní text z Wordu"
+                    size={16}
+                />
+            )}
             {hasQuizPhoto && (
                 <IconButton
                     onClick={onToggleQuizPhoto}

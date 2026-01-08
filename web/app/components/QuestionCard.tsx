@@ -12,7 +12,7 @@ import { QuestionContent } from "./question-card/QuestionContent";
 import * as helpers from "../lib/questionHelpers";
 
 export function QuestionCard() {
-    const { currentQuestion, currentSubjectDetails } = useQuiz();
+    const { currentQuestion, currentSubjectDetails, showOriginalText, toggleOriginalText } = useQuiz();
     const [showQuizPhoto, setShowQuizPhoto] = useState(false);
 
     if (!currentQuestion) return null;
@@ -47,12 +47,22 @@ export function QuestionCard() {
                 hasQuizPhoto={!!currentQuestion.quizPhoto}
                 showQuizPhoto={showQuizPhoto}
                 onToggleQuizPhoto={() => setShowQuizPhoto(!showQuizPhoto)}
+                hasOriginalText={!!(currentQuestion.original_text || currentQuestion.originalText)}
+                showOriginalText={showOriginalText}
+                onToggleOriginalText={toggleOriginalText}
             />
 
             <QuestionContent
                 questionText={currentQuestion.question}
                 photoUrl={photoUrl as string}
             />
+
+            {showOriginalText && (currentQuestion.original_text || currentQuestion.originalText) && (
+                <div className="mb-6 rounded-2xl border border-dashed border-[var(--border-default)] bg-[var(--bg-secondary)]/30 p-4 font-mono text-xs whitespace-pre-wrap opacity-70">
+                    <div className="mb-2 text-[10px] uppercase tracking-wider text-[var(--fg-muted)]">Původní text:</div>
+                    {currentQuestion.original_text || currentQuestion.originalText}
+                </div>
+            )}
 
             {questionType === 'open' ? <OpenQuestion /> : <MultiChoiceQuestion />}
         </main>
