@@ -3,5 +3,35 @@
     "code": "dml",
     "description": "Popis dml",
     "primaryColor": "#34e1ed",
-    "secondaryColor": "#2e8d94"
+    "secondaryColor": "#2e8d94",
+    "topics": [
+        {
+            "id": "kombinatorika",
+            "name": "Kombinatorika"
+        },
+        {
+            "id": "logika",
+            "name": "Logika"
+        },
+        {
+            "id": "mnoziny",
+            "name": "Množiny"
+        },
+        {
+            "id": "pravdepodobnost",
+            "name": "Pravděpodobnost"
+        },
+        {
+            "id": "relace",
+            "name": "Relace"
+        },
+        {
+            "id": "teorie-cisel",
+            "name": "Teorie čísel"
+        },
+        {
+            "id": "zobrazeni",
+            "name": "Zobrazení"
+        }
+    ]
 }
