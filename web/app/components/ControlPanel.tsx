@@ -22,8 +22,8 @@ export function ControlPanel() {
 
     return (
         <footer className="glass-card-themed rounded-3xl p-2.5 transition-all duration-300 md:p-4">
-            <div className="flex items-center justify-between gap-2 md:gap-3">
-                <div className="flex items-center gap-1.5 md:gap-2">
+            <div className="flex items-center gap-2 md:gap-3">
+                <div className="flex flex-1 items-center gap-1.5 md:gap-2">
                     {sortType === 'random' && (
                         <ShuffleButton
                             onClick={shuffleQueue}
@@ -39,11 +39,13 @@ export function ControlPanel() {
                     onNext={nextQuestion}
                 />
 
-                <EvaluateButton
-                    onClick={showResults ? nextQuestion : evaluate}
-                    disabled={showResults && currentQuestionIndex === quizQueue.length - 1}
-                    showResults={showResults}
-                />
+                <div className="flex flex-1 justify-end">
+                    <EvaluateButton
+                        onClick={showResults ? nextQuestion : evaluate}
+                        disabled={showResults && currentQuestionIndex === quizQueue.length - 1}
+                        showResults={showResults}
+                    />
+                </div>
             </div>
         </footer>
     );
