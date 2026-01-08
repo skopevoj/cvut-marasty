@@ -27,6 +27,8 @@
   --border-default: rgba(255, 255, 255, 0.05);
   --border-hover: rgba(255, 255, 255, 0.1);
 
+  --button-bg: #0000001a;
+
   --success: #10b981;
   --error: #ef4444;
 
@@ -53,15 +55,20 @@
 
 body {
   background-color: var(--bg-color);
+  background-image:
+    radial-gradient(at 20% 30%, rgba(168, 85, 247, 0.03) 0px, transparent 50%),
+    radial-gradient(at 80% 70%, rgba(192, 132, 252, 0.03) 0px, transparent 50%);
   color: var(--fg-primary);
   font-family: system-ui, -apple-system, sans-serif;
   min-height: 100vh;
 }
+
 @layer utilities {
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
