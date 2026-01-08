@@ -2,8 +2,8 @@
     "name": "Diskrétní Matematika a Logika",
     "code": "dml",
     "description": "Popis dml",
-    "primaryColor": "#34e1ed",
-    "secondaryColor": "#2e8d94",
+    "primaryColor": "#a259e6",
+    "secondaryColor": "#6c3483",
     "topics": [
         {
             "id": "kombinatorika",

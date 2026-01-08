@@ -2,8 +2,8 @@
     "name": "Matematická Analýza 2",
     "code": "ma2",
     "description": "Popis ma2",
-    "primaryColor": "#34e1ed",
-    "secondaryColor": "#2e8d94",
+    "primaryColor": "#1e90ff",
+    "secondaryColor": "#1565c0",
     "topics": [
         {
             "id": "0102-rozstrel",
