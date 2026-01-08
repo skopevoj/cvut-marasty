@@ -11,9 +11,9 @@ interface SubjectSelectorProps {
 
 export function SubjectSelector({ subjects, currentSubject, onSelectSubject }: SubjectSelectorProps) {
     return (
-        <div className="relative">
+        <div className="relative min-w-0 flex-shrink sm:flex-initial">
             <select
-                className="focus-ring h-[44px] appearance-none rounded-xl border px-4 pr-10 text-[14px] font-medium transition-all duration-200 outline-none"
+                className="focus-ring h-[44px] w-full max-w-[120px] sm:max-w-none appearance-none rounded-xl border px-3 sm:px-4 pr-8 sm:pr-10 text-[14px] font-medium transition-all duration-200 outline-none"
                 value={currentSubject?.code || ''}
                 onChange={(e) => onSelectSubject(e.target.value)}
                 style={{
@@ -24,7 +24,7 @@ export function SubjectSelector({ subjects, currentSubject, onSelectSubject }: S
                 }}
             >
                 <option value="" style={{ color: 'var(--fg-primary)', background: 'var(--bg-elevated)' }}>
-                    Select Subject
+                    Předmět
                 </option>
                 {subjects?.map(subject => (
                     <option
@@ -32,12 +32,12 @@ export function SubjectSelector({ subjects, currentSubject, onSelectSubject }: S
                         value={subject.code}
                         style={{ color: 'var(--fg-primary)', background: 'var(--bg-elevated)' }}
                     >
-                        {subject.name}
+                        {subject.code.toUpperCase()}
                     </option>
                 ))}
             </select>
             <ChevronDown
-                className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 opacity-60"
+                className="pointer-events-none absolute right-2.5 sm:right-3 top-1/2 h-4 w-4 -translate-y-1/2 opacity-60"
                 style={{ color: 'var(--fg-primary)' }}
             />
         </div>

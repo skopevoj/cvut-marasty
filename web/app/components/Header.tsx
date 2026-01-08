@@ -37,12 +37,12 @@ export function Header() {
     }, [searchQuery, currentSubject, questions]);
 
     return (
-        <header className="glass-card-themed relative z-50 rounded-3xl p-3 px-3 transition-all duration-300 md:p-4">
+        <header className="glass-card-themed relative z-50 rounded-3xl p-2 md:p-4 transition-all duration-300">
             <div className="absolute bottom-0 left-0 right-0 h-px opacity-50" />
 
-            <div className="relative flex items-center justify-between gap-3">
+            <div className="relative flex items-center justify-between gap-2 md:gap-3">
                 {isSearchOpen ? (
-                    <div className="flex flex-1 items-center gap-3">
+                    <div className="flex flex-1 items-center gap-2 md:gap-3">
                         <SearchBar
                             inputRef={searchInputRef}
                             searchQuery={searchQuery}
@@ -51,7 +51,7 @@ export function Header() {
                                 setIsSearchOpen(false);
                                 setSearchQuery("");
                             }}
-                            placeholder={`Hledat v ${currentSubject?.name || 'předmětu'}...`}
+                            placeholder={currentSubject ? `Hledat v ${currentSubject.code}...` : "Hledat..."}
                         />
                         <SearchResults
                             results={searchResults}
@@ -65,7 +65,7 @@ export function Header() {
                     </div>
                 ) : (
                     <>
-                        <div className="flex flex-1 items-center gap-3 min-w-0">
+                        <div className="flex flex-1 items-center gap-2 md:gap-3 min-w-0">
                             <SubjectSelector
                                 subjects={subjects}
                                 currentSubject={currentSubject}
@@ -74,7 +74,7 @@ export function Header() {
 
                             <div className="hidden h-6 w-px bg-[var(--border-default)] shrink-0 sm:block" />
 
-                            <div className="flex-1 min-w-0">
+                            <div className="min-w-0">
                                 {currentSubject && (
                                     <MultiSelect
                                         label="Kategorie"
@@ -86,7 +86,7 @@ export function Header() {
                             </div>
                         </div>
 
-                        <div className="flex shrink-0 items-center gap-2">
+                        <div className="flex shrink-0 items-center gap-1.5 md:gap-2">
                             <IconButton
                                 onClick={() => setIsSearchOpen(true)}
                                 icon={Search}

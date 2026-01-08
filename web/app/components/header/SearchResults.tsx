@@ -14,7 +14,7 @@ export function SearchResults({ results, topicMap, onQuestionClick }: SearchResu
 
     return (
         <div
-            className="absolute top-[54px] left-[-12px] right-[-12px] rounded-3xl border shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[100]"
+            className="absolute top-[calc(100%+8px)] left-[-8px] right-[-8px] md:left-[-16px] md:right-[-16px] rounded-3xl border shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[100]"
             style={{
                 borderColor: 'rgba(255, 255, 255, 0.1)',
                 backgroundColor: 'rgba(10, 10, 12, 0.85)',

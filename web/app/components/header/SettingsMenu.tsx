@@ -15,7 +15,7 @@ export function SettingsMenu({ onClose }: SettingsMenuProps) {
     };
 
     return (
-        <div 
+        <div
             className="absolute top-[54px] right-0 w-64 rounded-3xl border shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[100] overflow-hidden"
             style={{
                 borderColor: 'rgba(255, 255, 255, 0.1)',
@@ -33,7 +33,7 @@ export function SettingsMenu({ onClose }: SettingsMenuProps) {
                     <X size={18} />
                 </button>
             </div>
-            
+
             <div className="p-2">
                 <button
                     onClick={() => toggle('showStatsBar')}

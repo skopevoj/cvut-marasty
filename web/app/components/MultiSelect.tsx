@@ -1,16 +1,17 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { ChevronDown, Check } from 'lucide-react';
+import { ChevronDown, Check, LucideIcon, Layers } from 'lucide-react';
 
 interface MultiSelectProps {
     options: { id: string, name: string }[];
     selected: string[];
     onToggle: (id: string) => void;
     label: string;
+    icon?: LucideIcon;
 }
 
-export function MultiSelect({ options, selected, onToggle, label }: MultiSelectProps) {
+export function MultiSelect({ options, selected, onToggle, label, icon: Icon = Layers }: MultiSelectProps) {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -28,7 +29,7 @@ export function MultiSelect({ options, selected, onToggle, label }: MultiSelectP
         <div className="relative" ref={dropdownRef}>
             <button
                 type="button"
-                className="flex h-[44px] min-w-[160px] cursor-pointer items-center justify-between rounded-xl border px-4 text-[14px] font-medium transition-all outline-none"
+                className="flex h-[44px] cursor-pointer items-center justify-between rounded-xl border px-3 sm:px-4 text-[14px] font-medium transition-all outline-none gap-2"
                 style={{
                     color: 'var(--fg-primary)',
                     borderColor: 'color-mix(in srgb, var(--subject-primary) 20%, transparent)',
@@ -38,14 +39,15 @@ export function MultiSelect({ options, selected, onToggle, label }: MultiSelectP
                 onClick={() => setIsOpen(!isOpen)}
             >
                 <div className="flex items-center gap-2">
-                    {selected.length > 0 && (
+                    <Icon size={18} className="text-[var(--fg-muted)] sm:hidden" />
+                    {/* {selected.length > 0 && (
                         <span className="flex h-5 items-center justify-center rounded-md bg-[var(--subject-primary)] px-1.5 text-[10px] font-bold text-white shadow-[0_0_10px_rgba(var(--subject-primary),0.3)]">
                             {selected.length}
                         </span>
-                    )}
-                    <span>{selected.length === 0 ? label : 'Kategorie'}</span>
+                    )} */}
+                    <span className="hidden sm:inline">{selected.length === 0 ? label : 'Kategorie'}</span>
                 </div>
-                <ChevronDown size={14} className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown size={14} className={`hidden sm:block transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
             </button>
 
             {isOpen && (
