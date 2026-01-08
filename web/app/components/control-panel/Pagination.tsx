@@ -15,7 +15,7 @@ export function Pagination({ currentIndex, total, onPrev, onNext }: PaginationPr
             <button
                 onClick={onPrev}
                 disabled={currentIndex === 0}
-                className="rounded-lg border border-[var(--border-default)] bg-[var(--bg-surface)] p-2 text-[var(--fg-muted)] transition-all duration-200 hover:border-[var(--subject-border)] hover:bg-[var(--subject-bg)] hover:text-[var(--subject-primary)] active:scale-95 disabled:cursor-not-allowed disabled:opacity-30 md:p-2.5"
+                className="rounded-lg border border-[var(--border-default)] bg-[var(--button-bg)] p-2 text-[var(--fg-muted)] transition-all duration-200 hover:border-[var(--subject-border)] hover:bg-[var(--subject-bg)] hover:text-[var(--subject-primary)] active:scale-95 disabled:cursor-not-allowed disabled:opacity-30 md:p-2.5"
             >
                 <ChevronLeft size={20} />
             </button>
@@ -27,7 +27,7 @@ export function Pagination({ currentIndex, total, onPrev, onNext }: PaginationPr
             <button
                 onClick={onNext}
                 disabled={currentIndex === total - 1}
-                className="rounded-lg border border-[var(--border-default)] bg-[var(--bg-surface)] p-2 text-[var(--fg-muted)] transition-all duration-200 hover:border-[var(--subject-border)] hover:bg-[var(--subject-bg)] hover:text-[var(--subject-primary)] active:scale-95 disabled:cursor-not-allowed disabled:opacity-30 md:p-2.5"
+                className="rounded-lg border border-[var(--border-default)] bg-[var(--button-bg)] p-2 text-[var(--fg-muted)] transition-all duration-200 hover:border-[var(--subject-border)] hover:bg-[var(--subject-bg)] hover:text-[var(--subject-primary)] active:scale-95 disabled:cursor-not-allowed disabled:opacity-30 md:p-2.5"
             >
                 <ChevronRight size={20} />
             </button>
