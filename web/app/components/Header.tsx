@@ -3,16 +3,18 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
 import { useQuiz } from "../lib/QuizContext";
 import { MultiSelect } from "./MultiSelect";
-import { Search, Star } from "lucide-react";
+import { Search, Star, Settings } from "lucide-react";
 import { SubjectSelector } from "./header/SubjectSelector";
 import { SearchBar } from "./header/SearchBar";
 import { SearchResults } from "./header/SearchResults";
+import { SettingsMenu } from "./header/SettingsMenu";
 import * as helpers from "../lib/headerHelpers";
 import { IconButton } from "./IconButton";
 
 export function Header() {
     const { subjects, currentSubject, currentSubjectDetails, selectSubject, toggleTopic, selectedTopics, questions, goToQuestion } = useQuiz();
     const [isSearchOpen, setIsSearchOpen] = useState(false);
+    const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -94,6 +96,17 @@ export function Header() {
                                 icon={Star}
                                 title="Oblíbené"
                             />
+                            <div className="relative">
+                                <IconButton
+                                    onClick={() => setIsSettingsOpen(!isSettingsOpen)}
+                                    icon={Settings}
+                                    title="Nastavení"
+                                    active={isSettingsOpen}
+                                />
+                                {isSettingsOpen && (
+                                    <SettingsMenu onClose={() => setIsSettingsOpen(false)} />
+                                )}
+                            </div>
                         </div>
                     </>
                 )}

@@ -5,6 +5,7 @@ import { Subject } from './types/subject';
 import { Question } from './types/question';
 import { statsHelper } from './statsHelper';
 import { useStats } from './StatsContext';
+import { useSettings } from './SettingsContext';
 
 interface QuizContextType {
   subjects: Subject[];
@@ -15,6 +16,7 @@ interface QuizContextType {
   quizQueue: Question[];
   currentQuestionIndex: number;
   currentQuestion: Question | null;
+  shuffledAnswers: any[];
   currentQuestionStats: {
     totalAnswered: number;
     history: { timestamp: number; isCorrect: boolean }[];
@@ -41,6 +43,7 @@ const QuizContext = createContext<QuizContextType | undefined>(undefined);
 
 export function QuizProvider({ children }: { children: ReactNode }) {
   const { attempts, saveAttempt } = useStats();
+  const { settings } = useSettings();
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -182,6 +185,22 @@ export function QuizProvider({ children }: { children: ReactNode }) {
 
   const currentQuestion = quizQueue[currentQuestionIndex] || null;
 
+  const shuffledAnswers = useMemo(() => {
+    if (!currentQuestion || !currentQuestion.answers) return [];
+    
+    if (settings.shuffleAnswers) {
+      const answers = [...currentQuestion.answers];
+      // Fisher-Yates shuffle
+      for (let i = answers.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [answers[i], answers[j]] = [answers[j], answers[i]];
+      }
+      return answers;
+    }
+    
+    return currentQuestion.answers;
+  }, [currentQuestion, currentQuestionIndex, settings.shuffleAnswers]);
+
   const currentQuestionStats = useMemo(() => {
     if (!currentQuestion) return null;
     const questionAttempts = attempts
@@ -246,7 +265,7 @@ export function QuizProvider({ children }: { children: ReactNode }) {
       isCorrect = correctAnswers.some(c => c === (userTextAnswer || "").trim());
     } else {
       // For multichoice, check if all correct answers are correctly identified
-      isCorrect = currentQuestion.answers.every((ans, i) => {
+      isCorrect = shuffledAnswers.every((ans, i) => {
         const isActuallyCorrect = !!ans.isCorrect;
         const userState = userAnswers[i] || 0;
         return (userState === 1 && isActuallyCorrect) || (userState === 3 && !isActuallyCorrect);
@@ -255,7 +274,7 @@ export function QuizProvider({ children }: { children: ReactNode }) {
 
     const statsUserAnswers = qType === 'open'
       ? userTextAnswer
-      : currentQuestion.answers.reduce((acc, ans, i) => {
+      : shuffledAnswers.reduce((acc, ans, i) => {
         acc[ans.index ?? i] = userAnswers[i] || 0;
         return acc;
       }, {} as Record<number, number>);
@@ -276,7 +295,7 @@ export function QuizProvider({ children }: { children: ReactNode }) {
   return (
     <QuizContext.Provider value={{
       subjects, questions, currentSubject, currentSubjectDetails, selectedTopics,
-      quizQueue, currentQuestionIndex, currentQuestion, currentQuestionStats,
+      quizQueue, currentQuestionIndex, currentQuestion, shuffledAnswers, currentQuestionStats,
       userAnswers, userTextAnswer, showResults, showOriginalText,
       isLoading, error, selectSubject, toggleTopic, toggleOriginalText, nextQuestion, prevQuestion,
       setAnswerState, setTextAnswer, evaluate, shuffleQueue, goToQuestion
