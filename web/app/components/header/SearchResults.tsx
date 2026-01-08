@@ -7,34 +7,39 @@ interface SearchResultsProps {
     results: Question[];
     topicMap: any;
     onQuestionClick: (id: string) => void;
+    className?: string;
 }
 
-export function SearchResults({ results, topicMap, onQuestionClick }: SearchResultsProps) {
-    if (results.length === 0) return null;
+export function SearchResults({ results, topicMap, onQuestionClick, className = "" }: SearchResultsProps) {
+    const isDropdown = !className.includes("modal-list");
+
+    if (results.length === 0 && isDropdown) return null;
 
     return (
         <div
-            className="absolute top-[calc(100%+8px)] left-[-8px] right-[-8px] md:left-[-16px] md:right-[-16px] rounded-3xl border shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[100]"
-            style={{
-                borderColor: 'rgba(255, 255, 255, 0.1)',
-                backgroundColor: 'rgba(10, 10, 12, 0.85)',
-                backdropFilter: 'saturate(180%) blur(20px)',
-                WebkitBackdropFilter: 'saturate(180%) blur(20px)',
-            }}
+            className={isDropdown
+                ? `glass-card-themed absolute top-[calc(100%+8px)] z-[100] overflow-hidden rounded-3xl ${className || "left-[-8px] right-[-8px] md:left-[-16px] md:right-[-16px]"}`
+                : `w-full ${className}`}
         >
-            <div className="max-h-[400px] overflow-y-auto overflow-x-hidden scrollbar-hide rounded-3xl">
-                {results.map((question) => (
-                    <button
-                        key={question.id}
-                        className="w-full border-b border-[var(--border-default)] p-4 text-left transition-colors hover:bg-white/[0.05] last:border-0"
-                        onClick={() => onQuestionClick(question.id)}
-                    >
-                        <div className="mb-1 text-[10px] font-bold uppercase tracking-wider text-[var(--subject-primary)] opacity-70">
-                            {question.topics.map((id: string) => topicMap[id] || id).join(' • ')}
-                        </div>
-                        <Latex tex={question.question} className="line-clamp-2 text-sm text-[var(--fg-primary)]" />
-                    </button>
-                ))}
+            <div className={`${isDropdown ? "max-h-[400px]" : ""} overflow-y-auto overflow-x-hidden scrollbar-hide rounded-3xl`}>
+                {results.length === 0 ? (
+                    <div className="p-8 text-center text-[var(--fg-muted)]">
+                        <p className="text-sm">Žádné výsledky</p>
+                    </div>
+                ) : (
+                    results.map((question) => (
+                        <button
+                            key={question.id}
+                            className="w-full border-b border-white/5 p-4 text-left transition-colors hover:bg-white/[0.05] last:border-0"
+                            onClick={() => onQuestionClick(question.id)}
+                        >
+                            <div className="mb-1 text-[10px] font-bold uppercase tracking-wider text-[var(--subject-primary)] opacity-70">
+                                {question.topics.map((id: string) => topicMap[id] || id).join(' • ')}
+                            </div>
+                            <Latex tex={question.question} className="line-clamp-2 text-sm text-[var(--fg-primary)]" />
+                        </button>
+                    ))
+                )}
             </div>
         </div>
     );
