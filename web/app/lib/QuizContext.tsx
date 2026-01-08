@@ -7,12 +7,15 @@ import { statsHelper } from './statsHelper';
 import { useStats } from './StatsContext';
 import { useSettings } from './SettingsContext';
 
+export type SortType = 'random' | 'id' | 'least-answered' | 'worst-ratio';
+
 interface QuizContextType {
   subjects: Subject[];
   questions: Question[];
   currentSubject: Subject | null;
   currentSubjectDetails: any | null;
   selectedTopics: string[];
+  sortType: SortType;
   quizQueue: Question[];
   currentQuestionIndex: number;
   currentQuestion: Question | null;
@@ -29,6 +32,7 @@ interface QuizContextType {
   error: string | null;
   selectSubject: (subjectCode: string | null) => void;
   toggleTopic: (topicId: string) => void;
+  setSortType: (sortType: SortType) => void;
   toggleOriginalText: () => void;
   nextQuestion: () => void;
   prevQuestion: () => void;
@@ -52,12 +56,14 @@ export function QuizProvider({ children }: { children: ReactNode }) {
   const [currentSubject, setCurrentSubject] = useState<Subject | null>(null);
   const [currentSubjectDetails, setCurrentSubjectDetails] = useState<any | null>(null);
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
+  const [sortType, setSortType] = useState<SortType>('id');
   const [quizQueue, setQuizQueue] = useState<Question[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState<Record<number, number>>({});
   const [userTextAnswer, setUserTextAnswer] = useState<string>("");
   const [showResults, setShowResults] = useState(false);
   const [showOriginalText, setShowOriginalText] = useState(false);
+  const [targetQuestionId, setTargetQuestionId] = useState<string | null>(null);
 
   useEffect(() => {
     if (currentSubjectDetails) {
@@ -87,14 +93,73 @@ export function QuizProvider({ children }: { children: ReactNode }) {
       setQuizQueue([]);
       return;
     }
-    const filtered = questions.filter(q =>
+    let filtered = questions.filter(q =>
       q.subjectCode === currentSubject.code &&
       (selectedTopics.length === 0 ||
         (q.topics || []).some((id: string) => selectedTopics.includes(id))
       )
     );
+
+    if (sortType === 'id') {
+      filtered.sort((a, b) => a.id.localeCompare(b.id));
+    } else if (sortType === 'least-answered') {
+      const counts = attempts.reduce((acc, a) => {
+        acc[a.questionId] = (acc[a.questionId] || 0) + 1;
+        return acc;
+      }, {} as Record<string, number>);
+      filtered.sort((a, b) => {
+        const countA = counts[a.id] || 0;
+        const countB = counts[b.id] || 0;
+        if (countA === countB) return a.id.localeCompare(b.id);
+        return countA - countB;
+      });
+    } else if (sortType === 'worst-ratio') {
+      const stats = filtered.reduce((acc, q) => {
+        const qAttempts = attempts.filter(a => a.questionId === q.id);
+        const total = qAttempts.length;
+        if (total === 0) {
+          acc[q.id] = 2; // Value > 1 to put unanswered at the end
+          return acc;
+        }
+        const correct = qAttempts.filter(a => statsHelper.isAttemptCorrect(a, q)).length;
+        acc[q.id] = correct / total;
+        return acc;
+      }, {} as Record<string, number>);
+
+      filtered.sort((a, b) => {
+        const ratioA = stats[a.id];
+        const ratioB = stats[b.id];
+        if (ratioA === ratioB) return a.id.localeCompare(b.id);
+        return ratioA - ratioB;
+      });
+    } else if (sortType === 'random') {
+      // Fisher-Yates shuffle
+      for (let i = filtered.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [filtered[i], filtered[j]] = [filtered[j], filtered[i]];
+      }
+    }
+
     setQuizQueue(filtered);
-  }, [questions, currentSubject, selectedTopics]);
+
+    if (targetQuestionId) {
+      const index = filtered.findIndex(q => q.id === targetQuestionId);
+      if (index !== -1) {
+        setCurrentQuestionIndex(index);
+        setTargetQuestionId(null);
+        setUserAnswers({});
+        setUserTextAnswer("");
+        setShowResults(false);
+      }
+    }
+  }, [questions, currentSubject, selectedTopics, sortType, attempts, targetQuestionId]);
+
+  useEffect(() => {
+    setCurrentQuestionIndex(0);
+    setUserAnswers({});
+    setUserTextAnswer("");
+    setShowResults(false);
+  }, [currentSubject, selectedTopics, sortType]);
 
   const selectSubject = async (code: string | null) => {
     const sub = subjects.find(s => s.code === code) || null;
@@ -132,7 +197,8 @@ export function QuizProvider({ children }: { children: ReactNode }) {
     }
 
     setSelectedTopics([]);
-    setCurrentQuestionIndex(0);
+    // Remove manual index reset here as goToQuestion will handle navigation
+    // setCurrentQuestionIndex(0);
     setUserAnswers({});
     setUserTextAnswer("");
     setShowResults(false);
@@ -168,26 +234,19 @@ export function QuizProvider({ children }: { children: ReactNode }) {
   };
 
   const goToQuestion = async (questionId: string) => {
-    const q = questions.find(item => item.id === questionId);
+    // Try current questions first
+    let q = questions.find(item => item.id === questionId);
+
+    // If not found and we have subjects, we might need to load another subject
+    // But for now, search and favorites are filtered by the active subject's questions
     if (!q) return;
 
     if (!currentSubject || currentSubject.code !== q.subjectCode) {
       await selectSubject(q.subjectCode);
     }
 
+    setTargetQuestionId(questionId);
     setSelectedTopics([]);
-
-    const filteredQuestions = questions.filter(item =>
-      item.subjectCode === q.subjectCode
-    );
-    const index = filteredQuestions.findIndex(item => item.id === q.id);
-
-    if (index !== -1) {
-      setCurrentQuestionIndex(index);
-      setUserAnswers({});
-      setUserTextAnswer("");
-      setShowResults(false);
-    }
   };
 
   const currentQuestion = quizQueue[currentQuestionIndex] || null;
@@ -301,10 +360,10 @@ export function QuizProvider({ children }: { children: ReactNode }) {
 
   return (
     <QuizContext.Provider value={{
-      subjects, questions, currentSubject, currentSubjectDetails, selectedTopics,
+      subjects, questions, currentSubject, currentSubjectDetails, selectedTopics, sortType,
       quizQueue, currentQuestionIndex, currentQuestion, shuffledAnswers, currentQuestionStats,
       userAnswers, userTextAnswer, showResults, showOriginalText,
-      isLoading, error, selectSubject, toggleTopic, toggleOriginalText, nextQuestion, prevQuestion,
+      isLoading, error, selectSubject, toggleTopic, setSortType, toggleOriginalText, nextQuestion, prevQuestion,
       setAnswerState, setTextAnswer, evaluate, shuffleQueue, goToQuestion
     }}>
       {children}

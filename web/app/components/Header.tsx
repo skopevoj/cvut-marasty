@@ -1,13 +1,14 @@
 'use client';
 
 import { useState, useMemo, useRef, useEffect } from 'react';
-import { useQuiz } from "../lib/QuizContext";
+import { useQuiz, SortType } from "../lib/QuizContext";
 import { MultiSelect } from "./MultiSelect";
 import { Search, Star, Settings } from "lucide-react";
 import { SubjectSelector } from "./header/SubjectSelector";
 import { SearchBar } from "./header/SearchBar";
 import { SearchResults } from "./header/SearchResults";
 import { SettingsMenu } from "./header/SettingsMenu";
+import { SortSelector } from "./header/SortSelector";
 import { favoritesHelper, useFavorites } from "../lib/favoritesHelper";
 import * as helpers from "../lib/headerHelpers";
 import { IconButton } from "./IconButton";
@@ -15,7 +16,7 @@ import { IconButton } from "./IconButton";
 import { Modal } from "./Modal";
 
 export function Header() {
-    const { subjects, currentSubject, currentSubjectDetails, selectSubject, toggleTopic, selectedTopics, questions, goToQuestion } = useQuiz();
+    const { subjects, currentSubject, currentSubjectDetails, selectSubject, toggleTopic, selectedTopics, sortType, setSortType, questions, goToQuestion } = useQuiz();
     const favorites = useFavorites();
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -84,14 +85,20 @@ export function Header() {
 
                                 <div className="hidden h-6 w-px bg-[var(--border-default)] shrink-0 sm:block" />
 
-                                <div className="min-w-0">
+                                <div className="min-w-0 flex items-center gap-2">
                                     {currentSubject && (
-                                        <MultiSelect
-                                            label="Kategorie"
-                                            options={availableTopics}
-                                            selected={selectedTopics}
-                                            onToggle={toggleTopic}
-                                        />
+                                        <>
+                                            <MultiSelect
+                                                label="Kategorie"
+                                                options={availableTopics}
+                                                selected={selectedTopics}
+                                                onToggle={toggleTopic}
+                                            />
+                                            <SortSelector
+                                                sortType={sortType}
+                                                onSelectSort={setSortType}
+                                            />
+                                        </>
                                     )}
                                 </div>
                             </div>

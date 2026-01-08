@@ -14,7 +14,8 @@ export function ControlPanel() {
         currentSubject,
         evaluate,
         showResults,
-        shuffleQueue
+        shuffleQueue,
+        sortType
     } = useQuiz();
 
     if (!currentSubject || quizQueue.length === 0) return null;
@@ -23,10 +24,12 @@ export function ControlPanel() {
         <footer className="glass-card-themed rounded-3xl p-2.5 transition-all duration-300 md:p-4">
             <div className="flex items-center justify-between gap-2 md:gap-3">
                 <div className="flex items-center gap-1.5 md:gap-2">
-                    <ShuffleButton
-                        onClick={shuffleQueue}
-                        disabled={quizQueue.length <= 1}
-                    />
+                    {sortType === 'random' && (
+                        <ShuffleButton
+                            onClick={shuffleQueue}
+                            disabled={quizQueue.length <= 1}
+                        />
+                    )}
                 </div>
 
                 <Pagination
