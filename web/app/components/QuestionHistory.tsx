@@ -4,17 +4,14 @@ import { useQuiz } from "../lib/QuizContext";
 import { Check, X } from "lucide-react";
 
 export function QuestionHistory() {
-    const { currentQuestionStats, showResults } = useQuiz();
+    const { currentQuestionStats } = useQuiz();
 
-    if (!showResults || !currentQuestionStats || currentQuestionStats.totalAnswered === 0) {
-        return null;
-    }
-
-    const { totalAnswered, history } = currentQuestionStats;
+    const totalAnswered = currentQuestionStats?.totalAnswered || 0;
+    const history = currentQuestionStats?.history || [];
     const correctCount = history.filter(h => h.isCorrect).length;
-    const successRate = Math.round((correctCount / totalAnswered) * 100);
+    const successRate = totalAnswered > 0 ? Math.round((correctCount / totalAnswered) * 100) : 0;
 
-    // Show last 10 attempts in chronological order (most recent on the right)
+    // Show last 15 attempts in chronological order (most recent on the right)
     const recentHistory = [...history].reverse().slice(-15);
 
     return (
@@ -22,24 +19,28 @@ export function QuestionHistory() {
             <div className="flex items-center gap-1.5 min-w-fit">
                 <span className="text-[var(--fg-muted)] uppercase tracking-wider">Úspěšnost</span>
                 <span
-                    className={successRate >= 50 ? "text-[var(--success)]" : "text-[var(--error)]"}
+                    className={totalAnswered > 0 ? (successRate >= 50 ? "text-[var(--success)]" : "text-[var(--error)]") : "text-[var(--fg-muted)]"}
                 >
-                    {successRate}%
+                    {totalAnswered > 0 ? `${successRate}%` : "-"}
                 </span>
             </div>
 
             <div className="flex items-center gap-1 overflow-x-auto scrollbar-hide py-0.5">
-                {recentHistory.map((attempt, i) => (
-                    <div
-                        key={attempt.timestamp + i}
-                        className={`flex items-center justify-center w-4 h-4 rounded-sm border ${attempt.isCorrect
-                            ? "border-[var(--success)]/30 bg-[var(--success)]/10 text-[var(--success)]"
-                            : "border-[var(--error)]/30 bg-[var(--error)]/10 text-[var(--error)]"
-                            }`}
-                    >
-                        {attempt.isCorrect ? <Check size={10} /> : <X size={10} />}
-                    </div>
-                ))}
+                {totalAnswered > 0 ? (
+                    recentHistory.map((attempt, i) => (
+                        <div
+                            key={attempt.timestamp + i}
+                            className={`flex items-center justify-center w-4 h-4 rounded-sm border ${attempt.isCorrect
+                                ? "border-[var(--success)]/30 bg-[var(--success)]/10 text-[var(--success)]"
+                                : "border-[var(--error)]/30 bg-[var(--error)]/10 text-[var(--error)]"
+                                }`}
+                        >
+                            {attempt.isCorrect ? <Check size={10} /> : <X size={10} />}
+                        </div>
+                    ))
+                ) : (
+                    <span className="text-xs text-[var(--fg-muted)] lowercase italic opacity-50 px-2">zatím nezodpovězeno</span>
+                )}
             </div>
 
             <div className="flex items-center gap-1.5 min-w-fit text-[var(--fg-muted)] uppercase tracking-wider">
