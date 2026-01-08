@@ -45,7 +45,7 @@ export function Header() {
             .filter(q => q.subjectCode === currentSubject.code)
             .filter(q => {
                 const textMatch = (q.question || "").toLowerCase().includes(query);
-                const answerMatch = (q.answers || []).some((a: any) => 
+                const answerMatch = (q.answers || []).some((a: any) =>
                     (a.text || "").toLowerCase().includes(query)
                 );
                 return textMatch || answerMatch;
@@ -88,7 +88,7 @@ export function Header() {
                                                 }}
                                             >
                                                 <div className="mb-1 text-[10px] font-bold uppercase tracking-wider text-[var(--subject-primary)] opacity-70">
-                                                    {topicMap[q.topic] || q.topic}
+                                                    {(q.topics || [q.topic]).map(id => topicMap[id] || id).join(' • ')}
                                                 </div>
                                                 <Latex tex={q.question} className="line-clamp-2 text-sm text-[var(--fg-primary)]" />
                                             </button>
@@ -154,7 +154,7 @@ export function Header() {
                         </div>
 
                         <div className="flex shrink-0 items-center gap-2">
-                            <button 
+                            <button
                                 onClick={() => setIsSearchOpen(true)}
                                 className="rounded-lg border border-[var(--border-default)] bg-[var(--bg-surface)] p-2 text-[var(--fg-muted)] transition-all duration-200 hover:border-[var(--border-hover)] hover:text-[var(--fg-primary)] active:scale-95"
                                 title="Hledat"
