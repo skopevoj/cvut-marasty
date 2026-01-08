@@ -74,7 +74,7 @@ jobs:
             Automated release of CVUT Marasty.
             Contains updated question data and the production build of the web app.
           files: |
-            release-data-${{ steps.date.outputs.date }}.zip
-            release-web-${{ steps.date.outputs.date }}.zip
+            otazky-${{ steps.date.outputs.date }}.zip
+            web-${{ steps.date.outputs.date }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
