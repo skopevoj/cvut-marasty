@@ -62,31 +62,6 @@ export function QuizProvider({ children }: { children: ReactNode }) {
         const subRes = await fetch('subjects.json');
         const { subjects: subList } = await subRes.json();
         setSubjects(subList);
-
-        const allQuestions: Question[] = [];
-        for (const sub of subList) {
-          const qListRes = await fetch(`subjects/${sub.code}/questions.json`);
-          if (!qListRes.ok) continue;
-
-          const data = await qListRes.json();
-          // Support both new: { questions: [] } and old: { topics: {} } formats
-          let subQuestions: Question[] = [];
-
-          if (data.questions) {
-            subQuestions = data.questions;
-          } else if (data.topics) {
-            for (const [topicId, topicData] of Object.entries(data.topics) as any) {
-              const qs = (topicData.questions || []).map((q: any) => ({
-                ...q,
-                topics: q.topics || [topicId]
-              }));
-              subQuestions.push(...qs);
-            }
-          }
-
-          allQuestions.push(...subQuestions);
-        }
-        setQuestions(allQuestions);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred');
       } finally {
@@ -116,17 +91,34 @@ export function QuizProvider({ children }: { children: ReactNode }) {
     setCurrentSubject(sub);
 
     if (sub) {
+      setIsLoading(true);
       try {
-        const subDetailsRes = await fetch(`subjects/${sub.code}/subject.json`);
+        // Load both subject details and questions in parallel
+        const [subDetailsRes, qListRes] = await Promise.all([
+          fetch(`subjects/${sub.code}/subject.json`),
+          fetch(`subjects/${sub.code}/questions.json`)
+        ]);
+
         if (subDetailsRes.ok) {
           const subDetails = await subDetailsRes.json();
           setCurrentSubjectDetails(subDetails);
         }
+
+        if (qListRes.ok) {
+          const data = await qListRes.json();
+          setQuestions(data.questions || []);
+        } else {
+          setQuestions([]);
+        }
       } catch (err) {
-        console.error('Error loading subject details:', err);
+        console.error('Error loading subject data:', err);
+        setQuestions([]);
+      } finally {
+        setIsLoading(false);
       }
     } else {
       setCurrentSubjectDetails(null);
+      setQuestions([]);
     }
 
     setSelectedTopics([]);
