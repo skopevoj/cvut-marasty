@@ -31,6 +31,7 @@ interface QuizContextType {
   setAnswerState: (index: number, state: number) => void;
   setTextAnswer: (value: string) => void;
   evaluate: () => void;
+  shuffleQueue: () => void;
 }
 
 const QuizContext = createContext<QuizContextType | undefined>(undefined);
@@ -45,6 +46,7 @@ export function QuizProvider({ children }: { children: ReactNode }) {
   const [currentSubject, setCurrentSubject] = useState<Subject | null>(null);
   const [currentSubjectDetails, setCurrentSubjectDetails] = useState<any | null>(null);
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
+  const [quizQueue, setQuizQueue] = useState<Question[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState<Record<number, number>>({});
   const [userTextAnswer, setUserTextAnswer] = useState<string>("");
@@ -70,29 +72,11 @@ export function QuizProvider({ children }: { children: ReactNode }) {
           }, {});
 
           for (const [topicId, topicData] of Object.entries(topics) as any) {
-            for (const qid of topicData.questions) {
-              const qRes = await fetch(`subjects/${sub.code}/topics/${topicId}/${qid}/question.json`);
-              if (qRes.ok) {
-                const qData = await qRes.json();
-                const questionPath = `subjects/${sub.code}/topics/${topicId}/${qid}`;
-
-                const answersWithIndex = (qData.answers || []).map((a: any, index: number) => ({
-                  ...a,
-                  index: index + 1
-                }));
-
-                allQuestions.push({
-                  ...qData,
-                  answers: answersWithIndex,
-                  subjectCode: sub.code,
-                  id: qid,
-                  topic: topicId,
-                  topicName: topicMap[topicId] || topicId,
-                  photo: qData.photo === true ? `${questionPath}/photo.png` : qData.photo,
-                  quizPhoto: qData.quizPhoto === true ? `${questionPath}/quiz.png` : qData.quizPhoto
-                });
-              }
-            }
+            const topicQuestions = (topicData.questions || []).map((q: any) => ({
+              ...q,
+              topicName: topicMap[topicId] || topicId
+            }));
+            allQuestions.push(...topicQuestions);
           }
         }
         setQuestions(allQuestions);
@@ -105,6 +89,18 @@ export function QuizProvider({ children }: { children: ReactNode }) {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (!currentSubject) {
+      setQuizQueue([]);
+      return;
+    }
+    const filtered = questions.filter(q =>
+      q.subjectCode === currentSubject.code &&
+      (selectedTopics.length === 0 || selectedTopics.includes(q.topic))
+    );
+    setQuizQueue(filtered);
+  }, [questions, currentSubject, selectedTopics]);
 
   const selectSubject = async (code: string | null) => {
     const sub = subjects.find(s => s.code === code) || null;
@@ -141,13 +137,20 @@ export function QuizProvider({ children }: { children: ReactNode }) {
     setShowResults(false);
   };
 
-  const quizQueue = useMemo(() => {
-    if (!currentSubject) return [];
-    return questions.filter(q =>
-      q.subjectCode === currentSubject.code &&
-      (selectedTopics.length === 0 || selectedTopics.includes(q.topic))
-    );
-  }, [questions, currentSubject, selectedTopics]);
+  const shuffleQueue = () => {
+    setQuizQueue(prev => {
+      const newQueue = [...prev];
+      for (let i = newQueue.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newQueue[i], newQueue[j]] = [newQueue[j], newQueue[i]];
+      }
+      return newQueue;
+    });
+    setCurrentQuestionIndex(0);
+    setUserAnswers({});
+    setUserTextAnswer("");
+    setShowResults(false);
+  };
 
   const currentQuestion = quizQueue[currentQuestionIndex] || null;
 
@@ -248,7 +251,7 @@ export function QuizProvider({ children }: { children: ReactNode }) {
       quizQueue, currentQuestionIndex, currentQuestion, currentQuestionStats,
       userAnswers, userTextAnswer, showResults,
       isLoading, error, selectSubject, toggleTopic, nextQuestion, prevQuestion,
-      setAnswerState, setTextAnswer, evaluate
+      setAnswerState, setTextAnswer, evaluate, shuffleQueue
     }}>
       {children}
     </QuizContext.Provider>

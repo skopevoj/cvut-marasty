@@ -4,7 +4,7 @@ import { useQuiz } from "../lib/QuizContext";
 import { Shuffle, ChevronLeft, ChevronRight } from "lucide-react";
 
 export function ControlPanel() {
-    const { currentQuestionIndex, quizQueue, nextQuestion, prevQuestion, currentSubject, evaluate, showResults } = useQuiz();
+    const { currentQuestionIndex, quizQueue, nextQuestion, prevQuestion, currentSubject, evaluate, showResults, shuffleQueue } = useQuiz();
 
     if (!currentSubject || quizQueue.length === 0) return null;
 
@@ -14,6 +14,7 @@ export function ControlPanel() {
                 {/* Left side - Utility buttons */}
                 <div className="flex items-center gap-1.5 md:gap-2">
                     <button
+                        onClick={shuffleQueue}
                         className="rounded-lg border border-[var(--border-default)] bg-[var(--bg-surface)] p-2 text-[var(--fg-muted)] transition-all duration-200 hover:border-[var(--border-hover)] hover:text-[var(--fg-primary)] active:scale-95 disabled:cursor-not-allowed disabled:opacity-30 md:p-2.5"
                         title="Zamíchat otázky"
                         disabled={quizQueue.length <= 1}
