@@ -34,7 +34,7 @@ export default function Home() {
           )
         ) : (
           <div className="text-center text-text-secondary">
-            Please select a subject to start the quiz
+            Vyber si předmět pro začátek kvízu v horním menu.
           </div>
         )}
       </div>
