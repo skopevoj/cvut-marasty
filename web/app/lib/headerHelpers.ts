@@ -32,11 +32,12 @@ export function filterSearchResults(questions: Question[], currentSubject: Subje
     return questions
         .filter(question => question.subjectCode === currentSubject.code)
         .filter(question => {
+            const idMatch = (question.id || "").toLowerCase().includes(query);
             const textMatch = (question.question || "").toLowerCase().includes(query);
             const answerMatch = (question.answers || []).some((answer: any) =>
                 (answer.text || "").toLowerCase().includes(query)
             );
-            return textMatch || answerMatch;
+            return idMatch || textMatch || answerMatch;
         })
         .slice(0, 10);
 }
