@@ -25,33 +25,37 @@ export function MultiChoiceQuestion() {
                 }
 
                 return (
-                    <div key={i} className={`flex items-center justify-between gap-3 rounded-xl border p-4 transition-all  ${statusClass}`}>
-                        {(
-                            <div className="flex items-center gap-1" aria-label="Answer state">
-                                <button
-                                    className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg border border-border-color bg-white/[0.03] text-[16px] font-medium text-text-secondary transition-all hover:border-[#444] hover:bg-white/[0.05] ${answerState === 1 ? "border-white/[0.25] bg-white/[0.05] text-text-primary" : ""}`}
-                                    onClick={() => setAnswerState(i, answerState === 1 ? 0 : 1)}
-                                    aria-label="Mark as correct"
-                                >
-                                    ✓
-                                </button>
-                                <button
-                                    className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg border border-border-color bg-white/[0.03] text-[16px] font-medium text-text-secondary transition-all hover:border-[#444] hover:bg-white/[0.05] ${answerState === 2 ? "border-white/[0.25] bg-white/[0.05] text-text-primary" : ""}`}
-                                    onClick={() => setAnswerState(i, answerState === 2 ? 0 : 2)}
-                                    aria-label="Mark as maybe"
-                                >
-                                    −
-                                </button>
-                                <button
-                                    className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg border border-border-color bg-white/[0.03] text-[16px] font-medium text-text-secondary transition-all hover:border-[#444] hover:bg-white/[0.05] ${answerState === 3 ? "border-white/[0.25] bg-white/[0.05] text-text-primary" : ""}`}
-                                    onClick={() => setAnswerState(i, answerState === 3 ? 0 : 3)}
-                                    aria-label="Mark as incorrect"
-                                >
-                                    ✕
-                                </button>
-                            </div>
-                        )}
-                        <div className="flex-1"><Latex tex={(answer as any).text} /></div>
+                    <div key={i} className={`flex items-center justify-between gap-3 rounded-xl border p-2 transition-all duration-300 ${statusClass}`}>
+                        <div className="flex items-center bg-white/[0.03] p-1 rounded-xl border border-white/5" aria-label="Answer state">
+                            <button
+                                className={`flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-[15px] transition-all duration-200 ${answerState === 1
+                                    ? "bg-white/10 text-white shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] translate-y-[1px]"
+                                    : "text-white/30 hover:text-white/60"}`}
+                                onClick={() => setAnswerState(i, answerState === 1 ? 0 : 1)}
+                                aria-label="Mark as correct"
+                            >
+                                ✓
+                            </button>
+                            <button
+                                className={`flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-[15px] transition-all duration-200 ${answerState === 2 || answerState === 0
+                                    ? "bg-white/10 text-white shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] translate-y-[1px]"
+                                    : "text-white/30 hover:text-white/60"}`}
+                                onClick={() => setAnswerState(i, answerState === 2 ? 0 : 2)}
+                                aria-label="Mark as neutral"
+                            >
+                                −
+                            </button>
+                            <button
+                                className={`flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-[15px] transition-all duration-200 ${answerState === 3
+                                    ? "bg-white/10 text-white shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] translate-y-[1px]"
+                                    : "text-white/30 hover:text-white/60"}`}
+                                onClick={() => setAnswerState(i, answerState === 3 ? 0 : 3)}
+                                aria-label="Mark as incorrect"
+                            >
+                                ✕
+                            </button>
+                        </div>
+                        <div className="flex-1 px-2"><Latex tex={(answer as any).text} /></div>
                     </div>
                 );
             })}
