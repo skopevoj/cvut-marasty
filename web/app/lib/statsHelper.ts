@@ -32,7 +32,7 @@ export const statsHelper = {
 
         if (attempt.type === 'open') {
             const correctAnswers = (question.answers || [])
-                .filter((a: any) => !!(a.isCorrect ?? a.is_correct ?? false))
+                .filter((a: any) => !!a.isCorrect)
                 .map((a: any) => (a.text || "").trim());
             const userAnswer = typeof attempt.userAnswers === 'string'
                 ? attempt.userAnswers.trim()
@@ -41,7 +41,7 @@ export const statsHelper = {
         } else {
             const userAnswers = attempt.userAnswers as Record<number, boolean | number>;
             return question.answers.every((ans: any, i: number) => {
-                const isActuallyCorrect = !!(ans.isCorrect ?? ans.is_correct ?? false);
+                const isActuallyCorrect = !!ans.isCorrect;
                 const userChoice = userAnswers[ans.index ?? i];
 
                 if (typeof userChoice === 'boolean') {

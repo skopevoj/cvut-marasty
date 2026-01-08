@@ -16,12 +16,7 @@ export function getAvailableTopics(questions: Question[], currentSubject: Subjec
     questions
         .filter(question => question.subjectCode === currentSubject.code)
         .forEach(question => {
-            if (question.topics) {
-                question.topics.forEach(topicId => topicIds.add(topicId));
-            }
-            if (question.topic) {
-                topicIds.add(question.topic);
-            }
+            question.topics.forEach(topicId => topicIds.add(topicId));
         });
 
     return Array.from(topicIds).map(id => ({

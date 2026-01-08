@@ -1,6 +1,6 @@
 export function getQuestionTopics(question: any) {
     if (!question) return [];
-    return question.topics || (question.topic ? [question.topic] : []);
+    return question.topics || [];
 }
 
 export function getDisplayedPhoto(question: any, showQuizPhoto: boolean) {

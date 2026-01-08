@@ -27,10 +27,10 @@ export function SearchResults({ results, topicMap, onQuestionClick }: SearchResu
                     <button
                         key={question.id}
                         className="w-full border-b border-[var(--border-default)] p-4 text-left transition-colors hover:bg-white/[0.05] last:border-0"
-                        onClick={() => question.id && onQuestionClick(question.id)}
+                        onClick={() => onQuestionClick(question.id)}
                     >
                         <div className="mb-1 text-[10px] font-bold uppercase tracking-wider text-[var(--subject-primary)] opacity-70">
-                            {(question.topics || (question.topic ? [question.topic] : [])).map((id: string) => topicMap[id] || id).join(' • ')}
+                            {question.topics.map((id: string) => topicMap[id] || id).join(' • ')}
                         </div>
                         <Latex tex={question.question} className="line-clamp-2 text-sm text-[var(--fg-primary)]" />
                     </button>
