@@ -1,27 +1,27 @@
 {
     "question": "Nedeterministický a deterministický konečný automat jsou, co se týče výpočetní síly:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "ekvivalentní",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "nedeterministický automat je silnější",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "deterministický automat je silnější",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "záleží na konkrétních automatech",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "regularni-jazyky",
         "google-doc"
     ],
-    "original_text": "7) Nedeterministický a deterministický konečný automat jsou, co se týče výpočetní síly:\na) ekvivalentní    \nb) nedeterministický automat je silnější\nd) záleží na konkrétních automatech\nc) deterministický automat je silnější\nA         ."
+    "questionType": "multichoice",
+    "originalText": "7) Nedeterministický a deterministický konečný automat jsou, co se týče výpočetní síly:\na) ekvivalentní    \nb) nedeterministický automat je silnější\nd) záleží na konkrétních automatech\nc) deterministický automat je silnější\nA         ."
 }

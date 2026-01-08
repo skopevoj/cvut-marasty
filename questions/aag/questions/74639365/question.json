@@ -1,15 +1,15 @@
 {
     "question": "Nejednoznačný (vnitřně nejednoznačný) jazyk:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "všechny gramatiky generující nejednoznačný jazyk jsou nejednoznačné",
-            "is_correct": true
+            "isCorrect": true
         }
     ],
     "topics": [
         "bezkontextove-gramatiky",
         "google-doc"
     ],
-    "original_text": "46) Nejednoznačný jazyk\na) všechny gramatiky generující nejednoznačný jazyk jsou nejednoznačné \nA         ."
+    "questionType": "multichoice",
+    "originalText": "46) Nejednoznačný jazyk\na) všechny gramatiky generující nejednoznačný jazyk jsou nejednoznačné \nA         ."
 }

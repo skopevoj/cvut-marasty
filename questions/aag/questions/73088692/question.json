@@ -1,31 +1,31 @@
 {
     "question": "Nechť $L_1 = \\{a\\}$ a $L_2 = \\{b\\}$. Potom $(L_1 \\cdot L_2)^*$ obsahuje mimo jiné slova:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "abab",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "aabb",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "baba",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "abba",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "aba",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "regularni-jazyky",
         "google-doc"
     ],
-    "original_text": "--- QUESTION 4 ---\n68) Nechť L1 = {a} a L2 = {b}. Potom (L1.L2)* obsahuje mimo jiné slova:\na) abab\nb) aabb\nc) baba\nd) abba\ne) aba\nA            ."
+    "questionType": "multichoice",
+    "originalText": "--- QUESTION 4 ---\n68) Nechť L1 = {a} a L2 = {b}. Potom (L1.L2)* obsahuje mimo jiné slova:\na) abab\nb) aabb\nc) baba\nd) abba\ne) aba\nA            ."
 }

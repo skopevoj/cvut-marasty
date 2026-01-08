@@ -1,27 +1,27 @@
 {
     "question": "Uvažujme Pumping Lemma a konkrétní regulární jazyk. Co platí pro konstantu $p$?",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "jazyk není regulární – Pumping Lemma neplatí",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "jazyk je regulární, ale $p$ nelze obecně najít",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "$p$ lze obecně najít a v tomto případě platí $p \\ge 122$ (minimální $p$ je $122$)",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "jiná možnost",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "regularni-jazyky",
         "google-doc"
     ],
-    "original_text": "84) Pumping Lemma (definice) a jazyk . Co platí pro konstantu p?\na) jazyk není regulární - PL neplatí\nb) jazyk je regulární, ale p nelze obecně najít\nc) p lze obecně najít a má hodnotu - Doplňte…\nd) něco\nPlati p >= 122 (minimalni p je 122)"
+    "questionType": "multichoice",
+    "originalText": "84) Pumping Lemma (definice) a jazyk . Co platí pro konstantu p?\na) jazyk není regulární - PL neplatí\nb) jazyk je regulární, ale p nelze obecně najít\nc) p lze obecně najít a má hodnotu - Doplňte…\nd) něco\nPlati p >= 122 (minimalni p je 122)"
 }

@@ -1,31 +1,31 @@
 {
     "question": "Pro derivační strom platí:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "Existuje.",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "Kořenový uzel derivačního stromu je startovacím neterminálem dané gramatiky.",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "Vnitřní uzly derivačního stromu jsou tvořeny neterminály.",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "Listy derivačního stromu jsou tvořeny jen terminály.",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "Může obsahovat cykly.",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "bezkontextove-gramatiky",
         "google-doc"
     ],
-    "original_text": "--- QUESTION 1 ---\n101) Pro derivační strom platí:\na) Je (??? asi prostě existuje)\nb) Kořenový uzel derivačního stromu je startovacím neterminálem dané gramatiky.\nc) Vnitřní uzly derivačního stromu jsou tvořeny neterminály. \nd) Listy derivačního stromu jsou tvořeny jen terminály.\ne) Může obsahovat cykly\n  A,B,C  ."
+    "questionType": "multichoice",
+    "originalText": "--- QUESTION 1 ---\n101) Pro derivační strom platí:\na) Je (??? asi prostě existuje)\nb) Kořenový uzel derivačního stromu je startovacím neterminálem dané gramatiky.\nc) Vnitřní uzly derivačního stromu jsou tvořeny neterminály. \nd) Listy derivačního stromu jsou tvořeny jen terminály.\ne) Může obsahovat cykly\n  A,B,C  ."
 }

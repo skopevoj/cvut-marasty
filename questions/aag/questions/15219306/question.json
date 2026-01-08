@@ -1,22 +1,21 @@
 {
     "question": "Zadaná gramatika je:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "kontextová",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "bezkontextová",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "neomezená",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "regulární",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
@@ -24,5 +23,6 @@
         "formalni-jazyky-gramatiky-a-jejich-klasifikace",
         "google-doc"
     ],
-    "original_text": "89) Zadaná gramatika  je:\na) kontextová\nb) bezkontextová \nc) neomezená\nd) regulární\nB,C     ."
+    "questionType": "multichoice",
+    "originalText": "89) Zadaná gramatika  je:\na) kontextová\nb) bezkontextová \nc) neomezená\nd) regulární\nB,C     ."
 }

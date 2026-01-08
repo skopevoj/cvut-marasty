@@ -1,25 +1,25 @@
 {
     "question": "Mějme binární predikát $r(x, y)$. Které z následujících formulí predikátové logiky jsou logickým důsledkem formule $$(\\forall x)(\\exists y)\\neg r(x, y)?$$",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "$\\neg(\\forall x)(\\exists y)r(x, y)$",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "$(\\forall x)(\\forall y)\\neg r(x, y)$",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "$(\\exists x)(\\forall y)r(x, y)$",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "$\\neg(\\forall x)(\\forall y)r(x, y)$",
-            "is_correct": true
+            "isCorrect": true
         }
     ],
     "topics": [
         "logika"
-    ]
+    ],
+    "questionType": "multichoice"
 }

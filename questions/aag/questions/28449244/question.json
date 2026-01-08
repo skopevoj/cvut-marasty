@@ -1,23 +1,23 @@
 {
     "question": "Nedeterministický zásobníkový automat lze převést na deterministický:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "vždy",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "někdy",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "nikdy",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "bezkontextove-gramatiky",
         "google-doc"
     ],
-    "original_text": "--- QUESTION 3 ---\n34) Nedeterministický zásobníkový automat lze převést na deterministický:\na) vždy\nb) někdy\nc) nikdy\n\tB         ."
+    "questionType": "multichoice",
+    "originalText": "--- QUESTION 3 ---\n34) Nedeterministický zásobníkový automat lze převést na deterministický:\na) vždy\nb) někdy\nc) nikdy\n\tB         ."
 }

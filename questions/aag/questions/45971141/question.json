@@ -1,27 +1,27 @@
 {
     "question": "Nechť $L_1$ a $L_2$ jsou jazyky z minimální inkluzní třídy $T$ v Chomského hierarchii, pak pro průnik $L_1 \\cap L_2$ platí:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "může být v jiné třídě",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "je vždy rekurzivně spočetný",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "je vždy ve stejné třídě TS (třída rekurzivně spočetných jazyků)",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "nepamatuju si",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "rekurzivne-spocetne-jazyky",
         "google-doc"
     ],
-    "original_text": "--- QUESTION 2 ---\n123) necht L1 a L2 jsou jazyky z minimalni inkluzni tridy T v chomskeho hierarchii, pak pro prunik L1 a L2:\na) muze byt v jine tride\nb) je vzdy rekurzivně spočetný\nc) je vzdy ve stejny tride TS\nd) nepamatuju si\nB,C       ."
+    "questionType": "multichoice",
+    "originalText": "--- QUESTION 2 ---\n123) necht L1 a L2 jsou jazyky z minimalni inkluzni tridy T v chomskeho hierarchii, pak pro prunik L1 a L2:\na) muze byt v jine tride\nb) je vzdy rekurzivně spočetný\nc) je vzdy ve stejny tride TS\nd) nepamatuju si\nB,C       ."
 }

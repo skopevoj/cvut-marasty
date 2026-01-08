@@ -1,25 +1,25 @@
 {
     "question": "$D \\subset \\mathbb{R}^2$ je ohraničená $x = 1, y = 1, y = \\ln(x)$",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "$D = \\{(x,y) \\in \\mathbb{R}^2 \\mid 0 \\leq y \\leq 1, 1 \\leq x \\leq e^y \\}$",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "$D = \\{(x,y) \\in \\mathbb{R}^2 \\mid 1 \\leq x \\leq e, \\ln(x) \\leq y \\leq 1 \\}$",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "Obsah ohraničené plochy je $\\displaystyle \\int_0^1 \\left(\\int_1^{e^y} 1 \\, dx\\right) dy$",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "Obsah ohraničené plochy je $\\displaystyle \\int_0^1 e^y \\, dy$",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "2501-rozstrel"
-    ]
+    ],
+    "questionType": "multichoice"
 }

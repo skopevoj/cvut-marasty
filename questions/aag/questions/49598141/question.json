@@ -1,35 +1,35 @@
 {
     "question": "Do množiny regulárních výrazů patří:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "$\\emptyset$",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "$(x \\cdot y)$, kde $x, y$ jsou regulární výrazy",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "$a \\in T$, kde $T$ je množina symbolů abecedy",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "$x^*$, kde $x$ je regulární výraz",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "$x^+$, kde $x$ je regulární výraz",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "$!x$, kde $x$ je regulární výraz (doplněk z $x$)",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "regularni-jazyky",
         "google-doc"
     ],
-    "original_text": "--- QUESTION 5 ---\n42) Do množiny reg. výrazů patří:\na) Ø \nb) (x.y), x, y jsou reg výrazy\nc) a ∈ T, T je množina symbolů abecedy\nd) x*, x je regulární výraz\ne) x^+, x je regulární výraz\nf) !x, x je regulární výraz (doplněk z x)\nA,B,C,D  ."
+    "questionType": "multichoice",
+    "originalText": "--- QUESTION 5 ---\n42) Do množiny reg. výrazů patří:\na) Ø \nb) (x.y), x, y jsou reg výrazy\nc) a ∈ T, T je množina symbolů abecedy\nd) x*, x je regulární výraz\ne) x^+, x je regulární výraz\nf) !x, x je regulární výraz (doplněk z x)\nA,B,C,D  ."
 }

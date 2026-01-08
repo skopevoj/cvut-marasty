@@ -1,31 +1,31 @@
 {
     "question": "Turingův stroj:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "má zásobník",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "má neomezenou pásku",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "je omezen velikostí vstupní věty",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "může číst i zapisovat",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "může jen číst",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "rekurzivne-spocetne-jazyky",
         "google-doc"
     ],
-    "original_text": "--- QUESTION 4 ---\n35) Turingův stroj\na) má zásobník\nb) má neomezenou pásku\nc) je omezen velikostí vstupní věty-+\nd) může číst i zapisovat\ne) může jen číst \nB,D       ."
+    "questionType": "multichoice",
+    "originalText": "--- QUESTION 4 ---\n35) Turingův stroj\na) má zásobník\nb) má neomezenou pásku\nc) je omezen velikostí vstupní věty-+\nd) může číst i zapisovat\ne) může jen číst \nB,D       ."
 }

@@ -1,23 +1,23 @@
 {
     "question": "Pro jazyky $L_1, L_2$ platí:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "$L_1$ se může rovnat $L_2$",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "pokud je $L_3$ doplňkem $L_2$, pak $L_1 = L_3$",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "$L_1$ je bezkontextový, pak $L_2$ může být regulární",
-            "is_correct": true
+            "isCorrect": true
         }
     ],
     "topics": [
         "formalni-jazyky-gramatiky-a-jejich-klasifikace",
         "google-doc"
     ],
-    "original_text": "99) Pro  =  platí\na) L1 se může rovnat L2\nb) pokud je L3 doplněk L2, pak L1=L3\nc) L1 je bezkontextový, pak L2 může být regulární\nB,C    ."
+    "questionType": "multichoice",
+    "originalText": "99) Pro  =  platí\na) L1 se může rovnat L2\nb) pokud je L3 doplněk L2, pak L1=L3\nc) L1 je bezkontextový, pak L2 může být regulární\nB,C    ."
 }

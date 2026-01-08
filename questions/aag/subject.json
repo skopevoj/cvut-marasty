@@ -28,6 +28,10 @@
         {
             "id": "rekurzivne-spocetne-jazyky",
             "name": "Rekurzivně spočetné jazyky"
+        },
+        {
+            "id": "google-doc",
+            "name": "FitWiki Google Doc"
         }
     ]
 }

@@ -1,25 +1,25 @@
 {
     "question": "Nechť $(A, \\preceq)$ je libovolná částečně uspořádaná množina s **alespoň dvěma neporovnatelnými prvky**. Nechť $\\prec$ je ostré uspořádání odvozené od částečného uspořádání $\\preceq$ a nechť $\\preceq_u$ je nějaké rozšíření částečného uspořádání $\\preceq$ na úplné uspořádání. Vyberte z následující nabídky zaručeně pravdivá tvrzení.",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "$\\preceq_u$ je určeno jednoznačně.",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "Nemůže platit $\\prec = \\preceq_u$.",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "$\\prec$ je určeno jednoznačně.",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "$\\prec \\cup \\Delta_A = \\preceq_u$.",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "relace"
-    ]
+    ],
+    "questionType": "multichoice"
 }

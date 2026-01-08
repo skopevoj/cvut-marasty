@@ -1,25 +1,25 @@
 {
     "question": "Nechť $A, B$ jsou nějaké podmnožiny společného univerza $\\mathcal{U}$. Pokud platí $(B \\setminus A) \\subseteq A$, pak nutně platí také (tj. je logickým důsledkem):",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "$A \\cap B \\supseteq A.$",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "$A \\cap B \\supseteq B.$",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "$B \\subseteq A.$",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "$A \\cup B \\supseteq A.$",
-            "is_correct": true
+            "isCorrect": true
         }
     ],
     "topics": [
         "mnoziny"
-    ]
+    ],
+    "questionType": "multichoice"
 }

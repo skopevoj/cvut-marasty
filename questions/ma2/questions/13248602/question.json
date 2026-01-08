@@ -1,25 +1,25 @@
 {
     "question": "Uvažujeme funkci $f(x, y) = \\frac{x}{|x|+|y|}$. $D_f = \\mathbb{R}^2 \\setminus \\{\\theta\\}$",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "Limita funkce $f$ v bodě $\\theta$ neexistuje.",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "Bod $\\theta$ je hromadným bodem definičního oboru funkce $f$.",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "Limita funkce $f$ v bodě $\\theta$ existuje a je rovna $0$.",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "Platí $\\lim_{h\\to 0} f(0, h) = 0$.",
-            "is_correct": true
+            "isCorrect": true
         }
     ],
     "topics": [
         "diferencialni-pocet-funkci-vice-promennych"
-    ]
+    ],
+    "questionType": "multichoice"
 }

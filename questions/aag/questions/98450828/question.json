@@ -1,27 +1,27 @@
 {
     "question": "Mějme jazyk $L = \\{ aa, aba, aaab, baa \\}$, pro který platí definice Pumping Lemma (PL). Určete, které z následujících tvrzení platí:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "Jazyk není regulární a pumping lemma neplatí.",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "Pumping lemma platí pro $p \\ge 5$.",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "Pumping lemma platí pro všechna $p = 0$.",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "Pumping lemma platí, ale $p$ nelze určit.",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "regularni-jazyky",
         "google-doc"
     ],
-    "original_text": "--- QUESTION 5 ---\n105) Mějme jazyk L_p = { aa, aba, aaab, baa }, pro který platí *definice PL*. Určete, které z následujících tvrzení platí:\n   a) Jazyk není regulární a pumping lemma neplatí.\n   b) Pumping lemma platí pro p >= |_|.\n   c) Pumping lemma platí pro všechna p = 0.\n   d) Pumping lemma platí, ale p nelze určit.\nB, 5     ."
+    "questionType": "multichoice",
+    "originalText": "--- QUESTION 5 ---\n105) Mějme jazyk L_p = { aa, aba, aaab, baa }, pro který platí *definice PL*. Určete, které z následujících tvrzení platí:\n   a) Jazyk není regulární a pumping lemma neplatí.\n   b) Pumping lemma platí pro p >= |_|.\n   c) Pumping lemma platí pro všechna p = 0.\n   d) Pumping lemma platí, ale p nelze určit.\nB, 5     ."
 }

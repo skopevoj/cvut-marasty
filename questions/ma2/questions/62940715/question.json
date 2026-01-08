@@ -1,25 +1,25 @@
 {
     "question": "Které z následujících vektorů nejsou gradientem v bodě $(x,y)^T$ žádné funkce $f: \\mathbb{R}^2 \\to \\mathbb{R}$?",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "$(ye^{y^2}, xe^{y^2})$.",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "$(3x^2 - 2 \\cos(x + y), -2 \\cos(x + y))$.",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "$(xe^{x^2 - 2y}, -e^{x^2 - 2y})$.",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "$(\\frac{2xy}{1+x^2}, \\ln(1 + x^2))$.",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "diferencialni-pocet-funkci-vice-promennych"
-    ]
+    ],
+    "questionType": "multichoice"
 }

@@ -1,25 +1,25 @@
 {
     "question": "Mějme neprázdnou binární relaci $R$ na neprázdné množině $X$. Určete, pro které z vlastností uvedených níže platí, že má-li ji relace $R$, pak ji nutně má i její mocnina $R^2 = R \\circ R$.",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "Ireflexivní.",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "Symetrická.",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "Reflexivní.",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "Antisymetrická.",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "relace"
-    ]
+    ],
+    "questionType": "multichoice"
 }

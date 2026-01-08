@@ -1,27 +1,27 @@
 {
     "question": "Pro zásobníkový automat přijímající jazyk $L$ prázdným zásobníkem platí vždy, že:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "tento automat je deterministický",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "pokud tento automat není deterministický, pak lze sestrojit ekvivalentní deterministický",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "tento automat přijímá bezkontextový jazyk",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "lze sestrojit konečný automat přijímající jazyk $L$ generující prázdný jazyk $\\emptyset$",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "bezkontextove-gramatiky",
         "google-doc"
     ],
-    "original_text": "21) Pro zásobníkový automat přijímající jazyk L prázdným zásobníkem platí vždy, že:\na) tento automat je deterministický\nb) pokud tento automat není deterministický, pak lze sestrojit ekvivalentní deterministický\nc) tento automat přijímá bezkontextový jazyk\nd) lze sestrojit konečný automat přijímající jazyk L generující prázdný jazyk 0\n           C."
+    "questionType": "multichoice",
+    "originalText": "21) Pro zásobníkový automat přijímající jazyk L prázdným zásobníkem platí vždy, že:\na) tento automat je deterministický\nb) pokud tento automat není deterministický, pak lze sestrojit ekvivalentní deterministický\nc) tento automat přijímá bezkontextový jazyk\nd) lze sestrojit konečný automat přijímající jazyk L generující prázdný jazyk 0\n           C."
 }

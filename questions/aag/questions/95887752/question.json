@@ -1,22 +1,21 @@
 {
     "question": "Daná gramatika $G: S \\to Ab \\mid a, A \\to Bb, B \\to b, A \\to \\epsilon$ generuje jazyky:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "regulární",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "bezkontextové",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "kontextové",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "rekurzivně spočetné",
-            "is_correct": true
+            "isCorrect": true
         }
     ],
     "topics": [
@@ -24,5 +23,6 @@
         "regularni-jazyky",
         "google-doc"
     ],
-    "original_text": "--- QUESTION 1 ---\n37) Daná gramatika: S→Ab|a, A→Bb , B→b, A→ε generuje jazyky:\na) regulární\nb) bezkontextové\nc) kontextové\nd) rekurzivně spočetné\nA,B,C,D   ."
+    "questionType": "multichoice",
+    "originalText": "--- QUESTION 1 ---\n37) Daná gramatika: S→Ab|a, A→Bb , B→b, A→ε generuje jazyky:\na) regulární\nb) bezkontextové\nc) kontextové\nd) rekurzivně spočetné\nA,B,C,D   ."
 }

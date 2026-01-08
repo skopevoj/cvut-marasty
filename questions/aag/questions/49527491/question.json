@@ -1,27 +1,27 @@
 {
     "question": "Z $RV$ (regulárního výrazu) je možné sestrojit $KA$ (konečný automat) metodou:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "derivací",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "postupnou konstrukcí",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "regulárních rovnic",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "eliminací stavů",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "regularni-jazyky",
         "google-doc"
     ],
-    "original_text": "--- QUESTION 1 ---\n54) Z RV je možné sestrojit KA metodou:\na) derivací\nb) postupnou konstrukcí\nc) regulárních rovnic\nd) eliminací stavů\n A,B     ."
+    "questionType": "multichoice",
+    "originalText": "--- QUESTION 1 ---\n54) Z RV je možné sestrojit KA metodou:\na) derivací\nb) postupnou konstrukcí\nc) regulárních rovnic\nd) eliminací stavů\n A,B     ."
 }

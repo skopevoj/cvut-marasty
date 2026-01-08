@@ -1,27 +1,27 @@
 {
     "question": "Je dán jazyk $L$ nad abecedou $\\Sigma$, kde každá věta obsahuje více než dva symboly $a$. Platí, že:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "konečný automat přijímající $L$ bude mít minimálně 2 stavy",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "konečný automat přijímající $L$ bude mít minimálně 3 stavy",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "konečný automat přijímající $L$ bude mít minimálně 4 stavy",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "konečný automat přijímající $L$ nelze sestrojit",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "regularni-jazyky",
         "google-doc"
     ],
-    "original_text": "--- QUESTION 1 ---\n22) Je dán jazyk  nad abecedou , kde každá věta obsahuje více než dva symboly a. Platí že: \na) konečný automat přijímající L bude mít minimálně 2 stavy\nb) konečný automat přijímající L bude mít minimálně 3 stavy\nc) konečný automat přijímající L bude mít minimálně 4 stavy\nd) konečný automat přijímající L nelze sestrojit\nC            ."
+    "questionType": "multichoice",
+    "originalText": "--- QUESTION 1 ---\n22) Je dán jazyk  nad abecedou , kde každá věta obsahuje více než dva symboly a. Platí že: \na) konečný automat přijímající L bude mít minimálně 2 stavy\nb) konečný automat přijímající L bude mít minimálně 3 stavy\nc) konečný automat přijímající L bude mít minimálně 4 stavy\nd) konečný automat přijímající L nelze sestrojit\nC            ."
 }

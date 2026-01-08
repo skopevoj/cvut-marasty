@@ -1,27 +1,27 @@
 {
     "question": "Platí tvrzení:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "$L_1, L_2$ jsou regulární jazyky, $L_1 \\cup L_2 = L_3$, $L_3$ může být bezkontextový",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "$L_1, L_2$ jsou regulární jazyky, $L_1 \\cup L_2 = L_3$, $L_3$ musí být regulární",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "$L_1, L_2$ jsou regulární jazyky, $L_1 \\cup L_3 = L_2$, $L_3$ musí být regulární",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "$L_1, L_2$ jsou regulární jazyky, $L_3 \\cup L_2 = L_1$, $L_3$ musí být regulární",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "regularni-jazyky",
         "google-doc"
     ],
-    "original_text": "--- QUESTION 5 ---\n69) Platí tvrzení:\na) L1, L2 jsou regulární jazyky, L1 U L2 = L3, L3 může být bezkontextový\nb) L1, L2 jsou regulární jazyky, L1 U L2 = L3, L3 musí být regulární\nc) L1, L2 jsou regulární jazyky, L1 U L3 = L2, L3 musí být regulární\nd) L1, L2 jsou regulární jazyky, L3 U L2 = L1, L3 musí být regulární\nA,B       ."
+    "questionType": "multichoice",
+    "originalText": "--- QUESTION 5 ---\n69) Platí tvrzení:\na) L1, L2 jsou regulární jazyky, L1 U L2 = L3, L3 může být bezkontextový\nb) L1, L2 jsou regulární jazyky, L1 U L2 = L3, L3 musí být regulární\nc) L1, L2 jsou regulární jazyky, L1 U L3 = L2, L3 musí být regulární\nd) L1, L2 jsou regulární jazyky, L3 U L2 = L1, L3 musí být regulární\nA,B       ."
 }

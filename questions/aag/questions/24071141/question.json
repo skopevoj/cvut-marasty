@@ -1,23 +1,23 @@
 {
     "question": "Nedeterministický konečný automat má $n$ stavů. Pokud lze tento automat převést na deterministický konečný automat, pak výsledný automat bude mít stavů:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "maximálně $2^n$ stavů",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "minimálně $2^n$ stavů",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "záleží na NKA",
-            "is_correct": true
+            "isCorrect": true
         }
     ],
     "topics": [
         "regularni-jazyky",
         "google-doc"
     ],
-    "original_text": "--- QUESTION 4 ---\n5) Nedeterministický konečný automat má n stavů. Pokud lze tento automat převést na deterministický konečný automat, pak výsledný automat bude mít stavů:\na) maximálně 2^n stavů\nb) minimálně 2^n stavů\nc) záleží na NKA\nA, C   ."
+    "questionType": "multichoice",
+    "originalText": "--- QUESTION 4 ---\n5) Nedeterministický konečný automat má n stavů. Pokud lze tento automat převést na deterministický konečný automat, pak výsledný automat bude mít stavů:\na) maximálně 2^n stavů\nb) minimálně 2^n stavů\nc) záleží na NKA\nA, C   ."
 }

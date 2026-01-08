@@ -1,27 +1,27 @@
 {
     "question": "Existuje deterministický konečný automat ($DKA$) s počtem stavů $n > 3$, z nichž je koncových stavů $k > 2$. Platí tvrzení:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "pokud je jazyk $L$ neprázdný, existuje slovo délky menší než $n$",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "maximální počet slov je 62",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "pokud existuje slovo alespoň délky $n$, pak je jazyk $L$ nekonečný",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "existuje alespoň jedno slovo délky $n$",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "regularni-jazyky",
         "google-doc"
     ],
-    "original_text": "--- QUESTION 2 ---\n61) Existuje DKA s počtem stavů n>3 a z těch je koncových k>2. Platí tvrzení:\na) pokud L je neprázdný, existuje slovo délky menší než n\nb) max počet slov je 62\nc) pokud existuje slovo aspoň délky n, L je nekonečný\nd) existuje alespoň jedno slovo délky n.\n A,C      ."
+    "questionType": "multichoice",
+    "originalText": "--- QUESTION 2 ---\n61) Existuje DKA s počtem stavů n>3 a z těch je koncových k>2. Platí tvrzení:\na) pokud L je neprázdný, existuje slovo délky menší než n\nb) max počet slov je 62\nc) pokud existuje slovo aspoň délky n, L je nekonečný\nd) existuje alespoň jedno slovo délky n.\n A,C      ."
 }

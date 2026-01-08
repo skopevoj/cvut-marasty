@@ -1,27 +1,27 @@
 {
     "question": "Máme 2 regulární výrazy $V_1$ a $V_2$, o jejich ekvivalenci platí:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "O ekvivalenci lze rozhodnout pouze pokud neobsahují alternativu.",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "O ekvivalenci lze rozhodnout pouze pokud neobsahují iteraci.",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "O ekvivalenci nelze rozhodnout, jde o algoritmicky neřešitelný problém.",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "O ekvivalenci lze rozhodnout algoritmicky.",
-            "is_correct": true
+            "isCorrect": true
         }
     ],
     "topics": [
         "regularni-jazyky",
         "google-doc"
     ],
-    "original_text": "--- QUESTION 5 ---\n132) Máme 2 regulární výrazy V1 a V2, o jejich ekvivalenci platí:\na) O ekvivalenci lze rozhodnout pouze pokud neobsahují alternativu\nb) O ekvivalenci lze rozhodnout pouze pokud neobsahují iteraci \nc) O ekvivalenci nelze rozhodnout, algoritmicky neřešitelný problém\nd) O ekvivalenci lze rozhodnout algoritmicky\n  D         ."
+    "questionType": "multichoice",
+    "originalText": "--- QUESTION 5 ---\n132) Máme 2 regulární výrazy V1 a V2, o jejich ekvivalenci platí:\na) O ekvivalenci lze rozhodnout pouze pokud neobsahují alternativu\nb) O ekvivalenci lze rozhodnout pouze pokud neobsahují iteraci \nc) O ekvivalenci nelze rozhodnout, algoritmicky neřešitelný problém\nd) O ekvivalenci lze rozhodnout algoritmicky\n  D         ."
 }

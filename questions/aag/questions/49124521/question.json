@@ -1,27 +1,27 @@
 {
     "question": "Jaké slovo lze uplatnit pro Pumping Lemma (PL) na jazyk nad abecedou $\\Sigma$?",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "$a^p b^p$",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "$a^p b a^p b$",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "$b^p a^p$",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "$a a^p b b^p$",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "bezkontextove-gramatiky",
         "google-doc"
     ],
-    "original_text": "97) Jaké slovo lze uplatnit pro PL na jazyk ve tvaru nad abecedou * \n a) a^pb^p\n b) a^pba^pb\n c) b^pa^p\n d) aa^pbb^p\nB        ."
+    "questionType": "multichoice",
+    "originalText": "97) Jaké slovo lze uplatnit pro PL na jazyk ve tvaru nad abecedou * \n a) a^pb^p\n b) a^pba^pb\n c) b^pa^p\n d) aa^pbb^p\nB        ."
 }

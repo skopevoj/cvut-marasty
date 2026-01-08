@@ -1,31 +1,31 @@
 {
     "question": "Metody převodu konečného automatu (KA) do regulárního výrazu (RV) zahrnují:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "metoda sousedů",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "eliminace stavů",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "derivace",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "postupná konstrukce",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "metoda regulárních rovnic",
-            "is_correct": true
+            "isCorrect": true
         }
     ],
     "topics": [
         "regularni-jazyky",
         "google-doc"
     ],
-    "original_text": "--- QUESTION 3 ---\n140) Metody převodu KA do RV\na) metoda sousedů\nb) eliminace stavů\nc) derivace\nd) postupná konstrukce \ne) metoda reg. rovnic\nB,E         ."
+    "questionType": "multichoice",
+    "originalText": "--- QUESTION 3 ---\n140) Metody převodu KA do RV\na) metoda sousedů\nb) eliminace stavů\nc) derivace\nd) postupná konstrukce \ne) metoda reg. rovnic\nB,E         ."
 }

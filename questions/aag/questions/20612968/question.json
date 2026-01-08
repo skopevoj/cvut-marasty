@@ -1,27 +1,27 @@
 {
     "question": "Mějme gramatiku $G$:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "Je-li $G$ kontextová, pak je i neomezená.",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "Je-li $G$ bezkontextová, tak je i kontextová.",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "Je-li $G$ regulární, pak je i kontextová.",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "Je-li $G$ neomezená, pak je i regulární.",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "formalni-jazyky-gramatiky-a-jejich-klasifikace",
         "google-doc"
     ],
-    "original_text": "145) Mějme gramatiku G:\nJe-li G kontextová, pak je i neomezená.\nJe-li G bezkontextová, tak je i kontextová.\nJe-li G regulární, pak je i kontextová.\nJe-li G neomezená, pak je i regulární.\n      A,C."
+    "questionType": "multichoice",
+    "originalText": "145) Mějme gramatiku G:\nJe-li G kontextová, pak je i neomezená.\nJe-li G bezkontextová, tak je i kontextová.\nJe-li G regulární, pak je i kontextová.\nJe-li G neomezená, pak je i regulární.\n      A,C."
 }

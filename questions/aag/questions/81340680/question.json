@@ -1,19 +1,19 @@
 {
     "question": "Definice Pumping Lemma (PL), kde $RL$ značí regulární jazyk.",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "Možnost A (neúplné zadání)",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "Možnost B (neúplné zadání)",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "regularni-jazyky",
         "google-doc"
     ],
-    "original_text": "119) Definice pumping lemma, RL značí regulární jazyk\n4 podobné odpovědi, lišily se třeba jen v jednom operátoru\n a) \n b) \nnic      ."
+    "questionType": "multichoice",
+    "originalText": "119) Definice pumping lemma, RL značí regulární jazyk\n4 podobné odpovědi, lišily se třeba jen v jednom operátoru\n a) \n b) \nnic      ."
 }

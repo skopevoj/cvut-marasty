@@ -1,23 +1,23 @@
 {
     "question": "V kontextu syntaktické analýzy metodou zdola nahoru platí:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "počet stavů je roven počtu neterminálů",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "počet neterminálů je nekonečný",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "neobsahuje cykly",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "bezkontextove-gramatiky",
         "google-doc"
     ],
-    "original_text": "81) Metoda zdola nahoru:\na) počet stavů je roven počtu neterminálů\nb) neterminálů je nekonečně\nc) neobsahuje cykly\nNic      ."
+    "questionType": "multichoice",
+    "originalText": "81) Metoda zdola nahoru:\na) počet stavů je roven počtu neterminálů\nb) neterminálů je nekonečně\nc) neobsahuje cykly\nNic      ."
 }

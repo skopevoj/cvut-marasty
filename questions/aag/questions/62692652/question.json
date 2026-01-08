@@ -1,27 +1,27 @@
 {
     "question": "Jak rozepsat (zvolit) slovo z jazyka $L = \\{ww^R : w \\in \\{a, b\\}^* \\}$ pro použití v Pumping lemmatu?",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "$a^p b b a^p$",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "$a^2 b^2 b^2 a^2$",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "$a^* a^*$",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "$w^p w^p$",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "bezkontextove-gramatiky",
         "google-doc"
     ],
-    "original_text": "44) Jak rozepsat větu z jazyka L = {ww^R :  w ∈  {a, b}* } v Pumping Lemma?\na) a^pbba^p\nb) a^2 b^2 b^2 a^2\nc) a* a*\nd) w^p w^p\n.A        ."
+    "questionType": "multichoice",
+    "originalText": "44) Jak rozepsat větu z jazyka L = {ww^R :  w ∈  {a, b}* } v Pumping Lemma?\na) a^pbba^p\nb) a^2 b^2 b^2 a^2\nc) a* a*\nd) w^p w^p\n.A        ."
 }

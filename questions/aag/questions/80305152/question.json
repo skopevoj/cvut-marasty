@@ -1,31 +1,31 @@
 {
     "question": "Máme $DKA$ (deterministický konečný automat), který přijímá nekonečný jazyk. Pro tento $DKA$ platí:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "má nekonečně mnoho stavů",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "má alespoň jeden přechod zpět do startovacího stavu",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "něco",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "přechodový diagram obsahuje cyklus",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "přechodový diagram obsahuje alespoň jeden přechod z nějakého stavu $q$ zpět přímo do stavu $q$",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "regularni-jazyky",
         "google-doc"
     ],
-    "original_text": "--- QUESTION 4 ---\n58) Máme DKA, který přijímá nekonečný jazyk. Pro tento DKA platí:\n     a) má nekonečně mnoho stavů\nb) má alespoň 1 přechod zpět do startovacího stavu\nc) něco\nd) přechodový diagram obsahuje cyklus\ne) přechodový diagram obsahuje alespoň jeden přechod z nějakého stavu q zpět přímo do \nD ,(C)      ."
+    "questionType": "multichoice",
+    "originalText": "--- QUESTION 4 ---\n58) Máme DKA, který přijímá nekonečný jazyk. Pro tento DKA platí:\n     a) má nekonečně mnoho stavů\nb) má alespoň 1 přechod zpět do startovacího stavu\nc) něco\nd) přechodový diagram obsahuje cyklus\ne) přechodový diagram obsahuje alespoň jeden přechod z nějakého stavu q zpět přímo do \nD ,(C)      ."
 }

@@ -1,27 +1,27 @@
 {
     "question": "Konečné automaty:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "Přijímají všechny kontextové jazyky.",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "Mají konečný počet stavů.",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "Přijímají všechny regulární jazyky.",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "Mají vstup, ze kterého lze číst i na něj zapisovat.",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "regularni-jazyky",
         "google-doc"
     ],
-    "original_text": "--- QUESTION 3 ---\n135) Konečné automaty:\nPřijímají všechny kontextové jazyky.\nMají konečný počet stavů.\nPřijímají všechny regulární jazyky.\nMají vstup, ze kterého lze číst i na něj zapisovat.\nB,C       ."
+    "questionType": "multichoice",
+    "originalText": "--- QUESTION 3 ---\n135) Konečné automaty:\nPřijímají všechny kontextové jazyky.\nMají konečný počet stavů.\nPřijímají všechny regulární jazyky.\nMají vstup, ze kterého lze číst i na něj zapisovat.\nB,C       ."
 }

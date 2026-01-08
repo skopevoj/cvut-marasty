@@ -1,27 +1,27 @@
 {
     "question": "Překladový automat – na čem závisí výstup? Které z tvrzení je pravdivé?",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "pokud záleží na vstupu a stavu, je to Mealyho automat",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "pokud záleží na vstupu, je to F",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "pokud nezáleží ani na vstupu, ani na stavu, je to Mooreův automat",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "pokud záleží na stavu, je to Mooreův automat",
-            "is_correct": true
+            "isCorrect": true
         }
     ],
     "topics": [
         "formalni-preklady",
         "google-doc"
     ],
-    "original_text": "48) Překladový automat, od čeho se odvodí výstup, co je pravda z tvrzení \na) pokud zalezi na vstupu a stavu, je to mealy\nb) pokud zalezi na vstupu, je to F   \nc) pokud nezalezi ani na vstupu, ani na stavu, je to moore\nd) pokud zalezi na stavu, je to moore\nA,D       ."
+    "questionType": "multichoice",
+    "originalText": "48) Překladový automat, od čeho se odvodí výstup, co je pravda z tvrzení \na) pokud zalezi na vstupu a stavu, je to mealy\nb) pokud zalezi na vstupu, je to F   \nc) pokud nezalezi ani na vstupu, ani na stavu, je to moore\nd) pokud zalezi na stavu, je to moore\nA,D       ."
 }

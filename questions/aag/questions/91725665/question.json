@@ -1,14 +1,14 @@
 {
     "question": "Otázka 152",
-    "question_type": "numeric",
     "answers": [
         {
             "text": "5",
-            "is_correct": true
+            "isCorrect": true
         }
     ],
     "topics": [
         "google-doc"
     ],
-    "original_text": "152) \n5      ."
+    "questionType": "numeric",
+    "originalText": "152) \n5      ."
 }

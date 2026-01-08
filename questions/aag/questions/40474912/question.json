@@ -1,27 +1,27 @@
 {
     "question": "Nedeterministický a deterministický zásobníkový automat jsou co se týče výpočetní síly:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "Vztah mezi deterministickým a nedeterministickým zásobníkovým automatem nelze stanovit.",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "Nedeterministický zásobníkový automat je silnější (libovolný deterministický zásobníkový automat je zároveň nedeterministický, ale ne naopak).",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "Nedeterministický zásobníkový automat je slabší (existuje deterministický zásobníkový automat, který nelze převést na ekvivalentní nedeterministický).",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "Deterministický zásobníkový automat je slabší (existuje nedeterministický zásobníkový automat, který nelze převést na ekvivalentní deterministický).",
-            "is_correct": true
+            "isCorrect": true
         }
     ],
     "topics": [
         "bezkontextove-gramatiky",
         "google-doc"
     ],
-    "original_text": "150) Nedeterministický a deterministický zásobníkový automat jsou co se týče výpočetní síly:\nVztah mezi deterministickým a nedeterministickým zásobníkovým automatem nelze stanovit.\nNedeterministický zásobníkový automat je silnější (libovolný deterministický zásobníkový automat je zároveň nedeterministický, ale ne naopak)\nNedeterministický zásobníkový automat je slabší (existuje deterministický zásobníkový automat, který nelze převést na ekvivalentní nedeterministický)\nDeterministický zásobníkový automat je slabší (existuje nedeterministický zásobníkový automat, který nelze převést na ekvivalentní deterministický)\n B,D      ."
+    "questionType": "multichoice",
+    "originalText": "150) Nedeterministický a deterministický zásobníkový automat jsou co se týče výpočetní síly:\nVztah mezi deterministickým a nedeterministickým zásobníkovým automatem nelze stanovit.\nNedeterministický zásobníkový automat je silnější (libovolný deterministický zásobníkový automat je zároveň nedeterministický, ale ne naopak)\nNedeterministický zásobníkový automat je slabší (existuje deterministický zásobníkový automat, který nelze převést na ekvivalentní nedeterministický)\nDeterministický zásobníkový automat je slabší (existuje nedeterministický zásobníkový automat, který nelze převést na ekvivalentní deterministický)\n B,D      ."
 }

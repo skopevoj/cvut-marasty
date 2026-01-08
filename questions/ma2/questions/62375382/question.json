@@ -1,25 +1,25 @@
 {
     "question": "Nutnými podmínkami k sestavení $n$-tého, $n \\in \\mathbb{N}$, Taylorova polynomu funkce $f$ v bodě $a$ jsou",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "existence všech derivací funkce $f$ v bodě $a$.",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "existence všech derivací $f$ v bodě $a$ až do $n$-té.",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "konečnost všech derivací $f$ v bodě $a$ až do $n$-té.",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "nenulovost funkce $f$ v bodě $a$.",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "taylorovy-polynomy-rady-a-veta"
-    ]
+    ],
+    "questionType": "multichoice"
 }

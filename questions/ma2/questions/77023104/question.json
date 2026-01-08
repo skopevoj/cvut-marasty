@@ -1,25 +1,25 @@
 {
     "question": "Nechť $F$ je primitivní funkcí k funkci $f$ na intervalu $(a, b)$, $\\varphi$ je na intervalu $(\\alpha, \\beta)$ diferencovatelná a $\\varphi((\\alpha, \\beta)) = (a, b)$. Vyberte pravdivá tvrzení.",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "$F(\\varphi(x))$ je primitivní funkcí k $f(\\varphi(x))\\varphi'(x)$ na intervalu $(\\alpha, \\beta)$.",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "$F(\\varphi(x))$ je primitivní funkcí k $f(\\varphi(x))\\varphi'(x)$ na intervalu $(a, b)$.",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "$F(\\varphi(x))$ je primitivní funkcí k $f(\\varphi(x))$ na intervalu $(\\alpha, \\beta)$.",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "$f(\\varphi(x))\\varphi'(x)$ má na intervalu $(\\alpha, \\beta)$ primitivní funkci.",
-            "is_correct": true
+            "isCorrect": true
         }
     ],
     "topics": [
         "neurcity-integral-a-primitivni-funkce"
-    ]
+    ],
+    "questionType": "multichoice"
 }

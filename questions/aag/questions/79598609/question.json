@@ -1,27 +1,27 @@
 {
     "question": "Mějme jazyk $L = \\{u u^R (w w^R)^* \\mid u \\in \\{a, b\\}^*, w \\in \\{0, 1\\}^*\\}$. Které slovo délky alespoň $p$ bude vhodným slovem pro Pumping Lemma (PL)?",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "$a^p$",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "$a b^p b^p a$",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "$a b b^p a^p$",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "$b^p a a b^p$",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "bezkontextove-gramatiky",
         "google-doc"
     ],
-    "original_text": "117) Jazyk L={uu^R(ww^R)*, u{a,b}*, w{0,1}*}, které slovo konstantní délky p bude vhodným rozkladem slova pro PL? \n\n a) a^p\n b) ab^pb^pa\n c) abb^pa^p\n d) b^paab^p\nnic      ."
+    "questionType": "multichoice",
+    "originalText": "117) Jazyk L={uu^R(ww^R)*, u{a,b}*, w{0,1}*}, které slovo konstantní délky p bude vhodným rozkladem slova pro PL? \n\n a) a^p\n b) ab^pb^pa\n c) abb^pa^p\n d) b^paab^p\nnic      ."
 }

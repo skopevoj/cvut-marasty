@@ -1,22 +1,21 @@
 {
     "question": "Vyberte, který z jazyků není regulární.",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "$L = \\{ a^n b^n c^n : n \\ge 0 \\}$",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "$L = \\{ a^n b^n : n \\ge 0 \\}$",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "$L = \\{ a^n b^m : m, n \\ge 0 \\}$",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "$L = \\{ a^n : n \\ge 0 \\}$",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
@@ -24,5 +23,6 @@
         "formalni-jazyky-gramatiky-a-jejich-klasifikace",
         "google-doc"
     ],
-    "original_text": "--- QUESTION 4 ---\n131) Vyberte, který z jazyků není regulární \n   a) L = { a^n b^n c^n, n >= 0 }\n   b) L = { a^n b^n, n >= 0 }\n   c) L = { a^n b^m, m,n >= 0 }\n   d) L = { a^n, n >= 0 }\n A,B       ."
+    "questionType": "multichoice",
+    "originalText": "--- QUESTION 4 ---\n131) Vyberte, který z jazyků není regulární \n   a) L = { a^n b^n c^n, n >= 0 }\n   b) L = { a^n b^n, n >= 0 }\n   c) L = { a^n b^m, m,n >= 0 }\n   d) L = { a^n, n >= 0 }\n A,B       ."
 }

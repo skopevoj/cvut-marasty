@@ -1,8 +1,8 @@
 {
     "question": "Test",
-    "question_type": "open",
     "answers": [],
     "topics": [
         "uncategorized"
-    ]
+    ],
+    "questionType": "open"
 }

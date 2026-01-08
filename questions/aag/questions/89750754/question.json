@@ -1,25 +1,25 @@
 {
     "question": "Mějme následující tři jazyky: $L_1 = \\emptyset$, $L_2 = \\{\\text{a}\\}$, $L = (L_1 \\cdot L_2^*) \\cup L_1^*$. O každém z následujících tvrzení rozhodněte, zdali je pravdivé (✓) či nepravdivé (✕):",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "$L = h(\\text{a}^*)$",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "$L = \\{\\varepsilon\\}$",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "$L = \\emptyset$",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "$L = \\{\\varepsilon, \\text{a}\\}$",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "regularni-jazyky"
-    ]
+    ],
+    "questionType": "multichoice"
 }

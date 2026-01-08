@@ -1,23 +1,23 @@
 {
     "question": "Které z následujících tvrzení platí?",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "$L_1$ je konečný jazyk, $L_2 = L_1^*$, pak $L_2$ je konečný jazyk",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "$L_1, L_2$ jsou konečné jazyky, $L_1 \\cup L_2 = L_3$, pak $L_3$ musí být regulární",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "$L_1, L_2$ jsou konečné jazyky, $L_1 \\cap L_3 = L_2$, pak $L_3$ musí být konečný jazyk",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "regularni-jazyky",
         "google-doc"
     ],
-    "original_text": "100) Platí tvrzení:\n\na) L1 je konečný jazyk, L2 = L1*, L2 je konečný jazyk\nb) L1, L2 jsou konečné jazyky, L1  L2 = L3, L3 must být regulární\nc) L1, L2 jsou konečné jazyky, L1  L3 = L2, L3 musí být konečný jazyk\nB         ."
+    "questionType": "multichoice",
+    "originalText": "100) Platí tvrzení:\n\na) L1 je konečný jazyk, L2 = L1*, L2 je konečný jazyk\nb) L1, L2 jsou konečné jazyky, L1  L2 = L3, L3 must být regulární\nc) L1, L2 jsou konečné jazyky, L1  L3 = L2, L3 musí být konečný jazyk\nB         ."
 }

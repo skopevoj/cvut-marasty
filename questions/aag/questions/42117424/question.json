@@ -1,27 +1,27 @@
 {
     "question": "Mějme jazyk $L = \\{c^j w u w^R \\mid w \\in \\{a, b\\}^*, u \\in \\{0, 1\\}^*, j = |u|\\}$. Které slovo bude vhodným slovem pro Pumping Lemma (PL)?",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "$a^p a^p$",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "$a b^p b^p a$",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "$a^p b b a^p$",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "$b^p a a b^p$",
-            "is_correct": true
+            "isCorrect": true
         }
     ],
     "topics": [
         "bezkontextove-gramatiky",
         "google-doc"
     ],
-    "original_text": "118) Jazyk L={c^Jwuw^R  , w{a,b}*, u{0,1}*, j=|u|}, které slovo bude vhodným rozkladem slova pro PL?\n a) a*a*\n b) ab^pb^pa \n c) a^pbba^p\n d) b^paab^p \nC,D      ."
+    "questionType": "multichoice",
+    "originalText": "118) Jazyk L={c^Jwuw^R  , w{a,b}*, u{0,1}*, j=|u|}, které slovo bude vhodným rozkladem slova pro PL?\n a) a*a*\n b) ab^pb^pa \n c) a^pbba^p\n d) b^paab^p \nC,D      ."
 }

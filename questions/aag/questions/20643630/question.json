@@ -1,27 +1,27 @@
 {
     "question": "Gramatika s pravidly $A \\to aB$, $aB \\to aAb$, $A \\to \\epsilon$ atd. Jaká je to gramatika v Chomského klasifikaci?",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "Regulární",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "Bezkontextová",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "Kontextová",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "Neomezená",
-            "is_correct": true
+            "isCorrect": true
         }
     ],
     "topics": [
         "formalni-jazyky-gramatiky-a-jejich-klasifikace",
         "google-doc"
     ],
-    "original_text": "85) Gramatika s pravidly A→aB, aB→aAb, A→ ε atd. Jaká je to gramatika v Chomského klasifikaci?\na) Regulární\nb) Bezkontextová\nc) Kontextová\nd) Neomezená\nD           ."
+    "questionType": "multichoice",
+    "originalText": "85) Gramatika s pravidly A→aB, aB→aAb, A→ ε atd. Jaká je to gramatika v Chomského klasifikaci?\na) Regulární\nb) Bezkontextová\nc) Kontextová\nd) Neomezená\nD           ."
 }

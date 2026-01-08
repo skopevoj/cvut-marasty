@@ -1,27 +1,27 @@
 {
     "question": "Nechť $L_1$ a $L_2$ jsou jazyky nad stejnou abecedou takové, že $L_1 \\subset L_2$ ($L_1 \\neq L_2$). Potom platí:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "Je-li $L_1$ přijímaný konečným automatem, potom je $L_2$ přijímaný konečným automatem;",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "Je-li $L_2$ přijímán konečným automatem, potom je $L_1$ přijímaný konečným automatem;",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "Je-li $L_2$ konečný, potom je $L_1$ přijímaný konečným automatem;",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "Je-li $L_1$ konečný, potom je $L_2$ přijímaný konečným automatem;",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "regularni-jazyky",
         "google-doc"
     ],
-    "original_text": "87) Nechť L1 a L2 jsou jazyky nad stejnou abecedou takové, že L1 ⊂ L2 (L1 ≠ L2) Potom platí:\na) Je-li L1 přijímaný konečným automatem, potom je L2 přijímaný konečným automatem;\nb) Je-li L2 přijímán konečným automatem, potom je L1 přijímaný konečným automatem;\nc) Je-li L2 konečný, potom je L1 přijímaný konečným automatem;\nd) Je-li L1 konečný, potom je L2 přijímaný konečným automatem;\n               C"
+    "questionType": "multichoice",
+    "originalText": "87) Nechť L1 a L2 jsou jazyky nad stejnou abecedou takové, že L1 ⊂ L2 (L1 ≠ L2) Potom platí:\na) Je-li L1 přijímaný konečným automatem, potom je L2 přijímaný konečným automatem;\nb) Je-li L2 přijímán konečným automatem, potom je L1 přijímaný konečným automatem;\nc) Je-li L2 konečný, potom je L1 přijímaný konečným automatem;\nd) Je-li L1 konečný, potom je L2 přijímaný konečným automatem;\n               C"
 }

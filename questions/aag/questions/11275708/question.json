@@ -1,25 +1,25 @@
 {
     "question": "O každém z následujících tvrzení rozhodněte, zdali je pravdivé (✔), nebo nepravdivé (✖):",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "Pro každý bezkontextový jazyk lze zkonstruovat nedeterministický zásobníkový automat, který jej přijímá přechodem do koncového stavu.",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "Existuje regulární jazyk, pro nějž nelze zkonstruovat deterministický zásobníkový automat, který jej přijímá přechodem do koncového stavu.",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "Existuje regulární jazyk, pro nějž nelze zkonstruovat deterministický zásobníkový automat, který jej přijímá s prázdným zásobníkem.",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "Existuje bezkontextový jazyk, pro nějž lze zkonstruovat konečný automat, který jej přijímá.",
-            "is_correct": true
+            "isCorrect": true
         }
     ],
     "topics": [
         "bezkontextove-gramatiky"
-    ]
+    ],
+    "questionType": "multichoice"
 }

@@ -1,27 +1,27 @@
 {
     "question": "Uvažujme toto tvrzení $T$: Nechť $L$ je regulární jazyk, potom existuje $p \\ge 1$ takové, že pro každé $w \\in L$, které splňuje $|w| \\ge p$, existuje $x, y, z$ takové, že $w = xyz$, $|xy| \\le p$, $|y| > 0$ a pro každé $i \\ge 0$ platí $xy^i z \\in L$.",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "Nejmenší možná konstanta $p$ z tvrzení $T$ pro jazyk $L$ tak, aby dále platilo, je: $p \\ge 1$",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "Tvrzení $T$ platí, ale konkrétní konstantu $p$, od které pro slova větší délky platí, nelze určit.",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "Tento jazyk není regulární a tvrzení $T$ pro něj neplatí",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "Tvrzení $T$ platí pro všechna slova tohoto jazyka s $p = 0$",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "regularni-jazyky",
         "google-doc"
     ],
-    "original_text": "115) Uvažujme toto tvrzení T: Nechť , potom existuje p >=1, takové, že pro každé w z L, které splňuje |w|>=p, existuje x,y,z takové, že w=xyz; |xy|<=p, |y|>0, pro každé i>=0; xy^iz z L.\n a) Nejmenší možná konstanta p z tvrzení T pro jazyk L tak, aby dále platilo, je: ___\n b) Tvrzení T platí, ale konkrétní konstantu p, od které pro slova větší délky platí, nelze určit.\n c) Tento jazyk není regulární a tvrzení T pro něj neplatí\n d) Tvrzení T platí pro všechna slova tohoto jazyk s p=0\nA, p>=1         ."
+    "questionType": "multichoice",
+    "originalText": "115) Uvažujme toto tvrzení T: Nechť , potom existuje p >=1, takové, že pro každé w z L, které splňuje |w|>=p, existuje x,y,z takové, že w=xyz; |xy|<=p, |y|>0, pro každé i>=0; xy^iz z L.\n a) Nejmenší možná konstanta p z tvrzení T pro jazyk L tak, aby dále platilo, je: ___\n b) Tvrzení T platí, ale konkrétní konstantu p, od které pro slova větší délky platí, nelze určit.\n c) Tento jazyk není regulární a tvrzení T pro něj neplatí\n d) Tvrzení T platí pro všechna slova tohoto jazyk s p=0\nA, p>=1         ."
 }

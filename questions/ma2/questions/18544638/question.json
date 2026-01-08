@@ -1,25 +1,25 @@
 {
     "question": "2. $x_{n+2} - x_{n+1} - x_n = 0$, $n \\geq 0$",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "$p(\\lambda) = \\lambda^2 - \\lambda - 1$",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "$\\left(\\frac{(1-\\sqrt{5})^n}{2^n}\\right)_{n=0}^{\\infty}$ je řešení",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "$\\left(\\frac{1}{2^n}\\right)_{n=0}^{\\infty}$ je řešení",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "$\\frac{1-i\\sqrt{5}}{2}$ a $\\frac{1+i\\sqrt{5}}{2}$ jsou charakteristická čísla",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "2501-rozstrel"
-    ]
+    ],
+    "questionType": "multichoice"
 }

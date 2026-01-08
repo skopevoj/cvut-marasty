@@ -1,26 +1,25 @@
 {
     "question": "Pro zásobníkový automat přijímající jazyk $L$ koncovým stavem platí vždy, že:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "Lze sestrojit lineárně omezený Turingův stroj přijímající jazyk $L$.",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "Pokud tento automat není deterministický, pak lze sestrojit ekvivalentní deterministický ZA.",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "Tento automat je deterministický.",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "Tento automat přijímá bezkontextový jazyk.",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "Lze sestrojit KA přijímající jazyk $L$.",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
@@ -28,5 +27,6 @@
         "kontextove-jazyky",
         "google-doc"
     ],
-    "original_text": "--- QUESTION 1 ---\n128) Pro zásobníkový automat přijímající jazyk L koncovým stavem platí vždy, že:\n a) Lze sestrojit lineárně omezený Turingův stroj přijímající jazyk L.\n b) Pokud tento automat není deterministický, pak lze sestrojit ekvivalentní deterministický ZA.\n c) Tento automat je deterministický.\n d) Tento automat přijímá bezkontextový jazyk.\n e) Lze sestrojit KA přijímající jazyk L\nA,D      ."
+    "questionType": "multichoice",
+    "originalText": "--- QUESTION 1 ---\n128) Pro zásobníkový automat přijímající jazyk L koncovým stavem platí vždy, že:\n a) Lze sestrojit lineárně omezený Turingův stroj přijímající jazyk L.\n b) Pokud tento automat není deterministický, pak lze sestrojit ekvivalentní deterministický ZA.\n c) Tento automat je deterministický.\n d) Tento automat přijímá bezkontextový jazyk.\n e) Lze sestrojit KA přijímající jazyk L\nA,D      ."
 }

@@ -1,27 +1,27 @@
 {
     "question": "Formální jazyk je:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "množina dvojic",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "posloupnost symbolů",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "binární relace",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "množina vět nad abecedou $\\Sigma$",
-            "is_correct": true
+            "isCorrect": true
         }
     ],
     "topics": [
         "formalni-jazyky-gramatiky-a-jejich-klasifikace",
         "google-doc"
     ],
-    "original_text": "--- QUESTION 2 ---\n23) Formální jazyk je:\na) množina dvojic\nb) posloupnost symbolů\nc) binární relace\nd) množina vět nad abecedou\nD           ."
+    "questionType": "multichoice",
+    "originalText": "--- QUESTION 2 ---\n23) Formální jazyk je:\na) množina dvojic\nb) posloupnost symbolů\nc) binární relace\nd) množina vět nad abecedou\nD           ."
 }

@@ -1,27 +1,27 @@
 {
     "question": "Pumping Lemma pro regulární jazyky:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "Lze použít pro důkaz, že daný jazyk není bezkontextový.",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "Lze použít pro důkaz, že daný jazyk není regulární.",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "Lze použít pro důkaz, že daný jazyk je regulární.",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "Lze použít pro důkaz, že daný jazyk je bezkontextový.",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "regularni-jazyky",
         "google-doc"
     ],
-    "original_text": "--- QUESTION 1 ---\n138) Pumping Lemma pro regulární jazyky:\nLze použít pro důkaz, že daný jazyk není bezkontextový.\nLze použít pro důkaz, že daný jazyk není regulární.\nLze použít pro důkaz, že daný jazyk je regulární.\nLze použít pro důkaz, že daný jazyk je bezkontextový.\n\tB           ."
+    "questionType": "multichoice",
+    "originalText": "--- QUESTION 1 ---\n138) Pumping Lemma pro regulární jazyky:\nLze použít pro důkaz, že daný jazyk není bezkontextový.\nLze použít pro důkaz, že daný jazyk není regulární.\nLze použít pro důkaz, že daný jazyk je regulární.\nLze použít pro důkaz, že daný jazyk je bezkontextový.\n\tB           ."
 }

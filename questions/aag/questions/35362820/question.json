@@ -1,22 +1,21 @@
 {
     "question": "Pro Turingovy stroje (TS) platí:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "TS je silnější než lineárně omezený TS",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "TS je silnější než zásobníkový automat",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "Lineárně omezený TS je silnější než zásobníkový automat",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "Konečný automat je silnější než zásobníkový automat",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
@@ -25,5 +24,6 @@
         "kontextove-jazyky",
         "google-doc"
     ],
-    "original_text": "77) Pro TS platí: \na) TS je silnější než lineárně omezený TS\nb) TS je silnější než zásobníkový automat\nc) lineárně omezený TS je silnější než zásobníkový automat\nd) konečný automat je silnější než zásobníkový automat \nA,B,C   ."
+    "questionType": "multichoice",
+    "originalText": "77) Pro TS platí: \na) TS je silnější než lineárně omezený TS\nb) TS je silnější než zásobníkový automat\nc) lineárně omezený TS je silnější než zásobníkový automat\nd) konečný automat je silnější než zásobníkový automat \nA,B,C   ."
 }

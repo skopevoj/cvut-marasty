@@ -1,27 +1,27 @@
 {
     "question": "Pro Myhill-Nerodovu větu platí:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "popisuje jednu vlastnost regulárních gramatik",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "dokazuje, že je jazyk bezkontextový",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "dokazuje, že jazyk není regulární",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "dokazuje, že jazyk je regulární",
-            "is_correct": true
+            "isCorrect": true
         }
     ],
     "topics": [
         "regularni-jazyky",
         "google-doc"
     ],
-    "original_text": "113) Pro Myhill-Nerodovu větu platí:\na) popisuje 1 vlastnost regulární gr.\nb) dokazuje, že je jazyk bezkontextový\nc) dokazuje, že jazyk není regulární\nd) dokazuje, že jazyk je regulární\nA,C,D     ."
+    "questionType": "multichoice",
+    "originalText": "113) Pro Myhill-Nerodovu větu platí:\na) popisuje 1 vlastnost regulární gr.\nb) dokazuje, že je jazyk bezkontextový\nc) dokazuje, že jazyk není regulární\nd) dokazuje, že jazyk je regulární\nA,C,D     ."
 }

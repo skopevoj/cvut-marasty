@@ -1,27 +1,27 @@
 {
     "question": "Nechť $L$ je regulární jazyk a $\\bar{L}$ je jeho doplněk. Potom platí:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "Jestliže $L = L_1 \\cup L_2$ a $L_1, L_2$ jsou regulární, pak $L$ je regulární.",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "Doplněk $\\bar{L}$ je vždy regulární.",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "Jazyk $L$ může být regulární, i když je definován pomocí operací nad jinými jazyky.",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "Jestliže je $L$ regulární, $L = L_1 \\cup L_2$ a $L_1$ je regulární, pak $L_2$ musí být vždy regulární.",
-            "is_correct": false
+            "isCorrect": false
         }
     ],
     "topics": [
         "regularni-jazyky",
         "google-doc"
     ],
-    "original_text": "93)  je regulární jazyk,  je jeho doplněk, pak platí:\n      a) Jestliže  =  a  = , pak  = . \n b) = , pak  je vždy regulární\n c)  = , pak  může být regulární\n d) Jestliže je  regulární,  =  a  =  pak  = . \nA,B,C    ."
+    "questionType": "multichoice",
+    "originalText": "93)  je regulární jazyk,  je jeho doplněk, pak platí:\n      a) Jestliže  =  a  = , pak  = . \n b) = , pak  je vždy regulární\n c)  = , pak  může být regulární\n d) Jestliže je  regulární,  =  a  =  pak  = . \nA,B,C    ."
 }

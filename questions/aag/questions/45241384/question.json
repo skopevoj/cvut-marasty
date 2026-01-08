@@ -1,22 +1,21 @@
 {
     "question": "Pro průnik jazyků $L_1$ (bezkontextový) a $L_2$ (regulární) platí:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "může být regulární",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "může být prázdný",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "je vždy prázdný",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "je vždy bezkontextový",
-            "is_correct": true
+            "isCorrect": true
         }
     ],
     "topics": [
@@ -24,5 +23,6 @@
         "regularni-jazyky",
         "google-doc"
     ],
-    "original_text": "80) Pro průnik L1 (bezkontext.) a L2 (reg.) platí:\na) může být regulární\nb) může být prázdný\nc) je vždy prázdný\nd) je vždy bezkontextový\nA,B,D   ."
+    "questionType": "multichoice",
+    "originalText": "80) Pro průnik L1 (bezkontext.) a L2 (reg.) platí:\na) může být regulární\nb) může být prázdný\nc) je vždy prázdný\nd) je vždy bezkontextový\nA,B,D   ."
 }

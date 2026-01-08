@@ -1,27 +1,27 @@
 {
     "question": "Pumping lemma pro jazyk $L$:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "$L$ není regulární a pumping lemma pro něj neplatí",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "$p = 0$",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "$p$ nelze určit",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "nejmenší hodnota $p = 48$",
-            "is_correct": true
+            "isCorrect": true
         }
     ],
     "topics": [
         "regularni-jazyky",
         "google-doc"
     ],
-    "original_text": "90) Pumping lemma pro \na) není regulární a pumping lemma pro něj neplatí\nb) p = 0\nc) p nelze určit\nd) nejmenší hodnota p = ___ (doplňte) \nD (48)    ."
+    "questionType": "multichoice",
+    "originalText": "90) Pumping lemma pro \na) není regulární a pumping lemma pro něj neplatí\nb) p = 0\nc) p nelze určit\nd) nejmenší hodnota p = ___ (doplňte) \nD (48)    ."
 }

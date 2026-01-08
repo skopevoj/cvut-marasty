@@ -1,22 +1,21 @@
 {
     "question": "Průnik jazyka regulárního a kontextového je:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "vždy prázdný",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "může být prázdný",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "vždy regulární",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "vždy rekurzivně spočetný",
-            "is_correct": true
+            "isCorrect": true
         }
     ],
     "topics": [
@@ -24,5 +23,6 @@
         "regularni-jazyky",
         "google-doc"
     ],
-    "original_text": "92) Průnik jazyka regulárního a kontextového je:\n a) vždy prázdný\n b) může být prázdný\n c) vždy regulární\n d) vždy rekurzivně spočetný\nB,D      ."
+    "questionType": "multichoice",
+    "originalText": "92) Průnik jazyka regulárního a kontextového je:\n a) vždy prázdný\n b) může být prázdný\n c) vždy regulární\n d) vždy rekurzivně spočetný\nB,D      ."
 }

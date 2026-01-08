@@ -1,27 +1,27 @@
 {
     "question": "Pro metodu sousedů platí:",
-    "question_type": "multichoice",
     "answers": [
         {
             "text": "Vždy vznikne deterministický konečný automat.",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "Vždy vznikne homogenní automat bez $\\varepsilon$-přechodů.",
-            "is_correct": true
+            "isCorrect": true
         },
         {
             "text": "Vždy vznikne zásobníkový automat.",
-            "is_correct": false
+            "isCorrect": false
         },
         {
             "text": "Vznikne konečný automat.",
-            "is_correct": true
+            "isCorrect": true
         }
     ],
     "topics": [
         "regularni-jazyky",
         "google-doc"
     ],
-    "original_text": "--- QUESTION 2 ---\n102) Pro metodu sousedů platí\na) Vždy vznikne deterministický konečný automat.\nb) Vždy vznikne homogenní automat bez ε přechodů.\nc) Vždy vznikne zásobníkový automat \nd) Vznikne konečný automat\n B,D     ."
+    "questionType": "multichoice",
+    "originalText": "--- QUESTION 2 ---\n102) Pro metodu sousedů platí\na) Vždy vznikne deterministický konečný automat.\nb) Vždy vznikne homogenní automat bez ε přechodů.\nc) Vždy vznikne zásobníkový automat \nd) Vznikne konečný automat\n B,D     ."
 }
