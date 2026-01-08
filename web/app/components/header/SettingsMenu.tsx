@@ -1,13 +1,9 @@
 'use client';
 
 import { useSettings } from "../../lib/SettingsContext";
-import { Settings, BarChart2, Shuffle, Check, X } from "lucide-react";
+import { BarChart2, Shuffle } from "lucide-react";
 
-interface SettingsMenuProps {
-    onClose: () => void;
-}
-
-export function SettingsMenu({ onClose }: SettingsMenuProps) {
+export function SettingsMenu() {
     const { settings, updateSetting } = useSettings();
 
     const toggle = (key: keyof typeof settings) => {
@@ -15,52 +11,42 @@ export function SettingsMenu({ onClose }: SettingsMenuProps) {
     };
 
     return (
-        <div
-            className="absolute top-[54px] right-0 w-64 rounded-3xl border shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[100] overflow-hidden"
-            style={{
-                borderColor: 'rgba(255, 255, 255, 0.1)',
-                backgroundColor: 'rgba(10, 10, 12, 0.95)',
-                backdropFilter: 'saturate(180%) blur(20px)',
-                WebkitBackdropFilter: 'saturate(180%) blur(20px)',
-            }}
-        >
-            <div className="p-4 border-b border-white/10 flex items-center justify-between">
-                <div className="flex items-center gap-2 text-sm font-semibold text-[var(--fg-primary)]">
-                    <Settings size={16} />
-                    <span>Nastavení</span>
+        <div className="flex flex-col gap-2">
+            <button
+                onClick={() => toggle('showStatsBar')}
+                className="group flex items-center justify-between rounded-2xl bg-white/[0.03] border border-white/5 p-4 transition-all hover:bg-white/[0.06] hover:border-white/10"
+            >
+                <div className="flex items-center gap-4">
+                    <div className={`flex h-12 w-12 items-center justify-center rounded-xl border transition-colors ${settings.showStatsBar ? 'border-[var(--subject-primary)]/30 bg-[var(--subject-primary)]/10 text-[var(--subject-primary)]' : 'border-white/5 bg-white/5 text-[var(--fg-muted)]'}`}>
+                        <BarChart2 size={24} />
+                    </div>
+                    <div className="flex flex-col items-start">
+                        <span className="text-base font-semibold text-[var(--fg-primary)]">Statistiky</span>
+                        <span className="text-sm text-[var(--fg-muted)]">Zobrazovat úspěšnost u otázek</span>
+                    </div>
                 </div>
-                <button onClick={onClose} className="text-[var(--fg-muted)] hover:text-[var(--fg-primary)] transition-colors">
-                    <X size={18} />
-                </button>
-            </div>
+                <div className={`h-6 w-11 rounded-full px-1 flex items-center transition-all duration-300 ${settings.showStatsBar ? 'bg-[var(--subject-primary)]' : 'bg-white/10'}`}>
+                    <div className={`h-4 w-4 rounded-full bg-white transition-all duration-300 ${settings.showStatsBar ? 'translate-x-5' : 'translate-x-0'}`} />
+                </div>
+            </button>
 
-            <div className="p-2">
-                <button
-                    onClick={() => toggle('showStatsBar')}
-                    className="w-full flex items-center justify-between p-3 rounded-2xl hover:bg-white/5 transition-colors text-left"
-                >
-                    <div className="flex items-center gap-3">
-                        <BarChart2 size={18} className="text-[var(--fg-muted)]" />
-                        <span className="text-sm text-[var(--fg-primary)]">Zobrazovat úspěšnost</span>
+            <button
+                onClick={() => toggle('shuffleAnswers')}
+                className="group flex items-center justify-between rounded-2xl bg-white/[0.03] border border-white/5 p-4 transition-all hover:bg-white/[0.06] hover:border-white/10"
+            >
+                <div className="flex items-center gap-4">
+                    <div className={`flex h-12 w-12 items-center justify-center rounded-xl border transition-colors ${settings.shuffleAnswers ? 'border-[var(--subject-primary)]/30 bg-[var(--subject-primary)]/10 text-[var(--subject-primary)]' : 'border-white/5 bg-white/5 text-[var(--fg-muted)]'}`}>
+                        <Shuffle size={24} />
                     </div>
-                    <div className={`w-10 h-6 rounded-full transition-colors flex items-center px-1 ${settings.showStatsBar ? 'bg-[var(--subject-primary)]' : 'bg-white/10'}`}>
-                        <div className={`w-4 h-4 rounded-full bg-white transition-transform ${settings.showStatsBar ? 'translate-x-4' : 'translate-x-0'}`} />
+                    <div className="flex flex-col items-start">
+                        <span className="text-base font-semibold text-[var(--fg-primary)]">Míchání</span>
+                        <span className="text-sm text-[var(--fg-muted)]">Náhodné pořadí odpovědí</span>
                     </div>
-                </button>
-
-                <button
-                    onClick={() => toggle('shuffleAnswers')}
-                    className="w-full flex items-center justify-between p-3 rounded-2xl hover:bg-white/5 transition-colors text-left"
-                >
-                    <div className="flex items-center gap-3">
-                        <Shuffle size={18} className="text-[var(--fg-muted)]" />
-                        <span className="text-sm text-[var(--fg-primary)]">Míchat odpovědi</span>
-                    </div>
-                    <div className={`w-10 h-6 rounded-full transition-colors flex items-center px-1 ${settings.shuffleAnswers ? 'bg-[var(--subject-primary)]' : 'bg-white/10'}`}>
-                        <div className={`w-4 h-4 rounded-full bg-white transition-transform ${settings.shuffleAnswers ? 'translate-x-4' : 'translate-x-0'}`} />
-                    </div>
-                </button>
-            </div>
+                </div>
+                <div className={`h-6 w-11 rounded-full px-1 flex items-center transition-all duration-300 ${settings.shuffleAnswers ? 'bg-[var(--subject-primary)]' : 'bg-white/10'}`}>
+                    <div className={`h-4 w-4 rounded-full bg-white transition-all duration-300 ${settings.shuffleAnswers ? 'translate-x-5' : 'translate-x-0'}`} />
+                </div>
+            </button>
         </div>
     );
 }
