@@ -64,21 +64,28 @@ export function QuizProvider({ children }: { children: ReactNode }) {
         for (const sub of subList) {
           const qListRes = await fetch(`subjects/${sub.code}/questions.json`);
           if (!qListRes.ok) continue;
-          const { topics } = await qListRes.json();
 
-          // Map topic IDs to names from the subject data
-          const topicMap = (sub.topics || []).reduce((acc: any, t: any) => {
-            acc[t.id] = t.name;
-            return acc;
-          }, {});
+          const data = await qListRes.json();
+          // Support both new: { questions: [] } and old: { topics: {} } formats
+          let subQuestions: Question[] = [];
 
-          for (const [topicId, topicData] of Object.entries(topics) as any) {
-            const topicQuestions = (topicData.questions || []).map((q: any) => ({
-              ...q,
-              topicName: topicMap[topicId] || topicId
-            }));
-            allQuestions.push(...topicQuestions);
+          if (data.questions) {
+            subQuestions = data.questions;
+          } else if (data.topics) {
+            for (const [topicId, topicData] of Object.entries(data.topics) as any) {
+              const qs = (topicData.questions || []).map((q: any) => ({
+                ...q,
+                topics: q.topics || [topicId]
+              }));
+              subQuestions.push(...qs);
+            }
           }
+
+          // In both cases, ensure topics array exists for filtering
+          allQuestions.push(...subQuestions.map(q => ({
+            ...q,
+            topics: q.topics || (q.topic ? [q.topic] : [])
+          })));
         }
         setQuestions(allQuestions);
       } catch (err) {
@@ -98,7 +105,10 @@ export function QuizProvider({ children }: { children: ReactNode }) {
     }
     const filtered = questions.filter(q =>
       q.subjectCode === currentSubject.code &&
-      (selectedTopics.length === 0 || selectedTopics.includes(q.topic))
+      (selectedTopics.length === 0 ||
+        (q.topics || []).some((id: string) => selectedTopics.includes(id)) ||
+        (q.topic && selectedTopics.includes(q.topic))
+      )
     );
     setQuizQueue(filtered);
   }, [questions, currentSubject, selectedTopics]);
@@ -162,8 +172,8 @@ export function QuizProvider({ children }: { children: ReactNode }) {
     }
 
     setSelectedTopics([]);
-    
-    const filteredQuestions = questions.filter(item => 
+
+    const filteredQuestions = questions.filter(item =>
       item.subjectCode === q.subjectCode
     );
     const index = filteredQuestions.findIndex(item => item.id === q.id);
@@ -241,26 +251,26 @@ export function QuizProvider({ children }: { children: ReactNode }) {
         .map((a) => (a.text || "").trim());
       isCorrect = correctAnswers.some(c => c === (userTextAnswer || "").trim());
     } else {
-      // For multichoice, check if all correct answers are selected as 1 (correct)
-      // and no incorrect answers are selected as 1
+      // For multichoice, check if all correct answers are correctly identified
       isCorrect = currentQuestion.answers.every((ans, i) => {
         const isActuallyCorrect = !!(ans.isCorrect ?? ans.is_correct ?? false);
         const userState = userAnswers[i] || 0;
-        return isActuallyCorrect === (userState === 1);
+        return (userState === 1 && isActuallyCorrect) || (userState === 3 && !isActuallyCorrect);
       });
     }
 
     const statsUserAnswers = qType === 'open'
       ? userTextAnswer
       : currentQuestion.answers.reduce((acc, ans, i) => {
-        acc[ans.index] = userAnswers[i] === 1;
+        acc[ans.index ?? i] = userAnswers[i] || 0;
         return acc;
-      }, {} as Record<number, boolean>);
+      }, {} as Record<number, number>);
 
     saveAttempt({
       questionId: currentQuestion.id || 'unknown',
       subjectCode: currentQuestion.subjectCode,
-      topic: currentQuestion.topic,
+      topic: currentQuestion.topic || currentQuestion.topics?.[0] || 'unknown',
+      topics: currentQuestion.topics,
       timestamp: Date.now(),
       type: qType as any,
       userAnswers: statsUserAnswers

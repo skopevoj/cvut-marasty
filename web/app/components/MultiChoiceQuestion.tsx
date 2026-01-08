@@ -12,8 +12,7 @@ export function MultiChoiceQuestion() {
             {currentQuestion.answers.map((answer, i) => {
                 const answerState = userAnswers[i] || 0;
                 const isCorrect = !!((answer as any).isCorrect ?? (answer as any).is_correct ?? false);
-                const userMarkedCorrect = answerState === 1;
-                const isUserCorrect = userMarkedCorrect === isCorrect;
+                const isUserCorrect = (answerState === 1 && isCorrect) || (answerState === 3 && !isCorrect);
 
                 let statusClass = "bg-white/[0.03] border-white/[0.03]";
                 if (showResults) {
@@ -25,7 +24,7 @@ export function MultiChoiceQuestion() {
                 }
 
                 return (
-                    <div key={i} className={`flex items-center justify-between gap-3 rounded-xl border p-2 transition-all duration-300 ${statusClass}`}>
+                    <div key={i} className={`flex items-center justify-between gap-3 rounded-2xl border p-2 transition-all duration-300 ${statusClass}`}>
                         <div className="flex items-center bg-white/[0.03] p-1 rounded-xl border border-white/5" aria-label="Answer state">
                             <button
                                 className={`flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-[15px] transition-all duration-200 ${answerState === 1

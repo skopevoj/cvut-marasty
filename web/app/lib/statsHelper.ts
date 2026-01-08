@@ -1,10 +1,11 @@
 export interface QuestionAttempt {
     questionId: string;
     subjectCode: string;
-    topic: string;
+    topic?: string;
+    topics?: string[];
     timestamp: number;
     type: 'multichoice' | 'open';
-    userAnswers: Record<number, boolean> | string; // index (1-based) -> boolean for multichoice, string for open
+    userAnswers: Record<number, boolean | number> | string; // index (1-based) -> boolean or number for multichoice, string for open
 }
 
 const STORAGE_KEY = 'marasty_quiz_stats';
@@ -38,11 +39,18 @@ export const statsHelper = {
                 : "";
             return correctAnswers.includes(userAnswer);
         } else {
-            const userAnswers = attempt.userAnswers as Record<number, boolean>;
-            return question.answers.every((ans: any) => {
+            const userAnswers = attempt.userAnswers as Record<number, boolean | number>;
+            return question.answers.every((ans: any, i: number) => {
                 const isActuallyCorrect = !!(ans.isCorrect ?? ans.is_correct ?? false);
-                const userChoice = !!userAnswers[ans.index];
-                return isActuallyCorrect === userChoice;
+                const userChoice = userAnswers[ans.index ?? i];
+
+                if (typeof userChoice === 'boolean') {
+                    // Backward compatibility for old stats where only 'correct' was stored as true
+                    return isActuallyCorrect === userChoice;
+                }
+
+                // New logic: 1 is correct (✓), 3 is incorrect (✕), 0/2 is neutral (−)
+                return (userChoice === 1 && isActuallyCorrect) || (userChoice === 3 && !isActuallyCorrect);
             });
         }
     },
