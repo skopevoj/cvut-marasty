@@ -68,7 +68,7 @@ export function Header() {
                                 currentSubject={currentSubject}
                                 onSelectSubject={selectSubject}
                             />
-                            
+
                             <div className="hidden h-6 w-px bg-[var(--border-default)] shrink-0 sm:block" />
 
                             <div className="flex-1 min-w-0">
@@ -86,12 +86,12 @@ export function Header() {
                         <div className="flex shrink-0 items-center gap-2">
                             <button
                                 onClick={() => setIsSearchOpen(true)}
-                                className="rounded-lg border border-[var(--border-default)] bg-[var(--bg-surface)] p-2 text-[var(--fg-muted)] transition-all duration-200 hover:border-[var(--border-hover)] hover:text-[var(--fg-primary)] active:scale-95"
+                                className="rounded-lg border border-[var(--border-default)] bg-[var(--button-bg)] p-2 text-[var(--fg-muted)] transition-all duration-200 hover:border-[var(--border-hover)] hover:text-[var(--fg-primary)] active:scale-95"
                                 title="Hledat"
                             >
                                 <Search size={18} />
                             </button>
-                            <button className="rounded-lg border border-[var(--border-default)] bg-[var(--bg-surface)] p-2 text-[var(--fg-muted)] transition-all duration-200 hover:border-[var(--border-hover)] hover:text-[var(--fg-primary)] active:scale-95" title="Oblíbené">
+                            <button className="rounded-lg border border-[var(--border-default)] bg-[var(--button-bg)] p-2 text-[var(--fg-muted)] transition-all duration-200 hover:border-[var(--border-hover)] hover:text-[var(--fg-primary)] active:scale-95" title="Oblíbené">
                                 <Star size={18} />
                             </button>
                         </div>

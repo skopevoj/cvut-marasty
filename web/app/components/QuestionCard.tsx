@@ -37,19 +37,19 @@ export function QuestionCard() {
                 background: `linear-gradient(90deg, transparent, var(--subject-primary), transparent)`,
             }} />
 
-            <BadgeList 
-                topics={topics} 
-                topicMap={topicMap} 
-                questionId={currentQuestion.id || ''} 
+            <BadgeList
+                topics={topics}
+                topicMap={topicMap}
+                questionId={currentQuestion.id || ''}
             />
 
-            <QuestionActions 
+            <QuestionActions
                 hasQuizPhoto={!!currentQuestion.quizPhoto}
                 showQuizPhoto={showQuizPhoto}
                 onToggleQuizPhoto={() => setShowQuizPhoto(!showQuizPhoto)}
             />
 
-            <QuestionContent 
+            <QuestionContent
                 questionText={currentQuestion.question}
                 photoUrl={photoUrl as string}
             />
