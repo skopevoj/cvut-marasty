@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, ReactNode } from 'react';
+import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
 
 interface ModalProps {
@@ -25,7 +26,7 @@ export function Modal({ isOpen, onClose, title, children, maxWidth = "max-w-2xl"
 
     if (!isOpen) return null;
 
-    return (
+    return createPortal(
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6">
             {/* Backdrop */}
             <div
@@ -56,6 +57,7 @@ export function Modal({ isOpen, onClose, title, children, maxWidth = "max-w-2xl"
                     {children}
                 </div>
             </div>
-        </div>
+        </div>,
+        document.body
     );
 }
