@@ -21,6 +21,15 @@ export function Footer() {
                         <span>Discord: <span className="font-medium text-[var(--fg-primary)]">darkkw</span></span>
                     </div>
                 </div>
+                <div className="text-[10px] uppercase tracking-[0.2em] opacity-40">
+                    Build: {process.env.NEXT_PUBLIC_BUILD_TIME ? new Date(process.env.NEXT_PUBLIC_BUILD_TIME).toLocaleString('cs-CZ', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    }) : 'Unknown'}
+                </div>
                 {/* <div className="text-[10px] uppercase tracking-[0.2em] opacity-40">
                     © {new Date().getFullYear()} CVUT Marasty
                 </div> */}
