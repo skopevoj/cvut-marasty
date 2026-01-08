@@ -46,6 +46,7 @@ export function QuestionCard() {
             />
 
             <QuestionActions
+                questionId={currentQuestion.id || ''}
                 hasQuizPhoto={!!currentQuestion.quizPhoto}
                 showQuizPhoto={showQuizPhoto}
                 onToggleQuizPhoto={() => setShowQuizPhoto(!showQuizPhoto)}

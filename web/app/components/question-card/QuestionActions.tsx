@@ -1,9 +1,11 @@
 'use client';
 
 import { Star, TriangleAlert, ImageIcon, FileText } from "lucide-react";
-import { IconButton } from "../IconButton";
+import { favoritesHelper } from "../../lib/favoritesHelper";
+import { useState, useEffect } from "react";
 
 interface QuestionActionsProps {
+    questionId: string;
     hasQuizPhoto: boolean;
     showQuizPhoto: boolean;
     onToggleQuizPhoto: () => void;
@@ -13,6 +15,7 @@ interface QuestionActionsProps {
 }
 
 export function QuestionActions({
+    questionId,
     hasQuizPhoto,
     showQuizPhoto,
     onToggleQuizPhoto,
@@ -20,36 +23,67 @@ export function QuestionActions({
     showOriginalText,
     onToggleOriginalText
 }: QuestionActionsProps) {
+    const [isFavorite, setIsFavorite] = useState(false);
+    const [isAnimating, setIsAnimating] = useState(false);
+
+    useEffect(() => {
+        setIsFavorite(favoritesHelper.isFavorite(questionId));
+
+        const handleUpdate = () => {
+            setIsFavorite(favoritesHelper.isFavorite(questionId));
+        };
+
+        window.addEventListener('favorites-updated', handleUpdate);
+        return () => window.removeEventListener('favorites-updated', handleUpdate);
+    }, [questionId]);
+
+    const handleToggleFavorite = () => {
+        const willBeFavorite = !isFavorite;
+        favoritesHelper.toggleFavorite(questionId);
+        if (willBeFavorite) {
+            setIsAnimating(true);
+            setTimeout(() => setIsAnimating(false), 300);
+        }
+    };
+
     return (
-        <div className="absolute top-4 right-4 z-10 flex gap-2">
+        <div className="absolute top-4 right-4 z-10 flex items-center gap-3">
             {hasOriginalText && (
-                <IconButton
+                <button
                     onClick={onToggleOriginalText}
-                    icon={FileText}
-                    active={showOriginalText}
                     title="Zobrazit původní text z Wordu"
-                    size={16}
-                />
+                    className={`p-1 transition-all duration-200 hover:scale-110 active:scale-90 ${showOriginalText ? "text-[var(--subject-primary)]" : "text-[var(--fg-muted)] hover:text-[var(--fg-primary)]"
+                        }`}
+                >
+                    <FileText size={20} />
+                </button>
             )}
             {hasQuizPhoto && (
-                <IconButton
+                <button
                     onClick={onToggleQuizPhoto}
-                    icon={ImageIcon}
-                    active={showQuizPhoto}
                     title="Zobrazit detailní obrázek"
-                    size={16}
-                />
+                    className={`p-1 transition-all duration-200 hover:scale-110 active:scale-90 ${showQuizPhoto ? "text-[var(--subject-primary)]" : "text-[var(--fg-muted)] hover:text-[var(--fg-primary)]"
+                        }`}
+                >
+                    <ImageIcon size={20} />
+                </button>
             )}
-            <IconButton
-                icon={TriangleAlert}
+            <button
                 title="Navrhnout úpravu"
-                size={16}
-            />
-            <IconButton
-                icon={Star}
-                size={20}
-                className="[&_svg]:hover:text-yellow-400 [&_svg]:transition-all [&_svg]:duration-300"
-            />
+                className="p-1 text-[var(--fg-muted)] transition-all duration-200 hover:scale-110 hover:text-[var(--fg-primary)] active:scale-90"
+            >
+                <TriangleAlert size={20} />
+            </button>
+            <button
+                onClick={handleToggleFavorite}
+                title={isFavorite ? "Odebrat z oblíbených" : "Přidat do oblíbených"}
+                className={`p-1 transition-all duration-300 hover:scale-110 active:scale-90 ${isFavorite
+                    ? "fill-yellow-400 text-yellow-400 star-glow"
+                    : "text-[var(--fg-muted)] hover:text-yellow-400"
+                    } ${isAnimating ? "animate-star-pop" : ""}`}
+            >
+                <Star size={24} className={isFavorite ? "fill-inherit" : ""} />
+            </button>
         </div>
     );
 }
