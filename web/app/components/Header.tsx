@@ -8,6 +8,7 @@ import { SubjectSelector } from "./header/SubjectSelector";
 import { SearchBar } from "./header/SearchBar";
 import { SearchResults } from "./header/SearchResults";
 import * as helpers from "../lib/headerHelpers";
+import { IconButton } from "./IconButton";
 
 export function Header() {
     const { subjects, currentSubject, currentSubjectDetails, selectSubject, toggleTopic, selectedTopics, questions, goToQuestion } = useQuiz();
@@ -84,16 +85,15 @@ export function Header() {
                         </div>
 
                         <div className="flex shrink-0 items-center gap-2">
-                            <button
+                            <IconButton
                                 onClick={() => setIsSearchOpen(true)}
-                                className="rounded-lg border border-[var(--border-default)] bg-[var(--button-bg)] p-2 text-[var(--fg-muted)] transition-all duration-200 hover:border-[var(--border-hover)] hover:text-[var(--fg-primary)] active:scale-95"
+                                icon={Search}
                                 title="Hledat"
-                            >
-                                <Search size={18} />
-                            </button>
-                            <button className="rounded-lg border border-[var(--border-default)] bg-[var(--button-bg)] p-2 text-[var(--fg-muted)] transition-all duration-200 hover:border-[var(--border-hover)] hover:text-[var(--fg-primary)] active:scale-95" title="Oblíbené">
-                                <Star size={18} />
-                            </button>
+                            />
+                            <IconButton
+                                icon={Star}
+                                title="Oblíbené"
+                            />
                         </div>
                     </>
                 )}

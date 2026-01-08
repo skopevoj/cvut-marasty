@@ -1,6 +1,7 @@
 'use client';
 
 import { Shuffle } from "lucide-react";
+import { IconButton } from "../IconButton";
 
 interface ShuffleButtonProps {
     onClick: () => void;
@@ -9,13 +10,11 @@ interface ShuffleButtonProps {
 
 export function ShuffleButton({ onClick, disabled }: ShuffleButtonProps) {
     return (
-        <button
+        <IconButton
             onClick={onClick}
-            className="rounded-lg border border-[var(--border-default)] bg-[var(--button-bg)] p-2 text-[var(--fg-muted)] transition-all duration-200 hover:border-[var(--border-hover)] hover:text-[var(--fg-primary)] active:scale-95 disabled:cursor-not-allowed disabled:opacity-30 md:p-2.5"
+            icon={Shuffle}
             title="Zamíchat otázky"
             disabled={disabled}
-        >
-            <Shuffle size={18} />
-        </button>
+        />
     );
 }
