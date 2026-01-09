@@ -1,8 +1,27 @@
 {
     "question": "Uvažujte metodu sousedů (Glushkov) pro převod regulárního výrazu $V$ na konečný automat $M$. O každém z následujících tvrzení rozhodněte, zdali je pravdivé ($\\checkmark$) či nepravdivé ($\\times$):",
-    "answers": [],
-    "topics": [
-        "regularni-jazyky"
+    "questionType": "multichoice",
+    "answers": [
+        {
+            "text": "Existuje $V$ takový, že $M$ bude obsahovat více počátečních stavů.",
+            "isCorrect": true
+        },
+        {
+            "text": "Existuje $V$ takový, že výsledný $M$ bude nedeterministický konečný automat.",
+            "isCorrect": false
+        },
+        {
+            "text": "Existuje $V$ takový, že výsledný $M$ bude obsahovat zbytečný stav.",
+            "isCorrect": true
+        },
+        {
+            "text": "Pro všechny $V$ bude výsledný $M$ vždy minimální deterministický konečný automat.",
+            "isCorrect": false
+        }
     ],
-    "questionType": "multichoice"
+    "topics": [
+        "google-doc",
+        "Regulární jazyky"
+    ],
+    "originalText": "Uvažujte metodu sousedů (Glushkov) pro převod regulárního výrazu V na konečný automat M. O každém z následujících tvrzení rozhodněte, zdali je pravdivé či nepravdivé: Existuje V takový, že M bude obsahovat více počátečních stavů. Existuje V takový, že výsledný M bude nedeterministický konečný automat. Existuje V takový, že výsledný M bude obsahovat zbytečný stav. Pro všechny V bude výsledný M vždy minimální deterministický konečný automat."
 }
