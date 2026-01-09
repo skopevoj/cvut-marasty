@@ -6,6 +6,7 @@ interface Settings {
     showStatsBar: boolean;
     shuffleAnswers: boolean;
     whiteboardEnabled: boolean;
+    theme: 'light' | 'dark';
 }
 
 interface SettingsContextType {
@@ -17,6 +18,7 @@ const defaultSettings: Settings = {
     showStatsBar: true,
     shuffleAnswers: true,
     whiteboardEnabled: true,
+    theme: 'dark',
 };
 
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);

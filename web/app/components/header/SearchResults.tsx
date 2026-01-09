@@ -18,7 +18,7 @@ export function SearchResults({ results, topicMap, onQuestionClick, className = 
     return (
         <div
             className={isDropdown
-                ? `bg-black border border-1 border-white/20 absolute top-[calc(100%+8px)] z-[100] overflow-hidden rounded-3xl ${className || "left-[-8px] right-[-8px] md:left-[-16px] md:right-[-16px]"}`
+                ? `bg-[var(--bg-elevated)] border border-[var(--border-default)] absolute top-[calc(100%+8px)] z-[100] overflow-hidden rounded-3xl ${className || "left-[-8px] right-[-8px] md:left-[-16px] md:right-[-16px]"}`
                 : `w-full ${className}`}
         >
             <div className={`${isDropdown ? "max-h-96" : ""} overflow-y-auto overflow-x-hidden scrollbar-hide rounded-3xl`}>
@@ -30,7 +30,7 @@ export function SearchResults({ results, topicMap, onQuestionClick, className = 
                     results.map((question) => (
                         <button
                             key={question.id}
-                            className="w-full border-b border-white/5 p-4 text-left transition-colors hover:bg-white/[0.05] last:border-0"
+                            className="w-full border-b border-[var(--border-default)] p-4 text-left transition-colors hover:bg-[var(--bg-surface-hover)] last:border-0"
                             onClick={() => onQuestionClick(question.id)}
                         >
                             <div className="mb-1 text-[10px] font-bold uppercase tracking-wider text-[var(--subject-primary)] opacity-70">

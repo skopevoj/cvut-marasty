@@ -38,8 +38,8 @@ export function WhiteboardControls() {
                     }}
                     title="Štětec"
                     className={`p-2 rounded-xl transition-all flex items-center gap-1.5 ${tool === 'pencil'
-                        ? "text-white/80"
-                        : "text-white/40 hover:text-white/70"
+                        ? "text-[var(--fg-primary)]/80"
+                        : "text-[var(--fg-primary)]/40 hover:text-[var(--fg-primary)]/70"
                         }`}
                 >
                     <Brush size={16} />
@@ -50,7 +50,7 @@ export function WhiteboardControls() {
                 </button>
 
                 {showColors && (
-                    <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 flex gap-1.5 bg-black/80 backdrop-blur-md border border-white/10 p-2 rounded-xl shadow-2xl animate-in fade-in slide-in-from-bottom-2">
+                    <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 flex gap-1.5 bg-[var(--modal-bg)]/80 backdrop-blur-md border border-[var(--fg-primary)]/10 p-2 rounded-xl shadow-2xl animate-in fade-in slide-in-from-bottom-2">
                         {COLORS.map(c => (
                             <button
                                 key={c}
@@ -59,7 +59,7 @@ export function WhiteboardControls() {
                                     setTool('pencil');
                                     setShowColors(false);
                                 }}
-                                className={`w-6 h-6 rounded-full border-2 transition-transform hover:scale-110 ${color === c ? "border-white" : "border-transparent"
+                                className={`w-6 h-6 rounded-full border-2 transition-transform hover:scale-110 ${color === c ? "border-[var(--fg-primary)]" : "border-[var(--fg-primary)]/30"
                                     }`}
                                 style={{ backgroundColor: c }}
                             />
@@ -71,7 +71,7 @@ export function WhiteboardControls() {
             <button
                 onClick={clear}
                 title="Vymazat vše"
-                className="p-2 rounded-xl text-white/80 hover:text-red-400/60 transition-all"
+                className="p-2 rounded-xl text-[var(--fg-primary)]/80 hover:text-red-400/60 transition-all"
             >
                 <RotateCcw size={16} />
             </button>
