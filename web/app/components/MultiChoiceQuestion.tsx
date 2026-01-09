@@ -24,10 +24,10 @@ export function MultiChoiceQuestion() {
                 }
 
                 return (
-                    <div key={i} className={`flex items-center justify-between gap-3 rounded-2xl border p-2 transition-all duration-300 ${statusClass}`}>
-                        <div className="flex items-center bg-white/[0.03] p-1 rounded-xl border border-white/5" aria-label="Answer state">
+                    <div key={i} className={`flex items-start md:items-center justify-between gap-2 md:gap-3 rounded-2xl border p-1.5 md:p-2 transition-all duration-300 ${statusClass}`}>
+                        <div className="flex shrink-0 items-center bg-white/[0.03] p-0.5 md:p-1 rounded-xl border border-white/5" aria-label="Answer state">
                             <button
-                                className={`flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-[15px] transition-all duration-200 ${answerState === 1
+                                className={`flex h-7 w-7 md:h-9 md:w-9 cursor-pointer items-center justify-center rounded-lg text-[12px] md:text-[15px] transition-all duration-200 ${answerState === 1
                                     ? "bg-white/10 text-white shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] translate-y-[1px]"
                                     : "text-white/30 hover:text-white/60"}`}
                                 onClick={() => setAnswerState(i, answerState === 1 ? 0 : 1)}
@@ -36,7 +36,7 @@ export function MultiChoiceQuestion() {
                                 ✓
                             </button>
                             <button
-                                className={`flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-[15px] transition-all duration-200 ${answerState === 2 || answerState === 0
+                                className={`flex h-7 w-7 md:h-9 md:w-9 cursor-pointer items-center justify-center rounded-lg text-[12px] md:text-[15px] transition-all duration-200 ${answerState === 2 || answerState === 0
                                     ? "bg-white/10 text-white shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] translate-y-[1px]"
                                     : "text-white/30 hover:text-white/60"}`}
                                 onClick={() => setAnswerState(i, answerState === 2 ? 0 : 2)}
@@ -45,7 +45,7 @@ export function MultiChoiceQuestion() {
                                 −
                             </button>
                             <button
-                                className={`flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-[15px] transition-all duration-200 ${answerState === 3
+                                className={`flex h-7 w-7 md:h-9 md:w-9 cursor-pointer items-center justify-center rounded-lg text-[12px] md:text-[15px] transition-all duration-200 ${answerState === 3
                                     ? "bg-white/10 text-white shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] translate-y-[1px]"
                                     : "text-white/30 hover:text-white/60"}`}
                                 onClick={() => setAnswerState(i, answerState === 3 ? 0 : 3)}
@@ -54,7 +54,7 @@ export function MultiChoiceQuestion() {
                                 ✕
                             </button>
                         </div>
-                        <div className="flex-1 px-2"><Latex tex={answer.text} /></div>
+                        <div className="flex-1 px-1 py-1 md:px-2 md:py-0"><Latex tex={answer.text} /></div>
                     </div>
                 );
             })}

@@ -36,16 +36,17 @@ export function Pagination({ currentIndex, total, onPrev, onNext }: PaginationPr
     }, [currentIndex, total, onPrev, onNext]);
 
     return (
-        <div className="flex items-center justify-center gap-2 md:gap-3">
+        <div className="flex items-center justify-center gap-1 md:gap-3">
             <IconButton
                 onClick={onPrev}
                 disabled={currentIndex === 0}
                 icon={ChevronLeft}
                 variant="subject"
-                size={20}
+                size={18}
+                className="scale-90 md:scale-100"
             />
 
-            <span className="min-w-[60px] text-center font-medium tabular-nums text-[var(--fg-muted)] text-xs md:text-sm">
+            <span className="min-w-[50px] md:min-w-[60px] text-center font-medium tabular-nums text-[var(--fg-muted)] text-xs md:text-sm">
                 {currentIndex + 1} / {total}
             </span>
 
@@ -54,7 +55,8 @@ export function Pagination({ currentIndex, total, onPrev, onNext }: PaginationPr
                 disabled={currentIndex === total - 1}
                 icon={ChevronRight}
                 variant="subject"
-                size={20}
+                size={18}
+                className="scale-90 md:scale-100"
             />
         </div>
     );

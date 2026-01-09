@@ -21,7 +21,12 @@ export function EvaluateButton({ onClick, disabled, showResults }: EvaluateButto
                 `,
             }}
         >
-            {showResults ? 'Další otázka' : 'Vyhodnotit'}
+            <span className="md:hidden">
+                {showResults ? 'Další' : 'Vyhodnotit'}
+            </span>
+            <span className="hidden md:inline">
+                {showResults ? 'Další otázka' : 'Vyhodnotit'}
+            </span>
         </button>
     );
 }
