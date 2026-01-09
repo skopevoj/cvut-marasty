@@ -106,7 +106,7 @@ export function SuggestEditModal({ isOpen, onClose, question }: SuggestEditModal
                     <select
                         value={reason}
                         onChange={(e) => setReason(e.target.value)}
-                        className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm focus:border-[var(--subject-primary)] focus:outline-none"
+                        className="w-full rounded-xl border border-[var(--fg-primary)]/10 bg-[var(--fg-primary)]/5 p-3 text-sm focus:border-[var(--subject-primary)] focus:outline-none"
                     >
                         {REASONS.map(r => <option key={r} value={r}>{r}</option>)}
                     </select>
@@ -121,7 +121,7 @@ export function SuggestEditModal({ isOpen, onClose, question }: SuggestEditModal
                         value={note}
                         onChange={(e) => setNote(e.target.value)}
                         placeholder="Zadejte doplňující informace k úpravě..."
-                        className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm focus:border-[var(--subject-primary)] focus:outline-none"
+                        className="w-full rounded-xl border border-[var(--fg-primary)]/10 bg-[var(--fg-primary)]/5 p-3 text-sm focus:border-[var(--subject-primary)] focus:outline-none"
                         rows={2}
                     />
                 </div>
@@ -134,10 +134,10 @@ export function SuggestEditModal({ isOpen, onClose, question }: SuggestEditModal
                     <textarea
                         value={suggestedQuestion}
                         onChange={(e) => setSuggestedQuestion(e.target.value)}
-                        className="mb-3 w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm focus:border-[var(--subject-primary)] focus:outline-none"
+                        className="mb-3 w-full rounded-xl border border-[var(--fg-primary)]/10 bg-[var(--fg-primary)]/5 p-3 text-sm focus:border-[var(--subject-primary)] focus:outline-none"
                         rows={3}
                     />
-                    <div className="rounded-xl border border-white/5 bg-black/20 p-4">
+                    <div className="rounded-xl border border-[var(--fg-primary)]/10 bg-[var(--modal-bg)]/20 p-4">
                         <div className="mb-2 text-[10px] font-bold uppercase tracking-widest text-[var(--fg-muted)]">Náhled zadání</div>
                         <Latex tex={suggestedQuestion} className="text-sm" />
                     </div>
@@ -150,7 +150,7 @@ export function SuggestEditModal({ isOpen, onClose, question }: SuggestEditModal
                     </label>
                     <div className="flex flex-col gap-3">
                         {suggestedAnswers.map((answer, index) => (
-                            <div key={index} className="flex flex-col gap-2 rounded-2xl border border-white/5 bg-white/[0.02] p-4 transition-all hover:bg-white/[0.04]">
+                            <div key={index} className="flex flex-col gap-2 rounded-2xl border border-[var(--fg-primary)]/5 bg-[var(--fg-primary)]/[0.02] p-4 transition-all hover:bg-[var(--fg-primary)]/[0.04]">
                                 <div className="flex items-center gap-3">
                                     <button
                                         onClick={() => handleToggleCorrect(index)}
@@ -170,7 +170,7 @@ export function SuggestEditModal({ isOpen, onClose, question }: SuggestEditModal
                                         placeholder="Text odpovědi..."
                                     />
                                 </div>
-                                <div className="mt-1 flex items-center gap-2 border-t border-white/5 pt-2">
+                                <div className="mt-1 flex items-center gap-2 border-t border-[var(--fg-primary)]/5 pt-2">
                                     <div className="text-[9px] font-bold uppercase tracking-widest text-[var(--fg-muted)]">Náhled:</div>
                                     <Latex tex={answer.text} className="text-xs italic opacity-80" />
                                 </div>
@@ -183,13 +183,13 @@ export function SuggestEditModal({ isOpen, onClose, question }: SuggestEditModal
                 <div className="mt-4 flex justify-end gap-3">
                     <button
                         onClick={onClose}
-                        className="rounded-xl px-6 py-3 text-sm font-medium text-[var(--fg-muted)] transition-colors hover:bg-white/5 hover:text-[var(--fg-primary)]"
+                        className="rounded-xl px-6 py-3 text-sm font-medium text-[var(--fg-muted)] transition-colors hover:bg-[var(--fg-primary)]/5 hover:text-[var(--fg-primary)]"
                     >
                         Zrušit
                     </button>
                     <button
                         onClick={handleSubmit}
-                        className="flex items-center gap-2 rounded-xl bg-[var(--subject-primary)] px-6 py-3 text-sm font-bold text-white transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-[var(--subject-primary)]/20"
+                        className="flex items-center gap-2 rounded-xl bg-[var(--subject-primary)] px-6 py-3 text-sm font-bold text-[var(--fg-primary)] transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-[var(--subject-primary)]/20"
                     >
                         <Send size={16} />
                         Odeslat návrh na GitHub
