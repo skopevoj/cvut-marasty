@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState, ReactNode, useMemo } from 'react';
+import { createContext, useContext, useEffect, useState, ReactNode, useMemo, useRef } from 'react';
 import { Subject } from './types/subject';
 import { Question } from './types/question';
 import { statsHelper } from './statsHelper';
@@ -64,6 +64,8 @@ export function QuizProvider({ children }: { children: ReactNode }) {
   const [showResults, setShowResults] = useState(false);
   const [showOriginalText, setShowOriginalText] = useState(false);
   const [targetQuestionId, setTargetQuestionId] = useState<string | null>(null);
+
+  const prevFiltersRef = useRef({ subject: null as Subject | null, topics: [] as string[], sort: 'id' as SortType });
 
   useEffect(() => {
     if (currentSubjectDetails) {
@@ -151,15 +153,23 @@ export function QuizProvider({ children }: { children: ReactNode }) {
         setUserTextAnswer("");
         setShowResults(false);
       }
-    }
-  }, [questions, currentSubject, selectedTopics, sortType, targetQuestionId]);
+    } else {
+      const filtersChanged =
+        prevFiltersRef.current.subject !== currentSubject ||
+        prevFiltersRef.current.sort !== sortType ||
+        JSON.stringify(prevFiltersRef.current.topics) !== JSON.stringify(selectedTopics);
 
-  useEffect(() => {
-    setCurrentQuestionIndex(0);
-    setUserAnswers({});
-    setUserTextAnswer("");
-    setShowResults(false);
-  }, [currentSubject, selectedTopics, sortType]);
+      if (filtersChanged) {
+        setCurrentQuestionIndex(0);
+        setUserAnswers({});
+        setUserTextAnswer("");
+        setShowResults(false);
+      }
+    }
+
+    prevFiltersRef.current = { subject: currentSubject, topics: [...selectedTopics], sort: sortType };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [questions, currentSubject, selectedTopics, sortType, targetQuestionId]);
 
   const selectSubject = async (code: string | null) => {
     const sub = subjects.find(s => s.code === code) || null;
