@@ -30,23 +30,23 @@ export function Modal({ isOpen, onClose, title, children, maxWidth = "max-w-2xl"
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6">
             {/* Backdrop */}
             <div
-                className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+                className="absolute inset-0 bg-[var(--modal-bg)]/60 backdrop-blur-sm transition-opacity"
                 onClick={onClose}
             />
 
             {/* Modal Content */}
             <div
-                className={`glass-card-themed relative w-full ${maxWidth} max-h-[90vh] overflow-hidden rounded-[32px] shadow-2xl transition-all flex flex-col`}
+                className={`glass-card-themed bg-[var(--bg-surface)]/80 relative w-full ${maxWidth} max-h-[90vh] overflow-hidden rounded-[32px] shadow-2xl transition-all flex flex-col`}
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Header */}
-                <div className="flex items-center justify-between border-b border-white/5 p-6 py-4">
+                <div className="flex items-center justify-between border-b border-[var(--border-default)] p-6 py-4">
                     <h2 className="text-sm font-bold uppercase tracking-widest text-[var(--fg-muted)]">
                         {title}
                     </h2>
                     <button
                         onClick={onClose}
-                        className="flex h-10 w-10 items-center justify-center rounded-full text-[var(--fg-muted)] transition-colors hover:bg-white/5 hover:text-[var(--fg-primary)]"
+                        className="flex h-10 w-10 items-center justify-center rounded-full text-[var(--fg-muted)] transition-colors hover:bg-[var(--bg-surface-hover)] hover:text-[var(--fg-primary)]"
                     >
                         <X size={20} />
                     </button>

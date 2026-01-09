@@ -1,17 +1,18 @@
 @import "tailwindcss";
 
 @theme {
-  --color-surface: #0a0a0c;
-  --color-border-color: #1a1a1e;
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #888888;
+  --color-surface: var(--surface-color);
+  --color-border-color: var(--border-color);
+  --color-text-primary: var(--fg-primary);
+  --color-text-secondary: var(--fg-muted);
   --color-subject-primary: var(--subject-primary, #a855f7);
   --color-subject-secondary: var(--subject-secondary, #c084fc);
-  --color-success: #10b981;
-  --color-error: #ef4444;
+  --color-success: var(--success);
+  --color-error: var(--error);
 }
 
 :root {
+  /* Default Dark Theme */
   --bg-color: #030303;
   --surface-color: #0a0a0c;
   --border-color: #1a1a1e;
@@ -34,6 +35,30 @@
 
   --subject-primary: #a855f7;
   --subject-secondary: #c084fc;
+
+  --modal-bg: #000000;
+}
+
+[data-theme="light"] {
+  --bg-color: #f9fafb; /* Gray 50 */
+  --surface-color: #ffffff;
+  --border-color: #e5e7eb; /* Gray 200 */
+
+  --fg-primary: #111827; /* Gray 900 */
+  --fg-muted: #6b7280; /* Gray 500 */
+  --fg-subtle: #9ca3af; /* Gray 400 */
+
+  --bg-surface: #ffffff;
+  --bg-surface-hover: #f3f4f6; /* Gray 100 */
+  --bg-elevated: #ffffff;
+
+  --border-default: rgba(0, 0, 0, 0.05);
+  --border-hover: rgba(0, 0, 0, 0.1);
+
+  /* --button-bg: #ffffff; */
+  --button-bg: rgba(255, 255, 255, 0.75);
+
+  --modal-bg: #ffffff;
 }
 
 .glass-card-themed {
@@ -46,13 +71,7 @@
   -webkit-box-shadow: 0px 0px 30px 0px color-mix(in srgb, var(--subject-primary) 10%, transparent);
   -moz-box-shadow: 0px 0px 30px 0px color-mix(in srgb, var(--subject-primary) 10%, transparent);
   box-shadow: 0px 0px 30px 0px color-mix(in srgb, var(--subject-primary) 10%, transparent);
-
-  /* box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--subject-primary) 10%, transparent),
-    0 4px 25px rgba(0, 0, 0, 0.948),
-    0 0 25px color-mix(in srgb, var(--subject-primary) 15%, transparent); */
 }
-
 body {
   background-color: var(--bg-color);
   background-image:
