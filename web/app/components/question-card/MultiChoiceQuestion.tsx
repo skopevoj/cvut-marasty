@@ -28,8 +28,8 @@ export function MultiChoiceQuestion() {
                         <div className="flex shrink-0 items-center bg-white/[0.03] p-0.5 md:p-1 rounded-xl border border-white/5" aria-label="Answer state">
                             <button
                                 className={`flex h-7 w-7 md:h-9 md:w-9 cursor-pointer items-center justify-center rounded-lg text-[12px] md:text-[15px] transition-all duration-200 ${answerState === 1
-                                    ? "bg-white/10 text-white shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] translate-y-[1px]"
-                                    : "text-white/30 hover:text-white/60"}`}
+                                    ? "bg-[var(--fg-primary)]/10 text-[var(--fg-primary)] shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] translate-y-[1px]"
+                                    : "text-[var(--fg-primary)]/30 hover:text-[var(--fg-primary)]/60"}`}
                                 onClick={() => setAnswerState(i, answerState === 1 ? 0 : 1)}
                                 aria-label="Mark as correct"
                             >
@@ -37,8 +37,8 @@ export function MultiChoiceQuestion() {
                             </button>
                             <button
                                 className={`flex h-7 w-7 md:h-9 md:w-9 cursor-pointer items-center justify-center rounded-lg text-[12px] md:text-[15px] transition-all duration-200 ${answerState === 2 || answerState === 0
-                                    ? "bg-white/10 text-white shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] translate-y-[1px]"
-                                    : "text-white/30 hover:text-white/60"}`}
+                                    ? "bg-[var(--fg-primary)]/10 text-[var(--fg-primary)] shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] translate-y-[1px]"
+                                    : "text-[var(--fg-primary)]/30 hover:text-[var(--fg-primary)]/60"}`}
                                 onClick={() => setAnswerState(i, answerState === 2 ? 0 : 2)}
                                 aria-label="Mark as neutral"
                             >
@@ -46,8 +46,8 @@ export function MultiChoiceQuestion() {
                             </button>
                             <button
                                 className={`flex h-7 w-7 md:h-9 md:w-9 cursor-pointer items-center justify-center rounded-lg text-[12px] md:text-[15px] transition-all duration-200 ${answerState === 3
-                                    ? "bg-white/10 text-white shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] translate-y-[1px]"
-                                    : "text-white/30 hover:text-white/60"}`}
+                                    ? "bg-[var(--fg-primary)]/10 text-[var(--fg-primary)] shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] translate-y-[1px]"
+                                    : "text-[var(--fg-primary)]/30 hover:text-[var(--fg-primary)]/60"}`}
                                 onClick={() => setAnswerState(i, answerState === 3 ? 0 : 3)}
                                 aria-label="Mark as incorrect"
                             >

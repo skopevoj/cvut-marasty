@@ -24,7 +24,7 @@ export function OpenQuestion() {
                     ? isCorrect
                         ? "border-success bg-success/5 shadow-[0_0_20px_color-mix(in_srgb,var(--success)_20%,transparent)]"
                         : "border-error bg-error/5 shadow-[0_0_20px_color-mix(in_srgb,var(--error)_20%,transparent)]"
-                    : "border-border-color bg-white/[0.03] focus:border-[var(--subject-primary)] focus:bg-white/[0.05] focus:shadow-[0_0_20px_color-mix(in_srgb,var(--subject-primary)_20%,transparent)]"
+                    : "border-border-color bg-[var(--fg-primary)]/[0.03] focus:border-[var(--subject-primary)] focus:bg-[var(--fg-primary)]/[0.05] focus:shadow-[0_0_20px_color-mix(in_srgb,var(--subject-primary)_20%,transparent)]"
                     }`}
                 placeholder="Zde napište odpověď..."
                 value={userTextAnswer}
