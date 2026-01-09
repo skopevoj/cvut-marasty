@@ -4,6 +4,7 @@ import { useQuiz } from "../lib/QuizContext";
 import { ShuffleButton } from "./control-panel/ShuffleButton";
 import { Pagination } from "./control-panel/Pagination";
 import { EvaluateButton } from "./control-panel/EvaluateButton";
+import { WhiteboardControls } from "./control-panel/WhiteboardControls";
 
 export function ControlPanel() {
     const {
@@ -22,23 +23,29 @@ export function ControlPanel() {
 
     return (
         <footer className="glass-card-themed rounded-3xl p-2.5 transition-all duration-300 md:p-4">
-            <div className="flex items-center gap-2 md:gap-3">
-                <div className="flex flex-1 items-center gap-1.5 md:gap-2">
+            <div className="flex items-center">
+                {/* Left side: Shuffle + Whiteboard */}
+                <div className="flex flex-1 items-center gap-2">
                     {sortType === 'random' && (
                         <ShuffleButton
                             onClick={shuffleQueue}
                             disabled={quizQueue.length <= 1}
                         />
                     )}
+                    <WhiteboardControls />
                 </div>
 
-                <Pagination
-                    currentIndex={currentQuestionIndex}
-                    total={quizQueue.length}
-                    onPrev={prevQuestion}
-                    onNext={nextQuestion}
-                />
+                {/* Center: Pagination */}
+                <div className="flex-initial">
+                    <Pagination
+                        currentIndex={currentQuestionIndex}
+                        total={quizQueue.length}
+                        onPrev={prevQuestion}
+                        onNext={nextQuestion}
+                    />
+                </div>
 
+                {/* Right side: Evaluate */}
                 <div className="flex flex-1 justify-end">
                     <EvaluateButton
                         onClick={showResults ? nextQuestion : evaluate}

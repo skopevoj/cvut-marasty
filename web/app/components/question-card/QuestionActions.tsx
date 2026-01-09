@@ -1,6 +1,6 @@
 'use client';
 
-import { Star, TriangleAlert, ImageIcon, FileText } from "lucide-react";
+import { Star, TriangleAlert, ImageIcon, FileText, MessageSquare } from "lucide-react";
 import { favoritesHelper } from "../../lib/favoritesHelper";
 import { useState, useEffect } from "react";
 import { useQuiz } from "../../lib/QuizContext";

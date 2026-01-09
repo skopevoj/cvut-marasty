@@ -5,6 +5,7 @@ import { createContext, useContext, useEffect, useState, ReactNode } from 'react
 interface Settings {
     showStatsBar: boolean;
     shuffleAnswers: boolean;
+    whiteboardEnabled: boolean;
 }
 
 interface SettingsContextType {
@@ -15,6 +16,7 @@ interface SettingsContextType {
 const defaultSettings: Settings = {
     showStatsBar: true,
     shuffleAnswers: true,
+    whiteboardEnabled: true,
 };
 
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);

@@ -4,6 +4,8 @@ import "./globals.css";
 import { QuizProvider } from "./lib/QuizContext";
 import { StatsProvider } from "./lib/StatsContext";
 import { SettingsProvider } from "./lib/SettingsContext";
+import { WhiteboardProvider } from "./lib/WhiteboardContext";
+import { Whiteboard } from "./components/Whiteboard";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,7 +44,10 @@ export default function RootLayout({
         <SettingsProvider>
           <StatsProvider>
             <QuizProvider>
-              {children}
+              <WhiteboardProvider>
+                <Whiteboard />
+                {children}
+              </WhiteboardProvider>
             </QuizProvider>
           </StatsProvider>
         </SettingsProvider>
