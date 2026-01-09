@@ -1,7 +1,5 @@
 'use client';
 
-import { Github, MessageSquare } from 'lucide-react';
-
 export function Footer() {
     return (
         <footer className="mt-auto py-0 z-1">
@@ -13,12 +11,28 @@ export function Footer() {
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 text-sm transition-colors hover:text-[var(--fg-primary)]"
                     >
-                        <Github size={18} />
+                        <div
+                            className="w-[18px] h-[18px] bg-current"
+                            style={{
+                                maskImage: 'url(/resource/github.svg)',
+                                WebkitMaskImage: 'url(/resource/github.svg)',
+                                maskSize: 'contain',
+                                maskRepeat: 'no-repeat'
+                            }}
+                        />
                         <span>GitHub</span>
                     </a>
                     <div className="flex items-center gap-2 text-sm transition-colors hover:text-[var(--fg-primary)] cursor-default">
-                        <MessageSquare size={18} />
-                        <span>Discord: <span className="font-medium text-[var(--fg-primary)]">darkkw</span></span>
+                        <div
+                            className="w-[18px] h-[18px] bg-current"
+                            style={{
+                                maskImage: 'url(/resource/discord.svg)',
+                                WebkitMaskImage: 'url(/resource/discord.svg)',
+                                maskSize: 'contain',
+                                maskRepeat: 'no-repeat'
+                            }}
+                        />
+                        <span>darkkw</span>
                     </div>
                 </div>
                 <div className="text-[10px] uppercase tracking-[0.2em] opacity-40">
