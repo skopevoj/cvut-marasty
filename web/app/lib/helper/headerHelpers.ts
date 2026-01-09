@@ -1,5 +1,5 @@
-import { Question } from "./types/question";
-import { Subject } from "./types/subject";
+import { Question } from "./../types/question";
+import { Subject } from "./../types/subject";
 
 export function getTopicMap(currentSubjectDetails: any) {
     if (!currentSubjectDetails || !currentSubjectDetails.topics) return {};
