@@ -11,7 +11,7 @@
         },
         {
             "text": "$G$ je kontextová gramatika.",
-            "isCorrect": false
+            "isCorrect": true
         },
         {
             "text": "$G$ je neomezená gramatika.",
