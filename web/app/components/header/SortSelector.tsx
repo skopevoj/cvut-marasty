@@ -1,6 +1,6 @@
 'use client';
 
-import { SortType } from "../../lib/QuizContext";
+import { SortType } from "../../lib/context/QuizContext";
 import { ChevronDown, ArrowUpDown } from "lucide-react";
 
 interface SortSelectorProps {

@@ -3,13 +3,13 @@
 'use client';
 
 import { useState, useMemo } from "react";
-import { useQuiz } from "../lib/QuizContext";
+import { useQuiz } from "../lib/context/QuizContext";
 import MultiChoiceQuestion from "./MultiChoiceQuestion";
 import OpenQuestion from "./question-card/OpenQuestion";
 import { BadgeList } from "./question-card/BadgeList";
 import { QuestionActions } from "./question-card/QuestionActions";
 import { QuestionContent } from "./question-card/QuestionContent";
-import * as helpers from "../lib/questionHelpers";
+import * as helpers from "../lib/helper/questionHelpers";
 
 export function QuestionCard() {
     const { currentQuestion, currentSubjectDetails, showOriginalText, toggleOriginalText } = useQuiz();

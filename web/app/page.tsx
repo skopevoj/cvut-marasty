@@ -1,6 +1,6 @@
 'use client';
 
-import { useQuiz } from "./lib/QuizContext";
+import { useQuiz } from "./lib/context/QuizContext";
 import { Header } from "./components/header/Header";
 import { QuestionCard } from "./components/question-card/QuestionCard";
 import { QuestionHistory } from "./components/quiz/QuestionHistory";

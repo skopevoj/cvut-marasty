@@ -1,7 +1,7 @@
 'use client';
 
-import { useWhiteboard } from "../../lib/WhiteboardContext";
-import { useSettings } from "../../lib/SettingsContext";
+import { useWhiteboard } from "../../lib/context/WhiteboardContext";
+import { useSettings } from "../../lib/context/SettingsContext";
 import {
     Brush,
     RotateCcw,

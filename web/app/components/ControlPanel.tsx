@@ -1,6 +1,6 @@
 'use client';
 
-import { useQuiz } from "../lib/QuizContext";
+import { useQuiz } from "../lib/context/QuizContext";
 import { ShuffleButton } from "./control-panel/ShuffleButton";
 import { Pagination } from "./control-panel/Pagination";
 import { EvaluateButton } from "./control-panel/EvaluateButton";

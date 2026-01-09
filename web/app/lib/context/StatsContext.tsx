@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
-import { statsHelper, QuestionAttempt } from './statsHelper';
+import { statsHelper, QuestionAttempt } from '../helper/statsHelper';
 
 interface StatsContextType {
     attempts: QuestionAttempt[];

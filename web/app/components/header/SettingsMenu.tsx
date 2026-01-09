@@ -1,6 +1,6 @@
 'use client';
 
-import { useSettings } from "../../lib/SettingsContext";
+import { useSettings } from "../../lib/context/SettingsContext";
 import { BarChart2, Shuffle, PenTool, Sun, Moon } from "lucide-react";
 import { SettingsToggle } from "./SettingsToggle";
 

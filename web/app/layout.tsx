@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { QuizProvider } from "./lib/QuizContext";
-import { StatsProvider } from "./lib/StatsContext";
-import { SettingsProvider } from "./lib/SettingsContext";
-import { WhiteboardProvider } from "./lib/WhiteboardContext";
+import { QuizProvider } from "./lib/context/QuizContext";
+import { StatsProvider } from "./lib/context/StatsContext";
+import { SettingsProvider } from "./lib/context/SettingsContext";
+import { WhiteboardProvider } from "./lib/context/WhiteboardContext";
 import { Whiteboard } from "./components/whiteboard/Whiteboard";
-import { ThemeProvider } from "./lib/ThemeContext";
+import { ThemeProvider } from "./lib/context/ThemeContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo, useRef, useEffect } from 'react';
-import { useQuiz, SortType } from "../../lib/QuizContext";
+import { useQuiz, SortType } from "../../lib/context/QuizContext";
 import { MultiSelect } from "../ui/MultiSelect";
 import { Search, Star, Settings } from "lucide-react";
 import { SubjectSelector } from "./SubjectSelector";
@@ -9,8 +9,8 @@ import { SearchBar } from "./SearchBar";
 import { SearchResults } from "./SearchResults";
 import { SettingsMenu } from "./SettingsMenu";
 import { SortSelector } from "./SortSelector";
-import { favoritesHelper, useFavorites } from "../../lib/favoritesHelper";
-import * as helpers from "../../lib/headerHelpers";
+import { favoritesHelper, useFavorites } from "../../lib/helper/favoritesHelper";
+import * as helpers from "../../lib/helper/headerHelpers";
 import { IconButton } from "../ui/IconButton";
 
 import { Modal } from "../ui/Modal";

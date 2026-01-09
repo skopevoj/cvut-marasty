@@ -1,9 +1,9 @@
 'use client';
 
 import { Star, TriangleAlert, ImageIcon, FileText, MessageSquare } from "lucide-react";
-import { favoritesHelper } from "../../lib/favoritesHelper";
+import { favoritesHelper } from "../../lib/helper/favoritesHelper";
 import { useState, useEffect } from "react";
-import { useQuiz } from "../../lib/QuizContext";
+import { useQuiz } from "../../lib/context/QuizContext";
 import { SuggestEditModal } from "./SuggestEditModal";
 
 interface QuestionActionsProps {

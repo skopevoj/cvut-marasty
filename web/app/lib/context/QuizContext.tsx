@@ -1,11 +1,11 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState, ReactNode, useMemo, useRef } from 'react';
-import { Subject } from './types/subject';
-import { Question } from './types/question';
-import { statsHelper } from './statsHelper';
-import { useStats } from './StatsContext';
-import { useSettings } from './SettingsContext';
+import { Subject } from '../types/subject';
+import { Question } from '../types/question';
+import { statsHelper } from '../helper/statsHelper';
+import { useStats } from '../context/StatsContext';
+import { useSettings } from '../context/SettingsContext';
 
 export type SortType = 'random' | 'id' | 'least-answered' | 'worst-ratio';
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useQuiz } from "../lib/QuizContext";
+import { useQuiz } from "../lib/context/QuizContext";
 import Latex from "./ui/Latex";
 
 export function MultiChoiceQuestion() {
