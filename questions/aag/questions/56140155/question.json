@@ -11,7 +11,7 @@
         },
         {
             "text": "$G$ je bez cyklů právě tehdy, když je bez $\\epsilon$-pravidel a bez jednoduchých pravidel.",
-            "isCorrect": true
+            "isCorrect": false
         },
         {
             "text": "Pokud neterminální symbol $A \\in N$ obsahuje pravidla: $A \\rightarrow A\\alpha \\mid \\beta$ kde $\\alpha, \\beta \\in (N \\cup \\Sigma)^*$, pak pokud pravidla pro $A$ nahradíme za $A \\rightarrow \\beta A' \\mid \\beta$ a $A' \\rightarrow \\alpha A' \\mid \\alpha$, vzniklá gramatika $(N \\cup \\{A'\\}, \\Sigma, P', S)$ bude ekvivalentní a $A$ již nebude neterminálem přímo rekurzivním zleva.",
