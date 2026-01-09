@@ -61,20 +61,23 @@ jobs:
 
       - name: Create Release Package
         run: |
-          zip -r otazky-${{ steps.date.outputs.date }}.zip questions
-          zip -r web-${{ steps.date.outputs.date }}.zip web/out
+          mkdir -p release_data
+          for d in web/public/subjects/*; do
+            if [ -d "$d" ] && [ -f "$d/questions.json" ]; then
+              cp "$d/questions.json" "release_data/$(basename $d).json"
+            fi
+          done
 
       - name: Create GitHub Release
         id: create_release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.date.outputs.date }}.${{ github.run_number }}
-          name: Release ${{ steps.date.outputs.date }}
+          name: Otázky ${{ steps.date.outputs.date }}
           body: |
             Automated release of CVUT Marasty.
-            Contains updated question data and the production build of the web app.
+            Contains processed question data for each subject.
           files: |
-            otazky-${{ steps.date.outputs.date }}.zip
-            web-${{ steps.date.outputs.date }}.zip
+            release_data/*.json
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
