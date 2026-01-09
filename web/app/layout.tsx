@@ -33,6 +33,8 @@ export default function RootLayout({
           src="https://cloud.umami.is/script.js"
           data-website-id="74b0a32a-6d0d-4174-9924-00eace73ee5e"
         />
+
+        <meta name="darkreader-lock" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
