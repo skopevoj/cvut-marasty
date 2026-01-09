@@ -14,7 +14,7 @@ export function MultiChoiceQuestion() {
                 const isCorrect = answer.isCorrect;
                 const isUserCorrect = (answerState === 1 && isCorrect) || (answerState === 3 && !isCorrect);
 
-                let statusClass = "bg-white/[0.03] border-white/[0.03]";
+                let statusClass = "bg-white/[0.06] border-white/[0.06]";
                 if (showResults) {
                     statusClass = isUserCorrect
                         ? "bg-success/10 border-success/20 border-1"
