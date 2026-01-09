@@ -1,6 +1,6 @@
 'use client';
 
-import Latex from "../Latex";
+import Latex from "../ui/Latex";
 
 interface QuestionContentProps {
     questionText: string;

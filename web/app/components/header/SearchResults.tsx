@@ -1,7 +1,7 @@
 'use client';
 
 import { Question } from "../../lib/types/question";
-import Latex from "../Latex";
+import Latex from "../ui/Latex";
 
 interface SearchResultsProps {
     results: Question[];

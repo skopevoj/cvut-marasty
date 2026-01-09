@@ -1,8 +1,8 @@
 "use client";
 
 import { useMemo } from "react";
-import { useQuiz } from "../lib/QuizContext";
-import Latex from "./Latex";
+import { useQuiz } from "../../lib/QuizContext";
+import Latex from "../ui/Latex";
 
 export function OpenQuestion() {
     const { currentQuestion, userTextAnswer, setTextAnswer, showResults } = useQuiz();

@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { IconButton } from "../IconButton";
+import { IconButton } from "../ui/IconButton";
 
 interface PaginationProps {
     currentIndex: number;

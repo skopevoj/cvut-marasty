@@ -1,7 +1,7 @@
 'use client';
 
-import { useQuiz } from "../lib/QuizContext";
-import { useSettings } from "../lib/SettingsContext";
+import { useQuiz } from "../../lib/QuizContext";
+import { useSettings } from "../../lib/SettingsContext";
 import { Check, X } from "lucide-react";
 
 export function QuestionHistory() {

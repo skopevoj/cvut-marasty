@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { Modal } from '../Modal';
+import { Modal } from '../ui/Modal';
 import { Question, Answer } from '../../lib/types/question';
-import Latex from '../Latex';
+import Latex from '../ui/Latex';
 import { Check, X, AlertTriangle, Send } from 'lucide-react';
 
 interface SuggestEditModalProps {
