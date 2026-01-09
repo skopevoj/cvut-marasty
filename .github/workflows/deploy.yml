@@ -61,8 +61,8 @@ jobs:
 
       - name: Create Release Package
         run: |
-          zip -r release-data-${{ steps.date.outputs.date }}.zip questions
-          zip -r release-web-${{ steps.date.outputs.date }}.zip web/out
+          zip -r otazky-${{ steps.date.outputs.date }}.zip questions
+          zip -r web-${{ steps.date.outputs.date }}.zip web/out
 
       - name: Create GitHub Release
         id: create_release
