@@ -14,10 +14,13 @@ interface PaginationProps {
 export function Pagination({ currentIndex, total, onPrev, onNext }: PaginationProps) {
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
-            // Check if user is typing in an input, textarea or contentEditable
-            const isInputFocused = document.activeElement?.tagName === 'INPUT' ||
-                document.activeElement?.tagName === 'TEXTAREA' ||
-                (document.activeElement as HTMLElement)?.isContentEditable;
+            // Check if user is typing in an input, textarea, using a select, or has focus in the header
+            const activeElement = document.activeElement;
+            const isInputFocused = activeElement?.tagName === 'INPUT' ||
+                activeElement?.tagName === 'TEXTAREA' ||
+                activeElement?.tagName === 'SELECT' ||
+                activeElement?.closest('header') ||
+                (activeElement as HTMLElement)?.isContentEditable;
 
             if (isInputFocused) return;
 

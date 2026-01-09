@@ -152,7 +152,7 @@ export function QuizProvider({ children }: { children: ReactNode }) {
         setShowResults(false);
       }
     }
-  }, [questions, currentSubject, selectedTopics, sortType, attempts, targetQuestionId]);
+  }, [questions, currentSubject, selectedTopics, sortType, targetQuestionId]);
 
   useEffect(() => {
     setCurrentQuestionIndex(0);
