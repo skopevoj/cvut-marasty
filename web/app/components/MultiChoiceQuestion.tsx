@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuiz } from "../lib/QuizContext";
-import Latex from "./Latex";
+import Latex from "./ui/Latex";
 
 export function MultiChoiceQuestion() {
     const { shuffledAnswers, userAnswers, setAnswerState, showResults } = useQuiz();
