@@ -5,7 +5,7 @@ import { QuizProvider } from "./lib/QuizContext";
 import { StatsProvider } from "./lib/StatsContext";
 import { SettingsProvider } from "./lib/SettingsContext";
 import { WhiteboardProvider } from "./lib/WhiteboardContext";
-import { Whiteboard } from "./components/Whiteboard";
+import { Whiteboard } from "./components/whiteboard/Whiteboard";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

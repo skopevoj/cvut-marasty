@@ -1,19 +1,19 @@
 'use client';
 
 import { useState, useMemo, useRef, useEffect } from 'react';
-import { useQuiz, SortType } from "../lib/QuizContext";
-import { MultiSelect } from "./MultiSelect";
+import { useQuiz, SortType } from "../../lib/QuizContext";
+import { MultiSelect } from "../ui/MultiSelect";
 import { Search, Star, Settings } from "lucide-react";
-import { SubjectSelector } from "./header/SubjectSelector";
-import { SearchBar } from "./header/SearchBar";
-import { SearchResults } from "./header/SearchResults";
-import { SettingsMenu } from "./header/SettingsMenu";
-import { SortSelector } from "./header/SortSelector";
-import { favoritesHelper, useFavorites } from "../lib/favoritesHelper";
-import * as helpers from "../lib/headerHelpers";
-import { IconButton } from "./IconButton";
+import { SubjectSelector } from "./SubjectSelector";
+import { SearchBar } from "./SearchBar";
+import { SearchResults } from "./SearchResults";
+import { SettingsMenu } from "./SettingsMenu";
+import { SortSelector } from "./SortSelector";
+import { favoritesHelper, useFavorites } from "../../lib/favoritesHelper";
+import * as helpers from "../../lib/headerHelpers";
+import { IconButton } from "../ui/IconButton";
 
-import { Modal } from "./Modal";
+import { Modal } from "../ui/Modal";
 
 export function Header() {
     const { subjects, currentSubject, currentSubjectDetails, selectSubject, toggleTopic, selectedTopics, sortType, setSortType, questions, goToQuestion } = useQuiz();

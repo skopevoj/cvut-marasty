@@ -1,8 +1,8 @@
 'use client';
 
-import { useWhiteboard } from "../lib/WhiteboardContext";
-import { useQuiz } from "../lib/QuizContext";
-import { useSettings } from "../lib/SettingsContext";
+import { useWhiteboard } from "../../lib/WhiteboardContext";
+import { useQuiz } from "../../lib/QuizContext";
+import { useSettings } from "../../lib/SettingsContext";
 import { useEffect, useRef, useState, useCallback } from "react";
 
 export function Whiteboard() {

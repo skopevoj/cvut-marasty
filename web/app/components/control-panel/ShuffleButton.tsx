@@ -1,7 +1,7 @@
 'use client';
 
 import { Shuffle } from "lucide-react";
-import { IconButton } from "../IconButton";
+import { IconButton } from "../ui/IconButton";
 
 interface ShuffleButtonProps {
     onClick: () => void;
