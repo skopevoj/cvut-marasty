@@ -7,7 +7,7 @@
         },
         {
             "text": "$T(n) = \\Theta(n^{\\log_3 4})$",
-            "isCorrect": false
+            "isCorrect": true
         },
         {
             "text": "$T(n) = \\Theta(n^{\\log_4 3})$",
