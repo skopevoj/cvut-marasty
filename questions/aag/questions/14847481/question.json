@@ -1,6 +1,23 @@
 {
     "question": "Uvažujte konečný automat $M = (\\{A, B\\}, \\{0, 1\\}, \\delta, A, \\emptyset)$. O každém z tvrzení níže rozhodněte, zdali je pravdivé (\\checkmark) či nepravdivé (\\times).",
-    "answers": [],
+    "answers": [
+        {
+            "text": "Stav $B$ je dosažitelný.",
+            "isCorrect": true
+        },
+        {
+            "text": "Automat $M$ je deterministický konečný automat.",
+            "isCorrect": false
+        },
+        {
+            "text": "$0111 \\in L(M).$",
+            "isCorrect": false
+        },
+        {
+            "text": "$\\varepsilon \\in L(M).$",
+            "isCorrect": false
+        }
+    ],
     "topics": [
         "regularni-jazyky"
     ],
