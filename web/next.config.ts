@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
   },
   env: {
     NEXT_PUBLIC_BUILD_TIME: new Date().toISOString(),
+    NEXT_PUBLIC_BASE_PATH: isProd ? '/cvut-marasty' : '',
   },
 };
 

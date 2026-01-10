@@ -17,6 +17,8 @@ interface DataContextType {
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 export function DataProvider({ children }: { children: ReactNode }) {
     const [subjects, setSubjects] = useState<Subject[]>([]);
     const [questions, setQuestions] = useState<Question[]>([]);
@@ -28,7 +30,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
     useEffect(() => {
         async function fetchSubjects() {
             try {
-                const res = await fetch('/subjects.json');
+                const res = await fetch(`${BASE_PATH}/subjects.json`);
                 const { subjects: list } = await res.json();
                 setSubjects(list);
             } catch (err) {
@@ -56,8 +58,8 @@ export function DataProvider({ children }: { children: ReactNode }) {
 
         try {
             const [detailsRes, questionsRes] = await Promise.all([
-                fetch(`/subjects/${code}/subject.json?t=${Date.now()}`),
-                fetch(`/subjects/${code}/questions.json?t=${Date.now()}`)
+                fetch(`${BASE_PATH}/subjects/${code}/subject.json?t=${Date.now()}`),
+                fetch(`${BASE_PATH}/subjects/${code}/questions.json?t=${Date.now()}`)
             ]);
 
             if (detailsRes.ok) {
