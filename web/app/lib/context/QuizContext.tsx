@@ -128,7 +128,8 @@ function QuizFacade({ children }: { children: ReactNode }) {
 
   const currentQuestionStats = useMemo(() => {
     if (!currentQuestion) return null;
-    const questionAttempts = attempts
+    const items = Array.isArray(attempts) ? attempts : [];
+    const questionAttempts = items
       .filter(a => a.questionId === currentQuestion.id)
       .sort((a, b) => b.timestamp - a.timestamp);
 
@@ -206,9 +207,6 @@ function QuizFacade({ children }: { children: ReactNode }) {
       await selectSubject(q.subjectCode);
     }
 
-    // After selectSubject, questions might update. We need to find the index.
-    // This is a bit tricky with async. The old implementation used targetQuestionId state.
-    // For now, let's just find it in the current queue if possible.
     const index = quizQueue.findIndex(item => item.id === questionId);
     if (index !== -1) {
       setCurrentQuestionIndex(index);
