@@ -70,7 +70,12 @@ function QuizFacade({ children }: { children: ReactNode }) {
     toggleOriginalText, resetSession
   } = useSession();
 
-  const prevFiltersRef = useRef({ subject: null as Subject | null, topics: [] as string[], sort: SortType.ID as SortType });
+  const prevFiltersRef = useRef({
+    subject: null as Subject | null,
+    topics: [] as string[],
+    sort: SortType.ID as SortType,
+    questionsLength: 0
+  });
 
   // Quiz Queue Logic
   useEffect(() => {
@@ -79,27 +84,32 @@ function QuizFacade({ children }: { children: ReactNode }) {
       return;
     }
 
-    let filtered = questions.filter(q =>
-      q.subjectCode === currentSubject.code &&
-      (selectedTopics.length === 0 ||
-        (q.topics || []).some((id: string) => selectedTopics.includes(id))
-      )
-    );
-
-    filtered = sortingLogic.sortQuestions(filtered, sortType, attempts);
-    setQuizQueue(filtered);
-
     const filtersChanged =
       prevFiltersRef.current.subject !== currentSubject ||
       prevFiltersRef.current.sort !== sortType ||
+      prevFiltersRef.current.questionsLength !== questions.length ||
       JSON.stringify(prevFiltersRef.current.topics) !== JSON.stringify(selectedTopics);
 
     if (filtersChanged) {
+      let filtered = questions.filter(q =>
+        q.subjectCode === currentSubject.code &&
+        (selectedTopics.length === 0 ||
+          (q.topics || []).some((id: string) => selectedTopics.includes(id))
+        )
+      );
+
+      filtered = sortingLogic.sortQuestions(filtered, sortType, attempts);
+      setQuizQueue(filtered);
       setCurrentQuestionIndex(0);
       resetSession();
-    }
 
-    prevFiltersRef.current = { subject: currentSubject, topics: [...selectedTopics], sort: sortType };
+      prevFiltersRef.current = {
+        subject: currentSubject,
+        topics: [...selectedTopics],
+        sort: sortType,
+        questionsLength: questions.length
+      };
+    }
   }, [questions, currentSubject, selectedTopics, sortType, attempts, setQuizQueue, setCurrentQuestionIndex, resetSession]);
 
   const selectSubject = useCallback(async (code: string | null) => {
