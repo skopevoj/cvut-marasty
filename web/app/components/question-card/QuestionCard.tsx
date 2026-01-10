@@ -4,6 +4,7 @@
 
 import { useState, useMemo } from "react";
 import { useQuiz } from "../../lib/context/QuizContext";
+import { QuestionType } from "../../lib/types/enums";
 import MultiChoiceQuestion from "./MultiChoiceQuestion";
 import OpenQuestion from "./OpenQuestion";
 import { BadgeList } from "./BadgeList";
@@ -29,7 +30,7 @@ export function QuestionCard() {
         return helpers.getDisplayedPhoto(currentQuestion, showQuizPhoto);
     }, [currentQuestion, showQuizPhoto]);
 
-    const questionType = (currentQuestion.questionType || 'multichoice').toLowerCase();
+    const questionType = (currentQuestion.questionType || QuestionType.MULTICHOICE).toLowerCase();
 
     return (
         <main className="glass-card-themed relative overflow-hidden rounded-3xl p-4 transition-all duration-300 md:p-8">
@@ -67,7 +68,7 @@ export function QuestionCard() {
                 </div>
             )}
 
-            {questionType === 'open' ? <OpenQuestion /> : <MultiChoiceQuestion />}
+            {questionType === QuestionType.OPEN ? <OpenQuestion /> : <MultiChoiceQuestion />}
         </main>
     );
 }

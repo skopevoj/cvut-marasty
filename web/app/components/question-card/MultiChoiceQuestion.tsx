@@ -1,6 +1,7 @@
 "use client";
 
 import { useQuiz } from "../../lib/context/QuizContext";
+import { AnswerState } from "../../lib/types/enums";
 import Latex from "./../ui/Latex";
 
 export function MultiChoiceQuestion() {
@@ -10,16 +11,17 @@ export function MultiChoiceQuestion() {
     return (
         <div className="flex flex-col gap-3">
             {shuffledAnswers.map((answer, i) => {
-                const answerState = userAnswers[i] || 0;
+                const answerState = userAnswers[i] || AnswerState.NEUTRAL;
                 const isCorrect = answer.isCorrect;
-                const isUserCorrect = (answerState === 1 && isCorrect) || (answerState === 3 && !isCorrect);
+                const isUserCorrect = (answerState === AnswerState.CORRECT && isCorrect) ||
+                    (answerState === AnswerState.INCORRECT && !isCorrect);
 
                 let statusClass = "bg-text-primary/[0.06] border-text-primary/[0.06]";
                 if (showResults) {
                     statusClass = isUserCorrect
                         ? "bg-success/10 border-success/20 border-1"
                         : "bg-error/10 border-error/20 border-1";
-                } else if (answerState > 0) {
+                } else if (answerState !== AnswerState.NEUTRAL) {
                     statusClass = "border-text-primary/[0.06] bg-text-primary/[0.06]";
                 }
 
@@ -27,28 +29,28 @@ export function MultiChoiceQuestion() {
                     <div key={i} className={`flex items-start md:items-center justify-between gap-2 md:gap-3 rounded-2xl border p-1.5 md:p-2 transition-all duration-300 ${statusClass}`}>
                         <div className="flex shrink-0 items-center bg-text-primary/[0.03] p-0.5 md:p-1 rounded-xl border border-text-primary/5" aria-label="Answer state">
                             <button
-                                className={`flex h-7 w-7 md:h-9 md:w-9 cursor-pointer items-center justify-center rounded-lg text-[12px] md:text-[15px] transition-all duration-200 ${answerState === 1
+                                className={`flex h-7 w-7 md:h-9 md:w-9 cursor-pointer items-center justify-center rounded-lg text-[12px] md:text-[15px] transition-all duration-200 ${answerState === AnswerState.CORRECT
                                     ? "bg-text-primary/10 text-text-primary shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] translate-y-[1px]"
                                     : "text-text-secondary hover:text-text-primary"}`}
-                                onClick={() => setAnswerState(i, answerState === 1 ? 0 : 1)}
+                                onClick={() => setAnswerState(i, answerState === AnswerState.CORRECT ? AnswerState.NEUTRAL : AnswerState.CORRECT)}
                                 aria-label="Mark as correct"
                             >
                                 ✓
                             </button>
                             <button
-                                className={`flex h-7 w-7 md:h-9 md:w-9 cursor-pointer items-center justify-center rounded-lg text-[12px] md:text-[15px] transition-all duration-200 ${answerState === 2 || answerState === 0
+                                className={`flex h-7 w-7 md:h-9 md:w-9 cursor-pointer items-center justify-center rounded-lg text-[12px] md:text-[15px] transition-all duration-200 ${answerState === AnswerState.REVEALED || answerState === AnswerState.NEUTRAL
                                     ? "bg-text-primary/10 text-text-primary shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] translate-y-[1px]"
                                     : "text-text-secondary hover:text-text-primary"}`}
-                                onClick={() => setAnswerState(i, answerState === 2 ? 0 : 2)}
+                                onClick={() => setAnswerState(i, answerState === AnswerState.REVEALED ? AnswerState.NEUTRAL : AnswerState.REVEALED)}
                                 aria-label="Mark as neutral"
                             >
                                 −
                             </button>
                             <button
-                                className={`flex h-7 w-7 md:h-9 md:w-9 cursor-pointer items-center justify-center rounded-lg text-[12px] md:text-[15px] transition-all duration-200 ${answerState === 3
+                                className={`flex h-7 w-7 md:h-9 md:w-9 cursor-pointer items-center justify-center rounded-lg text-[12px] md:text-[15px] transition-all duration-200 ${answerState === AnswerState.INCORRECT
                                     ? "bg-text-primary/10 text-text-primary shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] translate-y-[1px]"
                                     : "text-text-secondary hover:text-text-primary"}`}
-                                onClick={() => setAnswerState(i, answerState === 3 ? 0 : 3)}
+                                onClick={() => setAnswerState(i, answerState === AnswerState.INCORRECT ? AnswerState.NEUTRAL : AnswerState.INCORRECT)}
                                 aria-label="Mark as incorrect"
                             >
                                 ✕
@@ -63,3 +65,4 @@ export function MultiChoiceQuestion() {
 }
 
 export default MultiChoiceQuestion;
+

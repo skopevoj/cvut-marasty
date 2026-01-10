@@ -1,6 +1,7 @@
 'use client';
 
 import { useQuiz } from "../../lib/context/QuizContext";
+import { SortType } from "../../lib/types/enums";
 import { ShuffleButton } from "./ShuffleButton";
 import { Pagination } from "./Pagination";
 import { EvaluateButton } from "./EvaluateButton";
@@ -26,7 +27,7 @@ export function ControlPanel() {
             <div className="flex items-center justify-between gap-1 md:gap-4">
                 {/* Left side: Shuffle + Whiteboard */}
                 <div className="flex flex-1 min-w-0 items-center gap-1 md:gap-2">
-                    {sortType === 'random' && (
+                    {sortType === SortType.RANDOM && (
                         <ShuffleButton
                             onClick={shuffleQueue}
                             disabled={quizQueue.length <= 1}
