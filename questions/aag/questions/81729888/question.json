@@ -8,7 +8,7 @@
         },
         {
             "text": "Existuje $V$ takový, že výsledný $M$ bude nedeterministický konečný automat.",
-            "isCorrect": false
+            "isCorrect": true
         },
         {
             "text": "Existuje $V$ takový, že výsledný $M$ bude obsahovat zbytečný stav.",
@@ -16,7 +16,7 @@
         },
         {
             "text": "Pro všechny $V$ bude výsledný $M$ vždy minimální deterministický konečný automat.",
-            "isCorrect": true
+            "isCorrect": false
         }
     ],
     "topics": [
