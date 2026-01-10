@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useMemo, useRef, useEffect } from 'react';
-import { useQuiz, SortType } from "../../lib/context/QuizContext";
+import { useQuiz } from "../../lib/context/QuizContext";
+import { SortType } from "../../lib/types/enums";
 import { MultiSelect } from "../ui/MultiSelect";
 import { Search, Star, Settings } from "lucide-react";
 import { SubjectSelector } from "./SubjectSelector";

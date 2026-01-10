@@ -1,6 +1,6 @@
 'use client';
 
-import { SortType } from "../../lib/context/QuizContext";
+import { SortType } from "../../lib/types/enums";
 import { ChevronDown, ArrowUpDown } from "lucide-react";
 
 interface SortSelectorProps {
@@ -10,10 +10,10 @@ interface SortSelectorProps {
 
 export function SortSelector({ sortType, onSelectSort }: SortSelectorProps) {
     const options: { value: SortType; label: string }[] = [
-        { value: 'random', label: 'Náhodně' },
-        { value: 'id', label: 'Podle ID' },
-        { value: 'least-answered', label: 'Nejméně zodpovězené' },
-        { value: 'worst-ratio', label: 'Nejméně úspěšné' },
+        { value: SortType.RANDOM, label: 'Náhodně' },
+        { value: SortType.ID, label: 'ID' },
+        { value: SortType.LEAST_ANSWERED, label: 'Nejméně zodpovězené' },
+        { value: SortType.WORST_RATIO, label: 'Nejhorší úspěšnost' },
     ];
 
     return (
