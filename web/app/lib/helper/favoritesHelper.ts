@@ -6,11 +6,10 @@ export const favoritesHelper = {
     getFavorites: (): string[] => {
         if (typeof window === 'undefined') return [];
         const saved = localStorage.getItem(FAVORITES_KEY);
-        if (!saved) return [];
         try {
-            return JSON.parse(saved);
+            const parsed = saved ? JSON.parse(saved) : [];
+            return Array.isArray(parsed) ? parsed : [];
         } catch (e) {
-            console.error('Failed to parse favorites', e);
             return [];
         }
     },

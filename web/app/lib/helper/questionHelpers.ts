@@ -1,9 +1,12 @@
-export function getQuestionTopics(question: any) {
+import { Question } from "../types/question";
+import { SubjectDetails } from "../types/subjectDetails";
+
+export function getQuestionTopics(question: Question | null) {
     if (!question) return [];
     return question.topics || [];
 }
 
-export function getDisplayedPhoto(question: any, showQuizPhoto: boolean) {
+export function getDisplayedPhoto(question: Question | null, showQuizPhoto: boolean) {
     if (!question) return null;
     if (showQuizPhoto && question.quizPhoto) {
         return question.quizPhoto;
@@ -11,9 +14,9 @@ export function getDisplayedPhoto(question: any, showQuizPhoto: boolean) {
     return question.photo;
 }
 
-export function getTopicMap(currentSubjectDetails: any) {
+export function getTopicMap(currentSubjectDetails: SubjectDetails | null) {
     if (!currentSubjectDetails || !currentSubjectDetails.topics) return {};
-    return currentSubjectDetails.topics.reduce((acc: any, topic: any) => {
+    return currentSubjectDetails.topics.reduce((acc: Record<string, string>, topic) => {
         acc[topic.id] = topic.name;
         return acc;
     }, {});
