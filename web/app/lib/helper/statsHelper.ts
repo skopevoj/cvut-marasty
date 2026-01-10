@@ -10,7 +10,7 @@ export interface QuestionAttempt {
     userAnswers: Record<number, boolean | number> | string; // index (1-based) -> boolean or number for multichoice, string for open
 }
 
-const STORAGE_KEY = 'marasty_quiz_stats_v1';
+const STORAGE_KEY = 'marasty_quiz_stats';
 
 export const statsHelper = {
     saveAttempt(attempt: QuestionAttempt) {
