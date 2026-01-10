@@ -15,7 +15,7 @@
         },
         {
             "text": "Existuje formální jazyk $L$ takový, že $L^*$ je konečný jazyk.",
-            "isCorrect": false
+            "isCorrect": true
         }
     ],
     "topics": [
