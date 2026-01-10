@@ -56,8 +56,8 @@ export function DataProvider({ children }: { children: ReactNode }) {
 
         try {
             const [detailsRes, questionsRes] = await Promise.all([
-                fetch(`/subjects/${code}/subject.json`),
-                fetch(`/subjects/${code}/questions.json`)
+                fetch(`/subjects/${code}/subject.json?t=${Date.now()}`),
+                fetch(`/subjects/${code}/questions.json?t=${Date.now()}`)
             ]);
 
             if (detailsRes.ok) {
