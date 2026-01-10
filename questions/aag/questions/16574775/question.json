@@ -1,5 +1,5 @@
 {
-    "question": "Uvažujte následující gramatiku $G: $$G = (\\{A, B, C\\}, \\{0, 1\\}, P, A) P = \\{ A \\rightarrow \\varepsilon \\mid 0B,\\n B \\rightarrow C \\mid 0B, C \\rightarrow 1\\n \\}$\\n\\nO každém z následujících tvrzení rozhodněte, zdali je pravdivé ($\\checkmark$) či nepravdivé ($\\times$):",
+    "question": "Uvažujte následující gramatiku $G: $$G = (\\{A, B, C\\}, \\{0, 1\\}, P, A) \\newline P = \\{\\newline A \\rightarrow \\varepsilon \\mid 0B,\\newline B \\rightarrow C \\mid 0B, C \\rightarrow 1\\newline \\}\\newline\\newline$ O každém z následujících tvrzení rozhodněte, zdali je pravdivé ($\\checkmark$) či nepravdivé ($\\times$):",
     "answers": [
         {
             "text": "$G$ je regulární gramatika.",
