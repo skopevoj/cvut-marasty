@@ -1,3 +1,5 @@
+import { QuestionType } from './enums';
+
 export interface Answer {
     index: number;
     text: string;
@@ -7,7 +9,7 @@ export interface Answer {
 export interface Question {
     id: string;
     question: string;
-    questionType: string;
+    questionType: QuestionType;
     topics: string[];
     answers: Answer[];
     subjectCode: string;
@@ -15,3 +17,4 @@ export interface Question {
     quizPhoto?: string | boolean | null;
     originalText?: string;
 }
+
