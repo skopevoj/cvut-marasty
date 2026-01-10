@@ -8,7 +8,7 @@
         },
         {
             "text": "$\\Theta(n^3)$",
-            "isCorrect": true
+            "isCorrect": false
         },
         {
             "text": "$\\Theta(n^2)$",
@@ -16,7 +16,7 @@
         },
         {
             "text": "$\\Theta(2^n)$",
-            "isCorrect": false
+            "isCorrect": true
         }
     ],
     "topics": [
