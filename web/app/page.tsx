@@ -6,6 +6,7 @@ import { QuestionCard } from "./components/question-card/QuestionCard";
 import { QuestionHistory } from "./components/quiz/QuestionHistory";
 import { ControlPanel } from "./components/control-panel/ControlPanel";
 import { Footer } from "./components/layout/Footer";
+import { About } from "./components/layout/About";
 
 export default function Home() {
   const { isLoading, error, currentSubject, currentSubjectDetails, quizQueue } = useQuiz();
@@ -48,7 +49,7 @@ export default function Home() {
           )
         ) : (
           <div className="text-center text-text-secondary pointer-events-auto">
-            Vyber si předmět pro začátek kvízu v horním menu.
+            <About />
           </div>
         )}
       </div>

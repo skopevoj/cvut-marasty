@@ -33,8 +33,8 @@
   --success: #10b981;
   --error: #ef4444;
 
-  --subject-primary: #a855f7;
-  --subject-secondary: #c084fc;
+  --subject-primary: #55b9f7;
+  --subject-secondary: #84c2fc;
 
   --modal-bg: #000000;
 }
@@ -43,7 +43,7 @@
   --bg-color: #f1f5f9;
 
   --surface-color: #ffffff;
-  --border-color: #cbd5e1;
+  --border-color: #bac2ca;
 
   --fg-primary: #0f172a;
 
@@ -63,7 +63,7 @@
 
   --subject-primary: #7c3aed;
 
-  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-color: rgba(0, 0, 0, 0.0968);
 }
 
 [data-theme="light"] .glass-card-themed {
@@ -72,8 +72,8 @@
   box-shadow: 0px 10px 30px 0px var(--shadow-color);
 
   background: linear-gradient(to bottom,
-      color-mix(in srgb, var(--subject-primary) 6%, transparent),
-      color-mix(in srgb, var(--subject-primary) 16%, transparent));
+      color-mix(in srgb, var(--subject-primary) 2%, rgba(119, 117, 117, 0.454) 2%)),
+    color-mix(in srgb, var(--subject-primary) 8%, rgb(85, 82, 82) 5%);
   backdrop-filter: blur(20px);
 
   border: 1px solid var(--border-color);
@@ -81,14 +81,14 @@
 
 .glass-card-themed {
   background: linear-gradient(to bottom,
-      color-mix(in srgb, var(--subject-primary) 10%, transparent),
-      color-mix(in srgb, var(--subject-primary) 2%, transparent));
+      color-mix(in srgb, var(--subject-primary) 12%, transparent),
+      color-mix(in srgb, var(--subject-primary) 7%, transparent));
   backdrop-filter: blur(20px);
-  border: 0.5px solid color-mix(in srgb, var(--subject-primary) 15%, transparent);
+  border: 0.5px solid color-mix(in srgb, var(--subject-primary) 10%, transparent);
 
-  -webkit-box-shadow: 0px 0px 30px 0px color-mix(in srgb, var(--subject-primary) 10%, transparent);
-  -moz-box-shadow: 0px 0px 30px 0px color-mix(in srgb, var(--subject-primary) 10%, transparent);
-  box-shadow: 0px 0px 30px 0px color-mix(in srgb, var(--subject-primary) 10%, transparent);
+  -webkit-box-shadow: 0px 0px 30px 0px color-mix(in srgb, var(--subject-primary) 20%, transparent);
+  -moz-box-shadow: 0px 0px 30px 0px color-mix(in srgb, var(--subject-primary) 20%, transparent);
+  box-shadow: 0px 0px 50px 0px color-mix(in srgb, var(--subject-primary) 20%, transparent);
 }
 
 body {
