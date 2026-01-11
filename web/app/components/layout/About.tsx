@@ -125,10 +125,11 @@ export function About() {
                 O Projektu
             </h1>
 
-            <p className="mb-10 text-xl text-[var(--fg-muted)] leading-relaxed">
-                Toto repo se snaží zshromažďovat otázky, z předmětů na FIT ČVUT. Cílem je zabránit tomu, co se děje na fitiwki (20 různých souborů s otázkami, různé formáty, neaktuální data, atd.) a vytvořit jednotný zdroj pro otázky.
+            <p className="mb-6 text-xl text-[var(--fg-muted)] leading-relaxed">
+                Toto repo se snaží shromažďovat otázky z předmětů na FIT ČVUT. Cílem je zabránit tomu, co se děje na fitiwki (20 různých souborů s otázkami, různé formáty, neaktuální data, atd.) a vytvořit jednotný zdroj pro otázky.
+            </p>
 
-                <br /><br />
+            <p className="mb-10 text-xl text-[var(--fg-muted)] leading-relaxed">
                 Proto pokud najdete jakoukoliv chybu, nahlašte ji prosím přes <a href="https://github.com/skopevoj/cvut-marasty/issues" className="text-[var(--subject-primary)] hover:underline font-medium" target="_blank" rel="noopener noreferrer">GitHub Issues</a> nebo ještě lépe, přispějte opravou sami přes <a href="https://github.com/skopevoj/cvut-marasty/pulls" className="text-[var(--subject-primary)] hover:underline font-medium" target="_blank" rel="noopener noreferrer">GitHub Pull Requests</a>.
             </p>
 
