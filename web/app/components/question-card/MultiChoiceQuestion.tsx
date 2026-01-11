@@ -19,8 +19,8 @@ export function MultiChoiceQuestion() {
                 let statusClass = "bg-text-primary/[0.06] border-text-primary/[0.06]";
                 if (showResults) {
                     statusClass = isUserCorrect
-                        ? "bg-success/10 border-success/20 border-1"
-                        : "bg-error/10 border-error/20 border-1";
+                        ? "bg-success/20 border-success/40 border-1"
+                        : "bg-error/20 border-error/40 border-1";
                 } else if (answerState !== AnswerState.NEUTRAL) {
                     statusClass = "border-text-primary/[0.06] bg-text-primary/[0.06]";
                 }
