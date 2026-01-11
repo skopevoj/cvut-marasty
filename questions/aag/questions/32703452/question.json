@@ -1,5 +1,5 @@
 {
-    "question": "Uvažujte následující gramatiku $G$:\n\n$$G = (\\{A, S\\}, \\{\\text{a, b, c}\\}, P, S)$$\n\n$$P = \\{\nS \\rightarrow \\text{a}S \\mid \\text{a}A,\nA \\rightarrow \\text{b}A \\mid \\text{b},\nSA \\rightarrow \\text{c}\n\\}$$\n\nZ následujících tvrzení vyberte **všechna pravdivá**:",
+    "question": "Uvažujte následující gramatiku $G$:\n\n$$G = (\\{A, S\\}, \\{\\text{a, b, c}\\}, P, S)$$\n\n$$P = \\{\nS \\rightarrow \\text{a}S \\mid \\text{a}A,\nA \\rightarrow \\text{b}A \\mid \\text{b},\nSA \\rightarrow \\text{c}\n\\}$$\n\nZ následujících tvrzení vyberte všechna pravdivá:",
     "answers": [
         {
             "text": "$L(G)$ je bezkontextový jazyk.",
