@@ -41,7 +41,7 @@ export function Pagination({ currentIndex, total, onPrev, onNext }: PaginationPr
                 onClick={onPrev}
                 disabled={currentIndex === 0}
                 icon={ChevronLeft}
-                variant="subject"
+                variant="frosted"
                 size={18}
                 className="scale-90 md:scale-100"
             />
@@ -54,7 +54,7 @@ export function Pagination({ currentIndex, total, onPrev, onNext }: PaginationPr
                 onClick={onNext}
                 disabled={currentIndex === total - 1}
                 icon={ChevronRight}
-                variant="subject"
+                variant="frosted"
                 size={18}
                 className="scale-90 md:scale-100"
             />

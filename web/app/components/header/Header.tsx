@@ -4,12 +4,13 @@ import { useState, useMemo, useRef, useEffect } from 'react';
 import { useQuiz } from "../../lib/context/QuizContext";
 import { SortType } from "../../lib/types/enums";
 import { MultiSelect } from "../ui/MultiSelect";
-import { Search, Star, Settings } from "lucide-react";
+import { Search, Star, Settings, BarChart3 } from "lucide-react";
 import { SubjectSelector } from "./SubjectSelector";
 import { SearchBar } from "./SearchBar";
 import { SearchResults } from "./SearchResults";
 import { SettingsMenu } from "./SettingsMenu";
 import { SortSelector } from "./SortSelector";
+import { StatsModal } from "./StatsModal";
 import { favoritesHelper, useFavorites } from "../../lib/helper/favoritesHelper";
 import * as helpers from "../../lib/helper/headerHelpers";
 import { IconButton } from "../ui/IconButton";
@@ -22,6 +23,7 @@ export function Header() {
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
+    const [isStatsOpen, setIsStatsOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -109,13 +111,23 @@ export function Header() {
                                     onClick={() => {
                                         setIsSearchOpen(true);
                                     }}
+                                    variant='frosted'
                                     icon={Search}
                                     title="Hledat"
                                 />
 
                                 <IconButton
+                                    onClick={() => setIsStatsOpen(true)}
+                                    icon={BarChart3}
+                                    variant='frosted'
+                                    title="Statistiky"
+                                    active={isStatsOpen}
+                                />
+
+                                <IconButton
                                     onClick={() => setIsFavoritesOpen(true)}
                                     icon={Star}
+                                    variant='frosted'
                                     title="Oblíbené"
                                     active={isFavoritesOpen}
                                 />
@@ -123,6 +135,7 @@ export function Header() {
                                 <IconButton
                                     onClick={() => setIsSettingsOpen(true)}
                                     icon={Settings}
+                                    variant='frosted'
                                     title="Nastavení"
                                     active={isSettingsOpen}
                                 />
@@ -146,6 +159,14 @@ export function Header() {
                         setIsFavoritesOpen(false);
                     }}
                 />
+            </Modal>
+
+            <Modal
+                isOpen={isStatsOpen}
+                onClose={() => setIsStatsOpen(false)}
+                title={`Statistiky ${currentSubject?.code || ""}`}
+            >
+                <StatsModal />
             </Modal>
 
             <Modal

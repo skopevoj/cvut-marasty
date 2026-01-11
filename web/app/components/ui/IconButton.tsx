@@ -9,7 +9,7 @@ interface IconButtonProps {
     className?: string;
     disabled?: boolean;
     active?: boolean;
-    variant?: 'default' | 'ghost' | 'subject';
+    variant?: 'default' | 'ghost' | 'subject' | 'frosted';
     size?: number;
 }
 
@@ -28,7 +28,8 @@ export function IconButton({
             ? "border-[var(--subject-primary)] bg-[var(--button-bg)] text-[var(--subject-primary)]"
             : "border-[var(--border-default)] bg-[var(--button-bg)] text-[var(--fg-muted)] hover:border-[var(--border-hover)] hover:text-[var(--fg-primary)]",
         ghost: "border-transparent bg-transparent text-[var(--fg-muted)] hover:text-[var(--fg-primary)]",
-        subject: "border-[var(--border-default)] bg-[var(--button-bg)] text-[var(--fg-muted)] hover:border-[var(--subject-border)] hover:bg-[var(--subject-bg)] hover:text-[var(--subject-primary)]"
+        subject: "border-[var(--border-default)] bg-[var(--button-bg)] text-[var(--fg-muted)] hover:border-[var(--subject-border)] hover:bg-[var(--subject-bg)] hover:text-[var(--subject-primary)]",
+        frosted: "border-white/10 bg-white/5 backdrop-blur-md text-[var(--fg-muted)] hover:bg-white/10 hover:text-[var(--fg-primary)]"
     };
 
     return (
