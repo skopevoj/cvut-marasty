@@ -7,7 +7,7 @@
         },
         {
             "text": "$R_2$ s vrcholem zásobníku vlevo je modelem syntaktické analýzy pro $G$ zdola nahoru.",
-            "isCorrect": true
+            "isCorrect": false
         },
         {
             "text": "$R_1$ s vrcholem zásobníku vlevo je modelem syntaktické analýzy pro $G$ zdola nahoru.",
@@ -15,7 +15,7 @@
         },
         {
             "text": "$R_1$ s vrcholem zásobníku vpravo je modelem syntaktické analýzy pro $G$ shora dolů.",
-            "isCorrect": true
+            "isCorrect": false
         }
     ],
     "topics": [
