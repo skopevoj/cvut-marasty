@@ -1,13 +1,13 @@
 {
-    "question": "Uvažujte bezkontextovou gramatiku $G = (N, \\Sigma, P, S)$. O každém z následujících tvrzení rozhodněte, zdali je pravdivé (\\checkmark) či nepravdivé (\\times):",
+    "question": "Uvažujte bezkontextovou gramatiku $G = (N, \\Sigma, P, S)$. O každém z následujících tvrzení rozhodněte, zdali je pravdivé ($\\checkmark$) či nepravdivé ($\\times$):",
     "answers": [
         {
             "text": "$G$ nazveme rekurzivní právě tehdy, když obsahuje alespoň jeden neterminální symbol rekurzivní zleva nebo alespoň jeden neterminální symbol rekurzivní zprava.",
-            "isCorrect": true
+            "isCorrect": false
         },
         {
             "text": "Neterminální symbol $A \\in N$ nazveme rekurzivní právě tehdy, když je rekurzivní zleva nebo zprava.",
-            "isCorrect": true
+            "isCorrect": false
         },
         {
             "text": "$G$ je bez cyklů právě tehdy, když je bez $\\epsilon$-pravidel a bez jednoduchých pravidel.",
