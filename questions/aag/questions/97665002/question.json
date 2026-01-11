@@ -3,7 +3,7 @@
     "answers": [
         {
             "text": "$(\\{A, B, C\\}, \\emptyset, \\{0, \\text{a}, 1\\}, \\delta, C, 1, \\emptyset) \\wedge \\delta(A, 0) = (A, 0, 0)$",
-            "isCorrect": true
+            "isCorrect": false
         },
         {
             "text": "$(\\{A, B, C\\}, \\emptyset, \\{0, \\text{a}, 1\\}, \\delta, C, \\emptyset, \\emptyset) \\wedge \\delta(A, 0) = (A, 0, 0)$",
