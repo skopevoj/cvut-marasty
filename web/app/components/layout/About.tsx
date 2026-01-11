@@ -52,7 +52,7 @@ function Recognition() {
     const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
     useEffect(() => {
-        fetch(`${BASE_PATH}/contributors.json`)
+        fetch(`${BASE_PATH}/contributors.json?t=${Date.now()}`)
             .then(res => res.json())
             .then(val => {
                 if (Array.isArray(val)) {
