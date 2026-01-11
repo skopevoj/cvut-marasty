@@ -10,7 +10,13 @@ import { Footer } from "./components/layout/Footer";
 export default function Home() {
   const { isLoading, error, currentSubject, currentSubjectDetails, quizQueue } = useQuiz();
 
-  if (isLoading) return <div className="quiz-container">Loading...</div>;
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary/20 border-t-primary"></div>
+      </div>
+    );
+  }
   if (error) return <div className="quiz-container">Error: {error}</div>;
 
   return (
