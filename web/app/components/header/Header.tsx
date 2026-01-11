@@ -116,13 +116,13 @@ export function Header() {
                                     title="Hledat"
                                 />
 
-                                <IconButton
+                                {/* <IconButton
                                     onClick={() => setIsStatsOpen(true)}
                                     icon={BarChart3}
                                     variant='frosted'
                                     title="Statistiky"
                                     active={isStatsOpen}
-                                />
+                                /> */}
 
                                 <IconButton
                                     onClick={() => setIsFavoritesOpen(true)}
@@ -161,13 +161,13 @@ export function Header() {
                 />
             </Modal>
 
-            <Modal
+            {/* <Modal
                 isOpen={isStatsOpen}
                 onClose={() => setIsStatsOpen(false)}
                 title={`Statistiky ${currentSubject?.code || ""}`}
             >
                 <StatsModal />
-            </Modal>
+            </Modal> */}
 
             <Modal
                 isOpen={isSettingsOpen}
