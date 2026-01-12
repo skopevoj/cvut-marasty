@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import katex from "katex";
 import "katex/dist/katex.min.css";
+import renderMathInElement from "katex/contrib/auto-render";
 
 type LatexProps = {
     tex?: string | null;
@@ -16,31 +16,19 @@ export default function Latex({ tex, className }: LatexProps) {
     useEffect(() => {
         if (!containerRef.current) return;
 
-        const processLatex = (textToProcess: string) => {
-            if (!textToProcess || typeof textToProcess !== "string") return "";
+        // Vložíme text do elementu
+        containerRef.current.textContent = actualContent;
 
-            // Replace display math $$ ... $$ first
-            let processed = textToProcess.replace(/\$\$([\s\S]*?)\$\$/g, (_, math) => {
-                try {
-                    return katex.renderToString(math, { displayMode: true, throwOnError: false });
-                } catch (e) {
-                    return `$$${math}$$`;
-                }
-            });
-
-            // Then replace inline math $ ... $
-            processed = processed.replace(/\$(.*?)\$/g, (_, math) => {
-                try {
-                    return katex.renderToString(math, { displayMode: false, throwOnError: false });
-                } catch (e) {
-                    return `$${math}$`;
-                }
-            });
-
-            return processed;
-        };
-
-        containerRef.current.innerHTML = processLatex(actualContent);
+        // Necháme KaTeX automaticky najít a vykreslit matematiku
+        renderMathInElement(containerRef.current, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "\\[", right: "\\]", display: true },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "$", right: "$", display: false },
+            ],
+            throwOnError: false,
+        });
     }, [actualContent]);
 
     return <div ref={containerRef} className={className} />;
