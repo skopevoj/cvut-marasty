@@ -30,7 +30,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
     useEffect(() => {
         async function fetchSubjects() {
             try {
-                const res = await fetch(`${BASE_PATH}/subjects.json`);
+                const res = await fetch(`${BASE_PATH}/subjects.json?t=${Date.now()}`);
                 const { subjects: list } = await res.json();
                 setSubjects(list);
             } catch (err) {
