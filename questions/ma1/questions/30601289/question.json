@@ -1,0 +1,25 @@
+{
+    "question": "Mějme dvě posloupnosti \\(\\left(a_n\\right)^{\\infty}_{n=1}\\) a \\(\\left(b_n\\right)^{\\infty}_{n=1}\\) s pouze kladnými členy. Dále předpokládejme\n    platnost vztahu \\(a_n = \\mathcal{O}(b_n)\\) pro \\(n \\to \\infty\\).\n    Vyberte všechna tvrzení, která jsou nutně pravdivá za těchto předpokladů.",
+    "answers": [
+        {
+            "text": "Existují kladná reálná konstanta \\(C\\) a přirozené číslo \\(N\\) tak,\n            že nerovnost \\(a_n < Cb_n\\) platí kdykoliv \\(n > N\\).",
+            "isCorrect": true
+        },
+        {
+            "text": "Limita \\(\\lim_{n \\to \\infty}\\ \\frac{a_n}{b_b}\\) existuje a je konečná.\n (opravdu tam bylo \\(b_b\\), asi typo?)",
+            "isCorrect": false
+        },
+        {
+            "text": "Posloupnost \\( \\left(a_n / b_n\\right)^{\\infty}_{n=1} \\) je omezená.",
+            "isCorrect": true
+        },
+        {
+            "text": "\\( b_n = \\mathcal{O}(a_n) \\) pro \\(n \\to \\infty\\)",
+            "isCorrect": false
+        }
+    ],
+    "topics": [
+        "2025-06-18-rozstrel"
+    ],
+    "questionType": "multichoice"
+}

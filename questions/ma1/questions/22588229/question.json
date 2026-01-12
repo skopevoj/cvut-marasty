@@ -1,0 +1,25 @@
+{
+    "question": "Které z následujících funkcí \\(f\\) nabývají svého globálního maxima na svém definičním oboru?",
+    "answers": [
+        {
+            "text": "\\( f(x)=|\\sin(x)| \\) s \\( D_f = \\langle -10,10 \\rangle \\).",
+            "isCorrect": true
+        },
+        {
+            "text": "\\( f(x)=\\tfrac{1}{x} \\) s \\( D_f = \\langle 10,100 ) \\).",
+            "isCorrect": true
+        },
+        {
+            "text": "\\( f(x)=\\ln(x) \\) s \\( D_f = (10,100) \\).",
+            "isCorrect": false
+        },
+        {
+            "text": "\\( f(x)=10-x^{40} \\) s \\( D_f = \\mathbb{R} \\).",
+            "isCorrect": true
+        }
+    ],
+    "topics": [
+        "2025-06-04-rozstrel"
+    ],
+    "questionType": "multichoice"
+}

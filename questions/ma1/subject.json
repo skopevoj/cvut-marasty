@@ -1,0 +1,21 @@
+{
+    "name": "Matematická Analýza 1",
+    "code": "ma1",
+    "description": "Popis ma1",
+    "primaryColor": "#1e90ff",
+    "secondaryColor": "#1565c0",
+    "topics": [
+        {
+            "id": "2025-06-04-rozstrel",
+            "name": "04.06.2025 Rozstřel"
+        },
+        {
+            "id": "2025-06-11-rozstrel",
+            "name": "11.06.2025 Rozstřel"
+        },
+        {
+            "id": "2025-06-18-rozstrel",
+            "name": "18.06.2025 Rozstřel"
+        }
+    ]
+}

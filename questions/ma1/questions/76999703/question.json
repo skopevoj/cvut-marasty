@@ -1,0 +1,25 @@
+{
+    "question": "Vyberte všechna tvrzení, která představují postačující podmínky pro existenci lokálního extrému funkce\n    \\(f\\) v bodě \\(4\\).",
+    "answers": [
+        {
+            "text": "Funkce \\(f\\) má v bodě \\(4\\) nulovou první derivaci a nenulovou druhou derivaci.",
+            "isCorrect": true
+        },
+        {
+            "text": "Existuje okolí \\(U_4\\) bodu \\(4\\) takové, že pro všechna \\(x\\) z tohoto okolí platí \\(f(x) \\ge f(4)\\).",
+            "isCorrect": true
+        },
+        {
+            "text": "Funkce \\(f\\) je konvexní na \\(\\mathbb{R}\\) a její tečnou v bodě \\(4\\) je přímka \\(y=5\\).",
+            "isCorrect": true
+        },
+        {
+            "text": "Funkce \\(f\\) má v bodě \\(4\\) nulovou první derivaci, nebo její derivace v tomto bodě neexistuje.",
+            "isCorrect": false
+        }
+    ],
+    "topics": [
+        "2025-06-11-rozstrel"
+    ],
+    "questionType": "multichoice"
+}

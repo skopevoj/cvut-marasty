@@ -1,0 +1,25 @@
+{
+    "question": "Vyberte obecně platná tvrzení.",
+    "answers": [
+        {
+            "text": "Pokud pro \\(k,q \\in \\mathbb{R}\\) platí \\( \\lim_{x \\to +\\infty} \\big( f(x)-kx-q \\big) = 0 \\),\n            pak přímka \\(y=kx+q\\) je asymptotou funkce \\(f\\) v \\(+\\infty\\).",
+            "isCorrect": true
+        },
+        {
+            "text": "Pokud asymptotou \\(f\\) v bodě \\(a=0\\) je přímka \\(x=0\\),\n            potom platí \\( \\lim_{x \\to a} f(x) = +\\infty \\) nebo \\( \\lim_{x \\to a} f(x) = -\\infty \\).",
+            "isCorrect": false
+        },
+        {
+            "text": "Pokud platí \\( \\lim_{x \\to +\\infty} f(x) = +\\infty \\),\n            pak funkce \\(f\\) nemá asymptotu v \\(+\\infty\\).",
+            "isCorrect": false
+        },
+        {
+            "text": "Pokud platí \\( \\lim_{x \\to +\\infty} f(x) = 0 \\),\n            pak přímka \\(y=0\\) je asymptotou funkce \\(f\\) v \\(+\\infty\\).",
+            "isCorrect": true
+        }
+    ],
+    "topics": [
+        "2025-06-04-rozstrel"
+    ],
+    "questionType": "multichoice"
+}

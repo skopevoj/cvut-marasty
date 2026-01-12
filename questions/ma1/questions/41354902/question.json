@@ -1,0 +1,25 @@
+{
+    "question": "Vyberte všechna pravdivá tvrzení",
+    "answers": [
+        {
+            "text": "Funkce \\( f(x) = \\sin(x)-x^2, \\, x \\in D_f = \\mathbb{R} \\), je ryze konkávní.",
+            "isCorrect": true
+        },
+        {
+            "text": "Funkce \\( f(x) = \\cos(x)-x, \\, x \\in D_f = \\mathbb{R} \\), je ostře klesající.",
+            "isCorrect": true
+        },
+        {
+            "text": "Funkce \\( f(x) = \\cos(2x)+2x, \\, x \\in D_f = \\mathbb{R} \\), má nekonečně mnoho lokálních extrémů.",
+            "isCorrect": false
+        },
+        {
+            "text": "Funkce \\( f(x) = \\mathrm{arctg}(x) + \\mathrm{arctg}\\left(\\frac{1}{x}\\right), \\, x \\in D_f = (0, +\\infty) \\), je konstantní na svém definičním oboru.",
+            "isCorrect": true
+        }
+    ],
+    "topics": [
+        "2025-06-11-rozstrel"
+    ],
+    "questionType": "multichoice"
+}

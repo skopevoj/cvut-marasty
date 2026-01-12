@@ -1,0 +1,25 @@
+{
+    "question": "Která z následujících tvrzení jsou pravdivá?",
+    "answers": [
+        {
+            "text": "Derivace funkce \\(\\ln\\) v bodě \\(1\\) je rovna \\(1\\).",
+            "isCorrect": true
+        },
+        {
+            "text": "Derivace funkce \\(\\ln\\) v bodě \\(2\\) je rovna \\(\\tfrac{1}{2}\\).",
+            "isCorrect": true
+        },
+        {
+            "text": "Derivace funkce \\(\\ln\\) v bodě \\(1\\) je rovna \\(0\\).",
+            "isCorrect": false
+        },
+        {
+            "text": "Derivace funkce \\(\\ln\\) v bodě \\(0\\) je rovna \\(+\\infty\\).",
+            "isCorrect": false
+        }
+    ],
+    "topics": [
+        "2025-06-04-rozstrel"
+    ],
+    "questionType": "multichoice"
+}

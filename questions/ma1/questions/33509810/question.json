@@ -1,0 +1,25 @@
+{
+    "question": "Mějme posloupnost \\(\\left(a_n\\right)^{\\infty}_{n=1}\\). Vyberte obecně pravdivá tvrzení.",
+    "answers": [
+        {
+            "text": "Má-li posloupnost \\(\\left(a_n\\right)^{\\infty}_{n=1}\\) limitu,\n            potom každá posloupnost vybraná z posloupnosti \\(\\left(a_n\\right)^{\\infty}_{n=1}\\) má tutéž limitu.",
+            "isCorrect": true
+        },
+        {
+            "text": "Můžeme-li z posloupnosti \\(\\left(a_n\\right)^{\\infty}_{n=1}\\) vybrat dvě různé podposloupnosti se stejnou limitou,\n            pak má limitu i posloupnost \\(\\left(a_n\\right)^{\\infty}_{n=1}\\).",
+            "isCorrect": false
+        },
+        {
+            "text": "Pokud lze z posloupnosti \\(\\left(a_n\\right)^{\\infty}_{n=1}\\) vybrat podposloupnost, která nemá limitu,\n            pak nemá limitu ani posloupnost \\(\\left(a_n\\right)^{\\infty}_{n=1}\\).",
+            "isCorrect": true
+        },
+        {
+            "text": "Pokud je posloupnost \\(\\left(a_n\\right)^{\\infty}_{n=1}\\) monotonní,\n            pak každá posloupnost z ní vybraná má limitu.",
+            "isCorrect": true
+        }
+    ],
+    "topics": [
+        "2025-06-04-rozstrel"
+    ],
+    "questionType": "multichoice"
+}

@@ -1,0 +1,25 @@
+{
+    "question": "Která z následujících tvrzení o posloupnostech a vybraných posloupnostech jsou pravdivá ?",
+    "answers": [
+        {
+            "text": "Posloupnost \\( \\left(1\\right)^{\\infty}_{n=1} \\) je vybraná z posloupnosti \\( \\left(\\cos(\\pi n)\\right)^{\\infty}_{n=1} \\)",
+            "isCorrect": true
+        },
+        {
+            "text": "Posloupnost \\( \\left(\\frac{1}{n}\\right)^{\\infty}_{n=1} \\) je vybraná z posloupnosti \\( \\left(\\frac{1}{2n+1}\\right)^{\\infty}_{n=1} \\)",
+            "isCorrect": false
+        },
+        {
+            "text": "Posloupnost \\( \\left(\\frac{1}{2n+1}\\right)^{\\infty}_{n=1} \\) je vybraná z posloupnosti \\( \\left(\\frac{1}{n}\\right)^{\\infty}_{n=1} \\)",
+            "isCorrect": true
+        },
+        {
+            "text": "Posloupnost \\( \\left(n^2\\right)^{\\infty}_{n=1} \\) je vybraná z posloupnosti \\( \\left(n\\right)^{\\infty}_{n=1} \\)",
+            "isCorrect": true
+        }
+    ],
+    "topics": [
+        "2025-06-11-rozstrel"
+    ],
+    "questionType": "multichoice"
+}

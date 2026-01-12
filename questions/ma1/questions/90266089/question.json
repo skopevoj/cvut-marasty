@@ -1,0 +1,25 @@
+{
+    "question": "Která z následujících tvrzení představují postačující podmínku pro to, aby posloupnost \\( \\left(a_n\\right)^{\\infty}_{n=1} \\) měla limitu rovnou \\(0\\) ?",
+    "answers": [
+        {
+            "text": "Pro všechna \\(n \\in \\mathbb{N}\\) platí nerovnosti \\( a_n > 0 \\) a \\( \\frac{a_{n+1}}{a_n} < 1 \\).",
+            "isCorrect": false
+        },
+        {
+            "text": "Posloupnost \\(\\left(a_n\\right)^{\\infty}_{n=1}\\) má všechny členy záporné a je ostře rostoucí.",
+            "isCorrect": false
+        },
+        {
+            "text": "Platí \\(a_n > 0\\) pro každé \\(n \\in \\mathbb{N}\\) a \\( \\lim_{n \\to \\infty} \\frac{a_{n+1}}{a_n} < 1 \\).",
+            "isCorrect": true
+        },
+        {
+            "text": "Posloupnost \\( \\left(a_n\\right)^{\\infty}_{n=1} \\) má všechny členy záporné a pro všechna \\(n \\in \\mathbb{N}\\) větší než \\(2025\\) platí nerovnost \\(a_n \\ge -\\frac{1}{n}\\).",
+            "isCorrect": true
+        }
+    ],
+    "topics": [
+        "2025-06-11-rozstrel"
+    ],
+    "questionType": "multichoice"
+}

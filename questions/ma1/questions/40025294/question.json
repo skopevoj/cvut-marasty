@@ -1,0 +1,25 @@
+{
+    "question": "Uvažme posloupnost \\(\\left(a_n\\right)^{\\infty}_{n=1}\\) a číslo \\(\\alpha \\in \\mathbb{R}\\).\n    Vyberte všechna tvrzení ekvivalentní s tvrzením: \"limita posloupnosti \\(\\left(a_n\\right)^{\\infty}_{n=1}\\) existuje a je rovna \\(\\alpha\\)\".",
+    "answers": [
+        {
+            "text": "V každém okolí \\(U_\\alpha\\) bodu \\(\\alpha\\) leží nekonečně mnoho členů posloupnosti \\(\\left( a_n \\right)^{\\infty}_{n=1}\\).",
+            "isCorrect": false
+        },
+        {
+            "text": "Pro každé \\(\\varepsilon > 0\\) existuje \\(N \\in \\mathbb{N}\\) takové, že pro všechna přirozená \\(n\\) splňující \\(n > N\\) platí \\(|a_n - \\alpha| < \\varepsilon\\).",
+            "isCorrect": true
+        },
+        {
+            "text": "Existuje okolí \\(U_{+\\infty}\\) takové, že pro každé okolí \\(U_\\alpha\\) a každé \\(n \\in U_{+\\infty}\\) platí \\(a_n \\in U_\\alpha\\).",
+            "isCorrect": false
+        },
+        {
+            "text": "Pro každé okolí \\(U_\\alpha\\) bodu \\(\\alpha\\) existuje \\(N \\in \\mathbb{N}\\) takové, že pro všechna přirozená \\(n\\) větší než \\(N\\) patří \\(a_n\\) do množiny \\(U_\\alpha\\).",
+            "isCorrect": true
+        }
+    ],
+    "topics": [
+        "2025-06-11-rozstrel"
+    ],
+    "questionType": "multichoice"
+}

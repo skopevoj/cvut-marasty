@@ -1,0 +1,25 @@
+{
+    "question": "Nechť \\(\\left(a_n\\right)^{\\infty}_{n=1}\\) je posloupnost mající pouze kladné členy. Vyberte všechna pravdivá tvrzení.",
+    "answers": [
+        {
+            "text": "Pokud \\( \\lim_{n \\to \\infty} a_n = 0 \\),\n            potom \\( \\lim_{n \\to \\infty} \\tfrac{a_{n+1}}{a_n} < 1 \\).",
+            "isCorrect": false
+        },
+        {
+            "text": "Pokud \\( \\lim_{n \\to \\infty} \\tfrac{a_{n+1}}{a_n} > 1 \\),\n            potom \\( \\lim_{n \\to \\infty} a_n = +\\infty \\).",
+            "isCorrect": true
+        },
+        {
+            "text": "Pokud \\( \\lim_{n \\to \\infty} \\tfrac{a_{n+1}}{a_n} = 1 \\),\n            potom \\( \\lim_{n \\to \\infty} a_n \\) neexistuje.",
+            "isCorrect": false
+        },
+        {
+            "text": "Pokud \\( \\lim_{n \\to \\infty} \\tfrac{a_{n+1}}{a_n} = \\tfrac{1}{2} \\),\n            potom platí \\( \\lim_{n \\to \\infty} a_n = 0 \\).",
+            "isCorrect": true
+        }
+    ],
+    "topics": [
+        "2025-06-18-rozstrel"
+    ],
+    "questionType": "multichoice"
+}

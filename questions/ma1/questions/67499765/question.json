@@ -1,0 +1,25 @@
+{
+    "question": "Vyberte všechna pravdivá tvrzení.",
+    "answers": [
+        {
+            "text": "\\( \\lim_{x \\to 1} \\frac{\\sin(1-x)}{1-x} = -1 \\).",
+            "isCorrect": false
+        },
+        {
+            "text": "\\( \\lim_{x \\to 0} \\frac{2^x-1}{x} = \\ln(2) \\).",
+            "isCorrect": true
+        },
+        {
+            "text": "\\( \\lim_{x \\to 0+} x^{1/x} \\) neexistuje.",
+            "isCorrect": false
+        },
+        {
+            "text": "\\( \\lim_{x \\to +\\infty} \\left( 1 + \\frac{1}{\\sqrt{x}} \\right)^{\\sqrt{x}} = \\mathrm{e} \\).",
+            "isCorrect": true
+        }
+    ],
+    "topics": [
+        "2025-06-18-rozstrel"
+    ],
+    "questionType": "multichoice"
+}

@@ -1,0 +1,25 @@
+{
+    "question": "Které z následujících posloupností \\( \\left(a_n\\right)^{\\infty}_{n=1} \\) splňují vztah \\( a_n = o(n^2) \\) pro~\\( n \\to \\infty \\) ?",
+    "answers": [
+        {
+            "text": "\\( a_n = \\left( \\frac{1}{2} \\right)^n,   \\quad n \\in \\mathbb{N}. \\)",
+            "isCorrect": true
+        },
+        {
+            "text": "\\( a_n = \\sin( n^2 ),                    \\quad n \\in \\mathbb{N}. \\)",
+            "isCorrect": true
+        },
+        {
+            "text": "\\( a_n = n^2 \\ln(n),                     \\quad n \\in \\mathbb{N}. \\)",
+            "isCorrect": false
+        },
+        {
+            "text": "\\( a_n = \\sqrt[n]{n^{20}},               \\quad n \\in \\mathbb{N}. \\)",
+            "isCorrect": true
+        }
+    ],
+    "topics": [
+        "2025-06-11-rozstrel"
+    ],
+    "questionType": "multichoice"
+}

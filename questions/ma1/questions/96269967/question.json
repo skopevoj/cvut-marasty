@@ -1,0 +1,25 @@
+{
+    "question": "Vyberte všechna pravdivá tvrzení o funkci \\( f(x) = x^3 - 3x \\).",
+    "answers": [
+        {
+            "text": "Tato funkce má maximum i minimum na libovolném intervalu \\( \\langle a,b \\rangle \\),\n tj. existují konečné hodnoty \\( \\max_{\\langle a,b \\rangle} f \\) a \\( \\min_{\\langle a,b \\rangle} f \\).",
+            "isCorrect": true
+        },
+        {
+            "text": "Minimem této funkce na intervalu \\( \\langle -\\sqrt{3}, \\sqrt{3} \\rangle \\) je 0.",
+            "isCorrect": false
+        },
+        {
+            "text": "Maximem této funkce na intervalu \\( \\langle -\\sqrt{3}, \\sqrt{3} \\rangle \\) je 2.",
+            "isCorrect": true
+        },
+        {
+            "text": "Supremum této funkce na jejím definičním oboru (tj. \\(\\mathbb{R}\\)) neexistuje.",
+            "isCorrect": false
+        }
+    ],
+    "topics": [
+        "2025-06-18-rozstrel"
+    ],
+    "questionType": "multichoice"
+}

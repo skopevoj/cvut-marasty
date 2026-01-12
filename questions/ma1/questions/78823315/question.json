@@ -1,0 +1,25 @@
+{
+    "question": "Vyberte obecně pravdivá tvrzení o funkci \\(f\\) definované na celém \\(\\mathbb{R}\\).",
+    "answers": [
+        {
+            "text": "Pokud pro všechna kladná \\(x\\) platí nerovnosti \\( \\tfrac{1}{x} \\le f(x) \\le \\tfrac{x+1}{x} \\),\n            potom \\( \\lim_{x \\to +\\infty} f(x) \\) neexistuje.",
+            "isCorrect": false
+        },
+        {
+            "text": "Pokud pro všechna \\(x\\) z intervalu \\( (-1,1) \\) platí nerovnosti \\( 0 \\le f(x) \\le |x| \\),\n            potom \\( \\lim_{x \\to 0} f(x) = 0 \\).",
+            "isCorrect": true
+        },
+        {
+            "text": "Pokud pro všechna kladná \\(x\\) platí nerovnosti \\( f(x) \\ge -x \\),\n            potom \\( \\lim_{x \\to +\\infty} f(x) > -\\infty\\).",
+            "isCorrect": false
+        },
+        {
+            "text": "Pokud pro všechna kladná \\(x\\) platí nerovnosti \\( 0 \\le f(x) \\le \\tfrac{1}{x} \\),\n            potom \\( \\lim_{x \\to +\\infty} f(x) = 0\\).",
+            "isCorrect": true
+        }
+    ],
+    "topics": [
+        "2025-06-04-rozstrel"
+    ],
+    "questionType": "multichoice"
+}

@@ -1,0 +1,25 @@
+{
+    "question": "Nechť \\(f\\) je funkce diferencovatelná na celém \\(\\mathbb{R}\\) a nechť \\(a \\in \\mathbb{R}\\).",
+    "answers": [
+        {
+            "text": "Pokud má tato funkce \\(f\\) v bodě \\(a\\) lokální extrém, potom je její derivace v bodě \\(a\\) rovna nule.",
+            "isCorrect": true
+        },
+        {
+            "text": "Pokud je \\(f\\) rostoucí na nějakém levém okolí bodu \\(a\\) a klesající na nějakém pravém okolí bodu \\(a\\),\n            pak má \\(f\\) v bodě \\(a\\) lokální minimum.",
+            "isCorrect": false
+        },
+        {
+            "text": "Pokud pro všechna \\(x \\in \\mathbb{R}\\) platí \\( f(x) \\le f(a) \\),\n            potom má funkce \\(f\\) lokální maximum v bodě \\(a\\).",
+            "isCorrect": true
+        },
+        {
+            "text": "Pokud je derivace funkce \\(f\\) v bodě \\(a\\) rovna \\(0\\) (tj. \\(f'(a)=0\\))\n            a pokud platí nerovnosti \\(f'(a-1) < 0\\) a \\(f'(a+1)>0\\),\n            potom má funkce \\(f\\) v bodě lokální minimum.",
+            "isCorrect": false
+        }
+    ],
+    "topics": [
+        "2025-06-18-rozstrel"
+    ],
+    "questionType": "multichoice"
+}

@@ -1,0 +1,25 @@
+{
+    "question": "Které z následujících posloupností \\(\\left(a_n\\right)^{\\infty}_{n=1}\\) mají limitu rovnou Eulerovu číslu \\(\\mathrm{e}\\)?",
+    "answers": [
+        {
+            "text": "\\( a_n = \\left( 1 + \\tfrac{1}{n} \\right)^{n}, \\, n \\in \\mathbb{N} \\).",
+            "isCorrect": true
+        },
+        {
+            "text": "\\( a_n = \\left( 1 - \\tfrac{1}{n} \\right)^{-n}, \\, n \\in \\mathbb{N} \\).",
+            "isCorrect": true
+        },
+        {
+            "text": "\\( a_n = \\left( 1 + n \\right)^{1/n}, \\, n \\in \\mathbb{N} \\).",
+            "isCorrect": false
+        },
+        {
+            "text": "\\( a_n = \\left( 1 + \\tfrac{1}{\\sqrt{n}} \\right)^{\\sqrt{n}}, \\, n \\in \\mathbb{N} \\).",
+            "isCorrect": true
+        }
+    ],
+    "topics": [
+        "2025-06-04-rozstrel"
+    ],
+    "questionType": "multichoice"
+}

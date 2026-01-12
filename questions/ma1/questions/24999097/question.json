@@ -1,0 +1,25 @@
+{
+    "question": "Nechť \\(a\\) je reálný parametr. Vyberte všechna pravdivá tvrzení o posloupnostech \\(\\left(b_n\\right)^{\\infty}_{n=1}\\) s členy \\(b_n = a^n, \\, n \\in \\mathbb{N}\\).",
+    "answers": [
+        {
+            "text": "Pokud \\(a < 0\\), pak limita posloupnosti \\(\\left(b_n\\right)^{\\infty}_{n=1}\\) neexistuje.",
+            "isCorrect": false
+        },
+        {
+            "text": "Existuje hodnota \\(a \\in \\mathbb{R}\\) pro kterou je posloupnost \\(\\left(b_n\\right)^{\\infty}_{n=1}\\) konstantní.",
+            "isCorrect": true
+        },
+        {
+            "text": "Pro \\(a = 1,\\!000\\,000\\,1\\) platí \\( \\lim_{n \\to \\infty} b_n = +\\infty \\).",
+            "isCorrect": true
+        },
+        {
+            "text": "Existuje hodnota \\(a \\in \\mathbb{R}\\) pro kterou má posloupnost \\(\\left(b_n\\right)^{\\infty}_{n=1}\\) dva hromadné body.",
+            "isCorrect": true
+        }
+    ],
+    "topics": [
+        "2025-06-18-rozstrel"
+    ],
+    "questionType": "multichoice"
+}

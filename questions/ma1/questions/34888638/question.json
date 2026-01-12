@@ -1,0 +1,25 @@
+{
+    "question": "Pro které z následujících funkcí \\(f\\) je přímka s rovnicí \\(y=0\\) asymptotou ?",
+    "answers": [
+        {
+            "text": "\\(f(x) = \\frac{1+x}{x^2}\\).",
+            "isCorrect": true
+        },
+        {
+            "text": "\\(f(x) = \\frac{1}{\\ln(x)}\\).",
+            "isCorrect": true
+        },
+        {
+            "text": "\\(f(x) = x \\sin \\left( \\frac{1}{x} \\right) \\).",
+            "isCorrect": false
+        },
+        {
+            "text": "\\(f(x) = \\frac{\\sin x}{x}\\).",
+            "isCorrect": true
+        }
+    ],
+    "topics": [
+        "2025-06-11-rozstrel"
+    ],
+    "questionType": "multichoice"
+}

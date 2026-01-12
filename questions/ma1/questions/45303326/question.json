@@ -1,0 +1,25 @@
+{
+    "question": "Mějme funkci \\(f\\) definovanou na \\(\\mathbb{R}\\) pro níž platí \\( \\lim\\limits_{x \\to 1} f(x)=2 \\).\n    Vyberte všechna obecně pravdivá tvrzení.",
+    "answers": [
+        {
+            "text": "\\(f(1) = 2\\).",
+            "isCorrect": false
+        },
+        {
+            "text": "Je-li \\(\\left(x_n\\right)^{\\infty}_{n=1}\\) posloupnost mající limitu 1 a její členy jsou různé od 1,\n            pak \\( \\lim_{n \\to \\infty} f(x_n)=2 \\).",
+            "isCorrect": true
+        },
+        {
+            "text": "Je-li \\(\\left(x_n\\right)^{\\infty}_{n=1}\\) posloupnost mající limitu 2 a její členy jsou různé od 2,\n            pak \\( \\lim_{n \\to \\infty} f(x_n)=1 \\).",
+            "isCorrect": false
+        },
+        {
+            "text": "\\( \\lim_{n \\to \\infty} f \\left( 1 - \\frac{1}{n} \\right) = 2 \\)",
+            "isCorrect": true
+        }
+    ],
+    "topics": [
+        "2025-06-04-rozstrel"
+    ],
+    "questionType": "multichoice"
+}

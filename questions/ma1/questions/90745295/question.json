@@ -1,0 +1,25 @@
+{
+    "question": "Vyberte všechna pravdivá tvrzení",
+    "answers": [
+        {
+            "text": "\\( \\big( 2^{-x^2} \\big)' = -x \\cdot 2^{-x^2+1} \\cdot \\ln(2) \\) pro všechna \\(x \\in \\mathbb{R}\\).",
+            "isCorrect": true
+        },
+        {
+            "text": "\\( \\big( \\mathrm{tg}(2x) \\big)' = \\tfrac{2}{\\sin^2(2x)} \\) pro všechna reálná \\(x\\),\n            která nejsou celočíselným násobkem \\( \\tfrac{\\pi}{2} \\).",
+            "isCorrect": false
+        },
+        {
+            "text": "\\( \\big( x \\ln(x) \\big)' = 1 + \\ln(x) \\) pro všechna \\(x \\in (0,+\\infty)\\).",
+            "isCorrect": true
+        },
+        {
+            "text": "\\( \\big( x\\mathrm{e}^{-x} \\big)' = (x+1)\\mathrm{e}^{-x} \\) pro všechna \\(x \\in \\mathbb{R}\\).",
+            "isCorrect": false
+        }
+    ],
+    "topics": [
+        "2025-06-18-rozstrel"
+    ],
+    "questionType": "multichoice"
+}

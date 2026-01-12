@@ -1,0 +1,25 @@
+{
+    "question": "Které z následujících funkcí \\( f \\) lze spojitě dodefinovat v uvedených bodech \\( a \\notin D_f \\) ?",
+    "answers": [
+        {
+            "text": "\\( f(x) = x \\ln|x| \\)               v bodě \\( a=0 \\).",
+            "isCorrect": true
+        },
+        {
+            "text": "\\( f(x) = \\frac{\\sin(x)}{x} \\)      v bodě \\( a=0 \\).",
+            "isCorrect": true
+        },
+        {
+            "text": "\\( f(x) = \\frac{2^x - 2}{x} \\)      v bodě \\( a=0 \\).",
+            "isCorrect": false
+        },
+        {
+            "text": "\\( f(x) = \\frac{\\cos(x)-1}{x-1} \\)  v bodě \\( a=1 \\).",
+            "isCorrect": false
+        }
+    ],
+    "topics": [
+        "2025-06-11-rozstrel"
+    ],
+    "questionType": "multichoice"
+}

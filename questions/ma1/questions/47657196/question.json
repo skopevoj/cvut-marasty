@@ -1,0 +1,25 @@
+{
+    "question": "Uvažme funkci \\( f(x) = \\mathrm{e}^x + \\mathrm{e}^{-x} \\). Vyberte všechna pravdivá tvrzení.",
+    "answers": [
+        {
+            "text": "Pro každé reálné \\(x\\) platí \\(f(x) \\ge 2\\).",
+            "isCorrect": true
+        },
+        {
+            "text": "Funkce \\(f\\) je ryze konkávní na intervalu \\((-\\infty,0)\\).",
+            "isCorrect": false
+        },
+        {
+            "text": "Funkce \\(f'\\) je ryze konkávní na intervalu \\((-\\infty,0)\\).",
+            "isCorrect": true
+        },
+        {
+            "text": "Funkce \\(f\\) je ryze konvexní na celém \\(\\mathbb{R}\\).",
+            "isCorrect": true
+        }
+    ],
+    "topics": [
+        "2025-06-18-rozstrel"
+    ],
+    "questionType": "multichoice"
+}

@@ -1,0 +1,25 @@
+{
+    "question": "Mějme dvě funkce \\(f\\) a \\(g\\), které jsou diferencovatelné v bodě \\(a\\).\n    Vyberte všechna obecně pravdivá tvzrení.",
+    "answers": [
+        {
+            "text": "Derivace složené funkce \\(f \\circ g\\) v bodě \\(a\\) je rovna \\( f'(a) \\cdot g'(a) \\).",
+            "isCorrect": false
+        },
+        {
+            "text": "\\( (g \\cdot f)'(a) = g'(a)f(a) + g(a)f'(a) \\).",
+            "isCorrect": true
+        },
+        {
+            "text": "\\( \\left( \\frac{g}{f} \\right)' (a) = \\frac{g(a)f'(a)-g'(a)f(a)}{g(a)^2} \\) pokud \\(f(a) \\ne 0\\).",
+            "isCorrect": false
+        },
+        {
+            "text": "\\( \\left( \\frac{g}{f} \\right)' (a) = \\frac{g'(a)f(a)-g(a)f'(a)}{f(a)^2} \\) pokud \\(f(a) \\ne 0\\).",
+            "isCorrect": true
+        }
+    ],
+    "topics": [
+        "2025-06-04-rozstrel"
+    ],
+    "questionType": "multichoice"
+}

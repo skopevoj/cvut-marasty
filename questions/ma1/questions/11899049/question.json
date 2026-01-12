@@ -1,0 +1,25 @@
+{
+    "question": "Která z následujících tvrzení představují postačující podmínky pro existenci inverzní funkce k funkci \\(f\\) ?",
+    "answers": [
+        {
+            "text": "Funkce \\(f\\) je ryze monotónní.",
+            "isCorrect": true
+        },
+        {
+            "text": "Obor hodnot funkce \\(f\\) je množina \\(\\mathbb{R}\\).",
+            "isCorrect": false
+        },
+        {
+            "text": "Funkce \\(f\\) je definována na \\(\\mathbb{R}\\) a její derivace je kladná v každém bodě.",
+            "isCorrect": true
+        },
+        {
+            "text": "Funkce \\(f\\) je prostá.",
+            "isCorrect": true
+        }
+    ],
+    "topics": [
+        "2025-06-11-rozstrel"
+    ],
+    "questionType": "multichoice"
+}

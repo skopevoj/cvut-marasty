@@ -1,0 +1,25 @@
+{
+    "question": "Uvažme dvě funkce \\(f\\) a \\(g\\) definovaná na okolí bodu \\(a \\in \\mathbb{R}\\)\n a nechť hodnota \\(g(x)\\) je nulová pouze v bodě \\(x=a\\).\n    Vyberte všechna tvrzení pravdivá za předpokladu\n    \\[\n        \\lim_{x \\to a} f(x) = 1 \\quad \\text{a} \\quad \\lim_{x \\to a} g(x) = 0.\n    \\]",
+    "answers": [
+        {
+            "text": "\\( \\lim_{x \\to a} \\frac{f(x)}{g(x)} \\) existuje a je rovna \\(+\\infty\\) nebo \\(-\\infty\\).",
+            "isCorrect": false
+        },
+        {
+            "text": "\\( \\lim_{x \\to a} \\frac{f(x)}{g(x)^4} = +\\infty \\).",
+            "isCorrect": true
+        },
+        {
+            "text": "\\( \\lim_{x \\to a} f(x)g(x) = 0 \\).",
+            "isCorrect": true
+        },
+        {
+            "text": "\\( \\lim_{x \\to a} \\frac{f(x)}{g(x)} \\) neexistuje.",
+            "isCorrect": false
+        }
+    ],
+    "topics": [
+        "2025-06-11-rozstrel"
+    ],
+    "questionType": "multichoice"
+}

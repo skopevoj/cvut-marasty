@@ -1,0 +1,25 @@
+{
+    "question": "Která z následujících tvrzení o uvedených funkcích jsou pravdivá?",
+    "answers": [
+        {
+            "text": "\\( \\sin(2x^2) = o(x) \\) pro \\(x \\to 0\\).",
+            "isCorrect": true
+        },
+        {
+            "text": "\\( 1-\\cos(x) = o(x) \\) pro \\(x \\to 0\\).",
+            "isCorrect": true
+        },
+        {
+            "text": "\\( x^3 = o(x) \\) pro \\(x \\to 0\\).",
+            "isCorrect": true
+        },
+        {
+            "text": "\\( \\sin(2x) = o(x) \\) pro \\(x \\to 0\\).",
+            "isCorrect": false
+        }
+    ],
+    "topics": [
+        "2025-06-04-rozstrel"
+    ],
+    "questionType": "multichoice"
+}

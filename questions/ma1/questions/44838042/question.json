@@ -1,0 +1,25 @@
+{
+    "question": "Nechť \\(f\\) je funkce diferencovatelná na \\(\\mathbb{R}\\). Vyberte všechna pravdivá tvrzení.",
+    "answers": [
+        {
+            "text": "Pro každé \\(a \\in \\mathbb{R}\\) existuje konečná limita \\(\\lim_{x \\to a} f(x)\\).",
+            "isCorrect": true
+        },
+        {
+            "text": "Tečna funkce \\(f\\) v bodě \\(a\\) svírá s osou \\(x\\) úhel \\(\\alpha = \\mathrm{tg}\\big( f'(a) \\big)\\).",
+            "isCorrect": false
+        },
+        {
+            "text": "Je-li funkce \\(f\\) ostře rostoucí, potom platí nerovnost \\(f'(x) < f'(y)\\) kdykoliv \\(x < y\\).",
+            "isCorrect": false
+        },
+        {
+            "text": "Pro každé \\(b \\in \\mathbb{R}\\) existuje limita\n            \\[\n                \\lim_{h \\to 0} \\frac{f(b+h)-f(b)}{h}.\n            \\]",
+            "isCorrect": true
+        }
+    ],
+    "topics": [
+        "2025-06-18-rozstrel"
+    ],
+    "questionType": "multichoice"
+}
