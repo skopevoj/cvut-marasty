@@ -14,6 +14,7 @@ export function ShuffleButton({ onClick, disabled }: ShuffleButtonProps) {
             onClick={onClick}
             icon={Shuffle}
             title="Zamíchat otázky"
+            variant="frosted"
             disabled={disabled}
         />
     );
