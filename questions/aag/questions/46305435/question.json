@@ -1,5 +1,6 @@
 {
     "question": "Mějme následující jazyk $L: L = \\{a^{n^2} : n \\in \\mathbb{N} \\land n \\geq 1 \\land n < 12\\}$. Dále uvažujte následující tvrzení $T$: $(\\exists p \\geq 1)(\\forall w \\in L)[|w| \\geq p \\implies (\\exists x, y, z \\in \\Sigma^*)(w = xyz \\land |xy| \\leq p \\land |y| \\geq 1 \\land (\\forall k \\geq 0) xy^k z \\in L)]$. Určete nejmenší možnou konstantu $p$ tak, aby tvrzení $T$ pro daný jazyk $L$ dále platilo. (Zadávejte pouze celé číslo v desítkové soustavě pomocí číslic bez zbytečných úvodních nul.)",
+    "questionType": "open",
     "answers": [
         {
             "text": "122",
