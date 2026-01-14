@@ -8,6 +8,42 @@ import { QuestionHistory } from "./components/quiz/QuestionHistory";
 import { ControlPanel } from "./components/control-panel/ControlPanel";
 import { Footer } from "./components/layout/Footer";
 import { SetupSource } from "./components/layout/SetupSource";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useEffect, Suspense } from "react";
+
+function SourceHandler() {
+  const searchParams = useSearchParams();
+  const { addDataSource, settings } = useSettings();
+  const router = useRouter();
+
+  useEffect(() => {
+    const sourceUrl = searchParams.get('addSource');
+    if (sourceUrl) {
+      // Check if already exists
+      const exists = settings.dataSources.some(s => s.url === sourceUrl);
+      if (!exists) {
+        try {
+          const hostname = new URL(sourceUrl).hostname || 'Remote Source';
+          addDataSource({
+            name: hostname,
+            type: 'url',
+            url: sourceUrl
+          });
+        } catch (e) {
+          console.error('Invalid URL in addSource parameter');
+        }
+      }
+
+      // Remove the param from URL
+      const params = new URLSearchParams(searchParams.toString());
+      params.delete('addSource');
+      const newSearch = params.toString();
+      router.replace(newSearch ? `?${newSearch}` : window.location.pathname);
+    }
+  }, [searchParams, addDataSource, settings.dataSources, router]);
+
+  return null;
+}
 
 export default function Home() {
   const { isLoading, error, subjects, currentSubject, quizQueue } = useQuiz();
@@ -25,6 +61,9 @@ export default function Home() {
 
   return (
     <div className="mx-auto flex min-h-screen max-w-[1000px] flex-col px-2 md:px-5 py-3 md:py-4 relative z-10 pointer-events-none" data-theme="default">
+      <Suspense fallback={null}>
+        <SourceHandler />
+      </Suspense>
       <div className="pointer-events-auto">
         <Header />
       </div>

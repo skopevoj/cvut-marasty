@@ -68,14 +68,9 @@ export function SetupSource() {
                             variant="frosted"
                             size={18}
                             onClick={handleAddUrl}
-                            className="scale-90 md:scale-100 glass-icon-button-active absolute right-1 top-1 h-8 w-8 flex items-center justify-center rounded-lg shadow-lg hover:brightness-110 active:scale-95 transition-all text-white"
+                            className="scale-90 md:scale-100 absolute right-1 top-1 h-8 w-8 flex items-center justify-center rounded-lg shadow-lg hover:brightness-110 active:scale-95 transition-all text-white"
                         />
-                        <button
-                            onClick={handleAddUrl}
 
-                        >
-                            <ArrowRight size={16} />
-                        </button>
                     </div>
                 </div>
 
