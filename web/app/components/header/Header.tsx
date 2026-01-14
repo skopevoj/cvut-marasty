@@ -28,6 +28,12 @@ export function Header() {
     const searchInputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
+        const handleOpenSettings = () => setIsSettingsOpen(true);
+        window.addEventListener('openSettings', handleOpenSettings);
+        return () => window.removeEventListener('openSettings', handleOpenSettings);
+    }, []);
+
+    useEffect(() => {
         if (isSearchOpen) {
             searchInputRef.current?.focus();
         }
