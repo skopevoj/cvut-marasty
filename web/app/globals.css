@@ -40,7 +40,7 @@
 }
 
 [data-theme="light"] {
-  --bg-color: #f1f5f9;
+  --bg-color: #dde2ee;
 
   --surface-color: #ffffff;
   --border-color: #bac2ca;
@@ -67,28 +67,23 @@
 }
 
 [data-theme="light"] .glass-card-themed {
-  -webkit-box-shadow: 0px 10px 30px 0px var(--shadow-color);
-  -moz-box-shadow: 0px 10px 30px 0px var(--shadow-color);
-  box-shadow: 0px 10px 30px 0px var(--shadow-color);
-
-  background: linear-gradient(to bottom,
-      color-mix(in srgb, var(--subject-primary) 2%, rgba(119, 117, 117, 0.454) 2%)),
-    color-mix(in srgb, var(--subject-primary) 8%, rgb(85, 82, 82) 5%);
-  backdrop-filter: blur(20px);
-
-  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  background: #f2f4f9;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.08),
+    inset 4px 4px 10px #ffffff;
+  transition: transform 0.2s ease;
 }
 
 .glass-card-themed {
-  background: linear-gradient(to bottom,
-      color-mix(in srgb, var(--subject-primary) 12%, transparent),
-      color-mix(in srgb, var(--subject-primary) 7%, transparent));
-  backdrop-filter: blur(20px);
-  border: 0.5px solid color-mix(in srgb, var(--subject-primary) 10%, transparent);
-
-  -webkit-box-shadow: 0px 0px 30px 0px color-mix(in srgb, var(--subject-primary) 20%, transparent);
-  -moz-box-shadow: 0px 0px 30px 0px color-mix(in srgb, var(--subject-primary) 20%, transparent);
-  box-shadow: 0px 0px 50px 0px color-mix(in srgb, var(--subject-primary) 20%, transparent);
+  border-radius: 24px;
+  background: #1a1c23;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    inset 2px 2px 8px rgba(255, 255, 255, 0.05);
+  transition: transform 0.2s ease;
 }
 
 body {
