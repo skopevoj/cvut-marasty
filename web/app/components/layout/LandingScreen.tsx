@@ -33,14 +33,15 @@ export function LandingScreen() {
     };
 
     const noSources = settings.dataSources.length === 0;
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
     return (
-        <div className="flex flex-col items-center justify-between h-full py-2 md:py-4 px-4 animate-in fade-in slide-in-from-bottom-8 duration-1000">
-            <div className="flex-1 flex flex-col items-center justify-center w-full max-w-4xl">
+        <div className="flex flex-col items-center justify-between min-h-full py-2 md:py-4 px-4 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+            <div className="flex-1 flex flex-col items-center w-full max-w-4xl py-8">
                 {/* Hero Section */}
                 <div className="w-full max-w-xl mx-auto mb-4 md:mb-8">
                     <img
-                        src={settings.theme === 'light' ? '/banner_light.png' : '/banner_dark.png'}
+                        src={`${basePath}${settings.theme === 'light' ? '/banner_light.png' : '/banner_dark.png'}`}
                         alt="Příprava na rozstřely"
                         className="w-full drop-shadow-[0_0_30px_rgba(255,255,255,0.1)]"
                     />
