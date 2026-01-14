@@ -189,10 +189,10 @@
   gap: 12px;
 
   /* Dimensions & Typography */
-  padding: 0.3rem 1.5rem;
+  padding: 0.8rem 1.5rem;
   border-radius: 1.75rem;
   /* Soft pill shape */
-  font-size: 0.5rem;
+  font-size: 0.9rem;
   font-weight: 500;
   color: white;
   cursor: pointer;
