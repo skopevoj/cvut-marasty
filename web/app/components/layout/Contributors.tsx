@@ -19,7 +19,8 @@ export function Contributors() {
     const [metadata, setMetadata] = useState<Metadata | null>(null);
 
     useEffect(() => {
-        fetch('/metadata.json')
+        const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+        fetch(`${basePath}/metadata.json`)
             .then(res => res.json())
             .then(data => setMetadata(data))
             .catch(err => console.error('Failed to load contributors', err));

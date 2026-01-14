@@ -36,8 +36,8 @@ export function LandingScreen() {
     const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
     return (
-        <div className="flex flex-col items-center justify-between min-h-full py-2 md:py-4 px-4 animate-in fade-in slide-in-from-bottom-8 duration-1000">
-            <div className="flex-1 flex flex-col items-center w-full max-w-4xl py-8">
+        <div className="flex flex-1 flex-col items-center justify-between py-2 md:py-4 px-4 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+            <div className="flex-1 flex flex-col items-center justify-center w-full max-w-4xl py-8">
                 {/* Hero Section */}
                 <div className="w-full max-w-xl mx-auto mb-4 md:mb-8">
                     <img
@@ -69,9 +69,9 @@ export function LandingScreen() {
                                     <ArrowRight size={18} />
                                 </button>
                             </div>
-                            {/* <p className="text-xs text-[var(--fg-muted)] text-left px-1">
+                            <p className="text-xs text-[var(--fg-muted)] text-left px-1">
                                 Např. z GitHub repository nebo jiného veřejného odkazu
-                            </p> */}
+                            </p>
                         </div>
                         {/* 
                         <div className="flex items-center gap-3 my-1">

@@ -95,7 +95,7 @@
 [data-theme="light"] .glass-card-themed {
   background: padding-box linear-gradient(135deg,
       rgba(255, 255, 255, 0.7),
-      rgba(255, 255, 255, 0.5)),
+      rgba(255, 255, 255, 0.6)),
     border-box linear-gradient(135deg,
       rgba(255, 255, 255, 0.9) 0%,
       rgba(255, 255, 255, 0.1) 40%,
@@ -237,7 +237,7 @@
 
 .glass-button:hover {
   /* transform: translateY(-2px) scale(1.02); */
-  filter: brightness(1.1);
+  filter: brightness(1.2);
   background: #00b7ff;
   background: radial-gradient(circle at top left, rgb(0, 115, 255) 0%, rgb(12, 71, 247) 100%);
 }

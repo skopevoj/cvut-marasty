@@ -72,26 +72,28 @@ export default function Home() {
         <Header />
       </div>
 
-      <div className="flex flex-1 flex-col py-2 md:py-4">
+      <div className="flex flex-1 flex-col py-2 md:py-4 min-h-0">
         {error ? (
-          <div className="quiz-container text-center py-10 pointer-events-auto">
-            <div className="text-red-500 mb-4 font-medium">Chyba při načítání dat</div>
-            <div className="text-text-secondary text-sm mb-6">{error}</div>
-            <p className="mb-6 text-sm text-text-secondary italic">Zkontrolujte připojení nebo nastavení CORS u externích zdrojů.</p>
-            <button
-              onClick={() => window.location.reload()}
-              className="px-4 py-2 bg-primary text-white rounded-xl hover:opacity-90 transition-opacity"
-            >
-              Zkusit znovu
-            </button>
+          <div className="flex-1 flex flex-col justify-center">
+            <div className="quiz-container text-center py-10 pointer-events-auto">
+              <div className="text-red-500 mb-4 font-medium">Chyba při načítání dat</div>
+              <div className="text-text-secondary text-sm mb-6">{error}</div>
+              <p className="mb-6 text-sm text-text-secondary italic">Zkontrolujte připojení nebo nastavení CORS u externích zdrojů.</p>
+              <button
+                onClick={() => window.location.reload()}
+                className="px-4 py-2 bg-primary text-white rounded-xl hover:opacity-90 transition-opacity"
+              >
+                Zkusit znovu
+              </button>
+            </div>
           </div>
         ) : !currentSubject ? (
-          <div className="pointer-events-auto h-full">
+          <div className="pointer-events-auto flex-1 flex flex-col">
             <LandingScreen />
           </div>
         ) : (
           quizQueue.length > 0 ? (
-            <div className="flex flex-col gap-10 py-4">
+            <div className="flex flex-1 flex-col justify-center gap-10 py-4">
               <div>
                 <div className="pointer-events-auto">
                   <QuestionHistory />
