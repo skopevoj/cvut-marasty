@@ -155,7 +155,6 @@
 }
 
 .glass-button {
-  --subject-primary: #2b59ff;
   /* Vibrant blue from your images */
   position: relative;
   display: inlineflex;
@@ -164,10 +163,10 @@
   gap: 12px;
 
   /* Dimensions & Typography */
-  padding: 1.25rem 3.5rem;
-  border-radius: 1rem;
+  padding: 0.3rem 1.5rem;
+  border-radius: 1.75rem;
   /* Soft pill shape */
-  font-size: 1.5rem;
+  font-size: 0.5rem;
   font-weight: 500;
   color: white;
   cursor: pointer;
@@ -186,16 +185,16 @@
   */
   box-shadow:
     /* Soft Outer Glow */
-    0 25px 50px -12px rgba(0, 55, 25, 0.3),
+    0 15px 30px -12px rgba(0, 55, 25, 0.3),
     /* Small shadow for grounding */
-    0 10px 15px -5px rgba(0, 0, 0, 0.3),
+    0 5px 10px -5px rgba(0, 0, 0, 0.3),
     /* The "Glass Rim" Highlight */
-    inset 6px 6px 6px rgba(255, 255, 255, 0.21),
+    inset 3px 3px 3px rgba(255, 255, 255, 0.21),
 
-    inset -6px -6px 12px rgba(220, 231, 255, 0.5),
+    inset -3px -3px 6px rgba(220, 231, 255, 0.5),
 
     /* The "Deep Recess" Shadow */
-    inset -10px -10px 20px rgba(0, 0, 0, 0.25);
+    inset -5px -5px 10px rgba(0, 0, 0, 0.25);
 
   transition: all 0.3s cubic-bezier(0.2, 0, 0.2, 1);
 }
@@ -206,32 +205,41 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: linear-gradient(135deg, rgba(255, 0, 0, 0.15) 0%, transparent 50%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, transparent 50%);
   pointer-events: none;
 }
 
 .glass-button:hover {
   /* transform: translateY(-2px) scale(1.02); */
-  filter: brightness(1.4);
-  /* box-shadow:
-    0 30px 60px -12px rgba(43, 89, 255, 0.6),
-    inset 8px 8px 15px rgba(255, 255, 255, 0.45),
-    inset -12px -12px 25px rgba(0, 0, 0, 0.3); */
+  filter: brightness(1.2);
 }
 
 .glass-button:active {
   transform: scale(0.98);
   /* Reverse shadows to make it look physically pressed into the screen */
   box-shadow:
-    0 5px 10px rgba(0, 0, 0, 0.2),
-    inset 10px 10px 20px rgba(0, 0, 0, 0.4),
-    inset -5px -5px 15px rgba(255, 255, 255, 0.2);
+    0 2px 5px rgba(0, 0, 0, 0.2),
+    inset 5px 5px 10px rgba(0, 0, 0, 0.4),
+    inset -2px -2px 5px rgba(255, 255, 255, 0.2);
 }
 
 @media (min-width: 768px) {
   .glass-button {
-    padding: 0.875rem 2.5rem;
-    font-size: 0.875rem;
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+    border-radius: 1rem;
+    box-shadow:
+      /* Soft Outer Glow */
+      0 25px 50px -12px rgba(0, 55, 25, 0.3),
+      /* Small shadow for grounding */
+      0 10px 15px -5px rgba(0, 0, 0, 0.3),
+      /* The "Glass Rim" Highlight */
+      inset 6px 6px 6px rgba(255, 255, 255, 0.21),
+
+      inset -6px -6px 12px rgba(220, 231, 255, 0.5),
+
+      /* The "Deep Recess" Shadow */
+      inset -10px -10px 20px rgba(0, 0, 0, 0.25);
   }
 }
 
