@@ -17,17 +17,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-
-      - name: Validate questions
-        run: python validate_questions.py
-
-      - name: Process questions
-        run: python process_questions.py
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -38,12 +27,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
         working-directory: web
-
-      - name: Fetch contributors
-        run: node scripts/fetch-contributors.js
-        working-directory: web
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build with Next.js
         run: npm run build
@@ -60,30 +43,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
-      - name: Get Current Date
-        id: date
-        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
-
-      - name: Create Release Package
-        run: |
-          mkdir -p release_data
-          for d in web/public/subjects/*; do
-            if [ -d "$d" ] && [ -f "$d/questions.json" ]; then
-              cp "$d/questions.json" "release_data/$(basename $d).json"
-            fi
-          done
-
-      - name: Create GitHub Release
-        id: create_release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ steps.date.outputs.date }}.${{ github.run_number }}
-          name: Otázky ${{ steps.date.outputs.date }}
-          body: |
-            Automated release of CVUT Marasty.
-            Contains processed question data for each subject.
-          files: |
-            release_data/*.json
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
