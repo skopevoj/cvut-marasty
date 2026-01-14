@@ -7,7 +7,7 @@ import { QuestionCard } from "./components/question-card/QuestionCard";
 import { QuestionHistory } from "./components/quiz/QuestionHistory";
 import { ControlPanel } from "./components/control-panel/ControlPanel";
 import { Footer } from "./components/layout/Footer";
-import { SetupSource } from "./components/layout/SetupSource";
+import { LandingScreen } from "./components/layout/LandingScreen";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, Suspense } from "react";
 
@@ -38,7 +38,7 @@ function SourceHandler() {
       const params = new URLSearchParams(searchParams.toString());
       params.delete('addSource');
       const newSearch = params.toString();
-      
+
       const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
       const cleanPath = window.location.pathname.replace(new RegExp(`^${basePath}`), '') || '/';
       router.replace(newSearch ? `${cleanPath}?${newSearch}` : cleanPath);
@@ -63,7 +63,8 @@ export default function Home() {
   const showSetup = settings.dataSources.length === 0;
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-[1000px] flex-col px-2 md:px-5 py-3 md:py-4 relative z-10 pointer-events-none" data-theme="default">
+    <div className={`mx-auto flex min-h-screen ${!currentSubject ? 'max-w-[1200px]' : 'max-w-[1000px]'} flex-col px-2 md:px-5 py-3 md:py-4 relative z-10 pointer-events-none ${!currentSubject ? 'landing-page-active' : ''}`} data-theme="default">
+      <div className="landing-background" />
       <Suspense fallback={null}>
         <SourceHandler />
       </Suspense>
@@ -72,11 +73,7 @@ export default function Home() {
       </div>
 
       <div className="flex flex-1 flex-col justify-center">
-        {showSetup ? (
-          <div className="pointer-events-auto">
-            <SetupSource />
-          </div>
-        ) : error ? (
+        {error ? (
           <div className="quiz-container text-center py-10 pointer-events-auto">
             <div className="text-red-500 mb-4 font-medium">Chyba při načítání dat</div>
             <div className="text-text-secondary text-sm mb-6">{error}</div>
@@ -88,11 +85,11 @@ export default function Home() {
               Zkusit znovu
             </button>
           </div>
-        ) : subjects.length === 0 ? (
-          <div className="text-center text-text-secondary py-10 pointer-events-auto">
-            Žádné povolené zdroje dat nebo zdroje neobsahují žádné předměty.
+        ) : !currentSubject ? (
+          <div className="pointer-events-auto">
+            <LandingScreen />
           </div>
-        ) : currentSubject ? (
+        ) : (
           quizQueue.length > 0 ? (
             <div className="flex flex-col gap-10 py-4">
               <div>
@@ -112,10 +109,6 @@ export default function Home() {
               Žádné otázky neodpovídají vašemu výběru
             </div>
           )
-        ) : (
-          <div className="text-center text-text-secondary pointer-events-auto">
-            Vyberte předmět pro začátek
-          </div>
         )}
       </div>
       <div className="pointer-events-auto">
