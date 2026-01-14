@@ -19,8 +19,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Čvut Marasty",
-  description: "Rozstřelové otázky pro ČVUT",
+  title: "ČVUT",
+  description: "Příprava na rozsřel",
 };
 
 export default function RootLayout({
