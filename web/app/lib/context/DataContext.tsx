@@ -178,8 +178,6 @@ export function DataProvider({ children }: { children: ReactNode }) {
             name: subData.name,
             code: subData.code,
             description: subData.description,
-            primaryColor: subData.primaryColor,
-            secondaryColor: subData.secondaryColor,
             repositoryUrl: subData.repositoryUrl
         });
 

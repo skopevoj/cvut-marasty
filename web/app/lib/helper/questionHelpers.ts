@@ -11,7 +11,7 @@ export function getDisplayedPhoto(question: Question | null, showQuizPhoto: bool
 
     // If we want to show the detail/quiz photo
     if (showQuizPhoto) {
-        return question.quizPhoto || question.image || question.photo;
+        return question.quizPhoto || question.quizPhoto || question.photo;
     }
 
     // Otherwise show the base photo, but NOT the quiz/generic image if it's meant to be toggled
