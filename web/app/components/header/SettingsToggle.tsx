@@ -20,13 +20,13 @@ export function SettingsToggle({
     return (
         <button
             onClick={onClick}
-            className="group flex items-center justify-between rounded-2xl border border-[var(--border-default)] bg-[var(--fg-muted)]/[0.03] p-4 transition-all hover:border-[var(--border-hover)] hover:bg-[var(--fg-muted)]/[0.06]"
+            className="group flex items-center justify-between rounded-3xl border border-[var(--border-default)] bg-[var(--bg-elevated)]/40 backdrop-blur-sm p-5 transition-all hover:border-[var(--border-hover)] hover:bg-[var(--bg-elevated)]/60"
         >
             <div className="flex items-center gap-4">
-                <div className={`flex h-12 w-12 items-center justify-center rounded-xl border transition-colors ${
+                <div className={`flex h-14 w-14 items-center justify-center rounded-2xl border transition-all ${
                     isActive 
-                        ? 'border-[var(--subject-primary)]/30 bg-[var(--subject-primary)]/10 text-[var(--subject-primary)]' 
-                        : 'border-[var(--fg-primary)]/5 bg-[var(--fg-primary)]/5 text-[var(--fg-muted)]'
+                        ? 'border-[var(--subject-primary)]/30 bg-[var(--subject-primary)]/15 text-[var(--subject-primary)]' 
+                        : 'border-[var(--border-default)] bg-[var(--bg-surface)]/50 text-[var(--fg-muted)]'
                 }`}>
                     {icon}
                 </div>
@@ -35,16 +35,26 @@ export function SettingsToggle({
                     <span className="text-sm text-[var(--fg-muted)]">{description}</span>
                 </div>
             </div>
-            <div className={`flex h-6 w-11 items-center rounded-full px-1 transition-all duration-300 ${
+            <div className={`relative flex h-8 w-14 items-center rounded-full transition-all duration-300 ${
                 isActive 
                     ? 'bg-[var(--subject-primary)]' 
-                    : 'bg-[var(--fg-primary)]/10'
-            }`}>
-                <div className={`h-4 w-4 rounded-full bg-white transition-all duration-300 ${
+                    : 'bg-[var(--bg-surface)]/40'
+            }`}
+            style={{
+                boxShadow: isActive 
+                    ? 'inset 0 2px 4px rgba(0, 0, 0, 0.4), 0 0 8px rgba(var(--subject-primary-rgb), 0.3)' 
+                    : 'inset 0 2px 4px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.1)'
+            }}>
+                <div className={`absolute h-6 w-6 rounded-full transition-all duration-300 shadow-lg ${
                     isActive 
-                        ? 'translate-x-5' 
-                        : 'translate-x-0'
-                }`} />
+                        ? 'translate-x-7 bg-white' 
+                        : 'translate-x-1 bg-white/90'
+                }`}
+                style={{
+                    boxShadow: isActive
+                        ? '0 4px 12px rgba(0, 0, 0, 0.3), inset -1px -1px 2px rgba(0, 0, 0, 0.1)'
+                        : '0 2px 6px rgba(0, 0, 0, 0.25), inset -1px -1px 2px rgba(0, 0, 0, 0.05)'
+                }} />
             </div>
         </button>
     );
