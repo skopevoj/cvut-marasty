@@ -38,7 +38,10 @@ function SourceHandler() {
       const params = new URLSearchParams(searchParams.toString());
       params.delete('addSource');
       const newSearch = params.toString();
-      router.replace(newSearch ? `?${newSearch}` : window.location.pathname);
+      
+      const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+      const cleanPath = window.location.pathname.replace(new RegExp(`^${basePath}`), '') || '/';
+      router.replace(newSearch ? `${cleanPath}?${newSearch}` : cleanPath);
     }
   }, [searchParams, addDataSource, settings.dataSources, router]);
 
