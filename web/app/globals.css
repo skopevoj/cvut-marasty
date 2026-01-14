@@ -12,59 +12,41 @@
 }
 
 :root {
-  /* Default Dark Theme */
   --bg-color: #030303;
   --surface-color: #0a0a0c;
   --border-color: #1a1a1e;
-
   --fg-primary: #ffffff;
   --fg-muted: #888888;
   --fg-subtle: #444444;
-
   --bg-surface: #0a0a0c;
   --bg-surface-hover: #151518;
   --bg-elevated: #1a1a1e;
-
   --border-default: rgba(255, 255, 255, 0.05);
   --border-hover: rgba(255, 255, 255, 0.1);
-
   --button-bg: #0000001a;
-
   --success: #10b981;
   --error: #ef4444;
-
   --subject-primary: #55b9f7;
   --subject-secondary: #84c2fc;
-
   --modal-bg: #000000;
-
   --primary-color: #3b82f6;
 }
 
 [data-theme="light"] {
   --bg-color: #dde2ee;
-
   --surface-color: #ffffff;
   --border-color: #bac2ca;
-
   --fg-primary: #0f172a;
-
   --fg-muted: #475569;
-
   --fg-subtle: #94a3b8;
-
   --bg-surface: #ffffff;
   --bg-surface-hover: #f8fafc;
   --bg-elevated: #ffffff;
-
   --border-default: rgba(0, 0, 0, 0.08);
   --border-hover: rgba(0, 0, 0, 0.15);
-
   --button-bg: rgba(255, 255, 255, 0.9);
   --modal-bg: #ffffff;
-
   --subject-primary: #7c3aed;
-
   --shadow-color: rgba(0, 0, 0, 0.0968);
 }
 
@@ -140,8 +122,6 @@
   background-origin: padding-box, border-box;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-
-  /* Dark mode */
   background: rgba(0, 0, 0, 0.135);
   box-shadow:
     0 4px 12px rgba(0, 0, 0, 0.1),
@@ -166,8 +146,6 @@
   background-clip: padding-box, border-box;
   background-origin: padding-box, border-box;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-
-  /* Dark mode */
   background-image:
     linear-gradient(to bottom, rgba(30, 30, 35, 0.9), rgba(20, 20, 25, 0.95)),
     linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
@@ -180,52 +158,42 @@
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
 }
 
+[data-theme="light"] .glass-button {
+  background: #00b7ff;
+  background: radial-gradient(circle at top left, rgb(0, 123, 255) 0%, rgb(12, 71, 247) 100%);
+  box-shadow:
+    0 15px 30px -12px rgba(0, 55, 25, 0.3),
+    0 5px 10px -5px rgba(0, 0, 0, 0.3),
+    inset 3px 3px 3px rgba(255, 255, 255, 0.21),
+    inset -3px -3px 6px rgba(220, 231, 255, 0.5),
+    inset -5px -5px 10px rgba(0, 0, 0, 0.25);
+}
+
 .glass-button {
-  /* Vibrant blue from your images */
   position: relative;
   display: inlineflex;
   align-items: center;
   justify-content: center;
   gap: 12px;
-
-  /* Dimensions & Typography */
   padding: 0.8rem 1.5rem;
   border-radius: 1.75rem;
-  /* Soft pill shape */
   font-size: 0.9rem;
   font-weight: 500;
   color: white;
   cursor: pointer;
   border: none;
   outline: none;
-
-  /* The Base: A subtle gradient makes it look spherical rather than flat */
   background: #00b7ff;
   background: radial-gradient(circle at top left, rgb(0, 123, 255) 0%, rgb(12, 71, 247) 100%);
-
-  /* THE DEPTH STACK:
-     1. Large external soft glow
-     2. Harder external drop shadow for "lift"
-     3. Bright top-left inner highlight (Simulates light hitting glass)
-     4. Deep bottom-right inner shadow (Simulates thickness/depth)
-  */
   box-shadow:
-    /* Soft Outer Glow */
-    0 15px 30px -12px rgba(0, 55, 25, 0.3),
-    /* Small shadow for grounding */
+    0 15px 30px -12px rgba(0, 0, 0, 0.5),
     0 5px 10px -5px rgba(0, 0, 0, 0.3),
-    /* The "Glass Rim" Highlight */
-    inset 3px 3px 3px rgba(255, 255, 255, 0.21),
-
-    inset -3px -3px 6px rgba(220, 231, 255, 0.5),
-
-    /* The "Deep Recess" Shadow */
-    inset -5px -5px 10px rgba(0, 0, 0, 0.25);
-
+    inset 3px 3px 3px rgba(255, 255, 255, 0.15),
+    inset -3px -3px 6px rgba(255, 255, 255, 0.05),
+    inset -5px -5px 10px rgba(0, 0, 0, 0.3);
   transition: all 0.5s cubic-bezier(0.2, 0, 0.2, 1);
 }
 
-/* Adding a subtle gloss overlay */
 .glass-button::before {
   content: "";
   position: absolute;
@@ -236,7 +204,6 @@
 }
 
 .glass-button:hover {
-  /* transform: translateY(-2px) scale(1.02); */
   filter: brightness(1.2);
   background: #00b7ff;
   background: radial-gradient(circle at top left, rgb(0, 115, 255) 0%, rgb(12, 71, 247) 100%);
@@ -244,7 +211,6 @@
 
 .glass-button:active {
   transform: scale(0.98);
-  /* Reverse shadows to make it look physically pressed into the screen */
   box-shadow:
     0 2px 5px rgba(0, 0, 0, 0.2),
     inset 5px 5px 10px rgba(0, 0, 0, 0.4),
@@ -257,16 +223,10 @@
     font-size: 1rem;
     border-radius: 1rem;
     box-shadow:
-      /* Soft Outer Glow */
       0 25px 50px -12px rgba(0, 55, 25, 0.3),
-      /* Small shadow for grounding */
       0 10px 15px -5px rgba(0, 0, 0, 0.3),
-      /* The "Glass Rim" Highlight */
       inset 6px 6px 6px rgba(255, 255, 255, 0.21),
-
       inset -6px -6px 12px rgba(220, 231, 255, 0.5),
-
-      /* The "Deep Recess" Shadow */
       inset -10px -10px 20px rgba(0, 0, 0, 0.25);
   }
 }
@@ -291,7 +251,6 @@
   transform: scale(0.95);
 }
 
-/* Base Dark Mode Skins */
 .glass-icon-button-default {
   background-image:
     linear-gradient(to bottom, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)),
@@ -335,7 +294,6 @@
     linear-gradient(135deg, color-mix(in srgb, var(--subject-primary) 40%, transparent), rgba(255, 255, 255, 0.05) 50%, color-mix(in srgb, var(--subject-primary) 20%, transparent));
 }
 
-/* Light Mode Skins */
 [data-theme="light"] .glass-icon-button-default {
   background-image:
     linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7)),
@@ -359,8 +317,6 @@
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
-
-  /* Unchecked state - inset look */
   background-image:
     linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.2));
