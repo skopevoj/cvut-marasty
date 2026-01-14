@@ -63,7 +63,7 @@ export default function Home() {
   const showSetup = settings.dataSources.length === 0;
 
   return (
-    <div className={`mx-auto flex min-h-screen ${!currentSubject ? 'max-w-[1200px]' : 'max-w-[1000px]'} flex-col px-2 md:px-5 py-2 md:py-4 relative z-10 pointer-events-auto ${!currentSubject ? 'landing-page-active' : ''}`} data-theme="default">
+    <div className={`mx-auto flex min-h-screen max-w-[1000px] flex-col px-2 md:px-5 py-2 md:py-4 relative z-10 pointer-events-auto ${!currentSubject ? 'landing-page-active' : ''}`} data-theme="default">
       <div className="landing-background" />
       <Suspense fallback={null}>
         <SourceHandler />
