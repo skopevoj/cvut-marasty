@@ -3,11 +3,22 @@ import { Subject } from "./../types/subject";
 import { SubjectDetails } from "../types/subjectDetails";
 
 export function getTopicMap(currentSubjectDetails: SubjectDetails | null) {
-    if (!currentSubjectDetails || !currentSubjectDetails.topics) return {};
-    return currentSubjectDetails.topics.reduce((acc: Record<string, string>, topic) => {
-        acc[topic.id] = topic.name;
-        return acc;
-    }, {});
+    if (!currentSubjectDetails) return {};
+
+    // If we have a direct topicMap (object structure)
+    if (currentSubjectDetails.topicMap) {
+        return currentSubjectDetails.topicMap;
+    }
+
+    // Fallback to array structure
+    if (currentSubjectDetails.topics) {
+        return currentSubjectDetails.topics.reduce((acc: Record<string, string>, topic) => {
+            acc[topic.id] = topic.name;
+            return acc;
+        }, {});
+    }
+
+    return {};
 }
 
 export function getAvailableTopics(questions: Question[], currentSubject: Subject | null, topicMap: Record<string, string>) {
@@ -17,7 +28,7 @@ export function getAvailableTopics(questions: Question[], currentSubject: Subjec
     questions
         .filter(question => question.subjectCode === currentSubject.code)
         .forEach(question => {
-            question.topics.forEach(topicId => topicIds.add(topicId));
+            (question.topics || []).forEach(topicId => topicIds.add(topicId));
         });
 
     return Array.from(topicIds).map(id => ({
