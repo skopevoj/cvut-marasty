@@ -11,22 +11,17 @@ export function EvaluateButton({ onClick, disabled, showResults }: EvaluateButto
         <button
             onClick={onClick}
             disabled={disabled}
-            className="whitespace-nowrap rounded-xl px-4 py-2 text-xs font-semibold text-white transition-all duration-200 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 md:px-6 md:py-2.5 md:text-sm"
-            style={{
-                background: 'var(--subject-primary)',
-                boxShadow: `
-                    0 0 0 1px color-mix(in srgb, var(--subject-primary) 50%, transparent),
-                    0 4px 12px color-mix(in srgb, var(--subject-primary) 25%, transparent),
-                    inset 0 4px 6px 0 rgba(255, 255, 255, 0.4)
-                `,
-            }}
+            className="glass-button group"
         >
-            <span className="md:hidden">
-                {showResults ? 'Další' : 'Vyhodnotit'}
-            </span>
-            <span className="hidden md:inline">
-                {showResults ? 'Další otázka' : 'Vyhodnotit'}
+            {/* Content with high-contrast text shadow for Apple-style clarity */}
+            <span className="relative z-10 flex items-center justify-center gap-2 tracking-wide drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
+                <span className="md:hidden">
+                    {showResults ? 'Další' : 'Vyhodnotit'}
+                </span>
+                <span className="hidden md:inline">
+                    {showResults ? 'Další otázka' : 'Vyhodnotit'}
+                </span>
             </span>
         </button>
     );
-}
+}    

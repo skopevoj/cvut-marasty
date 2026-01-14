@@ -26,30 +26,24 @@ export function MultiChoiceQuestion() {
                 }
 
                 return (
-                    <div key={i} className={`flex items-start md:items-center justify-between gap-2 md:gap-3 rounded-2xl border p-1.5 md:p-2 transition-all duration-300 ${statusClass}`}>
-                        <div className="flex shrink-0 items-center bg-text-primary/[0.03] p-0.5 md:p-1 rounded-xl border border-text-primary/5" aria-label="Answer state">
+                    <div key={i} className={`flex items-start md:items-center justify-between gap-2 md:gap-3 rounded-2xl border p-2 transition-all duration-300 ${statusClass}`}>
+                        <div className="glass-tristate-container shrink-0" aria-label="Answer state">
                             <button
-                                className={`flex h-7 w-7 md:h-9 md:w-9 cursor-pointer items-center justify-center rounded-lg text-[12px] md:text-[15px] transition-all duration-200 ${answerState === AnswerState.CORRECT
-                                    ? "bg-text-primary/10 text-text-primary shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] translate-y-[1px]"
-                                    : "text-text-secondary hover:text-text-primary"}`}
+                                className={`glass-tristate-button ${answerState === AnswerState.CORRECT ? "active" : ""}`}
                                 onClick={() => setAnswerState(i, answerState === AnswerState.CORRECT ? AnswerState.NEUTRAL : AnswerState.CORRECT)}
                                 aria-label="Mark as correct"
                             >
                                 ✓
                             </button>
                             <button
-                                className={`flex h-7 w-7 md:h-9 md:w-9 cursor-pointer items-center justify-center rounded-lg text-[12px] md:text-[15px] transition-all duration-200 ${answerState === AnswerState.REVEALED || answerState === AnswerState.NEUTRAL
-                                    ? "bg-text-primary/10 text-text-primary shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] translate-y-[1px]"
-                                    : "text-text-secondary hover:text-text-primary"}`}
+                                className={`glass-tristate-button ${answerState === AnswerState.REVEALED || answerState === AnswerState.NEUTRAL ? "active" : ""}`}
                                 onClick={() => setAnswerState(i, answerState === AnswerState.REVEALED ? AnswerState.NEUTRAL : AnswerState.REVEALED)}
                                 aria-label="Mark as neutral"
                             >
                                 −
                             </button>
                             <button
-                                className={`flex h-7 w-7 md:h-9 md:w-9 cursor-pointer items-center justify-center rounded-lg text-[12px] md:text-[15px] transition-all duration-200 ${answerState === AnswerState.INCORRECT
-                                    ? "bg-text-primary/10 text-text-primary shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] translate-y-[1px]"
-                                    : "text-text-secondary hover:text-text-primary"}`}
+                                className={`glass-tristate-button ${answerState === AnswerState.INCORRECT ? "active" : ""}`}
                                 onClick={() => setAnswerState(i, answerState === AnswerState.INCORRECT ? AnswerState.NEUTRAL : AnswerState.INCORRECT)}
                                 aria-label="Mark as incorrect"
                             >

@@ -23,20 +23,18 @@ export function IconButton({
     variant = 'default',
     size = 18
 }: IconButtonProps) {
-    const variants = {
-        default: active
-            ? "border-[var(--subject-primary)] bg-[var(--button-bg)] text-[var(--subject-primary)]"
-            : "border-[var(--border-default)] bg-[var(--button-bg)] text-[var(--fg-muted)] hover:border-[var(--border-hover)] hover:text-[var(--fg-primary)]",
-        ghost: "border-transparent bg-transparent text-[var(--fg-muted)] hover:text-[var(--fg-primary)]",
-        subject: "border-[var(--border-default)] bg-[var(--button-bg)] text-[var(--fg-muted)] hover:border-[var(--subject-border)] hover:bg-[var(--subject-bg)] hover:text-[var(--subject-primary)]",
-        frosted: "border-white/10 bg-white/5 backdrop-blur-md text-[var(--fg-muted)] hover:bg-white/10 hover:text-[var(--fg-primary)]"
+    const variantClasses = {
+        default: `glass-icon-button-default ${active ? 'glass-icon-button-active' : ''}`,
+        ghost: `glass-icon-button-ghost ${active ? 'glass-icon-button-active' : ''}`,
+        subject: `glass-icon-button-default glass-icon-button-subject ${active ? 'glass-icon-button-active' : ''}`,
+        frosted: `glass-icon-button-default backdrop-blur-xl ${active ? 'glass-icon-button-active' : ''}`
     };
 
     return (
         <button
             onClick={onClick}
             disabled={disabled}
-            className={`rounded-lg border p-2 transition-all duration-200 active:scale-95 disabled:cursor-not-allowed disabled:opacity-30 md:p-2.5 ${variants[variant]} ${className}`}
+            className={`glass-icon-button ${variantClasses[variant]} ${className}`}
             title={title}
         >
             <Icon size={size} />

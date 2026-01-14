@@ -52,16 +52,15 @@ export function MultiSelect({ options, selected, onToggle, label, icon: Icon = L
                             return (
                                 <div
                                     key={option.id}
-                                    className={`group/item flex cursor-pointer items-center justify-between rounded-xl px-3 py-2.5 text-[13px] transition-all hover:bg-white/[0.05] ${isSelected ? 'text-[var(--subject-primary)] bg-[var(--subject-primary)]/5' : 'text-text-secondary hover:text-text-primary'
+                                    className={`group/item flex cursor-pointer items-center justify-between rounded-xl px-3 py-2.5 text-[13px] transition-all active:scale-[0.98] ${isSelected
+                                        ? 'text-[var(--subject-primary)] bg-[var(--subject-primary)]/10 shadow-[inset_0_1px_2px_rgba(0,0,0,0.2)]'
+                                        : 'text-[var(--fg-muted)] hover:text-[var(--fg-primary)] hover:bg-white/5'
                                         }`}
                                     onClick={() => onToggle(option.id)}
                                 >
                                     <span className="truncate font-medium">{option.name}</span>
-                                    <div className={`flex h-4 w-4 items-center justify-center rounded-md border transition-all ${isSelected
-                                        ? 'border-[var(--subject-primary)] bg-[var(--subject-primary)] text-white shadow-[0_0_10px_rgba(var(--subject-primary),0.3)]'
-                                        : 'border-white/10 bg-white/5 group-hover/item:border-white/20'
-                                        }`}>
-                                        {isSelected && <Check size={10} strokeWidth={4} />}
+                                    <div className={`glass-checkbox ${isSelected ? 'glass-checkbox-checked' : ''}`}>
+                                        {isSelected && <Check size={10} strokeWidth={4} className="drop-shadow-sm" />}
                                     </div>
                                 </div>
                             );

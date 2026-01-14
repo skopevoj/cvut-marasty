@@ -88,6 +88,7 @@
 .glass-card-themed {
   background-color: rgb(19, 19, 20);
   border: 1px solid transparent;
+  border-radius: 1.5rem;
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
   box-shadow:
@@ -151,6 +152,305 @@
     linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(245, 247, 250, 0.95)),
     linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(0, 0, 0, 0.05));
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+}
+
+.glass-button {
+  --subject-primary: #2b59ff;
+  /* Vibrant blue from your images */
+  position: relative;
+  display: inlineflex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  /* Dimensions & Typography */
+  padding: 1.25rem 3.5rem;
+  border-radius: 1rem;
+  /* Soft pill shape */
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: white;
+  cursor: pointer;
+  border: none;
+  outline: none;
+
+  /* The Base: A subtle gradient makes it look spherical rather than flat */
+  background: #00b7ff;
+  background: radial-gradient(circle at top left, rgb(0, 123, 255) 0%, rgb(12, 71, 247) 100%);
+
+  /* THE DEPTH STACK:
+     1. Large external soft glow
+     2. Harder external drop shadow for "lift"
+     3. Bright top-left inner highlight (Simulates light hitting glass)
+     4. Deep bottom-right inner shadow (Simulates thickness/depth)
+  */
+  box-shadow:
+    /* Soft Outer Glow */
+    0 25px 50px -12px rgba(0, 55, 25, 0.3),
+    /* Small shadow for grounding */
+    0 10px 15px -5px rgba(0, 0, 0, 0.3),
+    /* The "Glass Rim" Highlight */
+    inset 6px 6px 6px rgba(255, 255, 255, 0.21),
+
+    inset -6px -6px 12px rgba(220, 231, 255, 0.5),
+
+    /* The "Deep Recess" Shadow */
+    inset -10px -10px 20px rgba(0, 0, 0, 0.25);
+
+  transition: all 0.3s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+/* Adding a subtle gloss overlay */
+.glass-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255, 0, 0, 0.15) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.glass-button:hover {
+  /* transform: translateY(-2px) scale(1.02); */
+  filter: brightness(1.4);
+  /* box-shadow:
+    0 30px 60px -12px rgba(43, 89, 255, 0.6),
+    inset 8px 8px 15px rgba(255, 255, 255, 0.45),
+    inset -12px -12px 25px rgba(0, 0, 0, 0.3); */
+}
+
+.glass-button:active {
+  transform: scale(0.98);
+  /* Reverse shadows to make it look physically pressed into the screen */
+  box-shadow:
+    0 5px 10px rgba(0, 0, 0, 0.2),
+    inset 10px 10px 20px rgba(0, 0, 0, 0.4),
+    inset -5px -5px 15px rgba(255, 255, 255, 0.2);
+}
+
+@media (min-width: 768px) {
+  .glass-button {
+    padding: 0.875rem 2.5rem;
+    font-size: 0.875rem;
+  }
+}
+
+.glass-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: 1px solid transparent;
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0.5rem;
+  outline: none;
+}
+
+.glass-icon-button:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+/* Base Dark Mode Skins */
+.glass-icon-button-default {
+  background-image:
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.1));
+  color: var(--fg-muted);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.glass-icon-button-default:hover:not(:disabled) {
+  color: var(--fg-primary);
+  background-image:
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04)),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.2));
+}
+
+.glass-icon-button-active {
+  color: var(--subject-primary) !important;
+  background-image:
+    linear-gradient(to bottom, color-mix(in srgb, var(--subject-primary) 12%, transparent), color-mix(in srgb, var(--subject-primary) 5%, transparent)),
+    linear-gradient(135deg, var(--subject-primary), transparent 50%, color-mix(in srgb, var(--subject-primary) 30%, transparent)) !important;
+  box-shadow: 0 0 15px color-mix(in srgb, var(--subject-primary) 20%, transparent);
+}
+
+.glass-icon-button-ghost {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: 1px solid transparent;
+  color: var(--fg-muted);
+}
+
+.glass-icon-button-ghost:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--fg-primary);
+}
+
+.glass-icon-button-subject:hover:not(:disabled) {
+  color: var(--subject-primary);
+  background-image:
+    linear-gradient(to bottom, color-mix(in srgb, var(--subject-primary) 10%, transparent), color-mix(in srgb, var(--subject-primary) 5%, transparent)),
+    linear-gradient(135deg, color-mix(in srgb, var(--subject-primary) 40%, transparent), rgba(255, 255, 255, 0.05) 50%, color-mix(in srgb, var(--subject-primary) 20%, transparent));
+}
+
+/* Light Mode Skins */
+[data-theme="light"] .glass-icon-button-default {
+  background-image:
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7)),
+    linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0.1));
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .glass-icon-button-ghost:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.glass-checkbox {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.375rem;
+  border: 1px solid transparent;
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+
+  /* Unchecked state - inset look */
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.2));
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.glass-checkbox-checked {
+  color: white;
+  background-image:
+    linear-gradient(var(--subject-primary), var(--subject-primary)),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.1));
+  box-shadow:
+    0 2px 8px color-mix(in srgb, var(--subject-primary) 40%, transparent),
+    inset 0 1px 1px rgba(255, 255, 255, 0.4);
+}
+
+[data-theme="light"] .glass-checkbox {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 1));
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .glass-checkbox-checked {
+  background-image:
+    linear-gradient(var(--subject-primary), var(--subject-primary)),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0.1));
+}
+
+.glass-tristate-container {
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.15);
+  padding: 3px;
+  border-radius: 0.875rem;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.glass-tristate-button {
+  flex: 1;
+  height: 32px;
+  min-width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.625rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  color: var(--fg-muted);
+  font-weight: bold;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+@media (min-width: 768px) {
+  .glass-tristate-button {
+    height: 36px;
+    min-width: 36px;
+  }
+}
+
+.glass-tristate-button:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--fg-primary);
+}
+
+.glass-tristate-button.active {
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  background-image:
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02)),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.1));
+  color: var(--fg-primary);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.2),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  border: 1px solid transparent;
+}
+
+[data-theme="light"] .glass-tristate-container {
+  background: rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .glass-tristate-button.active {
+  background-image:
+    linear-gradient(to bottom, #ffffff, #f8fafc),
+    linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(0, 0, 0, 0.05));
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08),
+    inset 0 1px 1px rgba(255, 255, 255, 1);
+}
+
+.glass-input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
+  padding: 0.75rem 1rem;
+  color: var(--fg-primary);
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.glass-input:focus {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: var(--subject-primary);
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.4),
+    0 0 15px color-mix(in srgb, var(--subject-primary) 15%, transparent);
+}
+
+[data-theme="light"] .glass-input {
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  color: var(--fg-primary);
+}
+
+[data-theme="light"] .glass-input:focus {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: var(--subject-primary);
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.02),
+    0 0 15px color-mix(in srgb, var(--subject-primary) 10%, transparent);
 }
 
 body {
