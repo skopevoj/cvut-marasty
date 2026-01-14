@@ -112,7 +112,7 @@
 }
 
 .glass-card-themed {
-  background-color: rgb(19, 19, 20);
+  background-color: rgba(19, 19, 20, 0.601);
   border: 1px solid transparent;
   border-radius: 1.7rem;
   backdrop-filter: blur(30px);
