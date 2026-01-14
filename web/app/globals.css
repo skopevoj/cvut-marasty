@@ -67,23 +67,90 @@
 }
 
 [data-theme="light"] .glass-card-themed {
-  border-radius: 24px;
-  background: #f2f4f9;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: padding-box linear-gradient(135deg,
+      rgba(255, 255, 255, 0.7),
+      rgba(255, 255, 255, 0.5)),
+    border-box linear-gradient(135deg,
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(255, 255, 255, 0.1) 40%,
+      rgba(255, 255, 255, 0) 50%,
+      rgba(255, 255, 255, 0.1) 60%,
+      rgba(255, 255, 255, 0.4) 100%);
+  border: 1px solid transparent;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.08),
-    inset 4px 4px 10px #ffffff;
-  transition: transform 0.2s ease;
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.4);
 }
 
 .glass-card-themed {
-  border-radius: 24px;
-  background: #1a1c23;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: rgb(19, 19, 20);
+  border: 1px solid transparent;
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
   box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.4),
-    inset 2px 2px 8px rgba(255, 255, 255, 0.05);
-  transition: transform 0.2s ease;
+    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.glass-dropdown {
+  height: 40px;
+  border-radius: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid transparent;
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  /* Dark mode */
+  background: rgba(0, 0, 0, 0.135);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="light"] .glass-dropdown {
+  background-image:
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7)),
+    linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0.1));
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.05),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(74, 74, 74, 0.1);
+}
+
+.glass-popover {
+  border-radius: 1rem;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid transparent;
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+
+  /* Dark mode */
+  background-image:
+    linear-gradient(to bottom, rgba(30, 30, 35, 0.9), rgba(20, 20, 25, 0.95)),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+}
+
+[data-theme="light"] .glass-popover {
+  background-image:
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(245, 247, 250, 0.95)),
+    linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(0, 0, 0, 0.05));
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
 }
 
 body {
