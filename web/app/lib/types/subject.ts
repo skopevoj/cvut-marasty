@@ -3,4 +3,5 @@ export interface Subject {
     name: string;
     description: string;
     code: string;
+    repositoryUrl?: string;
 }

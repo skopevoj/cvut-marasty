@@ -10,6 +10,7 @@ interface SuggestEditModalProps {
     isOpen: boolean;
     onClose: () => void;
     question: Question;
+    repositoryUrl?: string;
 }
 
 const REASONS = [
@@ -21,7 +22,7 @@ const REASONS = [
     "Jiné"
 ];
 
-export function SuggestEditModal({ isOpen, onClose, question }: SuggestEditModalProps) {
+export function SuggestEditModal({ isOpen, onClose, question, repositoryUrl }: SuggestEditModalProps) {
     const [reason, setReason] = useState(REASONS[0]);
     const [note, setNote] = useState('');
     const [suggestedQuestion, setSuggestedQuestion] = useState(question.question);
@@ -81,7 +82,8 @@ export function SuggestEditModal({ isOpen, onClose, question }: SuggestEditModal
             body += `- ${marker} ${ans.text}${diffInfo}\n`;
         });
 
-        const url = `https://github.com/skopevoj/cvut-marasty/issues/new?title=${title}&body=${encodeURIComponent(body)}`;
+        const baseUrl = repositoryUrl?.replace(/\/$/, '') || 'https://github.com/skopevoj/cvut-marasty';
+        const url = `${baseUrl}/issues/new?title=${title}&body=${encodeURIComponent(body)}`;
         return url;
     };
 

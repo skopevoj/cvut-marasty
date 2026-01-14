@@ -25,11 +25,12 @@ export function QuestionActions({
     showOriginalText,
     onToggleOriginalText
 }: QuestionActionsProps) {
-    const { questions } = useQuiz();
+    const { questions, currentSubject } = useQuiz();
     const [isFavorite, setIsFavorite] = useState(false);
     const [isAnimating, setIsAnimating] = useState(false);
     const [isSuggestModalOpen, setIsSuggestModalOpen] = useState(false);
 
+    const hasRepository = Boolean(currentSubject?.repositoryUrl);
     const currentQuestion = questions.find(q => q.id === questionId);
 
     useEffect(() => {
@@ -74,13 +75,15 @@ export function QuestionActions({
                     <ImageIcon size={20} />
                 </button>
             )}
-            <button
-                onClick={() => setIsSuggestModalOpen(true)}
-                title="Navrhnout úpravu"
-                className="p-1 text-[var(--fg-muted)] transition-all duration-200 hover:scale-110 hover:text-[var(--fg-primary)] active:scale-90"
-            >
-                <TriangleAlert size={20} />
-            </button>
+            {hasRepository && (
+                <button
+                    onClick={() => setIsSuggestModalOpen(true)}
+                    title="Navrhnout úpravu"
+                    className="p-1 text-[var(--fg-muted)] transition-all duration-200 hover:scale-110 hover:text-[var(--fg-primary)] active:scale-90"
+                >
+                    <TriangleAlert size={20} />
+                </button>
+            )}
             <button
                 onClick={handleToggleFavorite}
                 title={isFavorite ? "Odebrat z oblíbených" : "Přidat do oblíbených"}
@@ -97,6 +100,7 @@ export function QuestionActions({
                     isOpen={isSuggestModalOpen}
                     onClose={() => setIsSuggestModalOpen(false)}
                     question={currentQuestion}
+                    repositoryUrl={currentSubject?.repositoryUrl}
                 />
             )}
         </div>

@@ -128,7 +128,8 @@ export function DataProvider({ children }: { children: ReactNode }) {
                                 primaryColor: s.primaryColor || '#3b82f6',
                                 secondaryColor: s.secondaryColor || '#1d4ed8',
                                 originalCode: code,
-                                sourceName: source.name
+                                sourceName: source.name,
+                                repositoryUrl: data.metadata?.repository || data.repository || null
                             });
                         });
                     }
@@ -178,7 +179,8 @@ export function DataProvider({ children }: { children: ReactNode }) {
             code: subData.code,
             description: subData.description,
             primaryColor: subData.primaryColor,
-            secondaryColor: subData.secondaryColor
+            secondaryColor: subData.secondaryColor,
+            repositoryUrl: subData.repositoryUrl
         });
 
         const { questions: subjectQs, ...details } = subData;
