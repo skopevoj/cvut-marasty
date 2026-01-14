@@ -1,3 +1,4 @@
 web/public/subjects
 misc/
-
+questions/
+.DS_Store
