@@ -5,8 +5,7 @@ import { useQuiz } from "../../lib/context/QuizContext";
 import { useSettings } from "../../lib/context/SettingsContext";
 import { Contributors } from "./Contributors";
 import { AddSourceModal } from "./AddSourceModal";
-import { ArrowRight, Play, Globe } from "lucide-react";
-import { IconButton } from "../ui/IconButton";
+import { ArrowRight, BookOpen, Upload } from "lucide-react";
 
 export function LandingScreen() {
     const { subjects, selectSubject } = useQuiz();
@@ -36,71 +35,102 @@ export function LandingScreen() {
     const noSources = settings.dataSources.length === 0;
 
     return (
-        <div className="flex flex-col items-center justify-center py-8 md:py-12 px-4 animate-in fade-in slide-in-from-bottom-8 duration-1000">
-            <div className="max-w-4xl w-full text-center space-y-12 md:space-y-16">
+        <div className="flex flex-col items-center justify-between h-full py-2 md:py-4 px-4 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+            <div className="flex-1 flex flex-col items-center justify-center w-full max-w-4xl">
                 {/* Hero Section */}
-                <div className="w-full">
+                <div className="w-full max-w-xl mx-auto mb-4 md:mb-8">
                     <img
-                        src="/banner.png"
+                        src={settings.theme === 'light' ? '/banner_light.png' : '/banner_dark.png'}
                         alt="Příprava na rozstřely"
-                        className="w-full drop-shadow-[0_0_30px_rgba(255,255,255,0.1)] pr-0 md:pr-10"
+                        className="w-full drop-shadow-[0_0_30px_rgba(255,255,255,0.1)]"
                     />
                 </div>
 
+                {/* Main Content */}
                 {noSources ? (
-                    <div className="flex flex-col items-center gap-2 py-6">
-                        <div className="w-full max-w-sm space-y-1">
-                            {/* <div className="flex items-center justify-center gap-3 text-[var(--fg-muted)] mb-2">
-                                <Globe size={18} />
-                                <span className="text-sm font-medium uppercase tracking-widest">Vložte URL s otázkami</span>
-                            </div> */}
-                            <div className="relative group">
+                    <div className="flex flex-col items-center gap-3 w-full max-w-3xl">
+                        <div className="w-full space-y-2">
+                            <div className="relative flex items-center">
                                 <input
                                     type="text"
                                     value={url}
                                     onChange={(e) => setUrl(e.target.value)}
-                                    placeholder="Vložte URL adresu..."
-                                    className="glass-input w-full h-14 px-6 text-lg rounded-2xl border-white/10 focus:border-[var(--primary-color)]/50 transition-all shadow-2xl"
+                                    placeholder="Vložte URL adresu otázek..."
+                                    className="glass-input w-full pr-12"
                                     onKeyDown={(e) => e.key === 'Enter' && handleAddUrl()}
                                 />
-                                <div className="absolute right-2 top-2">
-                                    <IconButton
-                                        icon={ArrowRight}
-                                        variant="frosted"
-                                        onClick={handleAddUrl}
-                                        disabled={!url}
-                                        className={`h-10 w-10 md:h-10 md:w-10 transition-all ${url ? 'bg-[var(--primary-color)] text-white' : 'opacity-50'}`}
-                                    />
-                                </div>
+                                <button
+                                    onClick={handleAddUrl}
+                                    disabled={!url}
+                                    className="absolute right-1.5 glass-icon-button glass-icon-button-default shrink-0 w-9 h-9"
+                                    title="Přidat URL"
+                                >
+                                    <ArrowRight size={18} />
+                                </button>
                             </div>
-                            <p className="text-xs text-[var(--fg-muted)]">
+                            {/* <p className="text-xs text-[var(--fg-muted)] text-left px-1">
                                 Např. z GitHub repository nebo jiného veřejného odkazu
-                            </p>
+                            </p> */}
                         </div>
-
-                        <div className="h-px w-24 bg-white/5" />
+                        {/* 
+                        <div className="flex items-center gap-3 my-1">
+                            <div className="h-px w-16 bg-white/5" />
+                            <span className="text-xs text-[var(--fg-muted)]">nebo</span>
+                            <div className="h-px w-16 bg-white/5" />
+                        </div>
 
                         <button
                             onClick={() => setIsAddSourceOpen(true)}
-                            className="text-sm text-[var(--fg-muted)] hover:text-[var(--fg-primary)] transition-colors underline underline-offset-4 decoration-white/10"
+                            className="text-sm text-[var(--fg-muted)] hover:text-[var(--fg-primary)] transition-colors flex items-center gap-2"
                         >
-                            Nebo nahrát soubor ručně
-                        </button>
+                            <Upload size={16} />
+                            Nahrát soubor ručně
+                        </button> */}
+                    </div>
+                ) : subjects.length > 0 ? (
+                    <div className="flex flex-col items-center gap-4">
+                        <h2 className="text-xl md:text-2xl font-semibold text-[var(--fg-primary)]">
+                            Vyberte předmět
+                        </h2>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 w-full max-w-3xl">
+                            {subjects.map((subject) => (
+                                <button
+                                    key={subject.code || subject.id}
+                                    onClick={() => selectSubject(subject.code || '')}
+                                    className="glass-card-themed p-4 md:p-6 flex flex-col items-center gap-2 hover:scale-105 transition-all group border-white/10"
+                                >
+                                    <BookOpen
+                                        size={24}
+                                        className="text-[var(--fg-primary)] opacity-70 group-hover:opacity-100 transition-opacity"
+                                    />
+                                    <span className="text-sm md:text-base font-medium text-[var(--fg-primary)]">
+                                        {(subject.code || 'N/A').toUpperCase()}
+                                    </span>
+                                    {subject.name && (
+                                        <span className="text-xs text-[var(--fg-muted)] text-center line-clamp-2">
+                                            {subject.name}
+                                        </span>
+                                    )}
+                                </button>
+                            ))}
+                        </div>
                     </div>
                 ) : (
-                    <div className="flex flex-col items-center gap-8">
+                    <div className="flex flex-col items-center gap-3">
+                        <p className="text-[var(--fg-muted)]">Žádné předměty k dispozici</p>
                         <button
-                            onClick={openSettings}
-                            className="glass-button px-12 py-5 text-xl font-bold group shadow-2xl shadow-blue-500/10"
+                            onClick={() => setIsAddSourceOpen(true)}
+                            className="text-sm text-[var(--fg-muted)] hover:text-[var(--fg-primary)] transition-colors flex items-center gap-2"
                         >
-                            <span className="flex items-center gap-3">
-                                Spustit Rozstřel
-                                <Play size={20} className="group-hover:translate-x-1 transition-transform" />
-                            </span>
+                            <Upload size={16} />
+                            Přidat další zdroj
                         </button>
                     </div>
                 )}
+            </div>
 
+            {/* Contributors at the bottom */}
+            <div className="w-full max-w-4xl">
                 <Contributors />
             </div>
 
