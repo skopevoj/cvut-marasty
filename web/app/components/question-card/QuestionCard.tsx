@@ -48,7 +48,7 @@ export function QuestionCard() {
 
             <QuestionActions
                 questionId={currentQuestion.id || ''}
-                hasQuizPhoto={!!(currentQuestion.quizPhoto || currentQuestion.image)}
+                hasQuizPhoto={!!(currentQuestion.quizPhoto || currentQuestion.photo)}
                 showQuizPhoto={showQuizPhoto}
                 onToggleQuizPhoto={() => setShowQuizPhoto(!showQuizPhoto)}
                 hasOriginalText={!!currentQuestion.originalText}
