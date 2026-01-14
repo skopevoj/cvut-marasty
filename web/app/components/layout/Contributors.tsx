@@ -28,30 +28,29 @@ export function Contributors() {
     if (!metadata || metadata.contributors.length === 0) return null;
 
     return (
-        <div className="w-full space-y-10 py-16">
-            <div className="flex flex-col items-center gap-8">
-                <div className="flex flex-col items-center gap-4">
-                    <a
-                        href="https://github.com/skopevoj/cvut-marasty"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="glass-card-themed px-5 py-2.5 flex items-center gap-4 hover:scale-105 transition-all group border-white/10 shadow-xl"
-                    >
-                        <Github size={22} className="text-[var(--fg-primary)]" />
-                        <div className="w-[1px] h-5 bg-white/10" />
-                        <div className="flex items-center gap-2">
-                            <Star size={18} className="text-yellow-500 fill-yellow-500 group-hover:animate-star-pop" />
-                            <span className="font-bold text-base text-[var(--fg-primary)]">
-                                {metadata.stargazers_count}
-                            </span>
-                        </div>
-                    </a>
-                </div>
-
+        <div className="w-full space-y-8 pt-8 pb-4 mt-8">
+            <div className="flex flex-col items-center gap-6">
                 <div className="text-center space-y-3">
-                    <h2 className="text-3xl font-bold tracking-tight text-[var(--fg-primary)]">
-                        Přispěvatelé
-                    </h2>
+                    <div className="flex flex-col items-center gap-4">
+                        <a
+                            href="https://github.com/skopevoj/cvut-marasty"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="glass-card-themed px-5 py-2.5 flex items-center gap-4 hover:scale-105 transition-all group"
+                        >
+                            <Github size={22} className="text-[var(--fg-primary)]" />
+                            <span className="font-semibold text-[var(--fg-primary)]">
+                                CVUT Marasty
+                            </span>
+                            <div className="w-[1px] h-5 bg-white/10" />
+                            <div className="flex items-center gap-2">
+                                <Star size={18} className="text-yellow-500 fill-yellow-500 group-hover:animate-star-pop" />
+                                <span className="font-bold text-base text-[var(--fg-primary)]">
+                                    {metadata.stargazers_count}
+                                </span>
+                            </div>
+                        </a>
+                    </div>
                     <div className="flex items-center justify-center gap-2 text-[var(--fg-muted)]">
                         <span className="h-px w-8 bg-gradient-to-r from-transparent to-[var(--fg-muted)]/30" />
                         <p className="text-sm font-medium italic">
