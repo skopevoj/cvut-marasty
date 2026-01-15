@@ -187,7 +187,11 @@ export function DataProvider({ children }: { children: ReactNode }) {
         const normalizedQuestions = (subjectQs || []).map((q: any) => ({
             ...q,
             subjectCode: q.subjectCode || subData.code,
-            id: String(q.id)
+            id: String(q.id),
+            answers: (q.answers || []).map((a: any, i: number) => ({
+                ...a,
+                index: a.index ?? i
+            }))
         }));
 
         setCurrentSubjectDetails(details);
