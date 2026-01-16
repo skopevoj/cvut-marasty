@@ -3,6 +3,7 @@
 import { useSettings } from "../../lib/context/SettingsContext";
 import { BarChart2, Shuffle, PenTool, Sun, Moon, Database, Trash2, Globe, FileJson, Plus, Upload } from "lucide-react";
 import { SettingsToggle } from "./SettingsToggle";
+import { RoomManager } from "./RoomManager";
 import { useState } from "react";
 
 export function SettingsMenu() {
@@ -163,6 +164,10 @@ export function SettingsMenu() {
                 isActive={settings.whiteboardEnabled}
                 onClick={() => toggle('whiteboardEnabled')}
             />
+
+            <div className="h-px bg-[var(--border-default)] my-2" />
+
+            <RoomManager />
         </div>
     );
 }
