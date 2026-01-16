@@ -60,20 +60,14 @@ export function PeerProvider({ children }: { children: ReactNode }) {
             config: {
                 iceServers: [
                     { urls: 'stun:stun.l.google.com:19302' },
-                    { urls: 'stun:stun1.l.google.com:19302' },
-                    { urls: 'stun:stun2.l.google.com:19302' },
                     {
-                        urls: 'turn:openrelay.metered.ca:80',
-                        username: 'openrelayproject',
-                        credential: 'openrelayproject'
-                    },
-                    {
-                        urls: 'turn:openrelay.metered.ca:443',
-                        username: 'openrelayproject',
-                        credential: 'openrelayproject'
+                        urls: 'turn:relay1.expressturn.com:3478',
+                        username: 'efSW8BJB8N91K1AULK',
+                        credential: 'KUXWFas3wM8QMvKS'
                     }
                 ]
-            }
+            },
+            debug: 2
         });
 
         newPeer.on('open', () => {
