@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Users } from "lucide-react";
 import { IconButton } from "../ui/IconButton";
+import { useQuiz } from "../../lib/context/QuizContext";
 
 interface PaginationProps {
     currentIndex: number;
@@ -12,6 +13,8 @@ interface PaginationProps {
 }
 
 export function Pagination({ currentIndex, total, onPrev, onNext }: PaginationProps) {
+    const { isInPeerRoom } = useQuiz();
+
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             // Check if user is typing in an input, textarea, using a select, or has focus in the header
@@ -44,11 +47,19 @@ export function Pagination({ currentIndex, total, onPrev, onNext }: PaginationPr
                 variant="frosted"
                 size={18}
                 className="scale-90 md:scale-100"
+                title={isInPeerRoom ? "Předchozí (sdílené)" : "Předchozí otázka"}
             />
 
-            <span className="min-w-[50px] md:min-w-[60px] text-center font-medium tabular-nums text-[var(--fg-muted)] text-xs md:text-sm">
-                {currentIndex + 1} / {total}
-            </span>
+            <div className="flex items-center gap-2">
+                {isInPeerRoom && (
+                    <span title="Synchronizováno se všemi">
+                        <Users size={14} className="text-[var(--subject-primary)] animate-pulse" />
+                    </span>
+                )}
+                <span className="min-w-[50px] md:min-w-[60px] text-center font-medium tabular-nums text-[var(--fg-muted)] text-xs md:text-sm">
+                    {currentIndex + 1} / {total}
+                </span>
+            </div>
 
             <IconButton
                 onClick={onNext}
@@ -57,6 +68,7 @@ export function Pagination({ currentIndex, total, onPrev, onNext }: PaginationPr
                 variant="frosted"
                 size={18}
                 className="scale-90 md:scale-100"
+                title={isInPeerRoom ? "Další (sdílené)" : "Další otázka"}
             />
         </div>
     );
