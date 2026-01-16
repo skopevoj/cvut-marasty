@@ -39,6 +39,25 @@ const PeerContext = createContext<PeerContextType | undefined>(undefined);
 
 const ROOM_PREFIX = 'marasty-room-';
 
+async function fetchTURNCredentials() {
+    try {
+        const response = await fetch('https://marasty.metered.live/api/v1/turn/credentials?apiKey=ee46800d75b12b8ce4c73448');
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Failed to fetch TURN credentials:', error);
+        // Fallback to hardcoded credentials
+        return [
+            { urls: 'stun:stun.l.google.com:19302' },
+            {
+                urls: 'turn:a.relay.metered.ca:80',
+                username: 'ee46800d75b12b8ce4c73448',
+                credential: 'HFkMnz0eB7CW3P+b'
+            }
+        ];
+    }
+}
+
 export function PeerProvider({ children }: { children: ReactNode }) {
     const [peer, setPeer] = useState<Peer | null>(null);
     const [isConnected, setIsConnected] = useState(false);
@@ -50,32 +69,19 @@ export function PeerProvider({ children }: { children: ReactNode }) {
     const messageCallbacksRef = useRef<{ [key: string]: (msg: PeerMessage) => void }>({});
 
     // Initialize Peer instance with a random ID or specific ID
-    const initPeer = useCallback((id?: string) => {
+    const initPeer = useCallback(async (id?: string) => {
         if (peer) {
             peer.destroy();
         }
 
         const peerId = id || uuidv4();
+        const iceServers = await fetchTURNCredentials();
+
+        console.log('[PeerContext] Creating peer with ICE servers:', iceServers);
+
         const newPeer = new Peer(peerId, {
             config: {
-                iceServers: [
-                    { urls: 'stun:stun.l.google.com:19302' },
-                    {
-                        urls: 'turn:a.relay.metered.ca:80',
-                        username: 'ee46800d75b12b8ce4c73448',
-                        credential: 'HFkMnz0eB7CW3P+b'
-                    },
-                    {
-                        urls: 'turn:a.relay.metered.ca:443',
-                        username: 'ee46800d75b12b8ce4c73448',
-                        credential: 'HFkMnz0eB7CW3P+b'
-                    },
-                    {
-                        urls: 'turn:a.relay.metered.ca:443?transport=tcp',
-                        username: 'ee46800d75b12b8ce4c73448',
-                        credential: 'HFkMnz0eB7CW3P+b'
-                    }
-                ],
+                iceServers: iceServers,
                 iceTransportPolicy: 'all'
             },
             debug: 2
@@ -154,12 +160,12 @@ export function PeerProvider({ children }: { children: ReactNode }) {
         const code = generateRoomCode();
         const hostId = `${ROOM_PREFIX}${code}`;
 
-        const newPeer = initPeer(hostId);
+        const newPeer = await initPeer(hostId);
 
         return new Promise((resolve, reject) => {
             const timeout = setTimeout(() => {
                 reject(new Error('Failed to create room - peer connection timeout'));
-            }, 10000);
+            }, 15000);
 
             newPeer.on('open', (id) => {
                 clearTimeout(timeout);
@@ -182,28 +188,39 @@ export function PeerProvider({ children }: { children: ReactNode }) {
         if (!peer) throw new Error('Peer not initialized');
 
         const hostPeerId = `${ROOM_PREFIX}${code.toUpperCase()}`;
-        console.log('Joining room:', code, 'Host Peer ID:', hostPeerId);
+        console.log('[PeerContext] Attempting to join room:', code, 'Host Peer ID:', hostPeerId);
 
-        const conn = peer.connect(hostPeerId, { reliable: true });
+        const conn = peer.connect(hostPeerId, {
+            reliable: true,
+            serialization: 'json'
+        });
 
         return new Promise((resolve, reject) => {
             const timeout = setTimeout(() => {
+                console.error('[PeerContext] Connection timeout after 20s');
                 conn.close();
                 reject(new Error('Connection timeout - Room not found'));
-            }, 10000);
+            }, 20000);
+
+            let isResolved = false;
 
             conn.on('open', () => {
+                if (isResolved) return;
+                isResolved = true;
                 clearTimeout(timeout);
-                console.log('Connected to host:', hostPeerId);
+                console.log('[PeerContext] Connection opened to host:', hostPeerId);
                 setConnectedPeers([{ peerId: hostPeerId, connection: conn }]);
                 setRoomCode(code.toUpperCase());
                 setIsConnected(true);
 
-                conn.send({
-                    type: 'sync-request',
-                    data: {},
-                    senderId: peer.id
-                });
+                // Send sync request
+                setTimeout(() => {
+                    conn.send({
+                        type: 'sync-request',
+                        data: {},
+                        senderId: peer.id
+                    });
+                }, 100);
 
                 resolve();
             });
@@ -219,15 +236,19 @@ export function PeerProvider({ children }: { children: ReactNode }) {
             });
 
             conn.on('close', () => {
+                console.log('[PeerContext] Connection closed');
                 setIsConnected(false);
                 setConnectedPeers([]);
                 setRoomCode(null);
             });
 
             conn.on('error', (err) => {
-                clearTimeout(timeout);
-                console.error('Connection error:', err);
-                reject(err);
+                if (!isResolved) {
+                    isResolved = true;
+                    clearTimeout(timeout);
+                    console.error('[PeerContext] Connection error:', err);
+                    reject(err);
+                }
             });
         });
     }, [peer]);
