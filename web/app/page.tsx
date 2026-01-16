@@ -65,16 +65,16 @@ export default function Home() {
   const showSetup = settings.dataSources.length === 0;
 
   return (
-    <div className={`mx-auto flex min-h-screen max-w-[1000px] flex-col px-2 md:px-5 py-2 md:py-4 relative z-10 pointer-events-auto ${!currentSubject ? 'landing-page-active' : ''}`} data-theme="default">
+    <div className={`mx-auto flex min-h-screen max-w-[1000px] flex-col px-2 md:px-5 py-2 md:py-4 relative ${!currentSubject ? 'landing-page-active' : ''}`} data-theme="default">
       <div className="landing-background" />
       <Suspense fallback={null}>
         <SourceHandler />
       </Suspense>
-      <div className="shrink-0">
+      <div className="shrink-0 relative z-20">
         <Header />
       </div>
 
-      <div className="flex flex-1 flex-col py-2 md:py-4 min-h-0">
+      <div className="flex flex-1 flex-col py-2 md:py-4 min-h-0 relative z-20 pointer-events-none">
         {error ? (
           <div className="flex-1 flex flex-col justify-center">
             <div className="quiz-container text-center py-10 pointer-events-auto">
@@ -97,14 +97,14 @@ export default function Home() {
           quizQueue.length > 0 ? (
             <div className="flex flex-1 flex-col justify-center gap-10 py-4">
               <div>
-                <div className="pointer-events-auto">
+                <div className="relative z-20">
                   <QuestionHistory />
                 </div>
-                <div className="pointer-events-auto">
+                <div className="relative z-20">
                   <QuestionCard />
                 </div>
               </div>
-              <div className="pointer-events-auto">
+              <div className="relative z-20">
                 <ControlPanel />
               </div>
             </div>
@@ -115,7 +115,7 @@ export default function Home() {
           )
         )}
       </div>
-      <div className="pointer-events-auto shrink-0">
+      <div className="shrink-0 relative z-20">
         <Footer />
       </div>
       <PeerNotifications />

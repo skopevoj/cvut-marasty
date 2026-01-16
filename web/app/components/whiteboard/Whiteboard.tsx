@@ -6,6 +6,11 @@ import { useSettings } from "../../lib/context/SettingsContext";
 import { usePeer } from "../../lib/context/PeerContext";
 import { useEffect, useRef, useState, useCallback } from "react";
 
+// Get the question card element as the reference for positioning
+function getReferenceElement(): HTMLElement | null {
+    return document.querySelector('main.glass-card-themed') as HTMLElement;
+}
+
 export function Whiteboard() {
     const { settings } = useSettings();
     const { currentQuestionIndex } = useQuiz();
@@ -133,27 +138,92 @@ export function Whiteboard() {
         setRedoFn(() => redo);
     }, [clear, undo, redo, setClearFn, setUndoFn, setRedoFn]);
 
-    // Handle peer whiteboard drawing
+    // Handle peer whiteboard drawing - always register handlers regardless of whiteboard state
+    // This ensures drawings from peers are received even if local whiteboard is disabled
+    // Track last positions for each peer to draw connected strokes
+    const peerLastPositions = useRef<Map<string, { x: number; y: number }>>(new Map());
+
     useEffect(() => {
         const handleWhiteboardDraw = (message: any) => {
-            console.log('[Whiteboard] Received whiteboard-draw message:', message);
-            const { data } = message;
-            const canvas = canvasRef.current;
-            const ctx = canvas?.getContext('2d');
-            if (!canvas || !ctx) {
-                console.warn('[Whiteboard] Canvas or context not available');
+            const { data, senderId } = message;
+
+            // Handle stroke end - reset position tracking for this peer
+            if (data.strokeEnd) {
+                peerLastPositions.current.delete(senderId);
                 return;
             }
 
+            const canvas = canvasRef.current;
+            if (!canvas) {
+                console.warn('[Whiteboard] Canvas not available');
+                return;
+            }
+
+            // Ensure canvas is sized properly
+            if (canvas.width === 0 || canvas.height === 0) {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+
+            const ctx = canvas.getContext('2d');
+            if (!ctx) {
+                console.warn('[Whiteboard] Context not available');
+                return;
+            }
+
+            // Get the local reference element to convert coordinates
+            const refElement = getReferenceElement();
+            let x0, y0, x1, y1;
+
+            if (refElement && data.hasRef !== false) {
+                const rect = refElement.getBoundingClientRect();
+                // Convert from reference-relative percentages to screen pixels
+                x0 = rect.left + (data.x0 * rect.width);
+                y0 = rect.top + (data.y0 * rect.height);
+                x1 = rect.left + (data.x1 * rect.width);
+                y1 = rect.top + (data.y1 * rect.height);
+            } else {
+                // Fallback to viewport-based
+                x0 = data.x0 * canvas.width;
+                y0 = data.y0 * canvas.height;
+                x1 = data.x1 * canvas.width;
+                y1 = data.y1 * canvas.height;
+            }
+
             ctx.strokeStyle = data.color;
+            ctx.fillStyle = data.color;
             ctx.lineWidth = data.lineWidth;
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
 
+            // Get last known position for this peer
+            const lastPos = peerLastPositions.current.get(senderId);
+
+            // Draw a circle at the start point to ensure smooth connection
             ctx.beginPath();
-            ctx.moveTo(data.x0, data.y0);
-            ctx.lineTo(data.x1, data.y1);
+            ctx.arc(x0, y0, data.lineWidth / 2, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Draw the line segment
+            ctx.beginPath();
+            if (lastPos && Math.abs(lastPos.x - x0) < 50 && Math.abs(lastPos.y - y0) < 50) {
+                // If close to last position, draw from last position for smoother connection
+                ctx.moveTo(lastPos.x, lastPos.y);
+                ctx.lineTo(x0, y0);
+                ctx.stroke();
+                ctx.beginPath();
+            }
+            ctx.moveTo(x0, y0);
+            ctx.lineTo(x1, y1);
             ctx.stroke();
+
+            // Draw a circle at the end point
+            ctx.beginPath();
+            ctx.arc(x1, y1, data.lineWidth / 2, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Store the end position for this peer
+            peerLastPositions.current.set(senderId, { x: x1, y: y1 });
         };
 
         const handleWhiteboardClear = () => {
@@ -163,23 +233,41 @@ export function Whiteboard() {
             if (canvas && ctx) {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
             }
+            // Clear peer positions on clear
+            peerLastPositions.current.clear();
         };
 
-        if ((window as any).__registerPeerMessageHandler) {
-            console.log('[Whiteboard] Registering peer message handlers');
-            (window as any).__registerPeerMessageHandler('whiteboard-draw', handleWhiteboardDraw);
-            (window as any).__registerPeerMessageHandler('whiteboard-clear', handleWhiteboardClear);
-        } else {
-            console.warn('[Whiteboard] __registerPeerMessageHandler not available');
+        // Always register handlers - they use refs so they'll work when canvas is available
+        const registerHandlers = () => {
+            if ((window as any).__registerPeerMessageHandler) {
+                console.log('[Whiteboard] Registering peer message handlers');
+                (window as any).__registerPeerMessageHandler('whiteboard-draw', handleWhiteboardDraw);
+                (window as any).__registerPeerMessageHandler('whiteboard-clear', handleWhiteboardClear);
+                return true;
+            }
+            return false;
+        };
+
+        // Try to register immediately, and retry if not available yet
+        if (!registerHandlers()) {
+            const interval = setInterval(() => {
+                if (registerHandlers()) {
+                    clearInterval(interval);
+                }
+            }, 100);
+
+            // Clean up interval after 5 seconds
+            setTimeout(() => clearInterval(interval), 5000);
         }
 
         return () => {
             if ((window as any).__unregisterPeerMessageHandler) {
+                console.log('[Whiteboard] Unregistering peer message handlers');
                 (window as any).__unregisterPeerMessageHandler('whiteboard-draw');
                 (window as any).__unregisterPeerMessageHandler('whiteboard-clear');
             }
         };
-    }, []);
+    }, []); // No dependencies - register once on mount
 
     // Clear drawing on question change
     useEffect(() => {
@@ -248,19 +336,44 @@ export function Whiteboard() {
 
         // Broadcast drawing to peers using the old values
         if (isConnected) {
-            console.log('[Whiteboard] Broadcasting whiteboard-draw');
-            broadcastMessage({
-                type: 'whiteboard-draw',
-                data: {
-                    x0: oldX,
-                    y0: oldY,
-                    x1: midX,
-                    y1: midY,
+            const refElement = getReferenceElement();
+            let normalizedData;
+
+            if (refElement) {
+                const rect = refElement.getBoundingClientRect();
+
+                // Calculate positions relative to the reference element
+                normalizedData = {
+                    x0: (oldX - rect.left) / rect.width,
+                    y0: (oldY - rect.top) / rect.height,
+                    x1: (midX - rect.left) / rect.width,
+                    y1: (midY - rect.top) / rect.height,
                     color: tool === 'eraser' ? '#030303' : color,
                     lineWidth: tool === 'eraser' ? 40 : 2.5,
-                    isClear: false
+                    hasRef: true
+                };
+            } else {
+                // Fallback to viewport-based if no reference element
+                const canvas = canvasRef.current;
+                if (canvas) {
+                    normalizedData = {
+                        x0: oldX / window.innerWidth,
+                        y0: oldY / window.innerHeight,
+                        x1: midX / window.innerWidth,
+                        y1: midY / window.innerHeight,
+                        color: tool === 'eraser' ? '#030303' : color,
+                        lineWidth: tool === 'eraser' ? 40 : 2.5,
+                        hasRef: false
+                    };
                 }
-            });
+            }
+
+            if (normalizedData) {
+                broadcastMessage({
+                    type: 'whiteboard-draw',
+                    data: normalizedData
+                });
+            }
         }
     };
 
@@ -268,17 +381,28 @@ export function Whiteboard() {
         if (isDrawing) {
             setIsDrawing(false);
             saveToHistory();
+
+            // Notify peers that stroke ended so they reset position tracking
+            if (isConnected) {
+                broadcastMessage({
+                    type: 'whiteboard-draw',
+                    data: {
+                        strokeEnd: true
+                    }
+                });
+            }
         }
     };
 
     return (
         <canvas
             ref={canvasRef}
-            className={`fixed inset-0 pointer-events-auto transition-opacity duration-300 ${(!settings.whiteboardEnabled || isMobile) ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+            className={`fixed inset-0 transition-opacity duration-300 ${(!settings.whiteboardEnabled || isMobile) ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
             style={{
-                zIndex: 0,
+                zIndex: 10,
                 backgroundColor: 'transparent',
-                cursor: tool === 'eraser' ? 'cell' : 'crosshair'
+                cursor: tool === 'eraser' ? 'cell' : 'crosshair',
+                pointerEvents: settings.whiteboardEnabled && !isMobile ? 'auto' : 'none'
             }}
             onMouseDown={startDrawing}
             onMouseMove={draw}

@@ -66,7 +66,12 @@ export function RoomManager() {
         <div className="space-y-4">
             <div className="flex items-center gap-2 text-sm font-semibold text-[var(--fg-primary)]">
                 <Users size={18} />
-                Spolupráce (PeerJS)
+                Spolupráce (PartyKit)
+            </div>
+
+            {/* Disclaimer */}
+            <div className="p-3 rounded-2xl bg-blue-500/10 border border-blue-500/30 text-xs text-blue-600 leading-relaxed">
+                Používáme PartyKit (WebSocket) pro real-time synchronizaci. Tahle skvělá feature občas funguje a občas ne, je to jen free tier PartyKitu. Pokud bude aplikace používaná, přejdu ze static site na full nextjs apku s vlastním socket io serverem.
             </div>
 
             {!isConnected ? (
