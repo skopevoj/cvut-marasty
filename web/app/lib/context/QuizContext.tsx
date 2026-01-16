@@ -13,6 +13,7 @@ import { FilterProvider, useFilter } from './FilterContext';
 import { sortingLogic } from '../business/sortingLogic';
 import { EvaluationStrategyFactory } from '../evaluation/evaluationStrategy';
 import { statsHelper } from '../helper/statsHelper';
+import { usePeer } from './PeerContext';
 
 interface QuizContextType {
   // Data
@@ -43,6 +44,10 @@ interface QuizContextType {
     history: { timestamp: number; isCorrect: boolean }[];
   } | null;
 
+  // Peer collaboration
+  isInPeerRoom: boolean;
+  peerAnswersData: Record<string, any>;
+
   // Actions
   selectSubject: (subjectCode: string | null) => void;
   toggleTopic: (topicId: string) => void;
@@ -67,8 +72,9 @@ function QuizFacade({ children }: { children: ReactNode }) {
   const {
     quizQueue, currentQuestionIndex, userAnswers, userTextAnswer, showResults, showOriginalText,
     setQuizQueue, setCurrentQuestionIndex, setUserAnswers, setUserTextAnswer, setShowResults,
-    toggleOriginalText, resetSession
+    toggleOriginalText, resetSession, setPeerAnswers, peerAnswers
   } = useSession();
+  const { isConnected, broadcastMessage } = usePeer();
 
   const prevFiltersRef = useRef({
     subject: null as Subject | null,
@@ -121,10 +127,92 @@ function QuizFacade({ children }: { children: ReactNode }) {
 
   const currentQuestion = quizQueue[currentQuestionIndex] || null;
 
+  // Handle peer answer updates
+  useEffect(() => {
+    const handleAnswerUpdate = (message: any) => {
+      const { data, senderId } = message;
+      console.log('[Peer] Received answer update:', data);
+      // Only apply answer updates for the current question
+      if (data.questionId === currentQuestion?.id) {
+        // Synchronize local state with what was sent
+        console.log('[Peer] Applying answer update:', data.allAnswers);
+        setUserAnswers(data.allAnswers || {});
+      }
+    };
+
+    const handleNavigate = (message: any) => {
+      const { data } = message;
+      console.log('[Peer] Received navigate to question ID:', data.questionId);
+      // Find the question by ID in our local queue
+      const questionIndex = quizQueue.findIndex(q => q.id === data.questionId);
+      if (questionIndex !== -1) {
+        console.log('[Peer] Found question at index:', questionIndex);
+        setCurrentQuestionIndex(questionIndex);
+        resetSession();
+      } else {
+        console.warn('[Peer] Question not found in local queue:', data.questionId);
+      }
+    };
+
+    const handleEvaluate = (message: any) => {
+      const { data } = message;
+      console.log('[Peer] Received evaluate:', data);
+      // Show results when someone evaluates
+      if (data.questionId === currentQuestion?.id) {
+        // Make sure we have the same answers
+        if (data.userAnswers) {
+          setUserAnswers(data.userAnswers);
+        }
+        setShowResults(true);
+      }
+    };
+
+    if ((window as any).__registerPeerMessageHandler) {
+      (window as any).__registerPeerMessageHandler('answer-update', handleAnswerUpdate);
+      (window as any).__registerPeerMessageHandler('navigate', handleNavigate);
+      (window as any).__registerPeerMessageHandler('evaluate', handleEvaluate);
+
+      // Handle sync request from new members
+      (window as any).__registerPeerMessageHandler('sync-request', (message: any) => {
+        if (isConnected) {
+          broadcastMessage({
+            type: 'sync-response',
+            data: {
+              index: currentQuestionIndex,
+              userAnswers: userAnswers,
+              showResults: showResults,
+              questionId: currentQuestion?.id
+            }
+          });
+        }
+      });
+
+      // Handle sync response when joining
+      (window as any).__registerPeerMessageHandler('sync-response', (message: any) => {
+        const { data } = message;
+        // Only apply sync if we're on the same question or navigate if needed
+        setCurrentQuestionIndex(data.index);
+        setUserAnswers(data.userAnswers || {});
+        setShowResults(data.showResults || false);
+      });
+    }
+
+    return () => {
+      if ((window as any).__unregisterPeerMessageHandler) {
+        (window as any).__unregisterPeerMessageHandler('answer-update');
+        (window as any).__unregisterPeerMessageHandler('navigate');
+        (window as any).__unregisterPeerMessageHandler('evaluate');
+        (window as any).__unregisterPeerMessageHandler('sync-request');
+        (window as any).__unregisterPeerMessageHandler('sync-response');
+      }
+    };
+  }, [currentQuestion?.id, setPeerAnswers, setUserAnswers, setCurrentQuestionIndex, resetSession, setShowResults, isConnected, broadcastMessage, currentQuestionIndex, userAnswers, showResults, quizQueue]);
+
   const shuffledAnswers = useMemo(() => {
     if (!currentQuestion || !currentQuestion.answers) return [];
 
-    if (settings.shuffleAnswers) {
+    // Disable shuffle when in peer room to keep everyone synchronized
+    if (settings.shuffleAnswers && !isConnected) {
       const answers = [...currentQuestion.answers];
       for (let i = answers.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -134,7 +222,7 @@ function QuizFacade({ children }: { children: ReactNode }) {
     }
 
     return currentQuestion.answers;
-  }, [currentQuestion, settings.shuffleAnswers]);
+  }, [currentQuestion, settings.shuffleAnswers, isConnected]);
 
   const currentQuestionStats = useMemo(() => {
     if (!currentQuestion) return null;
@@ -154,25 +242,65 @@ function QuizFacade({ children }: { children: ReactNode }) {
 
   const nextQuestion = useCallback(() => {
     if (currentQuestionIndex < quizQueue.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      const nextIndex = currentQuestionIndex + 1;
+      const nextQ = quizQueue[nextIndex];
+      setCurrentQuestionIndex(nextIndex);
       resetSession();
+
+      if (isConnected && nextQ) {
+        console.log('[Peer] Broadcasting navigate to question ID:', nextQ.id);
+        broadcastMessage({
+          type: 'navigate',
+          data: { questionId: nextQ.id }
+        });
+      }
     }
-  }, [currentQuestionIndex, quizQueue.length, setCurrentQuestionIndex, resetSession]);
+  }, [currentQuestionIndex, quizQueue, setCurrentQuestionIndex, resetSession, isConnected, broadcastMessage]);
 
   const prevQuestion = useCallback(() => {
     if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex(currentQuestionIndex - 1);
+      const prevIndex = currentQuestionIndex - 1;
+      const prevQ = quizQueue[prevIndex];
+      setCurrentQuestionIndex(prevIndex);
       resetSession();
+
+      if (isConnected && prevQ) {
+        console.log('[Peer] Broadcasting navigate to question ID:', prevQ.id);
+        broadcastMessage({
+          type: 'navigate',
+          data: { questionId: prevQ.id }
+        });
+      }
     }
-  }, [currentQuestionIndex, setCurrentQuestionIndex, resetSession]);
+  }, [currentQuestionIndex, quizQueue, setCurrentQuestionIndex, resetSession, isConnected, broadcastMessage]);
 
   const setAnswerState = useCallback((index: number, state: AnswerState) => {
     if (showResults) return;
-    setUserAnswers({
-      ...userAnswers,
-      [index]: state
+
+    setUserAnswers(prev => {
+      const newAnswers = {
+        ...prev,
+        [index]: state
+      };
+
+      console.log('[Peer] Setting answer state:', { index, state, newAnswers });
+
+      // Broadcast answer update to peers if in a room
+      if (isConnected) {
+        console.log('[Peer] Broadcasting answer update');
+        broadcastMessage({
+          type: 'answer-update',
+          data: {
+            index,
+            state,
+            questionId: currentQuestion?.id,
+            allAnswers: newAnswers
+          }
+        });
+      }
+      return newAnswers;
     });
-  }, [showResults, userAnswers, setUserAnswers]);
+  }, [showResults, setUserAnswers, isConnected, broadcastMessage, currentQuestion]);
 
   const setTextAnswer = useCallback((value: string) => {
     if (showResults) return;
@@ -196,7 +324,19 @@ function QuizFacade({ children }: { children: ReactNode }) {
     });
 
     setShowResults(true);
-  }, [currentQuestion, userAnswers, userTextAnswer, shuffledAnswers, saveAttempt, setShowResults]);
+
+    // Broadcast evaluation to all peers
+    if (isConnected) {
+      console.log('[Peer] Broadcasting evaluate');
+      broadcastMessage({
+        type: 'evaluate',
+        data: {
+          questionId: currentQuestion.id,
+          userAnswers: userAnswers
+        }
+      });
+    }
+  }, [currentQuestion, userAnswers, userTextAnswer, shuffledAnswers, saveAttempt, setShowResults, isConnected, broadcastMessage]);
 
   const shuffleQueue = useCallback(() => {
     const shuffled = [...quizQueue];
@@ -221,8 +361,16 @@ function QuizFacade({ children }: { children: ReactNode }) {
     if (index !== -1) {
       setCurrentQuestionIndex(index);
       resetSession();
+
+      if (isConnected) {
+        console.log('[Peer] Broadcasting navigate to question ID:', questionId);
+        broadcastMessage({
+          type: 'navigate',
+          data: { questionId }
+        });
+      }
     }
-  }, [questions, currentSubject, selectSubject, quizQueue, setCurrentQuestionIndex, resetSession]);
+  }, [questions, currentSubject, selectSubject, quizQueue, setCurrentQuestionIndex, resetSession, isConnected, broadcastMessage]);
 
   return (
     <QuizContext.Provider value={{
@@ -231,6 +379,8 @@ function QuizFacade({ children }: { children: ReactNode }) {
       quizQueue, currentQuestionIndex, currentQuestion, shuffledAnswers,
       userAnswers, userTextAnswer, showResults, showOriginalText,
       currentQuestionStats,
+      isInPeerRoom: isConnected,
+      peerAnswersData: peerAnswers,
       selectSubject, toggleTopic, setSortType, toggleOriginalText,
       nextQuestion, prevQuestion, setAnswerState, setTextAnswer,
       evaluate, shuffleQueue, goToQuestion

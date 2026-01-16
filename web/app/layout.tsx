@@ -7,6 +7,7 @@ import { SettingsProvider } from "./lib/context/SettingsContext";
 import { WhiteboardProvider } from "./lib/context/WhiteboardContext";
 import { Whiteboard } from "./components/whiteboard/Whiteboard";
 import { ThemeProvider } from "./lib/context/ThemeContext";
+import { PeerProvider } from "./lib/context/PeerContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,16 +44,18 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SettingsProvider>
-          <ThemeProvider>
-            <StatsProvider>
-              <QuizProvider>
-                <WhiteboardProvider>
-                  <Whiteboard />
-                  {children}
-                </WhiteboardProvider>
-              </QuizProvider>
-            </StatsProvider>
-          </ThemeProvider>
+          <PeerProvider>
+            <ThemeProvider>
+              <StatsProvider>
+                <QuizProvider>
+                  <WhiteboardProvider>
+                    <Whiteboard />
+                    {children}
+                  </WhiteboardProvider>
+                </QuizProvider>
+              </StatsProvider>
+            </ThemeProvider>
+          </PeerProvider>
         </SettingsProvider>
       </body>
     </html>

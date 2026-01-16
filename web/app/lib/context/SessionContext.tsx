@@ -1,8 +1,14 @@
 'use client';
 
-import { createContext, useContext, useState, ReactNode, useMemo, useCallback } from 'react';
+import { createContext, useContext, useState, ReactNode, useMemo, useCallback, useEffect } from 'react';
 import { Question } from '../types/question';
 import { AnswerState } from '../types/enums';
+
+interface PeerAnswerState {
+    peerId: string;
+    peerName?: string;
+    answers: Record<number, AnswerState>;
+}
 
 interface SessionContextType {
     quizQueue: Question[];
@@ -11,11 +17,13 @@ interface SessionContextType {
     userTextAnswer: string;
     showResults: boolean;
     showOriginalText: boolean;
+    peerAnswers: Record<string, PeerAnswerState>;
     setQuizQueue: (queue: Question[]) => void;
     setCurrentQuestionIndex: (index: number) => void;
-    setUserAnswers: (answers: Record<number, AnswerState>) => void;
+    setUserAnswers: (answers: Record<number, AnswerState> | ((prev: Record<number, AnswerState>) => Record<number, AnswerState>)) => void;
     setUserTextAnswer: (answer: string) => void;
     setShowResults: (show: boolean) => void;
+    setPeerAnswers: (answers: Record<string, PeerAnswerState> | ((prev: Record<string, PeerAnswerState>) => Record<string, PeerAnswerState>)) => void;
     toggleOriginalText: () => void;
     resetSession: () => void;
 }
@@ -29,6 +37,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     const [userTextAnswer, setUserTextAnswer] = useState<string>("");
     const [showResults, setShowResults] = useState(false);
     const [showOriginalText, setShowOriginalText] = useState(false);
+    const [peerAnswers, setPeerAnswers] = useState<Record<string, PeerAnswerState>>({});
 
     const toggleOriginalText = useCallback(() => setShowOriginalText(prev => !prev), []);
 
@@ -39,10 +48,10 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     }, []);
 
     const value = useMemo(() => ({
-        quizQueue, currentQuestionIndex, userAnswers, userTextAnswer, showResults, showOriginalText,
-        setQuizQueue, setCurrentQuestionIndex, setUserAnswers, setUserTextAnswer, setShowResults,
+        quizQueue, currentQuestionIndex, userAnswers, userTextAnswer, showResults, showOriginalText, peerAnswers,
+        setQuizQueue, setCurrentQuestionIndex, setUserAnswers, setUserTextAnswer, setShowResults, setPeerAnswers,
         toggleOriginalText, resetSession
-    }), [quizQueue, currentQuestionIndex, userAnswers, userTextAnswer, showResults, showOriginalText, toggleOriginalText, resetSession]);
+    }), [quizQueue, currentQuestionIndex, userAnswers, userTextAnswer, showResults, showOriginalText, peerAnswers, toggleOriginalText, resetSession]);
 
     return (
         <SessionContext.Provider value={value}>

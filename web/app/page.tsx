@@ -8,6 +8,8 @@ import { QuestionHistory } from "./components/quiz/QuestionHistory";
 import { ControlPanel } from "./components/control-panel/ControlPanel";
 import { Footer } from "./components/layout/Footer";
 import { LandingScreen } from "./components/layout/LandingScreen";
+import { PeerNotifications } from "./components/peer/PeerNotifications";
+import { PeerCursors } from "./components/peer/PeerCursors";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, Suspense } from "react";
 
@@ -116,6 +118,8 @@ export default function Home() {
       <div className="pointer-events-auto shrink-0">
         <Footer />
       </div>
+      <PeerNotifications />
+      <PeerCursors />
     </div>
   );
 }
