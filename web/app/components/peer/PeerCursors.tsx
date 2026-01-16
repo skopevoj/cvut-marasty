@@ -5,8 +5,9 @@ import { usePeer } from '../../lib/context/PeerContext';
 
 interface CursorPosition {
     peerId: string;
-    x: number;
-    y: number;
+    // Position relative to reference element (0-1 means inside, can be negative or >1 for outside)
+    xPercent: number;
+    yPercent: number;
     color: string;
     name: string;
 }
@@ -20,20 +21,62 @@ const COLORS = [
     '#ec4899', // pink
 ];
 
+// Get the question card element as the reference for positioning
+function getReferenceElement(): HTMLElement | null {
+    // Find the question card - it's the main element with glass-card-themed class
+    return document.querySelector('main.glass-card-themed') as HTMLElement;
+}
+
 export function PeerCursors() {
-    const { isConnected, connectedPeers, broadcastMessage, currentPeerId } = usePeer();
+    const { isConnected, broadcastMessage } = usePeer();
     const [cursors, setCursors] = useState<Map<string, CursorPosition>>(new Map());
     const [myColor] = useState(() => COLORS[Math.floor(Math.random() * COLORS.length)]);
+    const [, forceUpdate] = useState(0);
+
+    // Force re-render on resize/scroll to recalculate positions
+    useEffect(() => {
+        const handleUpdate = () => forceUpdate(n => n + 1);
+        window.addEventListener('resize', handleUpdate);
+        window.addEventListener('scroll', handleUpdate);
+        return () => {
+            window.removeEventListener('resize', handleUpdate);
+            window.removeEventListener('scroll', handleUpdate);
+        };
+    }, []);
 
     const handleMouseMove = useCallback((e: MouseEvent) => {
         if (!isConnected) return;
 
+        const refElement = getReferenceElement();
+        if (!refElement) {
+            // Fallback to viewport if no reference element
+            broadcastMessage({
+                type: 'cursor-move',
+                data: {
+                    x: e.clientX / window.innerWidth,
+                    y: e.clientY / window.innerHeight,
+                    color: myColor,
+                    hasRef: false
+                }
+            });
+            return;
+        }
+
+        const rect = refElement.getBoundingClientRect();
+
+        // Calculate position relative to the reference element
+        // This will be 0 at left/top edge, 1 at right/bottom edge
+        // Can be negative (left/above) or >1 (right/below)
+        const xPercent = (e.clientX - rect.left) / rect.width;
+        const yPercent = (e.clientY - rect.top) / rect.height;
+
         broadcastMessage({
             type: 'cursor-move',
             data: {
-                x: e.clientX,
-                y: e.clientY,
-                color: myColor
+                x: xPercent,
+                y: yPercent,
+                color: myColor,
+                hasRef: true
             }
         });
     }, [isConnected, broadcastMessage, myColor]);
@@ -59,12 +102,13 @@ export function PeerCursors() {
 
         const handleCursorMove = (message: any) => {
             const { data, senderId } = message;
+
             setCursors(prev => {
                 const next = new Map(prev);
                 next.set(senderId, {
                     peerId: senderId,
-                    x: data.x,
-                    y: data.y,
+                    xPercent: data.x,
+                    yPercent: data.y,
                     color: data.color,
                     name: senderId.substring(0, 8)
                 });
@@ -97,50 +141,73 @@ export function PeerCursors() {
         };
     }, [isConnected, handleMouseMove]);
 
+    // Calculate pixel position from reference-relative percentages
+    const getPixelPosition = useCallback((xPercent: number, yPercent: number) => {
+        const refElement = getReferenceElement();
+        if (!refElement) {
+            // Fallback to viewport center if no reference
+            return {
+                x: window.innerWidth / 2,
+                y: window.innerHeight / 2
+            };
+        }
+
+        const rect = refElement.getBoundingClientRect();
+
+        // Convert percentages back to pixels relative to local reference element
+        return {
+            x: rect.left + (xPercent * rect.width),
+            y: rect.top + (yPercent * rect.height)
+        };
+    }, []);
+
     if (!isConnected) return null;
 
     return (
         <div className="fixed inset-0 pointer-events-none z-[100]">
-            {Array.from(cursors.values()).map((cursor) => (
-                <div
-                    key={cursor.peerId}
-                    className="absolute transition-all duration-100 ease-out"
-                    style={{
-                        left: cursor.x,
-                        top: cursor.y,
-                        transform: 'translate(-2px, -2px)'
-                    }}
-                >
-                    {/* Cursor pointer */}
-                    <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))' }}
-                    >
-                        <path
-                            d="M5.65376 12.3673L8.4819 19.1234C8.83863 20.0232 10.1452 20.0232 10.502 19.1234L13.3301 12.3673L20.0862 9.53916C20.986 9.18243 20.986 7.87588 20.0862 7.51916L13.3301 4.69097C12.9784 4.5498 12.5803 4.5498 12.2286 4.69097L5.47253 7.51916C4.57275 7.87588 4.57275 9.18243 5.47253 9.53916L12.2286 12.3673C12.5803 12.5085 12.9784 12.5085 13.3301 12.3673Z"
-                            fill={cursor.color}
-                            stroke="white"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        />
-                    </svg>
-
-                    {/* Name label */}
+            {Array.from(cursors.values()).map((cursor) => {
+                const pos = getPixelPosition(cursor.xPercent, cursor.yPercent);
+                return (
                     <div
-                        className="absolute top-6 left-2 px-2 py-1 rounded text-xs font-medium text-white whitespace-nowrap"
+                        key={cursor.peerId}
+                        className="absolute transition-all duration-75 ease-out"
                         style={{
-                            backgroundColor: cursor.color,
-                            boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
+                            left: pos.x,
+                            top: pos.y,
+                            transform: 'translate(-2px, -2px)'
                         }}
                     >
-                        {cursor.name}
+                        {/* Cursor pointer */}
+                        <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))' }}
+                        >
+                            <path
+                                d="M5.65376 12.3673L8.4819 19.1234C8.83863 20.0232 10.1452 20.0232 10.502 19.1234L13.3301 12.3673L20.0862 9.53916C20.986 9.18243 20.986 7.87588 20.0862 7.51916L13.3301 4.69097C12.9784 4.5498 12.5803 4.5498 12.2286 4.69097L5.47253 7.51916C4.57275 7.87588 4.57275 9.18243 5.47253 9.53916L12.2286 12.3673C12.5803 12.5085 12.9784 12.5085 13.3301 12.3673Z"
+                                fill={cursor.color}
+                                stroke="white"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            />
+                        </svg>
+
+                        {/* Name label */}
+                        <div
+                            className="absolute top-6 left-2 px-2 py-1 rounded text-xs font-medium text-white whitespace-nowrap"
+                            style={{
+                                backgroundColor: cursor.color,
+                                boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
+                            }}
+                        >
+                            {cursor.name}
+                        </div>
                     </div>
-                </div>
-            ))}
+                )
+            })}
         </div>
     );
 }
