@@ -1,0 +1,5 @@
+{
+    "name": "marasty-quiz-party",
+  "main": "party/server.ts",
+  "compatibilityDate": "2026-01-16"
+}

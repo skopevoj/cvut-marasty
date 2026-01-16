@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState, useCallback, ReactNode, useRef } from 'react';
-import Peer, { DataConnection } from 'peerjs';
+import PartySocket from 'partysocket';
 import { v4 as uuidv4 } from 'uuid';
 
 interface PeerMessage {
@@ -12,7 +12,6 @@ interface PeerMessage {
 
 interface ConnectedPeer {
     peerId: string;
-    connection: DataConnection;
     userName?: string;
 }
 
@@ -37,258 +36,215 @@ interface PeerContextType {
 
 const PeerContext = createContext<PeerContextType | undefined>(undefined);
 
-const ROOM_PREFIX = 'marasty-room-';
-
-async function fetchTURNCredentials() {
-    try {
-        const response = await fetch('https://marasty.metered.live/api/v1/turn/credentials?apiKey=ee46800d75b12b8ce4c73448');
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error('Failed to fetch TURN credentials:', error);
-        // Fallback to hardcoded credentials
-        return [
-            { urls: 'stun:stun.l.google.com:19302' },
-            {
-                urls: 'turn:a.relay.metered.ca:80',
-                username: 'ee46800d75b12b8ce4c73448',
-                credential: 'HFkMnz0eB7CW3P+b'
-            }
-        ];
-    }
-}
+// Use PartyKit dev server for development, deployed URL for production
+const PARTYKIT_HOST = process.env.NEXT_PUBLIC_PARTYKIT_HOST || 'localhost:1999';
 
 export function PeerProvider({ children }: { children: ReactNode }) {
-    const [peer, setPeer] = useState<Peer | null>(null);
     const [isConnected, setIsConnected] = useState(false);
     const [isHost, setIsHost] = useState(false);
     const [roomCode, setRoomCode] = useState<string | null>(null);
     const [connectedPeers, setConnectedPeers] = useState<ConnectedPeer[]>([]);
-    const [currentPeerId, setCurrentPeerId] = useState<string | null>(null);
-    // Use ref instead of state to avoid stale closures
+    const [currentPeerId] = useState<string>(uuidv4());
+
+    const socketRef = useRef<PartySocket | null>(null);
     const messageCallbacksRef = useRef<{ [key: string]: (msg: PeerMessage) => void }>({});
-
-    // Initialize Peer instance with a random ID or specific ID
-    const initPeer = useCallback(async (id?: string) => {
-        if (peer) {
-            peer.destroy();
-        }
-
-        const peerId = id || uuidv4();
-        const iceServers = await fetchTURNCredentials();
-
-        console.log('[PeerContext] Creating peer with ICE servers:', iceServers);
-
-        const newPeer = new Peer(peerId, {
-            config: {
-                iceServers: iceServers,
-                iceTransportPolicy: 'all'
-            },
-            debug: 2
-        });
-
-        newPeer.on('open', () => {
-            console.log('Peer connection opened:', peerId);
-            setCurrentPeerId(peerId);
-        });
-
-        newPeer.on('error', (err) => {
-            console.error('Peer error:', err);
-            // If ID is already taken when trying to host, retry with new code
-            if (err.type === 'unavailable-id' && id) {
-                console.log('ID taken, retrying...');
-            }
-        });
-
-        // Listen for incoming connections
-        newPeer.on('connection', (conn) => {
-            console.log('Incoming connection from:', conn.peer);
-
-            conn.on('open', () => {
-                setConnectedPeers((prev) => {
-                    const exists = prev.some(p => p.peerId === conn.peer);
-                    if (!exists) {
-                        return [...prev, { peerId: conn.peer, connection: conn }];
-                    }
-                    return prev;
-                });
-
-                // Notify other peers about the new user
-                const welcomeMsg: PeerMessage = {
-                    type: 'user-joined',
-                    data: { userId: conn.peer },
-                    senderId: newPeer.id
-                };
-
-                // We can't use broadcastMessage here because connectedPeers state isn't updated yet
-                conn.send(welcomeMsg);
-            });
-
-            conn.on('data', (data: any) => {
-                const message = data as PeerMessage;
-                console.log('[PeerContext] Received message from incoming conn:', message.type, message);
-                if (messageCallbacksRef.current[message.type]) {
-                    messageCallbacksRef.current[message.type](message);
-                } else {
-                    console.warn('[PeerContext] No handler for message type:', message.type);
-                }
-            });
-
-            conn.on('close', () => {
-                setConnectedPeers((prev) => prev.filter((p) => p.peerId !== conn.peer));
-
-                // If we're the guest and the host closed the connection
-                if (!isHost && connectedPeers.some(p => p.peerId === conn.peer)) {
-                    setIsConnected(false);
-                    setRoomCode(null);
-                }
-            });
-        });
-
-        setPeer(newPeer);
-        return newPeer;
-    }, [peer]);
-
-    useEffect(() => {
-        initPeer();
-        return () => {
-            if (peer) peer.destroy();
-        };
-    }, []);
 
     const createRoom = useCallback(async (): Promise<string> => {
         const code = generateRoomCode();
-        const hostId = `${ROOM_PREFIX}${code}`;
+        console.log('[PartyKit] Creating room with code:', code);
 
-        const newPeer = await initPeer(hostId);
-
-        return new Promise((resolve, reject) => {
-            const timeout = setTimeout(() => {
-                reject(new Error('Failed to create room - peer connection timeout'));
-            }, 15000);
-
-            newPeer.on('open', (id) => {
-                clearTimeout(timeout);
-                console.log('Room created with code:', code, 'Host Peer ID:', id);
-                setRoomCode(code);
-                setIsHost(true);
-                setIsConnected(true);
-                resolve(code);
+        try {
+            const socket = new PartySocket({
+                host: PARTYKIT_HOST,
+                room: code
             });
 
-            newPeer.on('error', (err) => {
-                clearTimeout(timeout);
-                console.error('Error creating room:', err);
-                reject(err);
+            socketRef.current = socket;
+
+            return new Promise((resolve, reject) => {
+                const timeout = setTimeout(() => {
+                    reject(new Error('Failed to connect to room'));
+                }, 10000);
+
+                socket.addEventListener('open', () => {
+                    clearTimeout(timeout);
+                    console.log('[PartyKit] Connected to room:', code);
+                    setRoomCode(code);
+                    setIsHost(true);
+                    setIsConnected(true);
+                    resolve(code);
+                });
+
+                socket.addEventListener('message', (event) => {
+                    try {
+                        const message = JSON.parse(event.data) as PeerMessage;
+                        console.log('[PartyKit] Received message:', message.type, 'from:', message.senderId);
+                        console.log('[PartyKit] Available handlers:', Object.keys(messageCallbacksRef.current));
+
+                        if (messageCallbacksRef.current[message.type]) {
+                            console.log('[PartyKit] Calling handler for:', message.type);
+                            messageCallbacksRef.current[message.type](message);
+                        } else {
+                            console.warn('[PartyKit] No handler registered for message type:', message.type);
+                        }
+
+                        // Track peer connections based on user-joined/left messages
+                        if (message.type === 'user-joined' && message.senderId) {
+                            setConnectedPeers(prev => {
+                                if (!prev.some(p => p.peerId === message.senderId)) {
+                                    return [...prev, { peerId: message.senderId! }];
+                                }
+                                return prev;
+                            });
+                        } else if (message.type === 'user-left' && message.senderId) {
+                            setConnectedPeers(prev => prev.filter(p => p.peerId !== message.senderId));
+                        }
+                    } catch (err) {
+                        console.error('[PartyKit] Failed to parse message:', err);
+                    }
+                });
+
+                socket.addEventListener('error', (err) => {
+                    clearTimeout(timeout);
+                    console.error('[PartyKit] Socket error:', err);
+                    reject(err);
+                });
+
+                socket.addEventListener('close', () => {
+                    console.log('[PartyKit] Socket closed');
+                    setIsConnected(false);
+                    setConnectedPeers([]);
+                    setRoomCode(null);
+                });
             });
-        });
-    }, [initPeer]);
+        } catch (error) {
+            console.error('[PartyKit] Failed to create room:', error);
+            throw error;
+        }
+    }, []);
+
 
     const joinRoom = useCallback(async (code: string): Promise<void> => {
-        if (!peer) throw new Error('Peer not initialized');
+        console.log('[PartyKit] Joining room:', code);
 
-        const hostPeerId = `${ROOM_PREFIX}${code.toUpperCase()}`;
-        console.log('[PeerContext] Attempting to join room:', code, 'Host Peer ID:', hostPeerId);
-
-        const conn = peer.connect(hostPeerId, {
-            reliable: true,
-            serialization: 'json'
-        });
-
-        return new Promise((resolve, reject) => {
-            const timeout = setTimeout(() => {
-                console.error('[PeerContext] Connection timeout after 20s');
-                conn.close();
-                reject(new Error('Connection timeout - Room not found'));
-            }, 20000);
-
-            let isResolved = false;
-
-            conn.on('open', () => {
-                if (isResolved) return;
-                isResolved = true;
-                clearTimeout(timeout);
-                console.log('[PeerContext] Connection opened to host:', hostPeerId);
-                setConnectedPeers([{ peerId: hostPeerId, connection: conn }]);
-                setRoomCode(code.toUpperCase());
-                setIsConnected(true);
-
-                // Send sync request
-                setTimeout(() => {
-                    conn.send({
-                        type: 'sync-request',
-                        data: {},
-                        senderId: peer.id
-                    });
-                }, 100);
-
-                resolve();
+        try {
+            const socket = new PartySocket({
+                host: PARTYKIT_HOST,
+                room: code
             });
 
-            conn.on('data', (data: any) => {
-                const message = data as PeerMessage;
-                console.log('[PeerContext] Received message from outgoing conn:', message.type, message);
-                if (messageCallbacksRef.current[message.type]) {
-                    messageCallbacksRef.current[message.type](message);
-                } else {
-                    console.warn('[PeerContext] No handler for message type:', message.type);
-                }
-            });
+            socketRef.current = socket;
 
-            conn.on('close', () => {
-                console.log('[PeerContext] Connection closed');
-                setIsConnected(false);
-                setConnectedPeers([]);
-                setRoomCode(null);
-            });
+            return new Promise((resolve, reject) => {
+                const timeout = setTimeout(() => {
+                    reject(new Error('Failed to connect to room'));
+                }, 10000);
 
-            conn.on('error', (err) => {
-                if (!isResolved) {
-                    isResolved = true;
+                socket.addEventListener('open', () => {
                     clearTimeout(timeout);
-                    console.error('[PeerContext] Connection error:', err);
+                    console.log('[PartyKit] Connected to room:', code);
+                    setRoomCode(code.toUpperCase());
+                    setIsHost(false);
+                    setIsConnected(true);
+
+                    // Send sync request after a short delay
+                    setTimeout(() => {
+                        socket.send(JSON.stringify({
+                            type: 'sync-request',
+                            data: {},
+                            senderId: currentPeerId
+                        }));
+                    }, 200);
+
+                    resolve();
+                });
+
+                socket.addEventListener('message', (event) => {
+                    try {
+                        const message = JSON.parse(event.data) as PeerMessage;
+                        console.log('[PartyKit] Received message:', message.type, 'from:', message.senderId);
+                        console.log('[PartyKit] Available handlers:', Object.keys(messageCallbacksRef.current));
+
+                        if (messageCallbacksRef.current[message.type]) {
+                            console.log('[PartyKit] Calling handler for:', message.type);
+                            messageCallbacksRef.current[message.type](message);
+                        } else {
+                            console.warn('[PartyKit] No handler registered for message type:', message.type);
+                        }
+
+                        // Track peer connections
+                        if (message.type === 'user-joined' && message.senderId) {
+                            setConnectedPeers(prev => {
+                                if (!prev.some(p => p.peerId === message.senderId)) {
+                                    return [...prev, { peerId: message.senderId! }];
+                                }
+                                return prev;
+                            });
+                        } else if (message.type === 'user-left' && message.senderId) {
+                            setConnectedPeers(prev => prev.filter(p => p.peerId !== message.senderId));
+                        }
+                    } catch (err) {
+                        console.error('[PartyKit] Failed to parse message:', err);
+                    }
+                });
+
+                socket.addEventListener('error', (err) => {
+                    clearTimeout(timeout);
+                    console.error('[PartyKit] Socket error:', err);
                     reject(err);
-                }
+                });
+
+                socket.addEventListener('close', () => {
+                    console.log('[PartyKit] Socket closed');
+                    setIsConnected(false);
+                    setConnectedPeers([]);
+                    setRoomCode(null);
+                });
             });
-        });
-    }, [peer]);
+        } catch (error) {
+            console.error('[PartyKit] Failed to join room:', error);
+            throw error;
+        }
+    }, [currentPeerId]);
 
     const closeRoom = useCallback(() => {
-        if (peer) {
-            connectedPeers.forEach((p) => p.connection.close());
-            setConnectedPeers([]);
-            setRoomCode(null);
-            setIsHost(false);
-            setIsConnected(false);
-            initPeer(); // Revert to random ID
+        console.log('[PartyKit] Closing room');
+        if (socketRef.current) {
+            socketRef.current.close();
+            socketRef.current = null;
         }
-    }, [peer, connectedPeers, initPeer]);
+        setConnectedPeers([]);
+        setRoomCode(null);
+        setIsHost(false);
+        setIsConnected(false);
+    }, []);
 
     const leaveRoom = useCallback(() => {
-        connectedPeers.forEach((p) => p.connection.close());
+        console.log('[PartyKit] Leaving room');
+        if (socketRef.current) {
+            socketRef.current.close();
+            socketRef.current = null;
+        }
         setConnectedPeers([]);
         setRoomCode(null);
         setIsConnected(false);
-    }, [connectedPeers]);
+    }, []);
 
     const broadcastMessage = useCallback((message: PeerMessage) => {
-        if (!peer) return;
-        const msgWithSender = { ...message, senderId: peer.id };
-        console.log('[PeerContext] Broadcasting message:', msgWithSender.type, 'to', connectedPeers.length, 'peers');
-        connectedPeers.forEach((p) => {
-            if (p.connection.open) {
-                try {
-                    p.connection.send(msgWithSender);
-                } catch (err) {
-                    console.error('Failed to send message to peer:', err);
-                }
-            } else {
-                console.warn('[PeerContext] Connection not open for peer:', p.peerId);
-            }
-        });
-    }, [peer, connectedPeers]);
+        if (!socketRef.current || socketRef.current.readyState !== WebSocket.OPEN) {
+            console.warn('[PartyKit] Cannot broadcast - not connected');
+            return;
+        }
 
-    // Hook to register message callbacks
+        const msgWithSender = { ...message, senderId: currentPeerId };
+        console.log('[PartyKit] Broadcasting message:', msgWithSender.type);
+
+        try {
+            socketRef.current.send(JSON.stringify(msgWithSender));
+        } catch (err) {
+            console.error('[PartyKit] Failed to send message:', err);
+        }
+    }, [currentPeerId]);
     useEffect(() => {
         const handleMessage = (type: string, callback: (msg: PeerMessage) => void) => {
             console.log('[PeerContext] Registering handler for:', type);
