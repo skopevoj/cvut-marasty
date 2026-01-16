@@ -31,6 +31,8 @@ jobs:
       - name: Build with Next.js
         run: npm run build
         working-directory: web
+        env:
+          NEXT_PUBLIC_PARTYKIT_HOST: marasty-quiz-party.skopevoj.partykit.dev
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
