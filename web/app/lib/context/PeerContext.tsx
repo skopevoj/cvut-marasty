@@ -61,11 +61,22 @@ export function PeerProvider({ children }: { children: ReactNode }) {
                 iceServers: [
                     { urls: 'stun:stun.l.google.com:19302' },
                     {
-                        urls: 'turn:relay1.expressturn.com:3478',
-                        username: 'efSW8BJB8N91K1AULK',
-                        credential: 'KUXWFas3wM8QMvKS'
+                        urls: 'turn:a.relay.metered.ca:80',
+                        username: 'ee46800d75b12b8ce4c73448',
+                        credential: 'HFkMnz0eB7CW3P+b'
+                    },
+                    {
+                        urls: 'turn:a.relay.metered.ca:443',
+                        username: 'ee46800d75b12b8ce4c73448',
+                        credential: 'HFkMnz0eB7CW3P+b'
+                    },
+                    {
+                        urls: 'turn:a.relay.metered.ca:443?transport=tcp',
+                        username: 'ee46800d75b12b8ce4c73448',
+                        credential: 'HFkMnz0eB7CW3P+b'
                     }
-                ]
+                ],
+                iceTransportPolicy: 'all'
             },
             debug: 2
         });
