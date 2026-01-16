@@ -131,14 +131,28 @@ export function PeerProvider({ children }: { children: ReactNode }) {
         const code = generateRoomCode();
         const hostId = `${ROOM_PREFIX}${code}`;
 
-        initPeer(hostId);
+        const newPeer = initPeer(hostId);
 
-        setRoomCode(code);
-        setIsHost(true);
-        setIsConnected(true);
+        return new Promise((resolve, reject) => {
+            const timeout = setTimeout(() => {
+                reject(new Error('Failed to create room - peer connection timeout'));
+            }, 10000);
 
-        console.log('Room created with code:', code, 'Host Peer ID:', hostId);
-        return code;
+            newPeer.on('open', (id) => {
+                clearTimeout(timeout);
+                console.log('Room created with code:', code, 'Host Peer ID:', id);
+                setRoomCode(code);
+                setIsHost(true);
+                setIsConnected(true);
+                resolve(code);
+            });
+
+            newPeer.on('error', (err) => {
+                clearTimeout(timeout);
+                console.error('Error creating room:', err);
+                reject(err);
+            });
+        });
     }, [initPeer]);
 
     const joinRoom = useCallback(async (code: string): Promise<void> => {
