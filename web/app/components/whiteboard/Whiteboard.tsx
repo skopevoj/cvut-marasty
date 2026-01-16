@@ -3,12 +3,14 @@
 import { useWhiteboard } from "../../lib/context/WhiteboardContext";
 import { useQuiz } from "../../lib/context/QuizContext";
 import { useSettings } from "../../lib/context/SettingsContext";
+import { usePeer } from "../../lib/context/PeerContext";
 import { useEffect, useRef, useState, useCallback } from "react";
 
 export function Whiteboard() {
     const { settings } = useSettings();
     const { currentQuestionIndex } = useQuiz();
     const { color, tool, setClearFn, setUndoFn, setRedoFn } = useWhiteboard();
+    const { isConnected, broadcastMessage } = usePeer();
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [isMobile, setIsMobile] = useState(false);
     const [isDrawing, setIsDrawing] = useState(false);
@@ -60,8 +62,16 @@ export function Whiteboard() {
             const data = ctx.getImageData(0, 0, canvas.width, canvas.height);
             setHistory([data]);
             setRedoStack([]);
+
+            // Broadcast clear to peers
+            if (isConnected) {
+                broadcastMessage({
+                    type: 'whiteboard-clear',
+                    data: {}
+                });
+            }
         }
-    }, []);
+    }, [isConnected, broadcastMessage]);
 
     const saveToHistory = useCallback(() => {
         const canvas = canvasRef.current;
@@ -123,6 +133,54 @@ export function Whiteboard() {
         setRedoFn(() => redo);
     }, [clear, undo, redo, setClearFn, setUndoFn, setRedoFn]);
 
+    // Handle peer whiteboard drawing
+    useEffect(() => {
+        const handleWhiteboardDraw = (message: any) => {
+            console.log('[Whiteboard] Received whiteboard-draw message:', message);
+            const { data } = message;
+            const canvas = canvasRef.current;
+            const ctx = canvas?.getContext('2d');
+            if (!canvas || !ctx) {
+                console.warn('[Whiteboard] Canvas or context not available');
+                return;
+            }
+
+            ctx.strokeStyle = data.color;
+            ctx.lineWidth = data.lineWidth;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+
+            ctx.beginPath();
+            ctx.moveTo(data.x0, data.y0);
+            ctx.lineTo(data.x1, data.y1);
+            ctx.stroke();
+        };
+
+        const handleWhiteboardClear = () => {
+            console.log('[Whiteboard] Received whiteboard-clear message');
+            const canvas = canvasRef.current;
+            const ctx = canvas?.getContext('2d');
+            if (canvas && ctx) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        };
+
+        if ((window as any).__registerPeerMessageHandler) {
+            console.log('[Whiteboard] Registering peer message handlers');
+            (window as any).__registerPeerMessageHandler('whiteboard-draw', handleWhiteboardDraw);
+            (window as any).__registerPeerMessageHandler('whiteboard-clear', handleWhiteboardClear);
+        } else {
+            console.warn('[Whiteboard] __registerPeerMessageHandler not available');
+        }
+
+        return () => {
+            if ((window as any).__unregisterPeerMessageHandler) {
+                (window as any).__unregisterPeerMessageHandler('whiteboard-draw');
+                (window as any).__unregisterPeerMessageHandler('whiteboard-clear');
+            }
+        };
+    }, []);
+
     // Clear drawing on question change
     useEffect(() => {
         if (settings.whiteboardEnabled) {
@@ -170,6 +228,10 @@ export function Whiteboard() {
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
 
+        // Save old values before updating
+        const oldX = lastX.current;
+        const oldY = lastY.current;
+
         const midX = (lastX.current + x) / 2;
         const midY = (lastY.current + y) / 2;
 
@@ -180,8 +242,26 @@ export function Whiteboard() {
         ctx.beginPath();
         ctx.moveTo(midX, midY);
 
+        // Update last position
         lastX.current = x;
         lastY.current = y;
+
+        // Broadcast drawing to peers using the old values
+        if (isConnected) {
+            console.log('[Whiteboard] Broadcasting whiteboard-draw');
+            broadcastMessage({
+                type: 'whiteboard-draw',
+                data: {
+                    x0: oldX,
+                    y0: oldY,
+                    x1: midX,
+                    y1: midY,
+                    color: tool === 'eraser' ? '#030303' : color,
+                    lineWidth: tool === 'eraser' ? 40 : 2.5,
+                    isClear: false
+                }
+            });
+        }
     };
 
     const stopDrawing = () => {
