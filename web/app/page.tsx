@@ -70,11 +70,11 @@ export default function Home() {
       <Suspense fallback={null}>
         <SourceHandler />
       </Suspense>
-      <div className="shrink-0 relative z-20">
+      <div className="relative z-30 shrink-0">
         <Header />
       </div>
 
-      <div className="flex flex-1 flex-col py-2 md:py-4 min-h-0 relative z-20 pointer-events-none">
+      <div className="relative z-20 flex flex-1 flex-col min-h-0 py-2 md:py-4 pointer-events-none">
         {error ? (
           <div className="flex-1 flex flex-col justify-center">
             <div className="quiz-container text-center py-10 pointer-events-auto">
