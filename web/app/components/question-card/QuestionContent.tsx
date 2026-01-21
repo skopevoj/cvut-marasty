@@ -24,7 +24,7 @@ export function QuestionContent({ questionText, photoUrl }: QuestionContentProps
             </div>
 
             {fullPhotoUrl && (
-                <div className="mb-8 overflow-hidden rounded-2xl border border-[var(--border-default)] bg-[var(--fg-primary)]/[0.02]">
+                <div className="mb-8 overflow-hidden rounded-2xl border border-[var(--border-default)] bg-white">
                     <img
                         src={fullPhotoUrl}
                         alt="Question illustration"
