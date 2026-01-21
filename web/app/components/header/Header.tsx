@@ -48,7 +48,8 @@ export function Header() {
     }, [currentSubjectDetails]);
 
     const availableTopics = useMemo(() => {
-        return helpers.getAvailableTopics(questions, currentSubject, topicMap);
+        const topics = helpers.getAvailableTopics(questions, currentSubject, topicMap);
+        return topics.sort((a, b) => (a.name || '').localeCompare(b.name || '', 'cs'));
     }, [questions, currentSubject, topicMap]);
 
     const searchResults = useMemo(() => {
