@@ -21,7 +21,9 @@ export function OpenQuestion() {
             <input
                 type="text"
                 className={`w-full rounded-xl border px-5 py-4 text-text-primary outline-none transition-all placeholder:text-text-secondary disabled:cursor-not-allowed ${showResults
-                    ? "border-text-primary/[0.2] bg-[var(--fg-primary)]/[0.05]"
+                    ? isCorrect
+                        ? "border-green-500 bg-green-500/[0.05] border-2"
+                        : "border-red-500 bg-red-500/[0.05] border-2"
                     : "border-border-color bg-[var(--fg-primary)]/[0.03] focus:border-[var(--subject-primary)] focus:bg-[var(--fg-primary)]/[0.05] focus:shadow-[0_0_20px_color-mix(in_srgb,var(--subject-primary)_20%,transparent)]"
                     }`}
                 placeholder="Zde napište odpověď..."
