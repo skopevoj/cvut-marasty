@@ -14,6 +14,7 @@ export interface Question {
     answers: Answer[];
     subjectCode: string;
     photo?: string | boolean | null;
+    image?: string | boolean | null;
     quizPhoto?: string | boolean | null;
     originalText?: string;
 }

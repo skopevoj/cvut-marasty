@@ -11,11 +11,11 @@ export function getDisplayedPhoto(question: Question | null, showQuizPhoto: bool
 
     // If we want to show the detail/quiz photo
     if (showQuizPhoto) {
-        return question.quizPhoto || question.quizPhoto || question.photo;
+        return question.quizPhoto || (question as any).image || question.photo;
     }
 
     // Otherwise show the base photo, but NOT the quiz/generic image if it's meant to be toggled
-    return question.photo;
+    return (question as any).image || question.photo;
 }
 
 export function getTopicMap(currentSubjectDetails: SubjectDetails | null) {
