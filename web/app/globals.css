@@ -22,7 +22,6 @@
 }
 
 @keyframes ping {
-
   75%,
   100% {
     transform: scale(2);
@@ -88,7 +87,7 @@
   --border-hover: rgba(0, 0, 0, 0.15);
   --button-bg: rgba(255, 255, 255, 0.9);
   --modal-bg: #ffffff;
-  --subject-primary: #7c3aed;
+  --subject-primary: #3a9cad;
   --shadow-color: rgba(0, 0, 0, 0.0968);
 }
 
@@ -105,10 +104,11 @@
 }
 
 .landing-background::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 0% 0%, transparent 80%, var(--bg-color) 85%),
+  background:
+    radial-gradient(circle at 0% 0%, transparent 80%, var(--bg-color) 85%),
     linear-gradient(to bottom, transparent 0%, var(--bg-color) 100%);
 }
 
@@ -117,15 +117,22 @@
 }
 
 [data-theme="light"] .glass-card-themed {
-  background: padding-box linear-gradient(135deg,
-      rgba(255, 255, 255, 0.7),
-      rgba(255, 255, 255, 0.6)),
-    border-box linear-gradient(135deg,
-      rgba(255, 255, 255, 0.9) 0%,
-      rgba(255, 255, 255, 0.1) 40%,
-      rgba(255, 255, 255, 0) 50%,
-      rgba(255, 255, 255, 0.1) 60%,
-      rgba(255, 255, 255, 0.4) 100%);
+  background:
+    padding-box
+      linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.7),
+        rgba(255, 255, 255, 0.6)
+      ),
+    border-box
+      linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.9) 0%,
+        rgba(255, 255, 255, 0.1) 40%,
+        rgba(255, 255, 255, 0) 50%,
+        rgba(255, 255, 255, 0.1) 60%,
+        rgba(255, 255, 255, 0.4) 100%
+      );
   border: 1px solid transparent;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -174,8 +181,17 @@
 
 [data-theme="light"] .glass-dropdown {
   background-image:
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7)),
-    linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0.1));
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.9),
+      rgba(255, 255, 255, 0.7)
+    ),
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 1),
+      rgba(0, 0, 0, 0.05) 50%,
+      rgba(0, 0, 0, 0.1)
+    );
   box-shadow:
     0 4px 12px rgba(0, 0, 0, 0.05),
     inset 0 0 0 1px rgba(255, 255, 255, 0.5);
@@ -198,14 +214,22 @@
 
 [data-theme="light"] .glass-popover {
   background-image:
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(245, 247, 250, 0.95)),
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.95),
+      rgba(245, 247, 250, 0.95)
+    ),
     linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(0, 0, 0, 0.05));
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
 }
 
 [data-theme="light"] .glass-button {
   background: #00b7ff;
-  background: radial-gradient(circle at top left, rgb(0, 123, 255) 0%, rgb(12, 71, 247) 100%);
+  background: radial-gradient(
+    circle at top left,
+    rgb(0, 123, 255) 0%,
+    rgb(12, 71, 247) 100%
+  );
   box-shadow:
     0 15px 30px -12px rgba(0, 55, 25, 0.3),
     0 5px 10px -5px rgba(0, 0, 0, 0.3),
@@ -230,7 +254,11 @@
   border: none;
   outline: none;
   background: #00b7ff;
-  background: radial-gradient(circle at top left, rgb(12, 133, 255) 0%, rgb(12, 71, 247) 100%);
+  background: radial-gradient(
+    circle at top left,
+    rgb(12, 133, 255) 0%,
+    rgb(12, 71, 247) 100%
+  );
   box-shadow:
     0 15px 30px -12px rgba(0, 0, 0, 0.5),
     0 5px 10px -5px rgba(0, 0, 0, 0.3),
@@ -245,14 +273,22 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, transparent 50%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    transparent 50%
+  );
   pointer-events: none;
 }
 
 .glass-button:hover {
   filter: brightness(1.2);
   background: #00b7ff;
-  background: radial-gradient(circle at top left, rgb(0, 115, 255) 0%, rgb(12, 71, 247) 100%);
+  background: radial-gradient(
+    circle at top left,
+    rgb(0, 115, 255) 0%,
+    rgb(12, 71, 247) 100%
+  );
 }
 
 .glass-button:active {
@@ -300,8 +336,17 @@
 
 .glass-icon-button-default {
   background-image:
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.1));
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.02)
+    ),
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.15),
+      rgba(255, 255, 255, 0.05) 50%,
+      rgba(255, 255, 255, 0.1)
+    );
   color: var(--fg-muted);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -309,16 +354,35 @@
 .glass-icon-button-default:hover:not(:disabled) {
   color: var(--fg-primary);
   background-image:
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04)),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.2));
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.08),
+      rgba(255, 255, 255, 0.04)
+    ),
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.25),
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(255, 255, 255, 0.2)
+    );
 }
 
 .glass-icon-button-active {
   color: var(--subject-primary) !important;
   background-image:
-    linear-gradient(to bottom, color-mix(in srgb, var(--subject-primary) 12%, transparent), color-mix(in srgb, var(--subject-primary) 5%, transparent)),
-    linear-gradient(135deg, var(--subject-primary), transparent 50%, color-mix(in srgb, var(--subject-primary) 30%, transparent)) !important;
-  box-shadow: 0 0 15px color-mix(in srgb, var(--subject-primary) 20%, transparent);
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--subject-primary) 12%, transparent),
+      color-mix(in srgb, var(--subject-primary) 5%, transparent)
+    ),
+    linear-gradient(
+      135deg,
+      var(--subject-primary),
+      transparent 50%,
+      color-mix(in srgb, var(--subject-primary) 30%, transparent)
+    ) !important;
+  box-shadow: 0 0 15px
+    color-mix(in srgb, var(--subject-primary) 20%, transparent);
 }
 
 .glass-icon-button-ghost {
@@ -337,14 +401,32 @@
 .glass-icon-button-subject:hover:not(:disabled) {
   color: var(--subject-primary);
   background-image:
-    linear-gradient(to bottom, color-mix(in srgb, var(--subject-primary) 10%, transparent), color-mix(in srgb, var(--subject-primary) 5%, transparent)),
-    linear-gradient(135deg, color-mix(in srgb, var(--subject-primary) 40%, transparent), rgba(255, 255, 255, 0.05) 50%, color-mix(in srgb, var(--subject-primary) 20%, transparent));
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--subject-primary) 10%, transparent),
+      color-mix(in srgb, var(--subject-primary) 5%, transparent)
+    ),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--subject-primary) 40%, transparent),
+      rgba(255, 255, 255, 0.05) 50%,
+      color-mix(in srgb, var(--subject-primary) 20%, transparent)
+    );
 }
 
 [data-theme="light"] .glass-icon-button-default {
   background-image:
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7)),
-    linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0.1));
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.9),
+      rgba(255, 255, 255, 0.7)
+    ),
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 1),
+      rgba(0, 0, 0, 0.05) 50%,
+      rgba(0, 0, 0, 0.1)
+    );
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
@@ -438,8 +520,17 @@
   background-origin: border-box;
   background-clip: padding-box, border-box;
   background-image:
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02)),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.1));
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.02)
+    ),
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.2),
+      rgba(255, 255, 255, 0.05) 50%,
+      rgba(255, 255, 255, 0.1)
+    );
   color: var(--fg-primary);
   box-shadow:
     0 4px 12px rgba(0, 0, 0, 0.2),
@@ -457,7 +548,8 @@
   background-image:
     linear-gradient(to bottom, #ffffff, #f8fafc),
     linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(0, 0, 0, 0.05));
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08),
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.08),
     inset 0 1px 1px rgba(255, 255, 255, 1);
 }
 
@@ -503,7 +595,10 @@ body {
     radial-gradient(at 20% 30%, rgba(168, 85, 247, 0.03) 0px, transparent 50%),
     radial-gradient(at 80% 70%, rgba(192, 132, 252, 0.03) 0px, transparent 50%);
   color: var(--fg-primary);
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
   min-height: 100vh;
 }
 
