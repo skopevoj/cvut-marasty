@@ -13,7 +13,7 @@ import { AddFolderDialog } from './AddFolderDialog';
 import { SearchBar } from './SearchBar';
 import { SubjectEditorDialog } from './SubjectEditorDialog';
 import { LatexRenderer } from './LatexRenderer';
-import { Download, FolderPlus, Loader2, Plus, Edit } from 'lucide-react';
+import { Download, FolderPlus, Loader2, Plus, Edit, RefreshCw } from 'lucide-react';
 
 export function QuestionManager() {
     const [config, setConfig] = useState<Config>({ folders: [] });
@@ -35,6 +35,7 @@ export function QuestionManager() {
     const [showAddFolder, setShowAddFolder] = useState(false);
     const [showSubjectEditor, setShowSubjectEditor] = useState(false);
     const [editingSubject, setEditingSubject] = useState<Subject | null>(null);
+    const [dataHash, setDataHash] = useState<string>('');
 
     useEffect(() => {
         loadConfig();
@@ -91,10 +92,10 @@ export function QuestionManager() {
         }
     }
 
-    async function loadSubjects() {
+    async function loadSubjects(silent = false) {
         if (!selectedFolder) return;
 
-        setLoading(true);
+        if (!silent) setLoading(true);
         try {
             const res = await fetch('/api/fs', {
                 method: 'POST',
@@ -105,12 +106,31 @@ export function QuestionManager() {
                 }),
             });
             const data = await res.json();
+            const newHash = JSON.stringify(data.subjects || []);
+
+            if (silent && dataHash) {
+                // Show notification based on comparison
+                if (newHash === dataHash) {
+                    alert('✓ Checked source\n\nNo changes detected. Data is up to date.');
+                } else {
+                    alert('✓ Checked source\n\nNew changes detected! Data has been refreshed.');
+                }
+            }
+
+            setDataHash(newHash);
             setSubjects(data.subjects || []);
         } catch (error) {
             console.error('Error loading subjects:', error);
+            if (silent) {
+                alert('✗ Failed to check source\n\nAn error occurred while checking for updates.');
+            }
         } finally {
-            setLoading(false);
+            if (!silent) setLoading(false);
         }
+    }
+
+    async function forceCheckUpdate() {
+        await loadSubjects(true);
     }
 
     async function handleExport() {
@@ -287,13 +307,24 @@ export function QuestionManager() {
                             Add Folder
                         </button>
                         {selectedFolder && (
-                            <button
-                                onClick={handleNewSubject}
-                                className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-foreground hover:bg-accent rounded-lg transition-all duration-200"
-                            >
-                                <Plus className="w-4 h-4" />
-                                New Subject
-                            </button>
+                            <>
+                                <button
+                                    onClick={handleNewSubject}
+                                    className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-foreground hover:bg-accent rounded-lg transition-all duration-200"
+                                >
+                                    <Plus className="w-4 h-4" />
+                                    New Subject
+                                </button>
+                                <button
+                                    onClick={forceCheckUpdate}
+                                    disabled={loading}
+                                    className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-foreground hover:bg-accent rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    title="Check for updates"
+                                >
+                                    <RefreshCw className="w-4 h-4" />
+                                    Check Updates
+                                </button>
+                            </>
                         )}
                         <button
                             onClick={handleExport}

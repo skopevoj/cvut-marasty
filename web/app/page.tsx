@@ -8,6 +8,7 @@ import { QuestionHistory } from "./components/quiz/QuestionHistory";
 import { ControlPanel } from "./components/control-panel/ControlPanel";
 import { Footer } from "./components/layout/Footer";
 import { LandingScreen } from "./components/layout/LandingScreen";
+import { LoadingScreen } from "./components/layout/LoadingScreen";
 import { PeerNotifications } from "./components/peer/PeerNotifications";
 import { PeerCursors } from "./components/peer/PeerCursors";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -55,11 +56,7 @@ export default function Home() {
   const { settings } = useSettings();
 
   if (isLoading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary/20 border-t-primary"></div>
-      </div>
-    );
+    return <LoadingScreen message="Načítám zdroje otázek" />;
   }
 
   const showSetup = settings.dataSources.length === 0;
