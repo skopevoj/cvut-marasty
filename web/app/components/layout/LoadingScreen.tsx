@@ -8,6 +8,7 @@ interface LoadingScreenProps {
 
 export function LoadingScreen({}: LoadingScreenProps) {
   const { loadingProgress, loadingMessages } = useData();
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center py-12">
@@ -15,7 +16,7 @@ export function LoadingScreen({}: LoadingScreenProps) {
         {/* Waiting GIF */}
         <div className="relative mb-8 flex items-center justify-center">
           <img
-            src="/resource/waiting.gif"
+            src={`${basePath}/resource/waiting.gif`}
             alt="Loading"
             className="h-64 w-64 object-contain"
           />
