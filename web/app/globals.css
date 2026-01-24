@@ -273,12 +273,16 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.2) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+[data-theme="light"] .glass-button::before {
   background: linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.15) 0%,
     transparent 50%
   );
-  pointer-events: none;
 }
 
 .glass-button:hover {
@@ -304,6 +308,15 @@
     padding: 0.9rem 2rem;
     font-size: 1rem;
     border-radius: 1rem;
+    box-shadow:
+      0 25px 50px -12px rgba(0, 0, 0, 0.5),
+      0 10px 15px -5px rgba(0, 0, 0, 0.3),
+      inset 6px 6px 12px rgba(255, 255, 255, 0.15),
+      inset -6px -6px 12px rgba(0, 0, 0, 0.45),
+      inset -10px -10px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  [data-theme="light"] .glass-button {
     box-shadow:
       0 25px 50px -12px rgba(0, 55, 25, 0.3),
       0 10px 15px -5px rgba(0, 0, 0, 0.3),
