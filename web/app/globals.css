@@ -548,11 +548,11 @@
     width: 36px;
     height: 36px;
   }
-  
+
   .glass-tristate-slider[data-position="1"] {
     transform: translateX(36px);
   }
-  
+
   .glass-tristate-slider[data-position="2"] {
     transform: translateX(72px);
   }
