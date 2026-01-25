@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import { useQuiz } from "../../lib/context/QuizContext";
-import Latex from "../ui/Latex";
+import TextRenderer from "../ui/TextRenderer";
 
 export function OpenQuestion() {
   const { currentQuestion, userTextAnswer, setTextAnswer, showResults } =
@@ -45,7 +45,7 @@ export function OpenQuestion() {
           ) : (
             <>
               <span>Správná odpověď: </span>
-              <Latex tex={correctAnswers[0] ?? ""} />
+              <TextRenderer text={correctAnswers[0] ?? ""} />
             </>
           )}
         </div>

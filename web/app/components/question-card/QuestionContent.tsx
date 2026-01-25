@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import Latex from "../ui/Latex";
+import TextRenderer from "../ui/TextRenderer";
 
 interface QuestionContentProps {
     questionText: string;
@@ -20,7 +20,7 @@ export function QuestionContent({ questionText, photoUrl }: QuestionContentProps
     return (
         <div className="pt-10">
             <div className="mb-6 text-md leading-relaxed text-[var(--fg-primary)]">
-                <Latex tex={questionText} />
+                <TextRenderer text={questionText} />
             </div>
 
             {fullPhotoUrl && (

@@ -2,7 +2,7 @@
 
 import { useQuiz } from "../../lib/context/QuizContext";
 import { AnswerState } from "../../lib/types/enums";
-import Latex from "./../ui/Latex";
+import TextRenderer from "./../ui/TextRenderer";
 
 export function MultiChoiceQuestion() {
   const { shuffledAnswers, userAnswers, setAnswerState, showResults } =
@@ -91,7 +91,7 @@ export function MultiChoiceQuestion() {
               </button>
             </div>
             <div className="flex-1 px-1 py-1 md:px-2 md:py-0">
-              <Latex tex={answer.text} />
+              <TextRenderer text={answer.text} />
             </div>
           </div>
         );
