@@ -15,7 +15,7 @@ const FilterContext = createContext<FilterContextType | undefined>(undefined);
 
 export function FilterProvider({ children }: { children: ReactNode }) {
     const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
-    const [sortType, setSortType] = useState<SortType>(SortType.ID);
+    const [sortType, setSortType] = useState<SortType>(SortType.RANDOM);
 
     const toggleTopic = useCallback((topicId: string) => {
         setSelectedTopics(prev =>
