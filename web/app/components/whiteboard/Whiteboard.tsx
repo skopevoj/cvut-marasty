@@ -135,9 +135,9 @@ export function Whiteboard() {
   }, [redoStack]);
 
   useEffect(() => {
-    whiteboard.setClearFn(() => clear);
-    whiteboard.setUndoFn(() => undo);
-    whiteboard.setRedoFn(() => redo);
+    whiteboard.setClearFn(clear);
+    whiteboard.setUndoFn(undo);
+    whiteboard.setRedoFn(redo);
   }, [clear, undo, redo]);
 
   // Handle peer whiteboard drawing - always register handlers regardless of whiteboard state
