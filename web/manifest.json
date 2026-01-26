@@ -1,0 +1,28 @@
+{
+  "background_color": "#000000",
+  "description": "Příprava na rozstřel",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "CVUT",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "CVUT",
+  "start_url": "/",
+  "theme_color": "#00aaff",
+  "icons": [
+    {
+      "src": "https://skopevoj.github.io/cvut-marasty/favicon.ico?favicon.0b3bf435.ico",
+      "type": "image/x-icon",
+      "sizes": "256x256",
+      "isSquare": true,
+      "isPng": false,
+      "isWebp": false,
+      "isJpg": false,
+      "width": 256,
+      "is512x512": false,
+      "is256x256": true,
+      "is192x192": false
+    }
+  ],
+  "id": "skopevoj.cvut"
+}
