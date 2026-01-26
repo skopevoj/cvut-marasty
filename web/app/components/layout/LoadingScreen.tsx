@@ -1,13 +1,15 @@
 "use client";
 
-import { useData } from "@/app/lib/context/DataContext";
+import { useDataStore } from "../../lib/stores";
 
 interface LoadingScreenProps {
   message?: string;
 }
 
 export function LoadingScreen({}: LoadingScreenProps) {
-  const { loadingProgress, loadingMessages } = useData();
+  const loading = useDataStore((s) => s.loading);
+  const loadingProgress = loading.progress;
+  const loadingMessages = loading.messages ?? [];
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
   return (

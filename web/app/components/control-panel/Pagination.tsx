@@ -1,75 +1,84 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
+import { useEffect } from "react";
 import { ChevronLeft, ChevronRight, Users } from "lucide-react";
 import { IconButton } from "../ui/IconButton";
-import { useQuiz } from "../../lib/context/QuizContext";
+import { usePeerStore } from "../../lib/stores";
 
 interface PaginationProps {
-    currentIndex: number;
-    total: number;
-    onPrev: () => void;
-    onNext: () => void;
+  currentIndex: number;
+  total: number;
+  onPrev: () => void;
+  onNext: () => void;
 }
 
-export function Pagination({ currentIndex, total, onPrev, onNext }: PaginationProps) {
-    const { isInPeerRoom } = useQuiz();
+export function Pagination({
+  currentIndex,
+  total,
+  onPrev,
+  onNext,
+}: PaginationProps) {
+  const isInPeerRoom = usePeerStore((s) => s.isConnected);
 
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            // Check if user is typing in an input, textarea, using a select, or has focus in the header
-            const activeElement = document.activeElement;
-            const isInputFocused = activeElement?.tagName === 'INPUT' ||
-                activeElement?.tagName === 'TEXTAREA' ||
-                activeElement?.tagName === 'SELECT' ||
-                activeElement?.closest('header') ||
-                (activeElement as HTMLElement)?.isContentEditable;
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Check if user is typing in an input, textarea, using a select, or has focus in the header
+      const activeElement = document.activeElement;
+      const isInputFocused =
+        activeElement?.tagName === "INPUT" ||
+        activeElement?.tagName === "TEXTAREA" ||
+        activeElement?.tagName === "SELECT" ||
+        activeElement?.closest("header") ||
+        (activeElement as HTMLElement)?.isContentEditable;
 
-            if (isInputFocused) return;
+      if (isInputFocused) return;
 
-            if (e.key === 'ArrowLeft') {
-                if (currentIndex > 0) onPrev();
-            } else if (e.key === 'ArrowRight') {
-                if (currentIndex < total - 1) onNext();
-            }
-        };
+      if (e.key === "ArrowLeft") {
+        if (currentIndex > 0) onPrev();
+      } else if (e.key === "ArrowRight") {
+        if (currentIndex < total - 1) onNext();
+      }
+    };
 
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [currentIndex, total, onPrev, onNext]);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [currentIndex, total, onPrev, onNext]);
 
-    return (
-        <div className="flex items-center justify-center gap-1 md:gap-3">
-            <IconButton
-                onClick={onPrev}
-                disabled={currentIndex === 0}
-                icon={ChevronLeft}
-                variant="frosted"
-                size={18}
-                className="scale-90 md:scale-100"
-                title={isInPeerRoom ? "Předchozí (sdílené)" : "Předchozí otázka"}
+  return (
+    <div className="flex items-center justify-center gap-1 md:gap-3">
+      <IconButton
+        onClick={onPrev}
+        disabled={currentIndex === 0}
+        icon={ChevronLeft}
+        variant="frosted"
+        size={18}
+        className="scale-90 md:scale-100"
+        title={isInPeerRoom ? "Předchozí (sdílené)" : "Předchozí otázka"}
+      />
+
+      <div className="flex items-center gap-2">
+        {isInPeerRoom && (
+          <span title="Synchronizováno se všemi">
+            <Users
+              size={14}
+              className="text-[var(--subject-primary)] animate-pulse"
             />
+          </span>
+        )}
+        <span className="min-w-[50px] md:min-w-[60px] text-center font-medium tabular-nums text-[var(--fg-muted)] text-xs md:text-sm">
+          {currentIndex + 1} / {total}
+        </span>
+      </div>
 
-            <div className="flex items-center gap-2">
-                {isInPeerRoom && (
-                    <span title="Synchronizováno se všemi">
-                        <Users size={14} className="text-[var(--subject-primary)] animate-pulse" />
-                    </span>
-                )}
-                <span className="min-w-[50px] md:min-w-[60px] text-center font-medium tabular-nums text-[var(--fg-muted)] text-xs md:text-sm">
-                    {currentIndex + 1} / {total}
-                </span>
-            </div>
-
-            <IconButton
-                onClick={onNext}
-                disabled={currentIndex === total - 1}
-                icon={ChevronRight}
-                variant="frosted"
-                size={18}
-                className="scale-90 md:scale-100"
-                title={isInPeerRoom ? "Další (sdílené)" : "Další otázka"}
-            />
-        </div>
-    );
+      <IconButton
+        onClick={onNext}
+        disabled={currentIndex === total - 1}
+        icon={ChevronRight}
+        variant="frosted"
+        size={18}
+        className="scale-90 md:scale-100"
+        title={isInPeerRoom ? "Další (sdílené)" : "Další otázka"}
+      />
+    </div>
+  );
 }

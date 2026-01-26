@@ -1,7 +1,9 @@
 "use client";
 
 import { useState, useMemo, useRef, useEffect } from "react";
-import { useQuiz } from "../../lib/context/QuizContext";
+import { useDataStore, useFilterStore } from "../../lib/stores";
+import { selectSubject } from "../../lib/actions/subjectActions";
+import { useNavigation } from "../../lib/hooks";
 import { SortType } from "../../lib/types/enums";
 import { MultiSelect } from "../ui/MultiSelect";
 import { Search, Star, Settings, BarChart3 } from "lucide-react";
@@ -21,18 +23,15 @@ import { IconButton } from "../ui/IconButton";
 import { Modal } from "../ui/Modal";
 
 export function Header() {
-  const {
-    subjects,
-    currentSubject,
-    currentSubjectDetails,
-    selectSubject,
-    toggleTopic,
-    selectedTopics,
-    sortType,
-    setSortType,
-    questions,
-    goToQuestion,
-  } = useQuiz();
+  const subjects = useDataStore((s) => s.subjects);
+  const currentSubject = useDataStore((s) => s.currentSubject);
+  const currentSubjectDetails = useDataStore((s) => s.currentSubjectDetails);
+  const questions = useDataStore((s) => s.questions);
+  const selectedTopics = useFilterStore((s) => s.selectedTopics);
+  const sortType = useFilterStore((s) => s.sortType);
+  const toggleTopic = useFilterStore((s) => s.toggleTopic);
+  const setSortType = useFilterStore((s) => s.setSortType);
+  const { goTo: goToQuestion } = useNavigation();
   const favorites = useFavorites();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);

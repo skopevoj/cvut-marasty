@@ -1,6 +1,6 @@
 "use client";
 
-import { useSettings } from "../../lib/context/SettingsContext";
+import { useSettingsStore } from "../../lib/stores";
 import {
   BarChart2,
   Shuffle,
@@ -24,29 +24,26 @@ import { RoomManager } from "./RoomManager";
 type Tab = "general" | "data" | "sync";
 
 export function SettingsMenu() {
-  const {
-    settings,
-    updateSetting,
-    addDataSource,
-    removeDataSource,
-    toggleDataSource,
-  } = useSettings();
+  const settings = useSettingsStore();
   const [activeTab, setActiveTab] = useState<Tab>("general");
   const [newUrl, setNewUrl] = useState("");
   const [isAdding, setIsAdding] = useState(false);
 
   const toggle = (key: string) => {
-    updateSetting(key as any, !settings[key as keyof typeof settings]);
+    settings.updateSetting(key as any, !settings[key as keyof typeof settings]);
   };
 
   const toggleTheme = () => {
-    updateSetting("theme", settings.theme === "dark" ? "light" : "dark");
+    settings.updateSetting(
+      "theme",
+      settings.theme === "dark" ? "light" : "dark",
+    );
   };
 
   const handleAddUrl = () => {
     if (!newUrl) return;
     try {
-      addDataSource({
+      settings.addDataSource({
         name: new URL(newUrl).hostname,
         type: "url",
         url: newUrl,
@@ -66,7 +63,7 @@ export function SettingsMenu() {
     reader.onload = (event) => {
       try {
         const data = JSON.parse(event.target?.result as string);
-        addDataSource({ name: file.name, type: "local", data });
+        settings.addDataSource({ name: file.name, type: "local", data });
         setIsAdding(false);
       } catch (err) {
         alert("Chyba při čtení souboru.");
@@ -308,10 +305,10 @@ export function SettingsMenu() {
                   <div className="flex items-center gap-3 md:gap-4 shrink-0">
                     <Toggle
                       active={source.enabled}
-                      onClick={() => toggleDataSource(source.id)}
+                      onClick={() => settings.toggleDataSource(source.id)}
                     />
                     <button
-                      onClick={() => removeDataSource(source.id)}
+                      onClick={() => settings.removeDataSource(source.id)}
                       className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center text-[var(--error)]/50 hover:text-[var(--error)] hover:bg-[var(--error)]/10 rounded-xl transition-all"
                     >
                       <Trash2 size={18} className="md:w-5 md:h-5" />

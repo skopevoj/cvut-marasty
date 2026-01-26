@@ -1,12 +1,15 @@
 "use client";
 
-import { useQuiz } from "../../lib/context/QuizContext";
+import { useQuizStore } from "../../lib/stores";
+import { useCurrentQuestion, useQuizActions } from "../../lib/hooks";
 import { AnswerState } from "../../lib/types/enums";
 import TextRenderer from "./../ui/TextRenderer";
 
 export function MultiChoiceQuestion() {
-  const { shuffledAnswers, userAnswers, setAnswerState, showResults } =
-    useQuiz();
+  const userAnswers = useQuizStore((s) => s.userAnswers);
+  const showResults = useQuizStore((s) => s.showResults);
+  const { shuffledAnswers } = useCurrentQuestion();
+  const { setAnswer: setAnswerState } = useQuizActions();
   if (!shuffledAnswers || shuffledAnswers.length === 0) return null;
 
   return (

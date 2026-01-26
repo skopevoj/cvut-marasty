@@ -1,12 +1,15 @@
 "use client";
 
 import { useMemo } from "react";
-import { useQuiz } from "../../lib/context/QuizContext";
+import { useQuizStore } from "../../lib/stores";
+import { useCurrentQuestion, useQuizActions } from "../../lib/hooks";
 import TextRenderer from "../ui/TextRenderer";
 
 export function OpenQuestion() {
-  const { currentQuestion, userTextAnswer, setTextAnswer, showResults } =
-    useQuiz();
+  const userTextAnswer = useQuizStore((s) => s.userTextAnswer);
+  const showResults = useQuizStore((s) => s.showResults);
+  const { question: currentQuestion } = useCurrentQuestion();
+  const { setTextAnswer } = useQuizActions();
   if (!currentQuestion) return null;
 
   const correctAnswers = useMemo(() => {

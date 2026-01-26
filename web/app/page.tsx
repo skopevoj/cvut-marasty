@@ -1,7 +1,6 @@
 "use client";
 
-import { useQuiz } from "./lib/context/QuizContext";
-import { useSettings } from "./lib/context/SettingsContext";
+import { useSettingsStore, useDataStore, useQuizStore } from "./lib/stores";
 import { Header } from "./components/header/Header";
 import { QuestionCard } from "./components/question-card/QuestionCard";
 import { QuestionHistory } from "./components/quiz/QuestionHistory";
@@ -16,14 +15,14 @@ import { useEffect, Suspense } from "react";
 
 function SourceHandler() {
   const searchParams = useSearchParams();
-  const { addDataSource, settings } = useSettings();
+  const { addDataSource, dataSources } = useSettingsStore();
   const router = useRouter();
 
   useEffect(() => {
     const sourceUrl = searchParams.get("addSource");
     if (sourceUrl) {
       // Check if already exists
-      const exists = settings.dataSources.some((s) => s.url === sourceUrl);
+      const exists = dataSources.some((s) => s.url === sourceUrl);
       if (!exists) {
         try {
           const hostname = new URL(sourceUrl).hostname || "Remote Source";
@@ -47,15 +46,17 @@ function SourceHandler() {
         window.location.pathname.replace(new RegExp(`^${basePath}`), "") || "/";
       router.replace(newSearch ? `${cleanPath}?${newSearch}` : cleanPath);
     }
-  }, [searchParams, addDataSource, settings.dataSources, router]);
+  }, [searchParams, addDataSource, dataSources, router]);
 
   return null;
 }
 
 export default function Home() {
-  const { isLoading, error, subjects, currentSubject, quizQueue } = useQuiz();
-  const { settings } = useSettings();
+  const settings = useSettingsStore();
+  const { subjects, currentSubject, loading } = useDataStore();
+  const quizQueue = useQuizStore((s) => s.queue);
 
+  const { isLoading, error } = loading;
   const showSetup = settings.dataSources.length === 0;
 
   return (

@@ -1,15 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { useQuiz } from "../../lib/context/QuizContext";
-import { useSettings } from "../../lib/context/SettingsContext";
+import { useDataStore, useSettingsStore } from "../../lib/stores";
+import { selectSubject } from "../../lib/actions/subjectActions";
 import { Contributors } from "./Contributors";
 import { AddSourceModal } from "./AddSourceModal";
 import { ArrowRight, BookOpen, Upload } from "lucide-react";
 
 export function LandingScreen() {
-  const { subjects, selectSubject } = useQuiz();
-  const { settings, addDataSource } = useSettings();
+  const subjects = useDataStore((s) => s.subjects);
+  const settings = useSettingsStore();
   const [isAddSourceOpen, setIsAddSourceOpen] = useState(false);
   const [url, setUrl] = useState("");
 
@@ -21,7 +21,7 @@ export function LandingScreen() {
     if (!url) return;
     try {
       const urlObj = new URL(url);
-      addDataSource({
+      settings.addDataSource({
         name: urlObj.hostname || "Vzdálený zdroj",
         type: "url",
         url: url,

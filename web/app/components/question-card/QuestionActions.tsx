@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { favoritesHelper } from "../../lib/helper/favoritesHelper";
 import { useState, useEffect } from "react";
-import { useQuiz } from "../../lib/context/QuizContext";
+import { useDataStore } from "../../lib/stores";
 import { SuggestEditModal } from "./SuggestEditModal";
 
 interface QuestionActionsProps {
@@ -31,7 +31,8 @@ export function QuestionActions({
   showOriginalText,
   onToggleOriginalText,
 }: QuestionActionsProps) {
-  const { questions, currentSubject } = useQuiz();
+  const questions = useDataStore((s) => s.questions);
+  const currentSubject = useDataStore((s) => s.currentSubject);
   const [isFavorite, setIsFavorite] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isSuggestModalOpen, setIsSuggestModalOpen] = useState(false);

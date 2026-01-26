@@ -1,6 +1,6 @@
 "use client";
 
-import { usePeer } from "../../lib/context/PeerContext";
+import { usePeer } from "../../lib/providers/PeerProvider";
 import { Users, LogOut, Plus, Copy, Check } from "lucide-react";
 import { useState, useRef } from "react";
 
