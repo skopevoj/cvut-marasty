@@ -249,9 +249,9 @@
   font-size: 0.9rem;
   font-weight: 500;
   color: white;
+  border: none;
   cursor: pointer;
   pointer-events: auto;
-  border: none;
   outline: none;
   background: #00b7ff;
   background: radial-gradient(
@@ -259,12 +259,14 @@
     rgb(12, 133, 255) 0%,
     rgb(12, 71, 247) 100%
   );
+  /* border: 1px solid rgba(255, 255, 255, 0.265); */
   box-shadow:
-    0 15px 30px -12px rgba(0, 0, 0, 0.5),
+    0 15px 30px -12px rgba(0, 115, 255, 0.358),
+    0px 0px 20px 100px rgba(0, 115, 255, 0.211),
     0 5px 10px -5px rgba(0, 0, 0, 0.3),
-    inset 3px 3px 3px rgba(0, 0, 0, 0.15),
-    inset -3px -3px 6px rgba(0, 0, 0, 0.05),
-    inset -5px -5px 10px rgba(0, 0, 0, 0.3);
+    inset 3px 3px 10px rgba(255, 255, 255, 0.341),
+    inset -3px -3px 10px rgba(255, 248, 248, 0.05),
+    inset -5px -5px 10px rgba(255, 254, 255, 0.4);
   transition: all 0.5s cubic-bezier(0.2, 0, 0.2, 1);
 }
 
@@ -273,16 +275,12 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.2) 0%, transparent 50%);
-  pointer-events: none;
-}
-
-[data-theme="light"] .glass-button::before {
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0.3) 0%,
     transparent 50%
   );
+  pointer-events: none;
 }
 
 .glass-button:hover {
@@ -290,11 +288,10 @@
   background: #00b7ff;
   background: radial-gradient(
     circle at top left,
-    rgb(0, 115, 255) 0%,
-    rgb(12, 71, 247) 100%
+    rgb(76, 155, 250) 0%,
+    rgb(43, 94, 249) 100%
   );
 }
-
 .glass-button:active {
   transform: scale(0.98);
   box-shadow:
@@ -302,18 +299,11 @@
     inset 5px 5px 10px rgba(0, 0, 0, 0.4),
     inset -2px -2px 5px rgba(255, 255, 255, 0.2);
 }
-
 @media (min-width: 768px) {
   .glass-button {
     padding: 0.9rem 2rem;
     font-size: 1rem;
     border-radius: 1rem;
-    box-shadow:
-      0 25px 50px -12px rgba(0, 0, 0, 0.5),
-      0 10px 15px -5px rgba(0, 0, 0, 0.3),
-      inset 6px 6px 12px rgba(255, 255, 255, 0.15),
-      inset -6px -6px 12px rgba(0, 0, 0, 0.45),
-      inset -10px -10px 20px rgba(0, 0, 0, 0.3);
   }
 
   [data-theme="light"] .glass-button {
@@ -324,6 +314,13 @@
       inset -6px -6px 12px rgba(220, 231, 255, 0.5),
       inset -10px -10px 20px rgba(0, 0, 0, 0.25);
   }
+}
+[data-theme="light"] .glass-button::before {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    transparent 50%
+  );
 }
 
 .glass-icon-button {
