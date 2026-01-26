@@ -14,8 +14,9 @@ export function MultiChoiceQuestion() {
 
   return (
     <div className="flex flex-col gap-3">
-      {shuffledAnswers.map((answer, i) => {
-        const answerState = userAnswers[i] || AnswerState.NEUTRAL;
+      {shuffledAnswers.map((answer) => {
+        const index = answer.index ?? 0;
+        const answerState = userAnswers[index] || AnswerState.NEUTRAL;
         const isCorrect = answer.isCorrect;
         const isUserCorrect =
           (answerState === AnswerState.CORRECT && isCorrect) ||
@@ -39,7 +40,7 @@ export function MultiChoiceQuestion() {
 
         return (
           <div
-            key={i}
+            key={`answer-${index}`}
             className={`flex items-start md:items-center justify-between gap-2 md:gap-3 rounded-2xl border p-2 transition-all duration-300 ${statusClass}`}
           >
             <div
@@ -54,7 +55,7 @@ export function MultiChoiceQuestion() {
                 className={`glass-tristate-button ${answerState === AnswerState.CORRECT ? "active" : ""}`}
                 onClick={() =>
                   setAnswerState(
-                    i,
+                    index,
                     answerState === AnswerState.CORRECT
                       ? AnswerState.NEUTRAL
                       : AnswerState.CORRECT,
@@ -68,7 +69,7 @@ export function MultiChoiceQuestion() {
                 className={`glass-tristate-button ${answerState === AnswerState.REVEALED || answerState === AnswerState.NEUTRAL ? "active" : ""}`}
                 onClick={() =>
                   setAnswerState(
-                    i,
+                    index,
                     answerState === AnswerState.REVEALED
                       ? AnswerState.NEUTRAL
                       : AnswerState.REVEALED,
@@ -82,7 +83,7 @@ export function MultiChoiceQuestion() {
                 className={`glass-tristate-button ${answerState === AnswerState.INCORRECT ? "active" : ""}`}
                 onClick={() =>
                   setAnswerState(
-                    i,
+                    index,
                     answerState === AnswerState.INCORRECT
                       ? AnswerState.NEUTRAL
                       : AnswerState.INCORRECT,

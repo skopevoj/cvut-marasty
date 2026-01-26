@@ -24,17 +24,32 @@ export function useCurrentQuestion() {
   const shuffledAnswers = useMemo((): Answer[] => {
     if (!currentQuestion?.answers) return [];
 
+    // Ensure answers have original indices for correct evaluation
+    const indexedAnswers = currentQuestion.answers.map((ans, idx) => ({
+      ...ans,
+      index: ans.index ?? idx,
+    }));
+
     // Disable shuffle when in peer room to keep everyone synchronized
     if (shuffleAnswers && !isConnected) {
-      const answers = [...currentQuestion.answers];
+      const answers = [...indexedAnswers];
+      // Use question ID as seed for deterministic shuffle across components
+      const seed = currentQuestion.id || "";
+      let seedNum = 0;
+      for (let i = 0; i < seed.length; i++) {
+        seedNum = seedNum * 31 + seed.charCodeAt(i);
+        seedNum |= 0;
+      }
+
       for (let i = answers.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
+        seedNum = (seedNum * 1664525 + 1013904223) | 0;
+        const j = Math.abs(seedNum % (i + 1));
         [answers[i], answers[j]] = [answers[j], answers[i]];
       }
       return answers;
     }
 
-    return currentQuestion.answers;
+    return indexedAnswers;
   }, [currentQuestion, shuffleAnswers, isConnected]);
 
   const stats = useMemo((): QuestionStats | null => {
