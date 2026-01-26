@@ -2,9 +2,11 @@
 
 ![PWA Ready](https://img.shields.io/badge/PWA-Ready-black?style=flat-square) ![Offline Support](https://img.shields.io/badge/Offline-Supported-brightgreen?style=flat-square) ![Next.js](https://img.shields.io/badge/Next.js-15-blue?style=flat-square&logo=nextdotjs) ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript) ![React](https://img.shields.io/badge/React-19-blue?style=flat-square&logo=react) ![License MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
-Webová aplikace pro přípravu na rozstřely na FIT ČVUT. 
+Webová aplikace pro přípravu na rozstřely na FIT ČVUT.
 
 **Upozornění:** Tento repozitář neobsahuje žádné otázky, ty si musíte vytvořit sami a přidat si je do aplikace pomocí odkazu nebo lokálního souboru.
+
+**WIP:** Repozitář také obsahuje manager, pro správu otázek lokálně na disku. Lze jednoduše upravit bulk otázky pomocí ai, nebo importovat v bulk z obrázků. Můžete si stáhnout build z releases.
 
 ## Funkce
 
