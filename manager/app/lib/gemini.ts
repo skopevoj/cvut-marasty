@@ -1,33 +1,37 @@
-import { GoogleGenAI, ThinkingLevel, Type } from '@google/genai';
+import { GoogleGenAI, ThinkingLevel, Type } from "@google/genai";
 
 export interface ParsedQuestion {
-    questionType: 'multichoice' | 'open';
-    question: string;
-    topics: string[];
-    answers?: Array<{
-        text: string;
-        isCorrect: boolean;
-    }>;
-    originalText?: string;
+  questionType: "multichoice" | "open";
+  question: string;
+  topics: string[];
+  answers?: Array<{
+    text: string;
+    isCorrect: boolean;
+  }>;
+  originalText?: string;
 }
 
 export async function parseQuestionFromImage(
-    imageData: string, // base64 encoded image
-    availableTopics: Array<{ id: string; name: string }>,
-    additionalPrompt: string = ''
+  imageData: string, // base64 encoded image
+  availableTopics: Array<{ id: string; name: string }>,
+  additionalPrompt: string = "",
 ): Promise<ParsedQuestion> {
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
-        throw new Error('GEMINI_API_KEY not found in environment variables');
-    }
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    throw new Error("GEMINI_API_KEY not found in environment variables");
+  }
 
-    const genAI = new GoogleGenAI({ apiKey });
+  const genAI = new GoogleGenAI({ apiKey });
 
-    const topicsList = availableTopics.map(t => `${t.id}: ${t.name}`).join('\n');
+  const topicsList = availableTopics
+    .map((t) => `${t.id}: ${t.name}`)
+    .join("\n");
 
-    const additionalInstructions = additionalPrompt ? `\n\nAdditional Instructions:\n${additionalPrompt}` : '';
+  const additionalInstructions = additionalPrompt
+    ? `\n\nAdditional Instructions:\n${additionalPrompt}`
+    : "";
 
-    const prompt = `You are an expert at parsing exam questions from images. Analyze this question image and extract all information.
+  const prompt = `You are an expert at parsing exam questions from images. Analyze this question image and extract all information.
 
 Available topics/categories to choose from:
 ${topicsList}${additionalInstructions}
@@ -57,74 +61,80 @@ For open questions, set answers to an empty array.
 Ensure all mathematical expressions use proper LaTeX syntax.
 Make sure all strings are properly escaped for JSON (use \\\\ for backslash in LaTeX).`;
 
-    const imagePart = {
-        inlineData: {
-            data: imageData.split(',')[1], // Remove data:image/png;base64, prefix
-            mimeType: 'image/png',
-        },
-    };
+  const imagePart = {
+    inlineData: {
+      data: imageData.split(",")[1], // Remove data:image/png;base64, prefix
+      mimeType: "image/png",
+    },
+  };
 
-    const result = await genAI.models.generateContent({
-        model: 'gemini-3-flash-preview',
-        contents: [
-            { text: prompt },
-            imagePart,
+  const result = await genAI.models.generateContent({
+    model: "gemini-3-flash-preview",
+    contents: [{ text: prompt }, imagePart],
+    config: {
+      thinkingConfig: {
+        thinkingLevel: ThinkingLevel.LOW, // Fast responses for simple extraction tasks
+      },
+      responseMimeType: "application/json",
+      responseSchema: {
+        type: Type.OBJECT,
+        properties: {
+          questionType: {
+            type: Type.STRING,
+            description: 'Either "multichoice" or "open"',
+          },
+          question: {
+            type: Type.STRING,
+            description: "The question text with LaTeX notation preserved",
+          },
+          topics: {
+            type: Type.ARRAY,
+            items: { type: Type.STRING },
+            description: "Array of topic IDs",
+          },
+          answers: {
+            type: Type.ARRAY,
+            items: {
+              type: Type.OBJECT,
+              properties: {
+                text: { type: Type.STRING },
+                isCorrect: { type: Type.BOOLEAN },
+              },
+              propertyOrdering: ["text", "isCorrect"],
+            },
+            description:
+              "Array of answer objects with text and isCorrect fields",
+          },
+          originalText: {
+            type: Type.STRING,
+            description: "Original text from the image",
+          },
+        },
+        propertyOrdering: [
+          "questionType",
+          "question",
+          "topics",
+          "answers",
+          "originalText",
         ],
-        config: {
-            thinkingConfig: {
-                thinkingLevel: ThinkingLevel.LOW, // Fast responses for simple extraction tasks
-            },
-            responseMimeType: 'application/json',
-            responseSchema: {
-                type: Type.OBJECT,
-                properties: {
-                    questionType: {
-                        type: Type.STRING,
-                        description: 'Either "multichoice" or "open"',
-                    },
-                    question: {
-                        type: Type.STRING,
-                        description: 'The question text with LaTeX notation preserved',
-                    },
-                    topics: {
-                        type: Type.ARRAY,
-                        items: { type: Type.STRING },
-                        description: 'Array of topic IDs',
-                    },
-                    answers: {
-                        type: Type.ARRAY,
-                        items: {
-                            type: Type.OBJECT,
-                            properties: {
-                                text: { type: Type.STRING },
-                                isCorrect: { type: Type.BOOLEAN },
-                            },
-                            propertyOrdering: ['text', 'isCorrect'],
-                        },
-                        description: 'Array of answer objects with text and isCorrect fields',
-                    },
-                    originalText: {
-                        type: Type.STRING,
-                        description: 'Original text from the image',
-                    },
-                },
-                propertyOrdering: ['questionType', 'question', 'topics', 'answers', 'originalText'],
-            },
-        },
-    });
+      },
+    },
+  });
 
-    const text = result.text;
+  const text = result.text;
 
-    if (!text) {
-        throw new Error('No response from Gemini API');
-    }
+  if (!text) {
+    throw new Error("No response from Gemini API");
+  }
 
-    // With structured outputs, the response is guaranteed to be valid JSON
-    try {
-        const parsed = JSON.parse(text);
-        return parsed;
-    } catch (parseError) {
-        console.error('Failed to parse JSON:', text);
-        throw new Error(`AI returned invalid JSON: ${parseError instanceof Error ? parseError.message : 'Unknown error'}`);
-    }
+  // With structured outputs, the response is guaranteed to be valid JSON
+  try {
+    const parsed = JSON.parse(text);
+    return parsed;
+  } catch (parseError) {
+    console.error("Failed to parse JSON:", text);
+    throw new Error(
+      `AI returned invalid JSON: ${parseError instanceof Error ? parseError.message : "Unknown error"}`,
+    );
+  }
 }
