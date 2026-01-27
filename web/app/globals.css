@@ -143,15 +143,11 @@
 }
 
 .glass-card-themed {
-  background-color: rgba(19, 19, 20, 0.601);
+  background-color: rgba(3, 3, 3, 0.632);
   border: 1px solid transparent;
   border-radius: 1.7rem;
   backdrop-filter: blur(30px);
   pointer-events: auto;
-  -webkit-backdrop-filter: blur(30px);
-  box-shadow:
-    0 25px 50px -12px rgba(0, 0, 0, 0.5),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 .glass-dropdown {
