@@ -10,6 +10,7 @@ import { LandingScreen } from "./components/layout/LandingScreen";
 import { LoadingScreen } from "./components/layout/LoadingScreen";
 import { PeerNotifications } from "./components/peer/PeerNotifications";
 import { PeerCursors } from "./components/peer/PeerCursors";
+import { Background } from "./components/Background";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, Suspense } from "react";
 
@@ -65,6 +66,7 @@ export default function Home() {
       data-theme="default"
     >
       <div className="landing-background" />
+      <Background />
       <Suspense fallback={null}>
         <SourceHandler />
       </Suspense>
@@ -98,16 +100,18 @@ export default function Home() {
             <LandingScreen />
           </div>
         ) : quizQueue.length > 0 ? (
-          <div className="flex flex-1 flex-col justify-center gap-10 py-4">
+          <div className="flex flex-1 flex-col justify-center py-4">
             <div>
-              <div className="relative z-20">
+              <div className="relative z-30">
                 <QuestionHistory />
               </div>
+            </div>
+            <div className="relative z-20">
               <div className="relative z-20">
                 <QuestionCard />
               </div>
             </div>
-            <div className="relative z-20">
+            <div className="relative z-20 mt-6">
               <ControlPanel />
             </div>
           </div>

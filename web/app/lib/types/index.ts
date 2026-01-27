@@ -24,6 +24,18 @@ export interface DataSource {
 
 export type Theme = "light" | "dark";
 
+export type BackgroundType = "none" | "gradient" | "image" | "video";
+
+export interface Background {
+  id: string;
+  name: string;
+  type: BackgroundType;
+  url?: string;
+  gradientStart?: string;
+  gradientEnd?: string;
+  intensity?: number; // 0-1
+}
+
 export interface Settings {
   showStatsBar: boolean;
   shuffleAnswers: boolean;
@@ -31,6 +43,9 @@ export interface Settings {
   checkUpdatesOnStartup: boolean;
   theme: Theme;
   dataSources: DataSource[];
+  backgroundEnabled: boolean;
+  backgroundId: string;
+  customBackgrounds: Background[];
 }
 
 // ============================================================================
