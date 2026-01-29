@@ -1,110 +1,63 @@
 "use client";
 
-import { useSettingsStore } from "../lib/stores";
+import { useSettingsStore, PRESET_BACKGROUNDS } from "../lib/stores";
 
-const PRESET_BACKGROUNDS = [
-  {
-    id: "gradient-sunset",
-    name: "Gradient - Sunset",
-    type: "gradient",
-    gradientStart: "#ff6b6b",
-    gradientEnd: "#4ecdc4",
-    intensity: 0.4,
-  },
-  {
-    id: "gradient-ocean",
-    name: "Gradient - Ocean",
-    type: "gradient",
-    gradientStart: "#667eea",
-    gradientEnd: "#764ba2",
-    intensity: 0.35,
-  },
-  {
-    id: "gradient-forest",
-    name: "Gradient - Forest",
-    type: "gradient",
-    gradientStart: "#134e5e",
-    gradientEnd: "#71b280",
-    intensity: 0.3,
-  },
-  {
-    id: "gradient-cherry",
-    name: "Gradient - Cherry",
-    type: "gradient",
-    gradientStart: "#eb3349",
-    gradientEnd: "#f45c43",
-    intensity: 0.4,
-  },
-  {
-    id: "gradient-night",
-    name: "Gradient - Night",
-    type: "gradient",
-    gradientStart: "#0f0c29",
-    gradientEnd: "#302b63",
-    intensity: 0.25,
-  },
-  {
-    id: "video-1",
-    name: "Video - Nature 1",
-    type: "video",
-    url: "/bg/1.mp4",
-  },
-  {
-    id: "video-2",
-    name: "Video - Nature 2",
-    type: "video",
-    url: "/bg/2.mp4",
-  },
-  {
-    id: "video-3",
-    name: "Video - Nature 3",
-    type: "video",
-    url: "/bg/3.mp4",
-  },
-  {
-    id: "video-4",
-    name: "Video - Nature 4",
-    type: "video",
-    url: "/bg/4.mp4",
-  },
-  {
-    id: "video-5",
-    name: "Video - Nature 5",
-    type: "video",
-    url: "/bg/5.mp4",
-  },
-];
-
-function StaticGradientBackground({
-  start,
-  end,
-}: {
-  start: string;
-  end: string;
-}) {
+function ModernMeshBackground({ start, end }: { start: string; end: string }) {
   return (
     <div
-      className="fixed inset-0 pointer-events-none"
-      style={{
-        zIndex: -1,
-        background: `linear-gradient(135deg, ${start} 0%, ${end} 100%)`,
-      }}
-    />
+      className="fixed inset-0 pointer-events-none overflow-hidden"
+      style={{ zIndex: -1 }}
+    >
+      {/* Base Layer */}
+      <div
+        className="absolute inset-0 transition-colors duration-1000"
+        style={{
+          backgroundColor: start,
+          backgroundImage: `
+            radial-gradient(at 0% 0%, ${end} 0px, transparent 55%),
+            radial-gradient(at 100% 0%, ${start} 0px, transparent 50%),
+            radial-gradient(at 100% 100%, ${end} 0px, transparent 60%),
+            radial-gradient(at 0% 100%, ${start} 0px, transparent 55%),
+            radial-gradient(at 50% 50%, ${end} 0px, transparent 65%)
+          `,
+          filter: "blur(60px)",
+          opacity: 0.25,
+        }}
+      />
+
+      {/* Grain Overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.04] mix-blend-overlay"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+        }}
+      />
+    </div>
   );
 }
 
 function ImageBackground({ url }: { url: string }) {
   return (
-    <div
-      className="fixed inset-0 pointer-events-none"
-      style={{
-        zIndex: -1,
-        backgroundImage: `url('${url}')`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundAttachment: "fixed",
-      }}
-    />
+    <>
+      <div
+        className="fixed inset-0 pointer-events-none"
+        style={{
+          zIndex: -1,
+          backgroundImage: `url('${url}')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed",
+        }}
+      />
+      {/* Subtle Grain even on images */}
+      <div
+        className="fixed inset-0 opacity-[0.02] mix-blend-overlay pointer-events-none"
+        style={{
+          zIndex: -1,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+        }}
+      />
+    </>
   );
 }
 
@@ -121,6 +74,12 @@ function VideoBackground({ url }: { url: string }) {
       >
         <source src={url} type="video/mp4" />
       </video>
+      <div
+        className="absolute inset-0 opacity-[0.03] mix-blend-overlay"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+        }}
+      />
     </div>
   );
 }
@@ -140,7 +99,7 @@ export function Background() {
   return (
     <>
       {background.type === "gradient" && (
-        <StaticGradientBackground
+        <ModernMeshBackground
           key={`gradient-${backgroundId}`}
           start={background.gradientStart || "#667eea"}
           end={background.gradientEnd || "#764ba2"}

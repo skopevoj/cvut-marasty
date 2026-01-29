@@ -10,7 +10,7 @@ import { Search, Star, Settings, BarChart3 } from "lucide-react";
 import { SubjectSelector } from "./SubjectSelector";
 import { SearchBar } from "./SearchBar";
 import { SearchResults } from "./SearchResults";
-import { SettingsMenu } from "./SettingsMenu";
+import { SettingsMenu } from "../settings/SettingsMenu";
 import { SortSelector } from "./SortSelector";
 import { StatsModal } from "./StatsModal";
 import {

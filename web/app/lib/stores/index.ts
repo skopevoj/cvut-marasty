@@ -1,5 +1,5 @@
 // Re-export all stores for easy importing
-export { useSettingsStore } from "./settingsStore";
+export { useSettingsStore, PRESET_BACKGROUNDS } from "./settingsStore";
 export { useDataStore } from "./dataStore";
 export { useQuizStore, selectCurrentQuestion } from "./quizStore";
 export { useFilterStore } from "./filterStore";
