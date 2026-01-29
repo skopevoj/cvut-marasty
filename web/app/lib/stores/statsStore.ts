@@ -12,6 +12,7 @@ interface StatsState {
 
 interface StatsActions {
   saveAttempt: (attempt: QuestionAttempt) => void;
+  setAttempts: (attempts: QuestionAttempt[]) => void;
   clearAttempts: () => void;
   clearSubjectAttempts: (subjectCode: string) => void;
 }
@@ -29,6 +30,8 @@ export const useStatsStore = create<StatsState & StatsActions>()(
         set((state) => ({
           attempts: [...state.attempts, attempt],
         })),
+
+      setAttempts: (attempts) => set({ attempts }),
 
       clearAttempts: () => set({ attempts: [] }),
 

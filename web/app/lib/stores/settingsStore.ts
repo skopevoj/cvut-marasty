@@ -12,6 +12,7 @@ interface SettingsState extends Settings {
 
 interface SettingsActions {
   updateSetting: <K extends keyof Settings>(key: K, value: Settings[K]) => void;
+  refreshUid: () => void;
   addDataSource: (source: Omit<DataSource, "id" | "enabled">) => string;
   removeDataSource: (id: string) => void;
   toggleDataSource: (id: string) => void;
@@ -98,11 +99,21 @@ export const PRESET_BACKGROUNDS: Background[] = [
   },
 ];
 
+const generateUid = () => {
+  const bytes = new Uint8Array(32);
+  crypto.getRandomValues(bytes);
+  return Array.from(bytes)
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+};
+
 // ============================================================================
 // Default Settings
 // ============================================================================
 
 const DEFAULT_SETTINGS: Settings = {
+  uid: generateUid(),
+  username: "Anonym",
   showStatsBar: true,
   shuffleAnswers: true,
   whiteboardEnabled: true,
@@ -125,6 +136,8 @@ export const useSettingsStore = create<SettingsState & SettingsActions>()(
       isLoaded: false,
 
       updateSetting: (key, value) => set({ [key]: value }),
+
+      refreshUid: () => set({ uid: generateUid() }),
 
       addDataSource: (source) => {
         const id = crypto.randomUUID();

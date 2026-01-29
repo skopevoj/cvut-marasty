@@ -37,6 +37,8 @@ export interface Background {
 }
 
 export interface Settings {
+  username?: string;
+  uid: string;
   showStatsBar: boolean;
   shuffleAnswers: boolean;
   whiteboardEnabled: boolean;
