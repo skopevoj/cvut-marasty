@@ -114,6 +114,7 @@ const generateUid = () => {
 const DEFAULT_SETTINGS: Settings = {
   uid: generateUid(),
   username: "Anonym",
+  backendUrl: "http://localhost:3001",
   showStatsBar: true,
   shuffleAnswers: true,
   whiteboardEnabled: true,

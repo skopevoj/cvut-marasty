@@ -63,6 +63,8 @@ export function useQuizActions() {
       type: (currentQuestion.questionType?.toLowerCase() ||
         QuestionType.MULTICHOICE) as "multichoice" | "open",
       userAnswers: result.statsUserAnswers,
+      isCorrect: result.isCorrect,
+      detailed: result.detailed,
     });
 
     quizStore.setShowResults(true);

@@ -39,6 +39,7 @@ export interface Background {
 export interface Settings {
   username?: string;
   uid: string;
+  backendUrl?: string;
   showStatsBar: boolean;
   shuffleAnswers: boolean;
   whiteboardEnabled: boolean;
@@ -62,6 +63,8 @@ export interface QuestionAttempt {
   timestamp: number;
   type: "multichoice" | "open";
   userAnswers: Record<number, boolean | number> | string;
+  isCorrect: boolean;
+  detailed?: Record<number, boolean> | boolean;
 }
 
 export interface QuestionStats {

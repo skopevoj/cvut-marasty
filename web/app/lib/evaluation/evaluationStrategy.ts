@@ -4,6 +4,7 @@ import { AnswerState, QuestionType } from "../types/enums";
 export interface EvaluationResult {
   isCorrect: boolean;
   statsUserAnswers: Record<number, number> | string;
+  detailed: Record<number, boolean> | boolean;
 }
 
 export interface EvaluationStrategy {
@@ -50,7 +51,20 @@ export class MultiChoiceEvaluator implements EvaluationStrategy {
       {} as Record<number, number>,
     );
 
-    return { isCorrect, statsUserAnswers };
+    const detailed = shuffledAnswers.reduce(
+      (acc, ans, i) => {
+        const isActuallyCorrect = !!ans.isCorrect;
+        const originalIndex = ans.index ?? i;
+        const userState = userAnswers[originalIndex] || AnswerState.NEUTRAL;
+        acc[originalIndex] =
+          (userState === AnswerState.CORRECT && isActuallyCorrect) ||
+          (userState === AnswerState.INCORRECT && !isActuallyCorrect);
+        return acc;
+      },
+      {} as Record<number, boolean>,
+    );
+
+    return { isCorrect, statsUserAnswers, detailed };
   }
 }
 
@@ -69,7 +83,7 @@ export class OpenQuestionEvaluator implements EvaluationStrategy {
       (c) => c === (userTextAnswer || "").trim(),
     );
 
-    return { isCorrect, statsUserAnswers: userTextAnswer };
+    return { isCorrect, statsUserAnswers: userTextAnswer, detailed: isCorrect };
   }
 }
 
