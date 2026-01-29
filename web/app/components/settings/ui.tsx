@@ -26,6 +26,26 @@ export const SettingRow = ({
   </div>
 );
 
+export const SettingInput = ({
+  value,
+  onChange,
+  placeholder,
+  className = "",
+}: {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder?: string;
+  className?: string;
+}) => (
+  <input
+    type="text"
+    value={value || ""}
+    onChange={onChange}
+    placeholder={placeholder}
+    className={`bg-[var(--fg-primary)]/5 border border-[var(--border-default)] text-[var(--fg-primary)] rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[var(--subject-primary)] transition-all ${className}`}
+  />
+);
+
 export const Toggle = ({
   active,
   onClick,
