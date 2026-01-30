@@ -1,10 +1,12 @@
 import { Question, Answer } from "../types/question";
 import { AnswerState, QuestionType } from "../types/enums";
+import { getAnswerHash } from "../utils/hashing";
 
 export interface EvaluationResult {
   isCorrect: boolean;
   statsUserAnswers: Record<number, number> | string;
   detailed: Record<number, boolean> | boolean;
+  answerHashes?: Record<number, string>;
 }
 
 export interface EvaluationStrategy {
@@ -64,7 +66,16 @@ export class MultiChoiceEvaluator implements EvaluationStrategy {
       {} as Record<number, boolean>,
     );
 
-    return { isCorrect, statsUserAnswers, detailed };
+    const answerHashes = shuffledAnswers.reduce(
+      (acc, ans, i) => {
+        const originalIndex = ans.index ?? i;
+        acc[originalIndex] = getAnswerHash(ans.text);
+        return acc;
+      },
+      {} as Record<number, string>,
+    );
+
+    return { isCorrect, statsUserAnswers, detailed, answerHashes };
   }
 }
 
@@ -83,7 +94,17 @@ export class OpenQuestionEvaluator implements EvaluationStrategy {
       (c) => c === (userTextAnswer || "").trim(),
     );
 
-    return { isCorrect, statsUserAnswers: userTextAnswer, detailed: isCorrect };
+    // For open questions, we use a single "answer" which is the open field itself
+    const answerHashes: Record<number, string> = {
+      0: "open-answer",
+    };
+
+    return {
+      isCorrect,
+      statsUserAnswers: userTextAnswer,
+      detailed: isCorrect,
+      answerHashes,
+    };
   }
 }
 

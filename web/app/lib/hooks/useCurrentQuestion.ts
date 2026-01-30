@@ -33,17 +33,9 @@ export function useCurrentQuestion() {
     // Disable shuffle when in peer room to keep everyone synchronized
     if (shuffleAnswers && !isConnected) {
       const answers = [...indexedAnswers];
-      // Use question ID as seed for deterministic shuffle across components
-      const seed = currentQuestion.id || "";
-      let seedNum = 0;
-      for (let i = 0; i < seed.length; i++) {
-        seedNum = seedNum * 31 + seed.charCodeAt(i);
-        seedNum |= 0;
-      }
-
+      // Random shuffle that is stable for the currentQuestion instance due to useMemo
       for (let i = answers.length - 1; i > 0; i--) {
-        seedNum = (seedNum * 1664525 + 1013904223) | 0;
-        const j = Math.abs(seedNum % (i + 1));
+        const j = Math.floor(Math.random() * (i + 1));
         [answers[i], answers[j]] = [answers[j], answers[i]];
       }
       return answers;

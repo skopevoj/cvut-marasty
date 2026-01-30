@@ -65,6 +65,7 @@ export interface QuestionAttempt {
   userAnswers: Record<number, boolean | number> | string;
   isCorrect: boolean;
   detailed?: Record<number, boolean> | boolean;
+  answerHashes?: Record<number, string>;
 }
 
 export interface QuestionStats {

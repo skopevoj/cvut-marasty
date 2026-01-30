@@ -138,6 +138,7 @@ export function evaluate(shuffledAnswers: Answer[]) {
     userAnswers: result.statsUserAnswers,
     isCorrect: result.isCorrect,
     detailed: result.detailed,
+    answerHashes: result.answerHashes,
   });
 
   quizStore.setShowResults(true);
