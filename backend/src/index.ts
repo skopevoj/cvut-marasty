@@ -12,18 +12,23 @@ app.use(express.json());
 
 // Validation schemas
 const StatsPostSchema = z.object({
-  questionHash: z.string(),
-  isCorrect: z.boolean(),
   uid: z.string().length(64),
   username: z.string().min(1),
-  userAnswers: z.any(), // Record of answers or string
+  questionHash: z.string(),
+  answers: z.array(
+    z.object({
+      hash: z.string(),
+      isCorrect: z.boolean(),
+    }),
+  ),
 });
 
 // POST /stats - Update user and log result
 app.post("/stats", async (req, res) => {
   try {
-    const { questionHash, isCorrect, uid, username, userAnswers } =
-      StatsPostSchema.parse(req.body);
+    const { uid, username, questionHash, answers } = StatsPostSchema.parse(
+      req.body,
+    );
 
     // Update or create user
     await prisma.user.upsert({
@@ -32,17 +37,35 @@ app.post("/stats", async (req, res) => {
       create: { uid, username },
     });
 
-    // Create attempt record
-    const attempt = await prisma.attempt.create({
-      data: {
-        questionHash,
-        isCorrect,
-        userUid: uid,
-        userAnswers: JSON.stringify(userAnswers),
-      },
+    // Ensure question exists
+    await prisma.question.upsert({
+      where: { hash: questionHash },
+      update: {},
+      create: { hash: questionHash },
     });
 
-    res.status(201).json({ success: true, attemptId: attempt.id });
+    // Log attempts for each answer
+    const results = await prisma.$transaction(
+      answers.map((ans) =>
+        prisma.attempt.create({
+          data: {
+            user: { connect: { uid: uid } },
+            isCorrect: ans.isCorrect,
+            answer: {
+              connectOrCreate: {
+                where: { hash: ans.hash },
+                create: {
+                  hash: ans.hash,
+                  questionHash: questionHash,
+                },
+              },
+            },
+          },
+        }),
+      ),
+    );
+
+    res.status(201).json({ success: true, count: results.length });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ error: error.errors });
@@ -52,32 +75,78 @@ app.post("/stats", async (req, res) => {
   }
 });
 
-// GET /stats/:hash - Get global stats for a question
-app.get("/stats/:hash", async (req, res) => {
-  const { hash } = req.params;
-
+// POST /stats/query - Get global stats for specific answer hashes
+app.post("/stats/query", async (req, res) => {
   try {
-    const stats = await prisma.attempt.aggregate({
-      where: { questionHash: hash },
-      _count: { _all: true },
-      _sum: {
-        id: true, // This is just a placeholder to count correct ones below
-      },
-    });
+    const { questionHash, answerHashes } = z
+      .object({
+        questionHash: z.string(),
+        answerHashes: z.array(z.string()),
+      })
+      .parse(req.body);
 
-    const total = stats._count._all;
-    const correct = await prisma.attempt.count({
-      where: { questionHash: hash, isCorrect: true },
-    });
+    const answerStats = await Promise.all(
+      answerHashes.map(async (hash) => {
+        const stats = await prisma.attempt.aggregate({
+          where: { answerHash: hash },
+          _count: { _all: true },
+        });
+
+        const correct = await prisma.attempt.count({
+          where: { answerHash: hash, isCorrect: true },
+        });
+
+        const total = stats._count._all;
+
+        return {
+          answerHash: hash,
+          total,
+          correct,
+          accuracy: total > 0 ? correct / total : 0,
+        };
+      }),
+    );
 
     res.json({
-      questionHash: hash,
-      totalAttempts: total,
-      correctAttempts: correct,
-      accuracy: total > 0 ? correct / total : 0,
+      questionHash,
+      answerStats,
     });
   } catch (error) {
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ error: error.errors });
+    }
     console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// GET /stats/:hash - Debug endpoint to get all stats for a question hash
+app.get("/stats/:hash", async (req, res) => {
+  const { hash } = req.params;
+  try {
+    const answers = await prisma.answer.findMany({
+      where: { questionHash: hash },
+    });
+
+    const answerStats = await Promise.all(
+      answers.map(async (ans) => {
+        const total = await prisma.attempt.count({
+          where: { answerHash: ans.hash },
+        });
+        const correct = await prisma.attempt.count({
+          where: { answerHash: ans.hash, isCorrect: true },
+        });
+        return {
+          answerHash: ans.hash,
+          total,
+          correct,
+          accuracy: total > 0 ? correct / total : 0,
+        };
+      }),
+    );
+
+    res.json({ questionHash: hash, answerStats });
+  } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });

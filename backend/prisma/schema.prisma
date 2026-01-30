@@ -8,20 +8,36 @@ datasource db {
 }
 
 model User {
-  uid      String    @id // 64-char UID
-  username String
-  attempts Attempt[]
-  createdAt DateTime @default(now())
+  uid       String    @id
+  username  String
+  createdAt DateTime  @default(now())
+  attempts  Attempt[]
+}
+
+model Question {
+  hash    String   @id
+  answers Answer[]
+}
+
+model Answer {
+  hash         String    @id
+  questionHash String
+  question     Question  @relation(fields: [questionHash], references: [hash])
+  attempts     Attempt[]
+
+  @@index([questionHash])
 }
 
 model Attempt {
-  id           Int      @id @default(autoincrement())
-  questionHash String
-  userAnswers  String // Store JSON string of what user answered
-  isCorrect    Boolean
-  timestamp    DateTime @default(now())
-  user         User     @relation(fields: [userUid], references: [uid])
-  userUid      String
+  id         Int      @id @default(autoincrement())
+  userUid    String
+  answerHash String
+  isCorrect  Boolean
+  timestamp  DateTime @default(now())
+  answer     Answer   @relation(fields: [answerHash], references: [hash])
+  user       User     @relation(fields: [userUid], references: [uid])
 
-  @@index([questionHash])
+  @@index([answerHash])
+  @@index([userUid])
+  @@index([answerHash, userUid])
 }
