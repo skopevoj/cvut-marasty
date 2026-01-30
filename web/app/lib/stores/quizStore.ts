@@ -17,6 +17,7 @@ interface QuizState {
   // UI state
   showResults: boolean;
   showOriginalText: boolean;
+  showStats: boolean;
 
   // Peer answers (from collaborators)
   peerAnswers: Record<string, PeerAnswerState>;
@@ -39,6 +40,7 @@ interface QuizActions {
   // UI state
   setShowResults: (show: boolean) => void;
   toggleOriginalText: () => void;
+  toggleStats: () => void;
 
   // Peer state
   setPeerAnswers: (
@@ -65,6 +67,7 @@ const initialState: QuizState = {
   userTextAnswer: "",
   showResults: false,
   showOriginalText: false,
+  showStats: false,
   peerAnswers: {},
 };
 
@@ -94,6 +97,7 @@ export const useQuizStore = create<QuizState & QuizActions>((set) => ({
   setShowResults: (show) => set({ showResults: show }),
   toggleOriginalText: () =>
     set((state) => ({ showOriginalText: !state.showOriginalText })),
+  toggleStats: () => set((state) => ({ showStats: !state.showStats })),
 
   setPeerAnswers: (answers) =>
     set((state) => ({

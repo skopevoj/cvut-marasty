@@ -65,6 +65,7 @@ export function useQuizActions() {
       userAnswers: result.statsUserAnswers,
       isCorrect: result.isCorrect,
       detailed: result.detailed,
+      answerHashes: result.answerHashes,
     });
 
     quizStore.setShowResults(true);

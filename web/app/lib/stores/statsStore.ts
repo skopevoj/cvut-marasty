@@ -34,26 +34,46 @@ export const useStatsStore = create<StatsState & StatsActions>()(
 
         // Send to remote backend if configured
         const { backendUrl, username, uid } = useSettingsStore.getState();
-        if (backendUrl && backendUrl.trim() !== "") {
+        if (backendUrl && backendUrl.trim() !== "" && attempt.answerHashes) {
           const url = backendUrl.endsWith("/")
             ? `${backendUrl}stats`
             : `${backendUrl}/stats`;
 
-          fetch(url, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              uid: uid,
-              username: username || "Anonym",
-              questionHash: attempt.questionId, // Assuming questionId is the hash
-              isCorrect: attempt.isCorrect,
-              userAnswers: attempt.detailed,
-            }),
-          }).catch((err) => {
-            console.error("Failed to sync stats to remote backend:", err);
-          });
+          const answersBody: { hash: string; isCorrect: boolean }[] = [];
+
+          if (
+            typeof attempt.detailed === "object" &&
+            attempt.detailed !== null
+          ) {
+            Object.entries(attempt.detailed).forEach(([idx, correct]) => {
+              const hash = attempt.answerHashes?.[Number(idx)];
+              if (hash) {
+                answersBody.push({ hash, isCorrect: !!correct });
+              }
+            });
+          } else if (typeof attempt.detailed === "boolean") {
+            const hash = attempt.answerHashes[0];
+            if (hash) {
+              answersBody.push({ hash, isCorrect: attempt.detailed });
+            }
+          }
+
+          if (answersBody.length > 0) {
+            fetch(url, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                uid: uid,
+                username: username || "Anonym",
+                questionHash: attempt.questionId,
+                answers: answersBody,
+              }),
+            }).catch((err) => {
+              console.error("Failed to sync stats to remote backend:", err);
+            });
+          }
         }
       },
 

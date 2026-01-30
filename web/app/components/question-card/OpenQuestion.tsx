@@ -3,13 +3,20 @@
 import { useMemo } from "react";
 import { useQuizStore } from "../../lib/stores";
 import { useCurrentQuestion, useQuizActions } from "../../lib/hooks";
+import { useQuestionStats } from "../../lib/hooks/useQuestionStats";
 import TextRenderer from "../ui/TextRenderer";
 
 export function OpenQuestion() {
   const userTextAnswer = useQuizStore((s) => s.userTextAnswer);
   const showResults = useQuizStore((s) => s.showResults);
+  const showStats = useQuizStore((s) => s.showStats);
   const { question: currentQuestion } = useCurrentQuestion();
   const { setTextAnswer } = useQuizActions();
+
+  const { stats, loading } = useQuestionStats(currentQuestion?.id || null, [
+    "open-answer",
+  ]);
+
   if (!currentQuestion) return null;
 
   const correctAnswers = useMemo(() => {
@@ -24,6 +31,20 @@ export function OpenQuestion() {
 
   return (
     <div className="mt-4 space-y-3">
+      {showStats && (
+        <div className="flex items-center justify-end gap-2 text-[10px] uppercase tracking-widest text-[var(--fg-muted)] font-bold mb-1 px-1">
+          <span>Globální úspěšnost:</span>
+          {loading ? (
+            <div className="w-8 h-3 bg-[var(--fg-muted)]/10 animate-pulse rounded" />
+          ) : (
+            <span className="text-[var(--subject-primary)] font-black">
+              {stats?.answerStats[0]
+                ? `${Math.round(stats.answerStats[0].accuracy * 100)}%`
+                : "0%"}
+            </span>
+          )}
+        </div>
+      )}
       <input
         type="text"
         className={`w-full rounded-xl border px-5 py-4 text-text-primary outline-none transition-all placeholder:text-text-secondary disabled:cursor-not-allowed ${

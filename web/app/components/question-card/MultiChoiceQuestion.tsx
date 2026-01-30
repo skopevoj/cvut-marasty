@@ -1,15 +1,36 @@
 "use client";
 
+import { useMemo } from "react";
 import { useQuizStore } from "../../lib/stores";
 import { useCurrentQuestion, useQuizActions } from "../../lib/hooks";
+import { useQuestionStats } from "../../lib/hooks/useQuestionStats";
 import { AnswerState } from "../../lib/types/enums";
 import TextRenderer from "./../ui/TextRenderer";
+import { getAnswerHash } from "../../lib/utils/hashing";
 
 export function MultiChoiceQuestion() {
   const userAnswers = useQuizStore((s) => s.userAnswers);
   const showResults = useQuizStore((s) => s.showResults);
-  const { shuffledAnswers } = useCurrentQuestion();
+  const showStats = useQuizStore((s) => s.showStats);
+  const { shuffledAnswers, question } = useCurrentQuestion();
   const { setAnswer: setAnswerState } = useQuizActions();
+
+  const answerHashesMap = useMemo(() => {
+    const map: Record<number, string> = {};
+    (shuffledAnswers || []).forEach((a, i) => {
+      const idx = a.index ?? i;
+      map[idx] = getAnswerHash(a.text);
+    });
+    return map;
+  }, [shuffledAnswers]);
+
+  const answerHashesArray = useMemo(() => Object.values(answerHashesMap), [answerHashesMap]);
+
+  const { stats, loading } = useQuestionStats(
+    question?.id || null,
+    answerHashesArray,
+  );
+
   if (!shuffledAnswers || shuffledAnswers.length === 0) return null;
 
   return (
@@ -97,6 +118,31 @@ export function MultiChoiceQuestion() {
             <div className="flex-1 px-1 py-1 md:px-2 md:py-0">
               <TextRenderer text={answer.text} />
             </div>
+
+            {showStats && (
+              <div className="flex flex-col items-end gap-0.5 shrink-0 px-2 border-l border-[var(--border-default)] min-w-[60px]">
+                {loading ? (
+                  <div className="w-8 h-4 bg-[var(--fg-muted)]/10 animate-pulse rounded" />
+                ) : (
+                  <>
+                    <span className="text-[14px] font-bold text-[var(--fg-primary)]">
+                      {stats?.answerStats.find(
+                        (as) => as.answerHash === answerHashesMap[index],
+                      )
+                        ? `${Math.round(
+                            (stats.answerStats.find(
+                              (as) => as.answerHash === answerHashesMap[index],
+                            )?.accuracy || 0) * 100,
+                          )}%`
+                        : "0%"}
+                    </span>
+                    <span className="text-[9px] uppercase tracking-wider text-[var(--fg-muted)] font-medium">
+                      úspěšnost
+                    </span>
+                  </>
+                )}
+              </div>
+            )}
           </div>
         );
       })}

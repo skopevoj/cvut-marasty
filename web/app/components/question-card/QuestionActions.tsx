@@ -6,10 +6,11 @@ import {
   ImageIcon,
   FileText,
   MessageSquare,
+  BarChart2,
 } from "lucide-react";
 import { favoritesHelper } from "../../lib/helper/favoritesHelper";
 import { useState, useEffect } from "react";
-import { useDataStore } from "../../lib/stores";
+import { useDataStore, useQuizStore, useSettingsStore } from "../../lib/stores";
 import { SuggestEditModal } from "./SuggestEditModal";
 
 interface QuestionActionsProps {
@@ -36,6 +37,9 @@ export function QuestionActions({
   const [isFavorite, setIsFavorite] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isSuggestModalOpen, setIsSuggestModalOpen] = useState(false);
+  const showStats = useQuizStore((s) => s.showStats);
+  const toggleStats = useQuizStore((s) => s.toggleStats);
+  const backendUrl = useSettingsStore((s) => s.backendUrl);
 
   const hasRepository = Boolean(currentSubject?.repositoryUrl);
   const currentQuestion = questions.find((q) => q.id === questionId);
@@ -86,6 +90,19 @@ export function QuestionActions({
           }`}
         >
           <ImageIcon size={20} />
+        </button>
+      )}
+      {backendUrl && (
+        <button
+          onClick={toggleStats}
+          title="Zobrazit globální statistiky"
+          className={`p-1 transition-all duration-200 hover:scale-110 active:scale-90 ${
+            showStats
+              ? "text-[var(--subject-primary)]"
+              : "text-[var(--fg-muted)] hover:text-[var(--fg-primary)]"
+          }`}
+        >
+          <BarChart2 size={20} />
         </button>
       )}
       {/* {hasRepository && (
