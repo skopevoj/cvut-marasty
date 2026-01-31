@@ -6,6 +6,7 @@ import {
   ImageIcon,
   FileText,
   MessageSquare,
+  MessageCircle,
   BarChart2,
 } from "lucide-react";
 import { favoritesHelper } from "../../lib/helper/favoritesHelper";
@@ -37,6 +38,9 @@ export function QuestionActions({
   const [isFavorite, setIsFavorite] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isSuggestModalOpen, setIsSuggestModalOpen] = useState(false);
+  const [commentCount, setCommentCount] = useState(0);
+  const showComments = useQuizStore((s) => s.showComments);
+  const toggleComments = useQuizStore((s) => s.toggleComments);
   const showStats = useQuizStore((s) => s.showStats);
   const toggleStats = useQuizStore((s) => s.toggleStats);
   const backendUrl = useSettingsStore((s) => s.backendUrl);
@@ -55,6 +59,32 @@ export function QuestionActions({
     return () => window.removeEventListener("favorites-updated", handleUpdate);
   }, [questionId]);
 
+  useEffect(() => {
+    if (!backendUrl || !currentQuestion) return;
+
+    const fetchCommentCount = async () => {
+      try {
+        const { getQuestionHash } = await import("../../lib/utils/hashing");
+        const baseUrl = backendUrl.endsWith("/")
+          ? backendUrl
+          : `${backendUrl}/`;
+        const hash = getQuestionHash(
+          currentQuestion.question,
+          currentSubject?.id,
+        );
+        const response = await fetch(`${baseUrl}comments/${hash}`);
+        if (response.ok) {
+          const comments = await response.json();
+          setCommentCount(comments.length);
+        }
+      } catch (error) {
+        console.error("Failed to fetch comment count", error);
+      }
+    };
+
+    fetchCommentCount();
+  }, [backendUrl, currentQuestion, currentSubject?.id]);
+
   const handleToggleFavorite = () => {
     const willBeFavorite = !isFavorite;
     favoritesHelper.toggleFavorite(questionId);
@@ -66,7 +96,7 @@ export function QuestionActions({
 
   return (
     <div className="absolute top-4 right-4 z-10 flex items-center gap-3">
-      {hasOriginalText && (
+      {/* {hasOriginalText && (
         <button
           onClick={onToggleOriginalText}
           title="Zobrazit původní text z Wordu"
@@ -78,7 +108,7 @@ export function QuestionActions({
         >
           <FileText size={20} />
         </button>
-      )}
+      )} */}
       {hasQuizPhoto && (
         <button
           onClick={onToggleQuizPhoto}
@@ -94,15 +124,23 @@ export function QuestionActions({
       )}
       {backendUrl && (
         <button
-          onClick={toggleStats}
-          title="Zobrazit globální statistiky"
-          className={`p-1 transition-all duration-200 hover:scale-110 active:scale-90 ${
-            showStats
+          onClick={() => {
+            toggleComments();
+            toggleStats();
+          }}
+          title="Komunita - Komentáře a globální statistiky"
+          className={`relative p-1 transition-all duration-200 hover:scale-110 active:scale-90 ${
+            showComments
               ? "text-[var(--subject-primary)]"
               : "text-[var(--fg-muted)] hover:text-[var(--fg-primary)]"
           }`}
         >
-          <BarChart2 size={20} />
+          <MessageSquare size={20} />
+          {commentCount > 0 && (
+            <span className="absolute -top-1 -right-1 flex h-4 min-w-[1rem] items-center justify-center rounded-full bg-[var(--fg-subtle)] px-1 text-[10px] font-bold text-white shadow-sm ring-1 ring-[var(--surface-color)]">
+              {commentCount}
+            </span>
+          )}
         </button>
       )}
       {/* {hasRepository && (

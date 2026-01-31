@@ -80,6 +80,22 @@ export interface StatsMetrics {
 }
 
 // ============================================================================
+// Comment Types
+// ============================================================================
+
+export interface Comment {
+  id: number;
+  text: string;
+  timestamp: string;
+  userUid: string;
+  questionHash: string;
+  parentId?: number | null;
+  user: {
+    username: string;
+  };
+}
+
+// ============================================================================
 // Session Types
 // ============================================================================
 

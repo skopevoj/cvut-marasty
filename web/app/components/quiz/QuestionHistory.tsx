@@ -55,9 +55,10 @@ export function QuestionHistory() {
             </div>
           ))
         ) : (
-          <span className="text-xs text-[var(--fg-muted)] lowercase italic opacity-50 px-2">
-            zatím nezodpovězeno
-          </span>
+          // <span className="text-xs text-[var(--fg-muted)] lowercase italic opacity-50 px-2">
+          //   zatím nezodpovězeno
+          // </span>
+          <></>
         )}
       </div>
 

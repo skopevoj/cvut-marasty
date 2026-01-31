@@ -24,7 +24,10 @@ export function MultiChoiceQuestion() {
     return map;
   }, [shuffledAnswers]);
 
-  const answerHashesArray = useMemo(() => Object.values(answerHashesMap), [answerHashesMap]);
+  const answerHashesArray = useMemo(
+    () => Object.values(answerHashesMap),
+    [answerHashesMap],
+  );
 
   const { stats, loading } = useQuestionStats(
     question?.id || null,

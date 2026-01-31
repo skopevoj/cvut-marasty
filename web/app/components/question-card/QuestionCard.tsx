@@ -9,16 +9,23 @@ import OpenQuestion from "./OpenQuestion";
 import { BadgeList } from "./BadgeList";
 import { QuestionActions } from "./QuestionActions";
 import { QuestionContent } from "./QuestionContent";
+import { QuestionComments } from "./QuestionComments";
 import * as helpers from "../../lib/helper/questionHelpers";
+import { getQuestionHash } from "../../lib/utils/hashing";
 
 export function QuestionCard() {
   const showOriginalText = useQuizStore((s) => s.showOriginalText);
   const toggleOriginalText = useQuizStore((s) => s.toggleOriginalText);
+  const currentSubject = useDataStore((s) => s.currentSubject);
   const currentSubjectDetails = useDataStore((s) => s.currentSubjectDetails);
   const { question: currentQuestion } = useCurrentQuestion();
   const [showQuizPhoto, setShowQuizPhoto] = useState(false);
 
   if (!currentQuestion) return null;
+
+  const questionHash = useMemo(() => {
+    return getQuestionHash(currentQuestion.question, currentSubject?.id);
+  }, [currentQuestion.question, currentSubject?.id]);
 
   const topicMap = useMemo(() => {
     return helpers.getTopicMap(currentSubjectDetails);
@@ -79,6 +86,8 @@ export function QuestionCard() {
       ) : (
         <MultiChoiceQuestion />
       )}
+
+      <QuestionComments questionHash={questionHash} />
     </main>
   );
 }
