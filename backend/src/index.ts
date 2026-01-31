@@ -10,7 +10,15 @@ const PORT = process.env.PORT || 3002;
 // Rate limiting for comments: track IP -> timestamps
 const commentRateLimit = new Map<string, number[]>();
 
-app.use(cors());
+// CORS configuration
+app.use(
+  cors({
+    origin: true, // Allow all origins
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }),
+);
 app.use(express.json());
 
 // Validation schemas
@@ -163,6 +171,7 @@ app.get("/stats/:hash", async (req, res) => {
 app.get("/comments/:hash", async (req, res) => {
   const { hash } = req.params;
   try {
+    console.log(`[GET /comments/${hash}] Fetching comments`);
     const comments = await prisma.comment.findMany({
       where: { questionHash: hash },
       select: {
@@ -177,10 +186,16 @@ app.get("/comments/:hash", async (req, res) => {
       },
       orderBy: { timestamp: "asc" },
     });
+    console.log(`[GET /comments/${hash}] Found ${comments.length} comments`);
     res.json(comments);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    console.error(`[GET /comments/${hash}] Error:`, error);
+    res
+      .status(500)
+      .json({
+        error: "Internal Server Error",
+        details: error instanceof Error ? error.message : String(error),
+      });
   }
 });
 
@@ -201,11 +216,9 @@ app.post("/comments", async (req, res) => {
       .filter((t) => t > oneMinuteAgo);
 
     if (timestamps.length >= 5) {
-      return res
-        .status(429)
-        .json({
-          error: "Too many comments. Maximum 5 per minute. Try again later.",
-        });
+      return res.status(429).json({
+        error: "Too many comments. Maximum 5 per minute. Try again later.",
+      });
     }
 
     timestamps.push(now);
@@ -286,11 +299,34 @@ app.post("/comments", async (req, res) => {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ error: error.errors });
     }
-    console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    console.error("[POST /comments] Error:", error);
+    res
+      .status(500)
+      .json({
+        error: "Internal Server Error",
+        details: error instanceof Error ? error.message : String(error),
+      });
   }
 });
 
+// Global error handler
+app.use(
+  (
+    err: any,
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction,
+  ) => {
+    console.error("[Global Error Handler]", err);
+    res
+      .status(500)
+      .json({ error: "Internal Server Error", details: err.message });
+  },
+);
+
 app.listen(PORT, () => {
   console.log(`🚀 Stats backend running at http://localhost:${PORT}`);
+  console.log(
+    `📊 Database: ${process.env.DATABASE_URL ? "Connected" : "No DATABASE_URL set"}`,
+  );
 });

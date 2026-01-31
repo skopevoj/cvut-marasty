@@ -33,6 +33,7 @@ jobs:
         working-directory: web
         env:
           NEXT_PUBLIC_PARTYKIT_HOST: marasty-quiz-party.skopevoj.partykit.dev
+          NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${{ secrets.TURNSTILE_SITE_KEY }}
 
       - name: Build manager
         run: npm ci && npm run build
