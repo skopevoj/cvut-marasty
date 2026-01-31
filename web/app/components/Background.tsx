@@ -37,13 +37,16 @@ function ModernMeshBackground({ start, end }: { start: string; end: string }) {
 }
 
 function ImageBackground({ url }: { url: string }) {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+  const fullUrl = url.startsWith("http") ? url : `${basePath}${url}`;
+
   return (
     <>
       <div
         className="fixed inset-0 pointer-events-none"
         style={{
           zIndex: -1,
-          backgroundImage: `url('${url}')`,
+          backgroundImage: `url('${fullUrl}')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundAttachment: "fixed",
@@ -62,17 +65,20 @@ function ImageBackground({ url }: { url: string }) {
 }
 
 function VideoBackground({ url }: { url: string }) {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+  const fullUrl = url.startsWith("http") ? url : `${basePath}${url}`;
+
   return (
     <div className="fixed inset-0 pointer-events-none" style={{ zIndex: -1 }}>
       <video
-        key={url}
+        key={fullUrl}
         autoPlay
         muted
         loop
         playsInline
         className="w-full h-full object-cover"
       >
-        <source src={url} type="video/mp4" />
+        <source src={fullUrl} type="video/mp4" />
       </video>
       <div
         className="absolute inset-0 opacity-[0.03] mix-blend-overlay"
