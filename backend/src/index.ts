@@ -7,6 +7,9 @@ const prisma = new PrismaClient();
 const app = express();
 const PORT = process.env.PORT || 3002;
 
+// Rate limiting for comments: track IP -> timestamps
+const commentRateLimit = new Map<string, number[]>();
+
 app.use(cors());
 app.use(express.json());
 
@@ -184,6 +187,30 @@ app.get("/comments/:hash", async (req, res) => {
 // POST /comments - Add a new comment
 app.post("/comments", async (req, res) => {
   try {
+    // Rate limiting: 5 comments per IP per minute
+    const ip = req.ip || "unknown";
+    const now = Date.now();
+    const oneMinuteAgo = now - 60000;
+
+    if (!commentRateLimit.has(ip)) {
+      commentRateLimit.set(ip, []);
+    }
+
+    const timestamps = commentRateLimit
+      .get(ip)!
+      .filter((t) => t > oneMinuteAgo);
+
+    if (timestamps.length >= 5) {
+      return res
+        .status(429)
+        .json({
+          error: "Too many comments. Maximum 5 per minute. Try again later.",
+        });
+    }
+
+    timestamps.push(now);
+    commentRateLimit.set(ip, timestamps);
+
     const { questionHash, uid, username, text, parentId, token } = z
       .object({
         questionHash: z.string(),
@@ -212,12 +239,10 @@ app.post("/comments", async (req, res) => {
 
       const outcome: any = await verifyResponse.json();
       if (!outcome.success) {
-        return res
-          .status(403)
-          .json({
-            error: "Invalid bot verification token",
-            details: outcome["error-codes"],
-          });
+        return res.status(403).json({
+          error: "Invalid bot verification token",
+          details: outcome["error-codes"],
+        });
       }
     } else {
       console.warn("TURNSTILE_SECRET_KEY not set, skipping verification");

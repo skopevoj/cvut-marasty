@@ -50,6 +50,7 @@ export function QuestionComments({ questionHash }: QuestionCommentsProps) {
   const [loading, setLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [replyToId, setReplyToId] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (showComments && questionHash && backendUrl) {
@@ -110,6 +111,7 @@ export function QuestionComments({ questionHash }: QuestionCommentsProps) {
       return;
 
     setIsSubmitting(true);
+    setError(null);
     try {
       const baseUrl = backendUrl.endsWith("/") ? backendUrl : `${backendUrl}/`;
       const response = await fetch(`${baseUrl}comments`, {
@@ -125,14 +127,23 @@ export function QuestionComments({ questionHash }: QuestionCommentsProps) {
         }),
       });
 
+      if (response.status === 429) {
+        setError("Příliš mnoho komentářů. Maximum 5 za minutu. Zkuste později.");
+        setIsSubmitting(false);
+        return;
+      }
+
       if (response.ok) {
         const comment = await response.json();
         setComments((prev) => [...prev, comment]);
         if (!parentId) setNewComment("");
         setReplyToId(null);
+      } else {
+        setError("Chyba při odesílání komentáře. Zkuste znovu.");
       }
     } catch (error) {
       console.error("Failed to post comment", error);
+      setError("Chyba při odesílání komentáře. Zkuste znovu.");
     } finally {
       setIsSubmitting(false);
     }
@@ -152,12 +163,22 @@ export function QuestionComments({ questionHash }: QuestionCommentsProps) {
       {/* Main Comment Input */}
       <CommentInput
         value={newComment}
-        onChange={setNewComment}
+        onChange={(v) => {
+          setNewComment(v);
+          setError(null);
+        }}
         onSubmit={(text, token) => handleSubmit(text, token)}
         placeholder="Napište komentář..."
         isSubmitting={isSubmitting}
         username={username}
       />
+
+      {/* Error Message */}
+      {error && (
+        <div className="mb-4 p-3 rounded-lg bg-red-500/10 border border-red-500/30 text-red-600 text-sm">
+          {error}
+        </div>
+      )}
 
       {/* Comments List */}
       <div className="space-y-4">
