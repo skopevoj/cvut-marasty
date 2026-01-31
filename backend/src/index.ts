@@ -85,6 +85,10 @@ app.post("/stats/query", async (req, res) => {
       })
       .parse(req.body);
 
+    const totalQuestionAttempts = await prisma.attempt.count({
+      where: { answer: { questionHash } },
+    });
+
     const answerStats = await Promise.all(
       answerHashes.map(async (hash) => {
         const stats = await prisma.attempt.aggregate({
@@ -109,6 +113,7 @@ app.post("/stats/query", async (req, res) => {
 
     res.json({
       questionHash,
+      totalAttempts: totalQuestionAttempts,
       answerStats,
     });
   } catch (error) {
@@ -147,6 +152,87 @@ app.get("/stats/:hash", async (req, res) => {
 
     res.json({ questionHash: hash, answerStats });
   } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// GET /comments/:hash - Get all comments for a question
+app.get("/comments/:hash", async (req, res) => {
+  const { hash } = req.params;
+  try {
+    const comments = await prisma.comment.findMany({
+      where: { questionHash: hash },
+      select: {
+        id: true,
+        text: true,
+        timestamp: true,
+        questionHash: true,
+        parentId: true,
+        user: {
+          select: { username: true },
+        },
+      },
+      orderBy: { timestamp: "asc" },
+    });
+    res.json(comments);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// POST /comments - Add a new comment
+app.post("/comments", async (req, res) => {
+  try {
+    const { questionHash, uid, username, text, parentId } = z
+      .object({
+        questionHash: z.string(),
+        uid: z.string().length(64),
+        username: z.string().min(1),
+        text: z.string().min(1).max(1000),
+        parentId: z.number().optional().nullable(),
+      })
+      .parse(req.body);
+
+    // Ensure user exists
+    await prisma.user.upsert({
+      where: { uid },
+      update: { username },
+      create: { uid, username },
+    });
+
+    // Ensure question exists
+    await prisma.question.upsert({
+      where: { hash: questionHash },
+      update: {},
+      create: { hash: questionHash },
+    });
+
+    const comment = await prisma.comment.create({
+      data: {
+        text,
+        user: { connect: { uid } },
+        question: { connect: { hash: questionHash } },
+        ...(parentId && { parent: { connect: { id: parentId } } }),
+      },
+      select: {
+        id: true,
+        text: true,
+        timestamp: true,
+        questionHash: true,
+        parentId: true,
+        user: {
+          select: { username: true },
+        },
+      },
+    });
+
+    res.status(201).json(comment);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ error: error.errors });
+    }
+    console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });

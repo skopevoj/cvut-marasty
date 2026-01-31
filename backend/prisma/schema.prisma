@@ -12,11 +12,13 @@ model User {
   username  String
   createdAt DateTime  @default(now())
   attempts  Attempt[]
+  comments  Comment[]
 }
 
 model Question {
-  hash    String   @id
-  answers Answer[]
+  hash     String    @id
+  answers  Answer[]
+  comments Comment[]
 }
 
 model Answer {
@@ -40,4 +42,21 @@ model Attempt {
   @@index([answerHash])
   @@index([userUid])
   @@index([answerHash, userUid])
+}
+
+model Comment {
+  id           Int       @id @default(autoincrement())
+  text         String
+  timestamp    DateTime  @default(now())
+  userUid      String
+  questionHash String
+  parentId     Int?
+  parent       Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
+  replies      Comment[] @relation("CommentReplies")
+  user         User      @relation(fields: [userUid], references: [uid])
+  question     Question  @relation(fields: [questionHash], references: [hash])
+
+  @@index([questionHash])
+  @@index([userUid])
+  @@index([parentId])
 }
