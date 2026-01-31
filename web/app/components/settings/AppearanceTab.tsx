@@ -51,7 +51,7 @@ export function AppearanceTab() {
       </h2>
 
       <SettingRow
-        label="Téma"
+        label="Motiv"
         description="Přepnout mezi světlým a tmavým režimem"
       >
         <button

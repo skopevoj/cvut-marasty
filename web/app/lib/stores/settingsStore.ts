@@ -157,7 +157,7 @@ const generateRandomCzechUsername = () => {
 const DEFAULT_SETTINGS: Settings = {
   uid: generateUid(),
   username: generateRandomCzechUsername(),
-  backendUrl: "http://localhost:3001",
+  backendUrl: "cvut-marasty-production.up.railway.app",
   showStatsBar: true,
   shuffleAnswers: true,
   whiteboardEnabled: true,

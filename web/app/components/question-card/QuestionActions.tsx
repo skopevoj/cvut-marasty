@@ -39,6 +39,7 @@ export function QuestionActions({
   const [isAnimating, setIsAnimating] = useState(false);
   const [isSuggestModalOpen, setIsSuggestModalOpen] = useState(false);
   const [commentCount, setCommentCount] = useState(0);
+  const [isBackendAvailable, setIsBackendAvailable] = useState(false);
   const showComments = useQuizStore((s) => s.showComments);
   const toggleComments = useQuizStore((s) => s.toggleComments);
   const showStats = useQuizStore((s) => s.showStats);
@@ -60,7 +61,10 @@ export function QuestionActions({
   }, [questionId]);
 
   useEffect(() => {
-    if (!backendUrl || !currentQuestion) return;
+    if (!backendUrl || !currentQuestion) {
+      setIsBackendAvailable(false);
+      return;
+    }
 
     const fetchCommentCount = async () => {
       try {
@@ -73,9 +77,13 @@ export function QuestionActions({
         if (response.ok) {
           const comments = await response.json();
           setCommentCount(comments.length);
+          setIsBackendAvailable(true);
+        } else {
+          setIsBackendAvailable(false);
         }
       } catch (error) {
         console.error("Failed to fetch comment count", error);
+        setIsBackendAvailable(false);
       }
     };
 
@@ -119,7 +127,7 @@ export function QuestionActions({
           <ImageIcon size={20} />
         </button>
       )}
-      {backendUrl && (
+      {isBackendAvailable && (
         <button
           onClick={() => {
             toggleComments();
