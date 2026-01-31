@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { useSettingsStore, useQuizStore } from "../../lib/stores";
 import { UserAvatar } from "../ui/UserAvatar";
 import { Send, MessageCircle, Reply, CornerDownRight } from "lucide-react";
 import type { Comment } from "../../lib/types";
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 
 interface QuestionCommentsProps {
   questionHash: string;
@@ -94,8 +95,19 @@ export function QuestionComments({ questionHash }: QuestionCommentsProps) {
     return rootComments.reverse();
   }, [comments]);
 
-  const handleSubmit = async (text: string, parentId: number | null = null) => {
-    if (!text.trim() || !backendUrl || isSubmitting) return;
+  const handleSubmit = async (
+    text: string,
+    token: string,
+    parentId: number | null = null,
+  ) => {
+    if (
+      !text.trim() ||
+      text.length > 200 ||
+      !token ||
+      !backendUrl ||
+      isSubmitting
+    )
+      return;
 
     setIsSubmitting(true);
     try {
@@ -109,6 +121,7 @@ export function QuestionComments({ questionHash }: QuestionCommentsProps) {
           username: username || "Anonym",
           text: text.trim(),
           parentId,
+          token,
         }),
       });
 
@@ -140,7 +153,7 @@ export function QuestionComments({ questionHash }: QuestionCommentsProps) {
       <CommentInput
         value={newComment}
         onChange={setNewComment}
-        onSubmit={(text) => handleSubmit(text)}
+        onSubmit={(text, token) => handleSubmit(text, token)}
         placeholder="Napište komentář..."
         isSubmitting={isSubmitting}
         username={username}
@@ -161,7 +174,7 @@ export function QuestionComments({ questionHash }: QuestionCommentsProps) {
             <CommentItem
               key={thread.id}
               comment={thread}
-              onReply={(text, pId) => handleSubmit(text, pId)}
+              onReply={(text, token, pId) => handleSubmit(text, token, pId)}
               isSubmitting={isSubmitting}
               replyToId={replyToId}
               setReplyToId={setReplyToId}
@@ -186,45 +199,95 @@ function CommentInput({
 }: {
   value: string;
   onChange: (v: string) => void;
-  onSubmit: (text: string) => void;
+  onSubmit: (text: string, token: string) => void;
   placeholder: string;
   isSubmitting: boolean;
   username?: string;
   autoFocus?: boolean;
   small?: boolean;
 }) {
+  const [token, setToken] = useState<string | null>(null);
+  const turnstileRef = useRef<TurnstileInstance>(null);
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (token) {
+      onSubmit(value, token);
+      // Reset turnstile for next comment
+      setToken(null);
+      turnstileRef.current?.reset();
+    }
+  };
+
   return (
     <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        onSubmit(value);
-      }}
-      className={`flex gap-3 ${small ? "mb-4" : "mb-8"}`}
+      onSubmit={handleFormSubmit}
+      className={`flex flex-col gap-2 ${small ? "mb-4" : "mb-8"}`}
     >
-      <UserAvatar
-        name={username}
-        size={small ? 24 : 32}
-        className="shrink-0 mt-1"
-      />
-      <div className="flex-1 relative">
-        <input
-          type="text"
-          value={value}
-          autoFocus={autoFocus}
-          onChange={(e) => onChange(e.target.value)}
-          placeholder={placeholder}
-          className={`w-full bg-[var(--fg-primary)]/5 border border-[var(--border-default)] text-[var(--fg-primary)] rounded-2xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--subject-primary)] transition-all pr-12 ${
-            small ? "py-1.5 text-xs" : "py-2.5"
-          }`}
+      <div className="flex gap-3">
+        <UserAvatar
+          name={username}
+          size={small ? 24 : 32}
+          className="shrink-0 mt-1"
         />
-        <button
-          type="submit"
-          disabled={!value.trim() || isSubmitting}
-          className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-[var(--subject-primary)] hover:bg-[var(--subject-primary)]/10 rounded-xl transition-all disabled:opacity-30"
-        >
-          <Send size={small ? 14 : 18} />
-        </button>
+        <div className="flex-1 relative">
+          <input
+            type="text"
+            value={value}
+            autoFocus={autoFocus}
+            onChange={(e) => onChange(e.target.value)}
+            maxLength={200}
+            placeholder={placeholder}
+            className={`w-full bg-[var(--fg-primary)]/5 border border-[var(--border-default)] text-[var(--fg-primary)] rounded-2xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--subject-primary)] transition-all pr-12 ${
+              small ? "py-1.5 text-xs" : "py-2.5"
+            }`}
+          />
+          <button
+            type="submit"
+            disabled={!value.trim() || !token || isSubmitting}
+            className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-[var(--subject-primary)] hover:bg-[var(--subject-primary)]/10 rounded-xl transition-all disabled:opacity-30"
+          >
+            <Send size={small ? 14 : 18} />
+          </button>
+        </div>
       </div>
+
+      {!small && (
+        <div className="ml-11 scale-90 origin-left opacity-80 hover:opacity-100 transition-opacity">
+          <Turnstile
+            ref={turnstileRef}
+            siteKey={
+              process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ||
+              "1x00000000000000000000AA"
+            }
+            onSuccess={(token) => setToken(token)}
+            onExpire={() => setToken(null)}
+            onError={() => setToken(null)}
+            options={{
+              theme: "light",
+              size: "flexible",
+            }}
+          />
+        </div>
+      )}
+
+      {small && (
+        <div className="ml-9 scale-75 origin-left opacity-80">
+          <Turnstile
+            ref={turnstileRef}
+            siteKey={
+              process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ||
+              "1x00000000000000000000AA"
+            }
+            onSuccess={(token) => setToken(token)}
+            onExpire={() => setToken(null)}
+            onError={() => setToken(null)}
+            options={{
+              size: "compact",
+            }}
+          />
+        </div>
+      )}
     </form>
   );
 }
@@ -239,7 +302,7 @@ function CommentItem({
   currentUserUsername,
 }: {
   comment: CommentThread;
-  onReply: (text: string, pId: number) => void;
+  onReply: (text: string, token: string, pId: number) => void;
   isSubmitting: boolean;
   depth?: number;
   replyToId: number | null;
@@ -304,8 +367,8 @@ function CommentItem({
           <CommentInput
             value={replyValue}
             onChange={setReplyValue}
-            onSubmit={(text) => {
-              onReply(text, comment.id);
+            onSubmit={(text, token) => {
+              onReply(text, token, comment.id);
               setReplyValue("");
             }}
             placeholder={`Odpovědět uživateli ${comment.user.username}...`}

@@ -184,15 +184,44 @@ app.get("/comments/:hash", async (req, res) => {
 // POST /comments - Add a new comment
 app.post("/comments", async (req, res) => {
   try {
-    const { questionHash, uid, username, text, parentId } = z
+    const { questionHash, uid, username, text, parentId, token } = z
       .object({
         questionHash: z.string(),
         uid: z.string().length(64),
         username: z.string().min(1),
-        text: z.string().min(1).max(1000),
+        text: z.string().min(1).max(200),
         parentId: z.number().optional().nullable(),
+        token: z.string().min(1),
       })
       .parse(req.body);
+
+    // Verify Cloudflare Turnstile token
+    const secretKey = process.env.TURNSTILE_SECRET_KEY;
+    if (secretKey) {
+      const verifyResponse = await fetch(
+        "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            secret: secretKey,
+            response: token,
+          }),
+        },
+      );
+
+      const outcome: any = await verifyResponse.json();
+      if (!outcome.success) {
+        return res
+          .status(403)
+          .json({
+            error: "Invalid bot verification token",
+            details: outcome["error-codes"],
+          });
+      }
+    } else {
+      console.warn("TURNSTILE_SECRET_KEY not set, skipping verification");
+    }
 
     // Ensure user exists
     await prisma.user.upsert({
