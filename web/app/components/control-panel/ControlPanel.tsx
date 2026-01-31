@@ -25,7 +25,7 @@ export function ControlPanel() {
   if (!currentSubject || quizQueue.length === 0) return null;
 
   return (
-    <footer className="glass-card-themed rounded-3xl p-2 transition-all duration-300 md:p-4">
+    <footer className="glass-card-themed rounded-3xl p-1 transition-all duration-300 md:p-3">
       <div className="flex items-center justify-between gap-1 md:gap-4">
         {/* Left side: Shuffle + Whiteboard */}
         <div className="flex flex-1 min-w-0 items-center gap-1 md:gap-2">
