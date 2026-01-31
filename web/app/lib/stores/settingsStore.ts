@@ -107,13 +107,56 @@ const generateUid = () => {
     .join("");
 };
 
+const generateRandomCzechUsername = () => {
+  const adjectives = [
+    "Rychlý",
+    "Chytrý",
+    "Veselý",
+    "Modrý",
+    "Červený",
+    "Zelený",
+    "Odvážný",
+    "Tichý",
+    "Divoký",
+    "Zlatý",
+    "Stříbrný",
+    "Tajemný",
+    "Bystrý",
+    "Mocný",
+    "Moudrý",
+    "Laskavý",
+  ];
+  const nouns = [
+    "Lev",
+    "Vlk",
+    "Medvěd",
+    "Orel",
+    "Sokol",
+    "Jelen",
+    "Kapr",
+    "Králík",
+    "Křeček",
+    "Ježek",
+    "Rys",
+    "Bobr",
+    "Kamzík",
+    "Lišák",
+    "Havran",
+    "Čáp",
+  ];
+
+  const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
+  const noun = nouns[Math.floor(Math.random() * nouns.length)];
+  return `${adj}${noun}`;
+};
+
 // ============================================================================
 // Default Settings
 // ============================================================================
 
 const DEFAULT_SETTINGS: Settings = {
   uid: generateUid(),
-  username: "Anonym",
+  username: generateRandomCzechUsername(),
   backendUrl: "http://localhost:3001",
   showStatsBar: true,
   shuffleAnswers: true,

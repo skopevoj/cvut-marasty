@@ -122,7 +122,7 @@ export function MultiChoiceQuestion() {
               <TextRenderer text={answer.text} />
             </div>
 
-            {showStats && (
+            {/* {showStats && (
               <div className="flex flex-col items-end gap-0.5 shrink-0 px-2 border-l border-[var(--border-default)] min-w-[60px]">
                 {loading ? (
                   <div className="w-8 h-4 bg-[var(--fg-muted)]/10 animate-pulse rounded" />
@@ -145,7 +145,7 @@ export function MultiChoiceQuestion() {
                   </>
                 )}
               </div>
-            )}
+            )} */}
           </div>
         );
       })}
