@@ -19,10 +19,10 @@ export function MultiChoiceQuestion() {
     const map: Record<number, string> = {};
     (shuffledAnswers || []).forEach((a, i) => {
       const idx = a.index ?? i;
-      map[idx] = getAnswerHash(a.text);
+      map[idx] = getAnswerHash(a.text, question?.id);
     });
     return map;
-  }, [shuffledAnswers]);
+  }, [shuffledAnswers, question?.id]);
 
   const answerHashesArray = useMemo(
     () => Object.values(answerHashesMap),

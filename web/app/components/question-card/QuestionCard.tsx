@@ -11,7 +11,6 @@ import { QuestionActions } from "./QuestionActions";
 import { QuestionContent } from "./QuestionContent";
 import { QuestionComments } from "./QuestionComments";
 import * as helpers from "../../lib/helper/questionHelpers";
-import { getQuestionHash } from "../../lib/utils/hashing";
 
 export function QuestionCard() {
   const showOriginalText = useQuizStore((s) => s.showOriginalText);
@@ -23,9 +22,7 @@ export function QuestionCard() {
 
   if (!currentQuestion) return null;
 
-  const questionHash = useMemo(() => {
-    return getQuestionHash(currentQuestion.question, currentSubject?.id);
-  }, [currentQuestion.question, currentSubject?.id]);
+  const questionHash = currentQuestion.id;
 
   const topicMap = useMemo(() => {
     return helpers.getTopicMap(currentSubjectDetails);

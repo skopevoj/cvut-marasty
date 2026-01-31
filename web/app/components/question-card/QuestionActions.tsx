@@ -64,15 +64,12 @@ export function QuestionActions({
 
     const fetchCommentCount = async () => {
       try {
-        const { getQuestionHash } = await import("../../lib/utils/hashing");
         const baseUrl = backendUrl.endsWith("/")
           ? backendUrl
           : `${backendUrl}/`;
-        const hash = getQuestionHash(
-          currentQuestion.question,
-          currentSubject?.id,
+        const response = await fetch(
+          `${baseUrl}comments/${currentQuestion.id}`,
         );
-        const response = await fetch(`${baseUrl}comments/${hash}`);
         if (response.ok) {
           const comments = await response.json();
           setCommentCount(comments.length);

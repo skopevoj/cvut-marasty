@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useSettingsStore, useQuizStore } from "../stores";
-import { getAnswerHash } from "../utils/hashing";
 
 interface AnswerStat {
   answerHash: string;

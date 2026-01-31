@@ -69,7 +69,7 @@ export class MultiChoiceEvaluator implements EvaluationStrategy {
     const answerHashes = shuffledAnswers.reduce(
       (acc, ans, i) => {
         const originalIndex = ans.index ?? i;
-        acc[originalIndex] = getAnswerHash(ans.text);
+        acc[originalIndex] = getAnswerHash(ans.text, question.id);
         return acc;
       },
       {} as Record<number, string>,

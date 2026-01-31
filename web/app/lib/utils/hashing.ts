@@ -1,6 +1,6 @@
-export function getAnswerHash(text: string): string {
+export function getAnswerHash(text: string, questionId?: string): string {
   let hash = 0;
-  const str = text || "";
+  const str = (text || "") + (questionId || "");
   for (let j = 0; j < str.length; j++) {
     hash = (hash << 5) - hash + str.charCodeAt(j);
     hash |= 0;
