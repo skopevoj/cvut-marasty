@@ -279,7 +279,10 @@ function CommentInput({
         <div className="ml-11 scale-90 origin-left opacity-80 hover:opacity-100 transition-opacity">
           <Turnstile
             ref={turnstileRef}
-            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ""}
+            siteKey={
+              process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ||
+              "0x4AAAAAACWIBkE5Mlpm1kCv"
+            }
             onSuccess={(token) => setToken(token)}
             onExpire={() => setToken(null)}
             onError={() => setToken(null)}
