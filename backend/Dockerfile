@@ -23,6 +23,5 @@ RUN npm run build
 # Expose port
 EXPOSE 3001
 
-# Run with environment variable for SQLite path if needed, 
-# but here we use the one in prisma/ schema
-CMD ["node", "dist/index.js"]
+# Run start script which includes prisma db push
+CMD ["npm", "start"]

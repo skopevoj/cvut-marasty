@@ -3,6 +3,22 @@ import { persist } from "zustand/middleware";
 import type { Settings, DataSource, Theme, Background } from "../types";
 
 // ============================================================================
+// Utility Functions
+// ============================================================================
+
+/**
+ * Ensures a backend URL has a protocol (https://)
+ */
+export const normalizeBackendUrl = (url: string): string => {
+  if (!url || url.trim() === "") return "";
+  const trimmed = url.trim();
+  if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) {
+    return trimmed;
+  }
+  return `https://${trimmed}`;
+};
+
+// ============================================================================
 // Types
 // ============================================================================
 
@@ -157,7 +173,7 @@ const generateRandomCzechUsername = () => {
 const DEFAULT_SETTINGS: Settings = {
   uid: generateUid(),
   username: generateRandomCzechUsername(),
-  backendUrl: "cvut-marasty-production.up.railway.app",
+  backendUrl: "https://cvut-marasty-production.up.railway.app",
   showStatsBar: true,
   shuffleAnswers: true,
   whiteboardEnabled: true,
@@ -179,7 +195,13 @@ export const useSettingsStore = create<SettingsState & SettingsActions>()(
       ...DEFAULT_SETTINGS,
       isLoaded: false,
 
-      updateSetting: (key, value) => set({ [key]: value }),
+      updateSetting: (key, value) => {
+        if (key === "backendUrl" && typeof value === "string") {
+          set({ [key]: normalizeBackendUrl(value) });
+        } else {
+          set({ [key]: value });
+        }
+      },
 
       refreshUid: () => set({ uid: generateUid() }),
 
