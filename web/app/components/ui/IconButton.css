@@ -3,12 +3,6 @@
   align-items: center;
   justify-content: center;
   border-radius: 0.75rem;
-  transition:
-    background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-    border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-    color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   pointer-events: auto;
   backdrop-filter: blur(16px);
@@ -47,7 +41,7 @@
   color: rgba(240, 245, 250, 0.9);
   box-shadow:
     0 4px 12px rgba(0, 0, 0, 0.08),
-    0 2px 6px rgba(0, 0, 0, 0.1),
+    0 2px 6px rgba(0, 0, 0, 0.05),
     inset 0 1px 0 rgba(255, 255, 255, 0.1),
     inset 0 -1px 0 rgba(0, 0, 0, 0.08);
 }
@@ -68,6 +62,10 @@
     ) !important;
   box-shadow: 0 0 15px
     color-mix(in srgb, var(--subject-primary) 20%, transparent);
+  transition:
+    background-image 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-icon-button-ghost {
@@ -76,6 +74,12 @@
   -webkit-backdrop-filter: none;
   border: 1px solid transparent;
   color: rgba(180, 190, 200, 0.5);
+  transition:
+    background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    backdrop-filter 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-icon-button-ghost:hover:not(:disabled) {
@@ -104,6 +108,9 @@
       rgba(255, 255, 255, 0.05) 50%,
       color-mix(in srgb, var(--subject-primary) 20%, transparent)
     );
+  transition:
+    background-image 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 [data-theme="light"] .glass-icon-button-default {
@@ -118,6 +125,11 @@
     0 2px 8px rgba(0, 0, 0, 0.04),
     inset 0 1px 0 rgba(255, 255, 255, 0.4),
     inset 0 -1px 0 rgba(0, 0, 0, 0.03);
+  transition:
+    background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 [data-theme="light"] .glass-icon-button-default:hover:not(:disabled) {
