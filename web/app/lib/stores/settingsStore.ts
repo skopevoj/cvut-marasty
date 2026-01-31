@@ -170,9 +170,7 @@ const generateRandomCzechUsername = () => {
 // Default Settings
 // ============================================================================
 
-const DEFAULT_SETTINGS: Settings = {
-  uid: generateUid(),
-  username: generateRandomCzechUsername(),
+const DEFAULT_SETTINGS: Omit<Settings, "uid" | "username"> = {
   backendUrl: "https://cvut-marasty-production.up.railway.app",
   showStatsBar: true,
   shuffleAnswers: true,
@@ -193,6 +191,8 @@ export const useSettingsStore = create<SettingsState & SettingsActions>()(
   persist(
     (set) => ({
       ...DEFAULT_SETTINGS,
+      uid: generateUid(),
+      username: generateRandomCzechUsername(),
       isLoaded: false,
 
       updateSetting: (key, value) => {
