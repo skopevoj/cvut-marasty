@@ -1,0 +1,122 @@
+.glass-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  pointer-events: auto;
+  border: 1px solid transparent;
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.5rem;
+  outline: none;
+}
+
+.glass-icon-button:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.glass-icon-button-default {
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.02)
+    ),
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.15),
+      rgba(255, 255, 255, 0.05) 50%,
+      rgba(255, 255, 255, 0.1)
+    );
+  color: var(--fg-muted);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.glass-icon-button-default:hover:not(:disabled) {
+  color: var(--fg-primary);
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.08),
+      rgba(255, 255, 255, 0.04)
+    ),
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.25),
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(255, 255, 255, 0.2)
+    );
+}
+
+.glass-icon-button-active {
+  color: var(--subject-primary) !important;
+  background-image:
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--subject-primary) 12%, transparent),
+      color-mix(in srgb, var(--subject-primary) 5%, transparent)
+    ),
+    linear-gradient(
+      135deg,
+      var(--subject-primary),
+      transparent 50%,
+      color-mix(in srgb, var(--subject-primary) 30%, transparent)
+    ) !important;
+  box-shadow: 0 0 15px
+    color-mix(in srgb, var(--subject-primary) 20%, transparent);
+}
+
+.glass-icon-button-ghost {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: 1px solid transparent;
+  color: var(--fg-muted);
+}
+
+.glass-icon-button-ghost:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--fg-primary);
+}
+
+.glass-icon-button-subject:hover:not(:disabled) {
+  color: var(--subject-primary);
+  background-image:
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--subject-primary) 10%, transparent),
+      color-mix(in srgb, var(--subject-primary) 5%, transparent)
+    ),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--subject-primary) 40%, transparent),
+      rgba(255, 255, 255, 0.05) 50%,
+      color-mix(in srgb, var(--subject-primary) 20%, transparent)
+    );
+}
+
+[data-theme="light"] .glass-icon-button-default {
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.9),
+      rgba(255, 255, 255, 0.7)
+    ),
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 1),
+      rgba(0, 0, 0, 0.05) 50%,
+      rgba(0, 0, 0, 0.1)
+    );
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .glass-icon-button-ghost:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.04);
+}

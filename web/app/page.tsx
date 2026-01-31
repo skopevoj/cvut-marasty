@@ -100,7 +100,7 @@ export default function Home() {
             <LandingScreen />
           </div>
         ) : quizQueue.length > 0 ? (
-          <div className="flex flex-1 flex-col justify-center py-4">
+          <div className="flex flex-1 flex-col justify-center py-4 gap-4">
             <div>
               <div className="relative z-30">
                 <QuestionHistory />
@@ -111,7 +111,7 @@ export default function Home() {
                 <QuestionCard />
               </div>
             </div>
-            <div className="relative z-20 mt-6">
+            <div className="relative z-20">
               <ControlPanel />
             </div>
           </div>

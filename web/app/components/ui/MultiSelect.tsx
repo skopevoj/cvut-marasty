@@ -2,6 +2,8 @@
 
 import { useState, useRef, useEffect } from "react";
 import { ChevronDown, Check, LucideIcon, Layers } from "lucide-react";
+import "./MultiSelect.css";
+import "./GlassCheckbox.css";
 
 interface MultiSelectProps {
   options: { id: string; name: string; count?: number }[];

@@ -7,6 +7,7 @@ import { useQuestionStats } from "../../lib/hooks/useQuestionStats";
 import { AnswerState } from "../../lib/types/enums";
 import TextRenderer from "./../ui/TextRenderer";
 import { getAnswerHash } from "../../lib/utils/hashing";
+import "../ui/TriState.css";
 
 export function MultiChoiceQuestion() {
   const userAnswers = useQuizStore((s) => s.userAnswers);

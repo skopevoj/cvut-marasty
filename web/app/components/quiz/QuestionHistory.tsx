@@ -22,7 +22,7 @@ export function QuestionHistory() {
   const recentHistory = [...history].reverse().slice(-15);
 
   return (
-    <div className="flex items-center justify-between gap-4 px-6 py-2 glass-card-themed rounded-3xl mb-3 text-[10px] md:text-xs font-medium border-b-0">
+    <div className="flex items-center justify-between gap-4 px-6 py-2 glass-card-themed rounded-3xl text-[10px] md:text-xs font-medium border-b-0">
       <div className="flex items-center gap-1.5 min-w-fit">
         <span className="text-[var(--fg-muted)] uppercase tracking-wider">
           Úspěšnost
