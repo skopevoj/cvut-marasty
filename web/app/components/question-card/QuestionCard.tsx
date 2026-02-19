@@ -6,6 +6,7 @@ import { useCurrentQuestion } from "../../lib/hooks";
 import { QuestionType } from "../../lib/types/enums";
 import MultiChoiceQuestion from "./MultiChoiceQuestion";
 import OpenQuestion from "./OpenQuestion";
+import YesNoQuestion from "./YesNoQuestion";
 import { BadgeList } from "./BadgeList";
 import { QuestionActions } from "./QuestionActions";
 import { QuestionContent } from "./QuestionContent";
@@ -78,7 +79,9 @@ export function QuestionCard() {
         </div>
       )}
 
-      {questionType === QuestionType.OPEN ? (
+      {questionType === QuestionType.YESNO ? (
+        <YesNoQuestion />
+      ) : questionType === QuestionType.OPEN ? (
         <OpenQuestion />
       ) : (
         <MultiChoiceQuestion />

@@ -1,7 +1,7 @@
 import { GoogleGenAI, ThinkingLevel, Type } from "@google/genai";
 
 export interface ParsedQuestion {
-  questionType: "multichoice" | "open";
+  questionType: "multichoice" | "open" | "yesno";
   question: string;
   topics: string[];
   answers?: Array<{
@@ -37,17 +37,18 @@ Available topics/categories to choose from:
 ${topicsList}${additionalInstructions}
 
 Your task:
-1. Determine if this is a "multichoice" (multiple choice or true/false) or "open" (open-ended) question
+1. Determine if this is a "multichoice" (multiple choice with several options), "yesno" (yes/no or true/false question with exactly two possible answers), or "open" (open-ended question requiring a free-text answer)
 2. Extract the question text, preserving any mathematical notation in LaTeX format (use $ for inline math, $$ for display math)
 3. Select the most relevant topics from the list above (use topic IDs, can be multiple)
-4. If it's a multiple choice question, extract all answer options and mark which are correct
-5. Extract the original text as-is for reference
+4. If it's a multichoice question, extract all answer options and mark which are correct
+5. If it's a yesno question, set answers to exactly two entries: {"text": "Ano", "isCorrect": true/false} and {"text": "Ne", "isCorrect": true/false} based on the correct answer
+6. Extract the original text as-is for reference
 
 IMPORTANT: Return ONLY valid JSON. Do not include any markdown formatting or code blocks. Do not wrap the JSON in backticks.
 
 Return a JSON object with this exact structure:
 {
-    "questionType": "multichoice" or "open",
+    "questionType": "multichoice", "yesno", or "open",
     "question": "Question text with LaTeX notation preserved",
     "topics": ["topic-id-1", "topic-id-2"],
     "answers": [
@@ -58,6 +59,7 @@ Return a JSON object with this exact structure:
 }
 
 For open questions, set answers to an empty array.
+For yesno questions, always use exactly: [{"text": "Ano", "isCorrect": true/false}, {"text": "Ne", "isCorrect": true/false}]
 Ensure all mathematical expressions use proper LaTeX syntax.
 Make sure all strings are properly escaped for JSON (use \\\\ for backslash in LaTeX).`;
 
@@ -81,7 +83,7 @@ Make sure all strings are properly escaped for JSON (use \\\\ for backslash in L
         properties: {
           questionType: {
             type: Type.STRING,
-            description: 'Either "multichoice" or "open"',
+            description: 'Either "multichoice", "yesno", or "open"',
           },
           question: {
             type: Type.STRING,

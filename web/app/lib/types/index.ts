@@ -61,7 +61,7 @@ export interface QuestionAttempt {
   topic?: string;
   topics?: string[];
   timestamp: number;
-  type: "multichoice" | "open";
+  type: "multichoice" | "open" | "yesno";
   userAnswers: Record<number, boolean | number> | string;
   isCorrect: boolean;
   detailed?: Record<number, boolean> | boolean;

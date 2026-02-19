@@ -12,8 +12,9 @@ import { ThemeToggle } from './ThemeToggle';
 import { AddFolderDialog } from './AddFolderDialog';
 import { SearchBar } from './SearchBar';
 import { SubjectEditorDialog } from './SubjectEditorDialog';
+import { SimilarQuestionsDetector } from './SimilarQuestionsDetector';
 import { LatexRenderer } from './LatexRenderer';
-import { Download, FolderPlus, Loader2, Plus, Edit, RefreshCw } from 'lucide-react';
+import { Copy, Download, FolderPlus, Loader2, Plus, Edit, RefreshCw } from 'lucide-react';
 
 export function QuestionManager() {
     const [config, setConfig] = useState<Config>({ folders: [] });
@@ -25,6 +26,7 @@ export function QuestionManager() {
     const [selectedUnprocessedImage, setSelectedUnprocessedImage] = useState<string | null>(null);
     const [showUnprocessedBatch, setShowUnprocessedBatch] = useState(false);
     const [showBatchProcessor, setShowBatchProcessor] = useState(false);
+    const [showSimilarDetector, setShowSimilarDetector] = useState(false);
     const [batchConfig, setBatchConfig] = useState<{
         selectedImages: string[];
         additionalPrompt: string;
@@ -185,6 +187,7 @@ export function QuestionManager() {
         setSelectedUnprocessedImage(null);
         setShowUnprocessedBatch(false);
         setShowBatchProcessor(false);
+        setShowSimilarDetector(false);
     }
 
     function handleQuestionSelect(subject: Subject, questionId: string) {
@@ -193,6 +196,7 @@ export function QuestionManager() {
         setSelectedUnprocessedImage(null);
         setShowUnprocessedBatch(false);
         setShowBatchProcessor(false);
+        setShowSimilarDetector(false);
         // Find category if needed
         const question = subject.questions?.find(q => q.id === questionId);
         if (question?.topics && question.topics.length > 0) {
@@ -324,6 +328,21 @@ export function QuestionManager() {
                                     <RefreshCw className="w-4 h-4" />
                                     Check Updates
                                 </button>
+                                <button
+                                    onClick={() => {
+                                        setShowSimilarDetector(true);
+                                        setSelectedQuestionId(null);
+                                        setSelectedUnprocessedImage(null);
+                                        setShowUnprocessedBatch(false);
+                                        setShowBatchProcessor(false);
+                                    }}
+                                    disabled={subjects.length === 0}
+                                    className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-foreground hover:bg-accent rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    title="Find similar / duplicate questions"
+                                >
+                                    <Copy className="w-4 h-4" />
+                                    Find Duplicates
+                                </button>
                             </>
                         )}
                         <button
@@ -418,6 +437,13 @@ export function QuestionManager() {
                                 setSelectedUnprocessedImage(null);
                                 setShowBatchProcessor(true);
                             }}
+                        />
+                    ) : showSimilarDetector ? (
+                        <SimilarQuestionsDetector
+                            subjects={subjects}
+                            folderPath={selectedFolder}
+                            onBack={() => setShowSimilarDetector(false)}
+                            onRefresh={loadSubjects}
                         />
                     ) : selectedQuestionId && selectedSubject ? (
                         <QuestionEditor

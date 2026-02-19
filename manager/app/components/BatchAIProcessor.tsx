@@ -19,7 +19,7 @@ interface ProcessedQuestion {
   imageName: string;
   imageUrl: string;
   parsed?: {
-    questionType: "multichoice" | "open";
+    questionType: "multichoice" | "open" | "yesno";
     question: string;
     topics: string[];
     answers?: Array<{ text: string; isCorrect: boolean }>;
@@ -461,13 +461,15 @@ export function BatchAIProcessor({
                                 ...editingQuestion,
                                 questionType: e.target.value as
                                   | "multichoice"
-                                  | "open",
+                                  | "open"
+                                  | "yesno",
                               })
                             }
                             className="w-full mt-1 px-3 py-2 bg-background border border-input rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
                           >
                             <option value="multichoice">Multiple Choice</option>
                             <option value="open">Open</option>
+                            <option value="yesno">Yes / No (Ano / Ne)</option>
                           </select>
                         </div>
 

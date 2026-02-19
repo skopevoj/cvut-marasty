@@ -134,7 +134,7 @@ export function evaluate(shuffledAnswers: Answer[]) {
     topics: currentQuestion.topics,
     timestamp: Date.now(),
     type: (currentQuestion.questionType?.toLowerCase() ||
-      QuestionType.MULTICHOICE) as "multichoice" | "open",
+      QuestionType.MULTICHOICE) as "multichoice" | "open" | "yesno",
     userAnswers: result.statsUserAnswers,
     isCorrect: result.isCorrect,
     detailed: result.detailed,

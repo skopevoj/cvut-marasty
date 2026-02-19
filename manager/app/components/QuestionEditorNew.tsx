@@ -421,16 +421,23 @@ export function QuestionEditor({
                         <label className="block text-sm font-medium text-foreground">Question Type</label>
                         <select
                             value={editingQuestion.questionType || 'multichoice'}
-                            onChange={(e) =>
-                                setEditingQuestion({
-                                    ...editingQuestion,
-                                    questionType: e.target.value as any,
-                                })
-                            }
+                            onChange={(e) => {
+                                const newType = e.target.value as Question['questionType'];
+                                const currentAnswers = editingQuestion.answers || [];
+                                const updates: Partial<Question> = { questionType: newType };
+                                if (newType === 'yesno' && currentAnswers.length === 0) {
+                                    updates.answers = [
+                                        { text: 'Ano', isCorrect: true },
+                                        { text: 'Ne', isCorrect: false },
+                                    ];
+                                }
+                                setEditingQuestion({ ...editingQuestion, ...updates });
+                            }}
                             className="w-full px-4 py-2.5 bg-background border border-input rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
                         >
                             <option value="multichoice">Multiple Choice (includes True/False)</option>
                             <option value="open">Open</option>
+                            <option value="yesno">Yes / No (Ano / Ne)</option>
                         </select>
                     </div>
 

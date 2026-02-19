@@ -26,7 +26,7 @@ export interface Question {
     question: string;
     answers: Answer[];
     topics: string[];
-    questionType: 'open' | 'multichoice' | 'truefalse';
+    questionType: 'open' | 'multichoice' | 'truefalse' | 'yesno';
     originalText?: string;
     images?: string[];
 }

@@ -7,7 +7,8 @@ export enum AnswerState {
 
 export enum QuestionType {
     MULTICHOICE = 'multichoice',
-    OPEN = 'open'
+    OPEN = 'open',
+    YESNO = 'yesno'
 }
 
 export enum SortType {

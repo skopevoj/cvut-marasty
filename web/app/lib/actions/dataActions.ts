@@ -89,6 +89,10 @@ async function loadFromCache(sources: DataSource[]): Promise<any[]> {
 
   return Promise.all(
     sources.map(async (source) => {
+      if (source.type === "local" && source.data) {
+        store.addMessage(`Loaded ${source.name} from local file`);
+        return source.data;
+      }
       try {
         const cached = await storageHelper.getData(source.id);
         if (cached) {
@@ -111,6 +115,9 @@ async function fetchSource(
   const store = useDataStore.getState();
 
   if (source.type !== "url" || !source.url) {
+    if (source.type === "local" && source.data) {
+      return source.data;
+    }
     const data = await storageHelper.getData(source.id);
     if (!data) throw new Error(`No local data found for ${source.name}`);
     return data;

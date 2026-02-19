@@ -114,6 +114,7 @@ export class EvaluationStrategyFactory {
   static {
     this.strategies.set(QuestionType.MULTICHOICE, new MultiChoiceEvaluator());
     this.strategies.set(QuestionType.OPEN, new OpenQuestionEvaluator());
+    this.strategies.set(QuestionType.YESNO, new MultiChoiceEvaluator());
   }
 
   static getStrategy(type: string): EvaluationStrategy {
