@@ -1,14 +1,15 @@
 import express from "express";
 import cors from "cors";
-import { PrismaClient } from "@prisma/client";
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
+import { PrismaClient, Prisma } from "@prisma/client";
 import { z } from "zod";
 
 const prisma = new PrismaClient();
 const app = express();
 const PORT = process.env.PORT || 3002;
-
-// Rate limiting for comments: track IP -> timestamps
-const commentRateLimit = new Map<string, number[]>();
+// Security headers
+app.use(helmet());
 
 // CORS configuration
 app.use(
@@ -19,27 +20,81 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
-app.use(express.json());
+
+// Body parser with size limit
+app.use(express.json({ limit: "10kb" }));
+
+// Global rate limiter: 100 requests per minute per IP
+const globalLimiter = rateLimit({
+  windowMs: 60_000,
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: "Too many requests, try again later." },
+});
+app.use(globalLimiter);
+
+// Stricter rate limiter for write endpoints
+const writeLimiter = rateLimit({
+  windowMs: 60_000,
+  max: 20,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: "Too many requests, try again later." },
+});
+
+// Helper: verify Cloudflare Turnstile token
+async function verifyTurnstile(token: string): Promise<boolean> {
+  const secretKey = process.env.TURNSTILE_SECRET_KEY;
+  if (!secretKey) {
+    console.warn("TURNSTILE_SECRET_KEY not set, skipping verification");
+    return true;
+  }
+
+  const verifyResponse = await fetch(
+    "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ secret: secretKey, response: token }),
+    },
+  );
+
+  const outcome: any = await verifyResponse.json();
+  return !!outcome.success;
+}
 
 // Validation schemas
 const StatsPostSchema = z.object({
   uid: z.string().length(64),
-  username: z.string().min(1),
-  questionHash: z.string(),
-  answers: z.array(
-    z.object({
-      hash: z.string(),
-      isCorrect: z.boolean(),
-    }),
-  ),
+  username: z.string().min(1).max(50),
+  questionHash: z.string().max(100),
+  token: z.string().min(1).optional(),
+  answers: z
+    .array(
+      z.object({
+        hash: z.string().max(100),
+        isCorrect: z.boolean(),
+      }),
+    )
+    .max(50),
 });
 
 // POST /stats - Update user and log result
-app.post("/stats", async (req, res) => {
+app.post("/stats", writeLimiter, async (req, res) => {
   try {
-    const { uid, username, questionHash, answers } = StatsPostSchema.parse(
-      req.body,
-    );
+    const { uid, username, questionHash, answers, token } =
+      StatsPostSchema.parse(req.body);
+
+    // Verify Turnstile token if provided
+    if (token) {
+      const valid = await verifyTurnstile(token);
+      if (!valid) {
+        return res
+          .status(403)
+          .json({ error: "Invalid bot verification token" });
+      }
+    }
 
     // Update or create user
     await prisma.user.upsert({
@@ -56,7 +111,7 @@ app.post("/stats", async (req, res) => {
     });
 
     // Log attempts for each answer
-    const results = await prisma.$transaction(
+    await prisma.$transaction(
       answers.map((ans) =>
         prisma.attempt.create({
           data: {
@@ -76,7 +131,7 @@ app.post("/stats", async (req, res) => {
       ),
     );
 
-    res.status(201).json({ success: true, count: results.length });
+    res.status(201).json({ success: true });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ error: error.errors });
@@ -92,35 +147,43 @@ app.post("/stats/query", async (req, res) => {
     const { questionHash, answerHashes } = z
       .object({
         questionHash: z.string(),
-        answerHashes: z.array(z.string()),
+        answerHashes: z.array(z.string()).max(50),
       })
       .parse(req.body);
 
+    // Single query: get total attempts for the question
     const totalQuestionAttempts = await prisma.attempt.count({
       where: { answer: { questionHash } },
     });
 
-    const answerStats = await Promise.all(
-      answerHashes.map(async (hash) => {
-        const stats = await prisma.attempt.aggregate({
-          where: { answerHash: hash },
-          _count: { _all: true },
-        });
+    // Batch query: get per-answer stats in one round trip
+    const rawStats = await prisma.$queryRaw<
+      { answerHash: string; total: bigint; correct: bigint }[]
+    >(Prisma.sql`
+      SELECT "answerHash",
+             COUNT(*)::bigint AS total,
+             SUM(CASE WHEN "isCorrect" THEN 1 ELSE 0 END)::bigint AS correct
+      FROM "Attempt"
+      WHERE "answerHash" IN (${Prisma.join(answerHashes)})
+      GROUP BY "answerHash"
+    `);
 
-        const correct = await prisma.attempt.count({
-          where: { answerHash: hash, isCorrect: true },
-        });
-
-        const total = stats._count._all;
-
-        return {
-          answerHash: hash,
-          total,
-          correct,
-          accuracy: total > 0 ? correct / total : 0,
-        };
-      }),
+    const statsMap = new Map(
+      rawStats.map((r) => [
+        r.answerHash,
+        { total: Number(r.total), correct: Number(r.correct) },
+      ]),
     );
+
+    const answerStats = answerHashes.map((hash) => {
+      const s = statsMap.get(hash) || { total: 0, correct: 0 };
+      return {
+        answerHash: hash,
+        total: s.total,
+        correct: s.correct,
+        accuracy: s.total > 0 ? s.correct / s.total : 0,
+      };
+    });
 
     res.json({
       questionHash,
@@ -140,26 +203,29 @@ app.post("/stats/query", async (req, res) => {
 app.get("/stats/:hash", async (req, res) => {
   const { hash } = req.params;
   try {
-    const answers = await prisma.answer.findMany({
-      where: { questionHash: hash },
-    });
+    // Single batch query instead of N+1
+    const rawStats = await prisma.$queryRaw<
+      { answerHash: string; total: bigint; correct: bigint }[]
+    >(Prisma.sql`
+      SELECT a."answerHash",
+             COUNT(*)::bigint AS total,
+             SUM(CASE WHEN a."isCorrect" THEN 1 ELSE 0 END)::bigint AS correct
+      FROM "Attempt" a
+      JOIN "Answer" ans ON ans."hash" = a."answerHash"
+      WHERE ans."questionHash" = ${hash}
+      GROUP BY a."answerHash"
+    `);
 
-    const answerStats = await Promise.all(
-      answers.map(async (ans) => {
-        const total = await prisma.attempt.count({
-          where: { answerHash: ans.hash },
-        });
-        const correct = await prisma.attempt.count({
-          where: { answerHash: ans.hash, isCorrect: true },
-        });
-        return {
-          answerHash: ans.hash,
-          total,
-          correct,
-          accuracy: total > 0 ? correct / total : 0,
-        };
-      }),
-    );
+    const answerStats = rawStats.map((r) => {
+      const total = Number(r.total);
+      const correct = Number(r.correct);
+      return {
+        answerHash: r.answerHash,
+        total,
+        correct,
+        accuracy: total > 0 ? correct / total : 0,
+      };
+    });
 
     res.json({ questionHash: hash, answerStats });
   } catch (error) {
@@ -171,7 +237,6 @@ app.get("/stats/:hash", async (req, res) => {
 app.get("/comments/:hash", async (req, res) => {
   const { hash } = req.params;
   try {
-    console.log(`[GET /comments/${hash}] Fetching comments`);
     const comments = await prisma.comment.findMany({
       where: { questionHash: hash },
       select: {
@@ -186,49 +251,21 @@ app.get("/comments/:hash", async (req, res) => {
       },
       orderBy: { timestamp: "asc" },
     });
-    console.log(`[GET /comments/${hash}] Found ${comments.length} comments`);
     res.json(comments);
   } catch (error) {
     console.error(`[GET /comments/${hash}] Error:`, error);
-    res
-      .status(500)
-      .json({
-        error: "Internal Server Error",
-        details: error instanceof Error ? error.message : String(error),
-      });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
 // POST /comments - Add a new comment
-app.post("/comments", async (req, res) => {
+app.post("/comments", writeLimiter, async (req, res) => {
   try {
-    // Rate limiting: 5 comments per IP per minute
-    const ip = req.ip || "unknown";
-    const now = Date.now();
-    const oneMinuteAgo = now - 60000;
-
-    if (!commentRateLimit.has(ip)) {
-      commentRateLimit.set(ip, []);
-    }
-
-    const timestamps = commentRateLimit
-      .get(ip)!
-      .filter((t) => t > oneMinuteAgo);
-
-    if (timestamps.length >= 5) {
-      return res.status(429).json({
-        error: "Too many comments. Maximum 5 per minute. Try again later.",
-      });
-    }
-
-    timestamps.push(now);
-    commentRateLimit.set(ip, timestamps);
-
     const { questionHash, uid, username, text, parentId, token } = z
       .object({
         questionHash: z.string(),
         uid: z.string().length(64),
-        username: z.string().min(1),
+        username: z.string().min(1).max(50),
         text: z.string().min(1).max(200),
         parentId: z.number().optional().nullable(),
         token: z.string().min(1),
@@ -236,29 +273,11 @@ app.post("/comments", async (req, res) => {
       .parse(req.body);
 
     // Verify Cloudflare Turnstile token
-    const secretKey = process.env.TURNSTILE_SECRET_KEY;
-    if (secretKey) {
-      const verifyResponse = await fetch(
-        "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            secret: secretKey,
-            response: token,
-          }),
-        },
-      );
-
-      const outcome: any = await verifyResponse.json();
-      if (!outcome.success) {
-        return res.status(403).json({
-          error: "Invalid bot verification token",
-          details: outcome["error-codes"],
-        });
-      }
-    } else {
-      console.warn("TURNSTILE_SECRET_KEY not set, skipping verification");
+    const valid = await verifyTurnstile(token);
+    if (!valid) {
+      return res
+        .status(403)
+        .json({ error: "Invalid bot verification token" });
     }
 
     // Ensure user exists
@@ -300,12 +319,7 @@ app.post("/comments", async (req, res) => {
       return res.status(400).json({ error: error.errors });
     }
     console.error("[POST /comments] Error:", error);
-    res
-      .status(500)
-      .json({
-        error: "Internal Server Error",
-        details: error instanceof Error ? error.message : String(error),
-      });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
@@ -318,15 +332,23 @@ app.use(
     next: express.NextFunction,
   ) => {
     console.error("[Global Error Handler]", err);
-    res
-      .status(500)
-      .json({ error: "Internal Server Error", details: err.message });
+    res.status(500).json({ error: "Internal Server Error" });
   },
 );
 
+// Graceful shutdown
+async function shutdown() {
+  console.log("Shutting down...");
+  await prisma.$disconnect();
+  process.exit(0);
+}
+
+process.on("SIGTERM", shutdown);
+process.on("SIGINT", shutdown);
+
 app.listen(PORT, () => {
-  console.log(`🚀 Stats backend running at http://localhost:${PORT}`);
+  console.log(`Stats backend running at http://localhost:${PORT}`);
   console.log(
-    `📊 Database: ${process.env.DATABASE_URL ? "Connected" : "No DATABASE_URL set"}`,
+    `Database: ${process.env.DATABASE_URL ? "Connected" : "No DATABASE_URL set"}`,
   );
 });
