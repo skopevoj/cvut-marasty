@@ -4,7 +4,6 @@ export { selectSubject, applySubjectColors } from "./subjectActions";
 export {
   updateQuizQueue,
   shuffleQueue,
-  getShuffledAnswers,
   getQuestionStats,
   evaluate,
   setAnswer,

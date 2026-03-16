@@ -42,7 +42,8 @@ Your task:
 3. Select the most relevant topics from the list above (use topic IDs, can be multiple)
 4. If it's a multichoice question, extract all answer options and mark which are correct
 5. If it's a yesno question, set answers to exactly two entries: {"text": "Ano", "isCorrect": true/false} and {"text": "Ne", "isCorrect": true/false} based on the correct answer
-6. Extract the original text as-is for reference
+6. If it's an open question, extract the expected/correct answer from the image and set answers to a single entry: {"text": "the correct answer", "isCorrect": true}
+7. Extract the original text as-is for reference
 
 IMPORTANT: Return ONLY valid JSON. Do not include any markdown formatting or code blocks. Do not wrap the JSON in backticks.
 
@@ -58,7 +59,7 @@ Return a JSON object with this exact structure:
     "originalText": "Original unprocessed text from image"
 }
 
-For open questions, set answers to an empty array.
+For open questions, set answers to a single entry with the correct/expected answer from the image: [{"text": "expected answer text", "isCorrect": true}].
 For yesno questions, always use exactly: [{"text": "Ano", "isCorrect": true/false}, {"text": "Ne", "isCorrect": true/false}]
 Ensure all mathematical expressions use proper LaTeX syntax.
 Make sure all strings are properly escaped for JSON (use \\\\ for backslash in LaTeX).`;

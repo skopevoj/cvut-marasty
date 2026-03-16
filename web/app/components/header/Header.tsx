@@ -6,13 +6,12 @@ import { selectSubject } from "../../lib/actions/subjectActions";
 import { useNavigation } from "../../lib/hooks";
 import { SortType } from "../../lib/types/enums";
 import { MultiSelect } from "../ui/MultiSelect";
-import { Search, Star, Settings, BarChart3 } from "lucide-react";
+import { Search, Star, Settings } from "lucide-react";
 import { SubjectSelector } from "./SubjectSelector";
 import { SearchBar } from "./SearchBar";
 import { SearchResults } from "./SearchResults";
 import { SettingsMenu } from "../settings/SettingsMenu";
 import { SortSelector } from "./SortSelector";
-import { StatsModal } from "./StatsModal";
 import {
   favoritesHelper,
   useFavorites,
@@ -36,7 +35,6 @@ export function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
-  const [isStatsOpen, setIsStatsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -146,14 +144,6 @@ export function Header() {
                   title="Hledat"
                 />
 
-                {/* <IconButton
-                                    onClick={() => setIsStatsOpen(true)}
-                                    icon={BarChart3}
-                                    variant='frosted'
-                                    title="Statistiky"
-                                    active={isStatsOpen}
-                                /> */}
-
                 <IconButton
                   onClick={() => setIsFavoritesOpen(true)}
                   icon={Star}
@@ -190,14 +180,6 @@ export function Header() {
           }}
         />
       </Modal>
-
-      {/* <Modal
-                isOpen={isStatsOpen}
-                onClose={() => setIsStatsOpen(false)}
-                title={`Statistiky ${currentSubject?.code || ""}`}
-            >
-                <StatsModal />
-            </Modal> */}
 
       <Modal
         isOpen={isSettingsOpen}

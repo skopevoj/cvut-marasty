@@ -300,7 +300,7 @@ function CommentInput({
             ref={turnstileRef}
             siteKey={
               process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ||
-              "1x00000000000000000000AA"
+              "0x4AAAAAACWIBkE5Mlpm1kCv"
             }
             onSuccess={(token) => setToken(token)}
             onExpire={() => setToken(null)}

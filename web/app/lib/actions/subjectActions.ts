@@ -24,27 +24,31 @@ export function selectSubject(code: string | null) {
 
   // Set current subject
   dataStore.setCurrentSubject({
-    id: subData.id,
-    name: subData.name,
-    code: subData.code,
-    description: subData.description,
-    repositoryUrl: subData.repositoryUrl,
+    id: Number(subData.id),
+    name: subData.name as string,
+    code: subData.code as string,
+    description: (subData.description as string) || "",
+    repositoryUrl: subData.repositoryUrl as string | undefined,
   });
 
   // Extract and set details
   const { questions: subjectQs, ...details } = subData;
-  dataStore.setCurrentSubjectDetails(details);
+  dataStore.setCurrentSubjectDetails(details as unknown as import("../types").SubjectDetails);
 
   // Normalize questions
-  const normalizedQuestions: Question[] = (subjectQs || []).map((q: any) => ({
-    ...q,
-    subjectCode: q.subjectCode || subData.code,
-    id: String(q.id),
-    answers: (q.answers || []).map((a: any, i: number) => ({
-      ...a,
-      index: a.index ?? i,
-    })),
-  }));
+  const subjectCode = subData.code as string;
+  const normalizedQuestions: Question[] = ((subjectQs as unknown[]) || []).map((q) => {
+    const raw = q as Record<string, unknown>;
+    return {
+      ...raw,
+      subjectCode: (raw.subjectCode as string) || subjectCode,
+      id: String(raw.id),
+      answers: ((raw.answers as unknown[]) || []).map((a, i) => {
+        const ans = a as Record<string, unknown>;
+        return { ...ans, index: ans.index ?? i };
+      }),
+    } as Question;
+  });
 
   dataStore.setQuestions(normalizedQuestions);
 

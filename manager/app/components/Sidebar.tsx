@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Subject } from '../types';
 import { ChevronRight, ChevronDown, Folder, FileQuestion, ImageIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -30,6 +30,21 @@ export function Sidebar({
 }: SidebarProps) {
     const [expandedSubjects, setExpandedSubjects] = useState<Set<string>>(new Set());
     const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set());
+
+    const questionsByTopicMap = useMemo(() => {
+        const map: Record<string, Record<string, typeof subjects[0]['questions']>> = {};
+        for (const subject of subjects) {
+            map[subject.code] = subject.questions?.reduce((acc, q) => {
+                const topics = q.topics && q.topics.length > 0 ? q.topics : ['uncategorized'];
+                topics.forEach(topic => {
+                    if (!acc[topic]) acc[topic] = [];
+                    acc[topic].push(q);
+                });
+                return acc;
+            }, {} as Record<string, typeof subject.questions>) || {};
+        }
+        return map;
+    }, [subjects]);
 
     const toggleSubject = (code: string) => {
         const newExpanded = new Set(expandedSubjects);
@@ -62,15 +77,7 @@ export function Sidebar({
                     const isExpanded = expandedSubjects.has(subject.code);
                     const isSelected = selectedSubject?.code === subject.code && !selectedCategory;
 
-                    // Group questions by topic
-                    const questionsByTopic = subject.questions?.reduce((acc, q) => {
-                        const topics = q.topics && q.topics.length > 0 ? q.topics : ['uncategorized'];
-                        topics.forEach(topic => {
-                            if (!acc[topic]) acc[topic] = [];
-                            acc[topic].push(q);
-                        });
-                        return acc;
-                    }, {} as Record<string, typeof subject.questions>) || {};
+                    const questionsByTopic = questionsByTopicMap[subject.code] || {};
 
                     return (
                         <div key={subject.code} className="space-y-1">

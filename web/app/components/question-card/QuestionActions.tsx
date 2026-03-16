@@ -1,14 +1,6 @@
 "use client";
 
-import {
-  Star,
-  TriangleAlert,
-  ImageIcon,
-  FileText,
-  MessageSquare,
-  MessageCircle,
-  BarChart2,
-} from "lucide-react";
+import { Star, ImageIcon, MessageSquare } from "lucide-react";
 import { favoritesHelper } from "../../lib/helper/favoritesHelper";
 import { useState, useEffect } from "react";
 import { useDataStore, useQuizStore, useSettingsStore } from "../../lib/stores";
@@ -101,19 +93,6 @@ export function QuestionActions({
 
   return (
     <div className="absolute top-4 right-4 z-10 flex items-center gap-3">
-      {/* {hasOriginalText && (
-        <button
-          onClick={onToggleOriginalText}
-          title="Zobrazit původní text z Wordu"
-          className={`p-1 transition-all duration-200 hover:scale-110 active:scale-90 ${
-            showOriginalText
-              ? "text-[var(--subject-primary)]"
-              : "text-[var(--fg-muted)] hover:text-[var(--fg-primary)]"
-          }`}
-        >
-          <FileText size={20} />
-        </button>
-      )} */}
       {hasQuizPhoto && (
         <button
           onClick={onToggleQuizPhoto}
@@ -148,15 +127,6 @@ export function QuestionActions({
           )}
         </button>
       )}
-      {/* {hasRepository && (
-                <button
-                    onClick={() => setIsSuggestModalOpen(true)}
-                    title="Navrhnout úpravu"
-                    className="p-1 text-[var(--fg-muted)] transition-all duration-200 hover:scale-110 hover:text-[var(--fg-primary)] active:scale-90"
-                >
-                    <TriangleAlert size={20} />
-                </button>
-            )} */}
       <button
         onClick={handleToggleFavorite}
         title={isFavorite ? "Odebrat z oblíbených" : "Přidat do oblíbených"}

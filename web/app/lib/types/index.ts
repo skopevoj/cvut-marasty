@@ -150,10 +150,34 @@ export interface LoadingState {
 }
 
 // ============================================================================
+// Raw Data Types (for JSON loaded from sources)
+// ============================================================================
+
+export interface RawSubjectData {
+  id?: string | number;
+  code?: string;
+  name?: string;
+  title?: string;
+  questions?: unknown[];
+  primaryColor?: string;
+  secondaryColor?: string;
+  [key: string]: unknown;
+}
+
+export interface RawSourceData {
+  subjects: RawSubjectData[];
+  metadata?: { hash?: string; repository?: string };
+  repository?: string;
+  version?: string;
+}
+
+// ============================================================================
 // Evaluation Types
 // ============================================================================
 
 export interface EvaluationResult {
   isCorrect: boolean;
   statsUserAnswers: Record<number, number> | string;
+  detailed: Record<number, boolean> | boolean;
+  answerHashes?: Record<number, string>;
 }

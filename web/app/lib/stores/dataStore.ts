@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { Subject, Question, SubjectDetails, LoadingState } from "../types";
+import type { Subject, Question, SubjectDetails, LoadingState, RawSourceData } from "../types";
 
 // ============================================================================
 // Types
@@ -7,7 +7,7 @@ import type { Subject, Question, SubjectDetails, LoadingState } from "../types";
 
 interface DataState {
   // Raw data from sources
-  allData: { subjects: any[] } | null;
+  allData: RawSourceData | null;
 
   // Processed data
   subjects: Subject[];
@@ -20,7 +20,7 @@ interface DataState {
 }
 
 interface DataActions {
-  setAllData: (data: { subjects: any[] } | null) => void;
+  setAllData: (data: RawSourceData | null) => void;
   setSubjects: (subjects: Subject[]) => void;
   setQuestions: (questions: Question[]) => void;
   setCurrentSubject: (subject: Subject | null) => void;

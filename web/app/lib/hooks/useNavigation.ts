@@ -1,6 +1,7 @@
 import { useQuizStore, useDataStore, usePeerStore } from "../stores";
 import { usePeer } from "../providers/PeerProvider";
 import { selectSubject } from "../actions/subjectActions";
+import { shuffleArray } from "../utils/arrayUtils";
 
 /**
  * Hook for quiz navigation actions.
@@ -63,13 +64,7 @@ export function useNavigation() {
   };
 
   const shuffle = () => {
-    const { queue } = quizStore;
-    const shuffled = [...queue];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    quizStore.setQueue(shuffled);
+    quizStore.setQueue(shuffleArray(quizStore.queue));
     quizStore.setCurrentIndex(0);
     quizStore.resetAnswers();
   };

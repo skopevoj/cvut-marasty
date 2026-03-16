@@ -28,7 +28,7 @@ function getReferenceElement(): HTMLElement | null {
 }
 
 export function PeerCursors() {
-  const { isConnected, broadcastMessage } = usePeer();
+  const { isConnected, broadcastMessage, registerMessageHandler, unregisterMessageHandler } = usePeer();
   const [cursors, setCursors] = useState<Map<string, CursorPosition>>(
     new Map(),
   );
@@ -107,9 +107,9 @@ export function PeerCursors() {
 
     window.addEventListener("mousemove", throttledMouseMove);
 
-    const handleCursorMove = (message: any) => {
-      const { data, senderId } = message;
-
+    const handleCursorMove = (message: { data: unknown; senderId?: string }) => {
+      const data = message.data as { x: number; y: number; color: string };
+      const senderId = message.senderId ?? "";
       setCursors((prev) => {
         const next = new Map(prev);
         next.set(senderId, {
@@ -123,33 +123,25 @@ export function PeerCursors() {
       });
     };
 
-    const handleUserLeft = (message: any) => {
-      const { data } = message;
+    const handleUserLeft = (message: { data: unknown }) => {
+      const data = message.data as { userId?: string };
       setCursors((prev) => {
         const next = new Map(prev);
-        next.delete(data.userId);
+        next.delete(data.userId ?? "");
         return next;
       });
     };
 
-    if ((window as any).__registerPeerMessageHandler) {
-      (window as any).__registerPeerMessageHandler(
-        "cursor-move",
-        handleCursorMove,
-      );
-      (window as any).__registerPeerMessageHandler("user-left", handleUserLeft);
-    }
+    registerMessageHandler("cursor-move", handleCursorMove);
+    registerMessageHandler("user-left", handleUserLeft);
 
     return () => {
       window.removeEventListener("mousemove", throttledMouseMove);
       if (throttleTimeout) clearTimeout(throttleTimeout);
-
-      if ((window as any).__unregisterPeerMessageHandler) {
-        (window as any).__unregisterPeerMessageHandler("cursor-move");
-        (window as any).__unregisterPeerMessageHandler("user-left");
-      }
+      unregisterMessageHandler("cursor-move");
+      unregisterMessageHandler("user-left");
     };
-  }, [isConnected, handleMouseMove]);
+  }, [isConnected, handleMouseMove, registerMessageHandler, unregisterMessageHandler]);
 
   // Calculate pixel position from reference-relative percentages
   const getPixelPosition = useCallback((xPercent: number, yPercent: number) => {

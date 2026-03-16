@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { StoreProvider, PeerProvider } from "./lib/providers";
 import { ServiceWorkerRegister } from "./lib/providers/ServiceWorkerRegister";
 import { Whiteboard } from "./components/whiteboard/Whiteboard";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,6 +19,12 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "ČVUT",
   description: "Příprava na rozsřel",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -40,6 +47,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ServiceWorkerRegister />
+        <Toaster position="bottom-center" richColors closeButton />
         <PeerProvider>
           <StoreProvider>
             <Whiteboard />

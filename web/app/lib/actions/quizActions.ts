@@ -1,11 +1,10 @@
 import type { Question, Answer, AnswerState, QuestionStats } from "../types";
 import { QuestionType } from "../types";
+import { shuffleArray } from "../utils/arrayUtils";
 import { useQuizStore } from "../stores/quizStore";
 import { useDataStore } from "../stores/dataStore";
 import { useFilterStore } from "../stores/filterStore";
 import { useStatsStore } from "../stores/statsStore";
-import { usePeerStore } from "../stores/peerStore";
-import { useSettingsStore } from "../stores/settingsStore";
 import { sortingLogic } from "../business/sortingLogic";
 import { EvaluationStrategyFactory } from "../evaluation/evaluationStrategy";
 import { statsHelper } from "../helper/statsHelper";
@@ -44,40 +43,9 @@ export function updateQuizQueue() {
 
 export function shuffleQueue() {
   const quizStore = useQuizStore.getState();
-  const { queue } = quizStore;
-
-  const shuffled = [...queue];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-
-  quizStore.setQueue(shuffled);
+  quizStore.setQueue(shuffleArray(quizStore.queue));
   quizStore.setCurrentIndex(0);
   quizStore.resetSession();
-}
-
-// ============================================================================
-// Answer Shuffling
-// ============================================================================
-
-export function getShuffledAnswers(question: Question | null): Answer[] {
-  if (!question?.answers) return [];
-
-  const settings = useSettingsStore.getState();
-  const peerStore = usePeerStore.getState();
-
-  // Disable shuffle when in peer room to keep everyone synchronized
-  if (settings.shuffleAnswers && !peerStore.isConnected) {
-    const answers = [...question.answers];
-    for (let i = answers.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [answers[i], answers[j]] = [answers[j], answers[i]];
-    }
-    return answers;
-  }
-
-  return question.answers;
 }
 
 // ============================================================================

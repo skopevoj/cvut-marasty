@@ -1,63 +1,45 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { UserPlus, UserMinus } from 'lucide-react';
+import { useEffect, useState } from "react";
+import { UserPlus, UserMinus } from "lucide-react";
+import { usePeer } from "../../lib/providers/PeerProvider";
+import type { PeerMessage } from "../../lib/types";
 
 interface Notification {
-    id: string;
-    type: 'join' | 'leave';
-    userId: string;
-    timestamp: number;
+  id: string;
+  type: "join" | "leave";
+  userId: string;
+  timestamp: number;
 }
 
 export function PeerNotifications() {
-    const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const { registerMessageHandler, unregisterMessageHandler } = usePeer();
 
-    useEffect(() => {
-        const handleUserJoined = (message: any) => {
-            const notif: Notification = {
-                id: `${message.data.userId}-${Date.now()}`,
-                type: 'join',
-                userId: message.data.userId.substring(0, 8),
-                timestamp: Date.now()
-            };
+  useEffect(() => {
+    const addNotification = (type: "join" | "leave", message: PeerMessage) => {
+      const data = message.data as { userId?: string };
+      const userId = (data.userId ?? "").substring(0, 8);
+      const notif: Notification = {
+        id: `${userId}-${Date.now()}`,
+        type,
+        userId,
+        timestamp: Date.now(),
+      };
+      setNotifications((prev) => [...prev, notif]);
+      setTimeout(() => {
+        setNotifications((prev) => prev.filter((n) => n.id !== notif.id));
+      }, 3000);
+    };
 
-            setNotifications(prev => [...prev, notif]);
+    registerMessageHandler("user-joined", (msg) => addNotification("join", msg));
+    registerMessageHandler("user-left", (msg) => addNotification("leave", msg));
 
-            // Auto-remove after 3 seconds
-            setTimeout(() => {
-                setNotifications(prev => prev.filter(n => n.id !== notif.id));
-            }, 3000);
-        };
-
-        const handleUserLeft = (message: any) => {
-            const notif: Notification = {
-                id: `${message.data.userId}-${Date.now()}`,
-                type: 'leave',
-                userId: message.data.userId.substring(0, 8),
-                timestamp: Date.now()
-            };
-
-            setNotifications(prev => [...prev, notif]);
-
-            // Auto-remove after 3 seconds
-            setTimeout(() => {
-                setNotifications(prev => prev.filter(n => n.id !== notif.id));
-            }, 3000);
-        };
-
-        if ((window as any).__registerPeerMessageHandler) {
-            (window as any).__registerPeerMessageHandler('user-joined', handleUserJoined);
-            (window as any).__registerPeerMessageHandler('user-left', handleUserLeft);
-        }
-
-        return () => {
-            if ((window as any).__unregisterPeerMessageHandler) {
-                (window as any).__unregisterPeerMessageHandler('user-joined');
-                (window as any).__unregisterPeerMessageHandler('user-left');
-            }
-        };
-    }, []);
+    return () => {
+      unregisterMessageHandler("user-joined");
+      unregisterMessageHandler("user-left");
+    };
+  }, [registerMessageHandler, unregisterMessageHandler]);
 
     if (notifications.length === 0) return null;
 

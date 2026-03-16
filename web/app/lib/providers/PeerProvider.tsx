@@ -31,6 +31,8 @@ interface PeerContextType {
   closeRoom: () => void;
   joinRoom: (code: string) => Promise<void>;
   leaveRoom: () => void;
+  registerMessageHandler: (type: string, callback: (msg: PeerMessage) => void) => void;
+  unregisterMessageHandler: (type: string) => void;
 }
 
 const PeerContext = createContext<PeerContextType | undefined>(undefined);
@@ -175,22 +177,15 @@ export function PeerProvider({ children }: { children: ReactNode }) {
     [currentPeerId],
   );
 
-  // Register global message handlers
-  useEffect(() => {
-    const win = window as any;
-    win.__registerPeerMessageHandler = (
-      type: string,
-      callback: (msg: PeerMessage) => void,
-    ) => {
+  const registerMessageHandler = useCallback(
+    (type: string, callback: (msg: PeerMessage) => void) => {
       messageCallbacksRef.current[type] = callback;
-    };
-    win.__unregisterPeerMessageHandler = (type: string) => {
-      delete messageCallbacksRef.current[type];
-    };
-    return () => {
-      delete win.__registerPeerMessageHandler;
-      delete win.__unregisterPeerMessageHandler;
-    };
+    },
+    [],
+  );
+
+  const unregisterMessageHandler = useCallback((type: string) => {
+    delete messageCallbacksRef.current[type];
   }, []);
 
   const value: PeerContextType = {
@@ -199,6 +194,8 @@ export function PeerProvider({ children }: { children: ReactNode }) {
     closeRoom,
     joinRoom,
     leaveRoom,
+    registerMessageHandler,
+    unregisterMessageHandler,
   };
 
   return <PeerContext.Provider value={value}>{children}</PeerContext.Provider>;

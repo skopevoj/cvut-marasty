@@ -1,13 +1,6 @@
-import { Question, Answer } from "../types/question";
+import type { Question, Answer, EvaluationResult } from "../types";
 import { AnswerState, QuestionType } from "../types/enums";
 import { getAnswerHash } from "../utils/hashing";
-
-export interface EvaluationResult {
-  isCorrect: boolean;
-  statsUserAnswers: Record<number, number> | string;
-  detailed: Record<number, boolean> | boolean;
-  answerHashes?: Record<number, string>;
-}
 
 export interface EvaluationStrategy {
   evaluate(

@@ -7,6 +7,7 @@ import {
 } from "../stores";
 import type { Answer, QuestionStats } from "../types";
 import { statsHelper } from "../helper/statsHelper";
+import { shuffleArray } from "../utils/arrayUtils";
 
 /**
  * Hook for current question data and computed values.
@@ -32,13 +33,7 @@ export function useCurrentQuestion() {
 
     // Disable shuffle when in peer room to keep everyone synchronized
     if (shuffleAnswers && !isConnected) {
-      const answers = [...indexedAnswers];
-      // Random shuffle that is stable for the currentQuestion instance due to useMemo
-      for (let i = answers.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [answers[i], answers[j]] = [answers[j], answers[i]];
-      }
-      return answers;
+      return shuffleArray(indexedAnswers);
     }
 
     return indexedAnswers;

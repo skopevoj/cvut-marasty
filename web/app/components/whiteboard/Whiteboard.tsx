@@ -17,7 +17,7 @@ export function Whiteboard() {
   const settings = useSettingsStore();
   const currentQuestionIndex = useQuizStore((s) => s.currentIndex);
   const whiteboard = useWhiteboardStore();
-  const { isConnected, broadcastMessage } = usePeer();
+  const { isConnected, broadcastMessage, registerMessageHandler, unregisterMessageHandler } = usePeer();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isDrawing, setIsDrawing] = useState(false);
@@ -148,8 +148,13 @@ export function Whiteboard() {
   );
 
   useEffect(() => {
-    const handleWhiteboardDraw = (message: any) => {
-      const { data, senderId } = message;
+    const handleWhiteboardDraw = (message: { data: unknown; senderId?: string }) => {
+      const data = message.data as {
+        strokeEnd?: boolean;
+        x0: number; y0: number; x1: number; y1: number;
+        color: string; lineWidth: number; hasRef?: boolean;
+      };
+      const senderId = message.senderId ?? "";
 
       // Handle stroke end - reset position tracking for this peer
       if (data.strokeEnd) {
@@ -245,43 +250,14 @@ export function Whiteboard() {
       peerLastPositions.current.clear();
     };
 
-    // Always register handlers - they use refs so they'll work when canvas is available
-    const registerHandlers = () => {
-      if ((window as any).__registerPeerMessageHandler) {
-        console.log("[Whiteboard] Registering peer message handlers");
-        (window as any).__registerPeerMessageHandler(
-          "whiteboard-draw",
-          handleWhiteboardDraw,
-        );
-        (window as any).__registerPeerMessageHandler(
-          "whiteboard-clear",
-          handleWhiteboardClear,
-        );
-        return true;
-      }
-      return false;
-    };
-
-    // Try to register immediately, and retry if not available yet
-    if (!registerHandlers()) {
-      const interval = setInterval(() => {
-        if (registerHandlers()) {
-          clearInterval(interval);
-        }
-      }, 100);
-
-      // Clean up interval after 5 seconds
-      setTimeout(() => clearInterval(interval), 5000);
-    }
+    registerMessageHandler("whiteboard-draw", handleWhiteboardDraw);
+    registerMessageHandler("whiteboard-clear", handleWhiteboardClear);
 
     return () => {
-      if ((window as any).__unregisterPeerMessageHandler) {
-        console.log("[Whiteboard] Unregistering peer message handlers");
-        (window as any).__unregisterPeerMessageHandler("whiteboard-draw");
-        (window as any).__unregisterPeerMessageHandler("whiteboard-clear");
-      }
+      unregisterMessageHandler("whiteboard-draw");
+      unregisterMessageHandler("whiteboard-clear");
     };
-  }, []); // No dependencies - register once on mount
+  }, [registerMessageHandler, unregisterMessageHandler]);
 
   // Clear drawing on question change
   useEffect(() => {

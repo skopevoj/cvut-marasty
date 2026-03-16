@@ -12,6 +12,7 @@ import { QuestionActions } from "./QuestionActions";
 import { QuestionContent } from "./QuestionContent";
 import { QuestionComments } from "./QuestionComments";
 import * as helpers from "../../lib/helper/questionHelpers";
+import { getTopicMap } from "../../lib/helper/headerHelpers";
 
 export function QuestionCard() {
   const showOriginalText = useQuizStore((s) => s.showOriginalText);
@@ -26,7 +27,7 @@ export function QuestionCard() {
   const questionHash = currentQuestion.id;
 
   const topicMap = useMemo(() => {
-    return helpers.getTopicMap(currentSubjectDetails);
+    return getTopicMap(currentSubjectDetails);
   }, [currentSubjectDetails]);
 
   const topics = useMemo(() => {
@@ -43,12 +44,6 @@ export function QuestionCard() {
 
   return (
     <main className="glass-card-themed relative rounded-3xl p-4 transition-all duration-300 md:p-8">
-      {/* <div className="absolute top-0 left-0 right-0 h-px opacity-70" style={{
-                background: `linear-gradient(90deg, transparent, var(--subject-primary), transparent)`,
-            }} />
-            <div className="absolute bottom-0 left-0 right-0 h-px opacity-70" style={{
-                background: `linear-gradient(90deg, transparent, var(--subject-primary), transparent)`,
-            }} /> */}
       <BadgeList
         topics={topics}
         topicMap={topicMap}
