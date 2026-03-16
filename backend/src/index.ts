@@ -8,13 +8,14 @@ import { z } from "zod";
 const prisma = new PrismaClient();
 const app = express();
 const PORT = process.env.PORT || 3002;
+
 // Security headers
 app.use(helmet());
 
 // CORS configuration
 app.use(
   cors({
-    origin: true, // Allow all origins
+    origin: true,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -34,7 +35,7 @@ const globalLimiter = rateLimit({
 });
 app.use(globalLimiter);
 
-// Stricter rate limiter for write endpoints
+// Stricter rate limiter for write endpoints (per IP)
 const writeLimiter = rateLimit({
   windowMs: 60_000,
   max: 20,
@@ -43,7 +44,48 @@ const writeLimiter = rateLimit({
   message: { error: "Too many requests, try again later." },
 });
 
-// Helper: verify Cloudflare Turnstile token
+// ============================================================================
+// Per-UID rate limiter — prevents a single user from flooding
+// ============================================================================
+
+const uidSubmissions = new Map<string, number[]>();
+
+// Cleanup old entries every 5 minutes
+setInterval(() => {
+  const cutoff = Date.now() - 120_000;
+  for (const [uid, timestamps] of uidSubmissions) {
+    const filtered = timestamps.filter((t) => t > cutoff);
+    if (filtered.length === 0) {
+      uidSubmissions.delete(uid);
+    } else {
+      uidSubmissions.set(uid, filtered);
+    }
+  }
+}, 300_000);
+
+function checkUidRate(uid: string, maxPerMinute: number): boolean {
+  const now = Date.now();
+  const oneMinuteAgo = now - 60_000;
+  const timestamps = (uidSubmissions.get(uid) || []).filter(
+    (t) => t > oneMinuteAgo,
+  );
+  if (timestamps.length >= maxPerMinute) return false;
+  timestamps.push(now);
+  uidSubmissions.set(uid, timestamps);
+  return true;
+}
+
+// ============================================================================
+// Fun-stats cache — avoid expensive queries on every request
+// ============================================================================
+
+let funStatsCache: { data: any; expiresAt: number } | null = null;
+const FUN_STATS_TTL = 60_000; // 60 seconds
+
+// ============================================================================
+// Helpers
+// ============================================================================
+
 async function verifyTurnstile(token: string): Promise<boolean> {
   const secretKey = process.env.TURNSTILE_SECRET_KEY;
   if (!secretKey) {
@@ -64,7 +106,10 @@ async function verifyTurnstile(token: string): Promise<boolean> {
   return !!outcome.success;
 }
 
+// ============================================================================
 // Validation schemas
+// ============================================================================
+
 const StatsPostSchema = z.object({
   uid: z.string().length(64),
   username: z.string().min(1).max(50),
@@ -80,7 +125,10 @@ const StatsPostSchema = z.object({
     .max(50),
 });
 
-// POST /stats - Update user and log result
+// ============================================================================
+// POST /stats — submit answer attempts
+// ============================================================================
+
 app.post("/stats", writeLimiter, async (req, res) => {
   try {
     const { uid, username, questionHash, answers, token } =
@@ -94,6 +142,26 @@ app.post("/stats", writeLimiter, async (req, res) => {
           .status(403)
           .json({ error: "Invalid bot verification token" });
       }
+    }
+
+    // Per-UID rate limit: 30 submissions per minute
+    if (!checkUidRate(uid, 30)) {
+      return res
+        .status(429)
+        .json({ error: "Too many submissions. Try again later." });
+    }
+
+    // Deduplication: reject if same user + same question within 10 seconds
+    const tenSecondsAgo = new Date(Date.now() - 10_000);
+    const recentDuplicate = await prisma.attempt.findFirst({
+      where: {
+        userUid: uid,
+        answer: { questionHash },
+        timestamp: { gte: tenSecondsAgo },
+      },
+    });
+    if (recentDuplicate) {
+      return res.status(409).json({ error: "Duplicate submission" });
     }
 
     // Update or create user
@@ -141,7 +209,10 @@ app.post("/stats", writeLimiter, async (req, res) => {
   }
 });
 
-// POST /stats/query - Get global stats for specific answer hashes
+// ============================================================================
+// POST /stats/query — get global stats for specific answer hashes
+// ============================================================================
+
 app.post("/stats/query", async (req, res) => {
   try {
     const { questionHash, answerHashes } = z
@@ -151,12 +222,10 @@ app.post("/stats/query", async (req, res) => {
       })
       .parse(req.body);
 
-    // Single query: get total attempts for the question
     const totalQuestionAttempts = await prisma.attempt.count({
       where: { answer: { questionHash } },
     });
 
-    // Batch query: get per-answer stats in one round trip
     const rawStats = await prisma.$queryRaw<
       { answerHash: string; total: bigint; correct: bigint }[]
     >(Prisma.sql`
@@ -199,45 +268,18 @@ app.post("/stats/query", async (req, res) => {
   }
 });
 
-// GET /stats/:hash - Debug endpoint to get all stats for a question hash
-app.get("/stats/:hash", async (req, res) => {
-  const { hash } = req.params;
-  try {
-    // Single batch query instead of N+1
-    const rawStats = await prisma.$queryRaw<
-      { answerHash: string; total: bigint; correct: bigint }[]
-    >(Prisma.sql`
-      SELECT a."answerHash",
-             COUNT(*)::bigint AS total,
-             SUM(CASE WHEN a."isCorrect" THEN 1 ELSE 0 END)::bigint AS correct
-      FROM "Attempt" a
-      JOIN "Answer" ans ON ans."hash" = a."answerHash"
-      WHERE ans."questionHash" = ${hash}
-      GROUP BY a."answerHash"
-    `);
+// ============================================================================
+// GET /fun-stats — cached global statistics for the landing page
+// ============================================================================
 
-    const answerStats = rawStats.map((r) => {
-      const total = Number(r.total);
-      const correct = Number(r.correct);
-      return {
-        answerHash: r.answerHash,
-        total,
-        correct,
-        accuracy: total > 0 ? correct / total : 0,
-      };
-    });
-
-    res.json({ questionHash: hash, answerStats });
-  } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
-
-// GET /fun-stats - Global fun statistics for the landing page
 app.get("/fun-stats", async (_req, res) => {
   try {
+    // Return cached if fresh
+    if (funStatsCache && Date.now() < funStatsCache.expiresAt) {
+      return res.json(funStatsCache.data);
+    }
+
     // Count distinct question submissions (not individual answer rows).
-    // A "submission" = one user + one question + same second.
     const [submissionsResult, todayResult] = await Promise.all([
       prisma.$queryRaw<[{ count: bigint }]>(Prisma.sql`
         SELECT COUNT(*) AS count FROM (
@@ -262,20 +304,28 @@ app.get("/fun-stats", async (_req, res) => {
       prisma.comment.count(),
     ]);
 
-    res.json({
+    const data = {
       totalAttempts: Number(submissionsResult[0].count),
       totalUsers,
       totalQuestions,
       totalComments,
       attemptsToday: Number(todayResult[0].count),
-    });
+    };
+
+    // Cache for 60 seconds
+    funStatsCache = { data, expiresAt: Date.now() + FUN_STATS_TTL };
+
+    res.json(data);
   } catch (error) {
     console.error("[GET /fun-stats] Error:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-// GET /comments/:hash - Get all comments for a question
+// ============================================================================
+// GET /comments/:hash
+// ============================================================================
+
 app.get("/comments/:hash", async (req, res) => {
   const { hash } = req.params;
   try {
@@ -300,7 +350,10 @@ app.get("/comments/:hash", async (req, res) => {
   }
 });
 
-// POST /comments - Add a new comment
+// ============================================================================
+// POST /comments
+// ============================================================================
+
 app.post("/comments", writeLimiter, async (req, res) => {
   try {
     const { questionHash, uid, username, text, parentId, token } = z
@@ -314,7 +367,6 @@ app.post("/comments", writeLimiter, async (req, res) => {
       })
       .parse(req.body);
 
-    // Verify Cloudflare Turnstile token
     const valid = await verifyTurnstile(token);
     if (!valid) {
       return res
@@ -322,14 +374,12 @@ app.post("/comments", writeLimiter, async (req, res) => {
         .json({ error: "Invalid bot verification token" });
     }
 
-    // Ensure user exists
     await prisma.user.upsert({
       where: { uid },
       update: { username },
       create: { uid, username },
     });
 
-    // Ensure question exists
     await prisma.question.upsert({
       where: { hash: questionHash },
       update: {},
@@ -365,7 +415,10 @@ app.post("/comments", writeLimiter, async (req, res) => {
   }
 });
 
-// Global error handler
+// ============================================================================
+// Global error handler + shutdown
+// ============================================================================
+
 app.use(
   (
     err: any,
@@ -378,7 +431,6 @@ app.use(
   },
 );
 
-// Graceful shutdown
 async function shutdown() {
   console.log("Shutting down...");
   await prisma.$disconnect();
