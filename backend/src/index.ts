@@ -236,27 +236,38 @@ app.get("/stats/:hash", async (req, res) => {
 // GET /fun-stats - Global fun statistics for the landing page
 app.get("/fun-stats", async (_req, res) => {
   try {
-    const [totalAttempts, totalUsers, totalQuestions, totalComments] =
-      await Promise.all([
-        prisma.attempt.count(),
-        prisma.user.count(),
-        prisma.question.count(),
-        prisma.comment.count(),
-      ]);
+    // Count distinct question submissions (not individual answer rows).
+    // A "submission" = one user + one question + same second.
+    const [submissionsResult, todayResult] = await Promise.all([
+      prisma.$queryRaw<[{ count: bigint }]>(Prisma.sql`
+        SELECT COUNT(*) AS count FROM (
+          SELECT DISTINCT a."userUid", ans."questionHash", date_trunc('second', a."timestamp")
+          FROM "Attempt" a
+          JOIN "Answer" ans ON ans."hash" = a."answerHash"
+        ) sub
+      `),
+      prisma.$queryRaw<[{ count: bigint }]>(Prisma.sql`
+        SELECT COUNT(*) AS count FROM (
+          SELECT DISTINCT a."userUid", ans."questionHash", date_trunc('second', a."timestamp")
+          FROM "Attempt" a
+          JOIN "Answer" ans ON ans."hash" = a."answerHash"
+          WHERE a."timestamp" >= CURRENT_DATE
+        ) sub
+      `),
+    ]);
 
-    const todayStart = new Date();
-    todayStart.setHours(0, 0, 0, 0);
-
-    const attemptsToday = await prisma.attempt.count({
-      where: { timestamp: { gte: todayStart } },
-    });
+    const [totalUsers, totalQuestions, totalComments] = await Promise.all([
+      prisma.user.count(),
+      prisma.question.count(),
+      prisma.comment.count(),
+    ]);
 
     res.json({
-      totalAttempts,
+      totalAttempts: Number(submissionsResult[0].count),
       totalUsers,
       totalQuestions,
       totalComments,
-      attemptsToday,
+      attemptsToday: Number(todayResult[0].count),
     });
   } catch (error) {
     console.error("[GET /fun-stats] Error:", error);
