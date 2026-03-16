@@ -233,6 +233,37 @@ app.get("/stats/:hash", async (req, res) => {
   }
 });
 
+// GET /fun-stats - Global fun statistics for the landing page
+app.get("/fun-stats", async (_req, res) => {
+  try {
+    const [totalAttempts, totalUsers, totalQuestions, totalComments] =
+      await Promise.all([
+        prisma.attempt.count(),
+        prisma.user.count(),
+        prisma.question.count(),
+        prisma.comment.count(),
+      ]);
+
+    const todayStart = new Date();
+    todayStart.setHours(0, 0, 0, 0);
+
+    const attemptsToday = await prisma.attempt.count({
+      where: { timestamp: { gte: todayStart } },
+    });
+
+    res.json({
+      totalAttempts,
+      totalUsers,
+      totalQuestions,
+      totalComments,
+      attemptsToday,
+    });
+  } catch (error) {
+    console.error("[GET /fun-stats] Error:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 // GET /comments/:hash - Get all comments for a question
 app.get("/comments/:hash", async (req, res) => {
   const { hash } = req.params;

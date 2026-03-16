@@ -117,7 +117,7 @@ async function refreshInBackground(enabledSources: DataSource[]) {
       applyResults(results, enabledSources);
       toast.success("Otázky byly aktualizovány");
     } else {
-      toast("Žádné nové aktualizace");
+      // toast("Žádné nové aktualizace");
     }
   } catch (e) {
     console.error("Background refresh error:", e);
