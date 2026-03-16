@@ -36,7 +36,7 @@ export function LandingScreen() {
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
   return (
-    <div className="flex flex-1 flex-col items-center justify-between py-2 md:py-4 px-4 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+    <div className="flex flex-1 flex-col items-center justify-between py-2 md:py-4 px-4">
       <div className="flex-1 flex flex-col items-center justify-center w-full max-w-4xl py-8">
         {/* Hero Section */}
         <div className="w-full max-w-xl mx-auto mb-4 md:mb-8">
@@ -95,7 +95,7 @@ export function LandingScreen() {
                 <button
                   key={subject.code || subject.id}
                   onClick={() => selectSubject(subject.code || "")}
-                  className="glass-card-themed p-4 md:p-6 flex flex-col items-center gap-2 hover:scale-105 transition-all group border-white/10"
+                  className="card p-4 md:p-6 flex flex-col items-center gap-2 group border-white/10"
                 >
                   <BookOpen
                     size={24}

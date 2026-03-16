@@ -20,7 +20,7 @@ export function SettingsToggle({
     return (
         <button
             onClick={onClick}
-            className="group flex items-center justify-between rounded-3xl border border-[var(--border-default)] bg-[var(--bg-elevated)]/40 backdrop-blur-sm p-5 transition-all hover:border-[var(--border-hover)] hover:bg-[var(--bg-elevated)]/60"
+            className="group flex items-center justify-between rounded-lg border border-[var(--border-default)] bg-[var(--bg-elevated)]/40 p-5 transition-colors hover:border-[var(--border-hover)] hover:bg-[var(--bg-elevated)]/60"
         >
             <div className="flex items-center gap-4">
                 <div className={`flex h-14 w-14 items-center justify-center rounded-2xl border transition-all ${
@@ -35,9 +35,9 @@ export function SettingsToggle({
                     <span className="text-sm text-[var(--fg-muted)]">{description}</span>
                 </div>
             </div>
-            <div className={`relative flex h-8 w-14 items-center rounded-full transition-all duration-300 ${
-                isActive 
-                    ? 'bg-[var(--subject-primary)]' 
+            <div className={`relative flex h-8 w-14 items-center rounded-full transition-colors ${
+                isActive
+                    ? 'bg-[var(--subject-primary)]'
                     : 'bg-[var(--bg-surface)]/40'
             }`}
             style={{
@@ -45,7 +45,7 @@ export function SettingsToggle({
                     ? 'inset 0 2px 4px rgba(0, 0, 0, 0.4), 0 0 8px rgba(var(--subject-primary-rgb), 0.3)' 
                     : 'inset 0 2px 4px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.1)'
             }}>
-                <div className={`absolute h-6 w-6 rounded-full transition-all duration-300 shadow-lg ${
+                <div className={`absolute h-6 w-6 rounded-full transition-all shadow-lg ${
                     isActive 
                         ? 'translate-x-7 bg-white' 
                         : 'translate-x-1 bg-white/90'

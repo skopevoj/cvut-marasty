@@ -66,7 +66,7 @@ export function AddSourceModal({ isOpen, onClose }: AddSourceModalProps) {
       maxWidth="max-w-xl"
     >
       <div className="space-y-6">
-        <div className="glass-card-themed p-4 bg-blue-500/5 border-blue-500/10 flex gap-3 items-start">
+        <div className="card p-4 bg-blue-500/5 border-blue-500/10 flex gap-3 items-start">
           <Info size={18} className="text-blue-500 shrink-0 mt-0.5" />
           <p className="text-xs text-[var(--fg-muted)] leading-relaxed">
             Zdrojem musí být JSON soubor obsahující seznam otázek ve správném

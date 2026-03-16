@@ -18,7 +18,7 @@ export function QuestionContent({ questionText, photoUrl }: QuestionContentProps
     }, [photoUrl]);
 
     return (
-        <div className="pt-10">
+        <div className="pt-8">
             <div className="mb-6 text-md leading-relaxed text-[var(--fg-primary)]">
                 <TextRenderer text={questionText} />
             </div>

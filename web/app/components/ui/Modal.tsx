@@ -30,13 +30,13 @@ export function Modal({ isOpen, onClose, title, children, maxWidth = "max-w-2xl"
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6">
             {/* Backdrop */}
             <div
-                className="absolute inset-0 bg-[var(--modal-bg)]/60 backdrop-blur-sm transition-opacity"
+                className="absolute inset-0 bg-[var(--modal-bg)]/60"
                 onClick={onClose}
             />
 
             {/* Modal Content */}
             <div
-                className={`glass-card-themed bg-[var(--bg-surface)]/80 relative w-full ${maxWidth} max-h-[90vh] overflow-hidden rounded-[32px] shadow-2xl transition-all flex flex-col`}
+                className={`bg-[var(--bg-surface)] relative w-full ${maxWidth} max-h-[90vh] overflow-hidden rounded-lg shadow-2xl flex flex-col`}
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Header */}

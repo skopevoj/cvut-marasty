@@ -1,211 +1,300 @@
 @import "tailwindcss";
 
-/* Ensure spin animation works */
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-@keyframes ping {
-  75%,
-  100% {
-    transform: scale(2);
-    opacity: 0;
-  }
-}
-
-.animate-spin {
-  animation: spin 1s linear infinite;
-}
-
-.animate-shimmer {
-  animation: shimmer 2s infinite;
-}
-
-.animate-ping {
-  animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
-}
+/* ============================================================================
+   Tailwind Theme Tokens
+   ============================================================================ */
 
 @theme {
   --color-surface: var(--surface-color);
   --color-border-color: var(--border-color);
   --color-text-primary: var(--fg-primary);
   --color-text-secondary: var(--fg-muted);
-  --color-subject-primary: var(--subject-primary, #a855f7);
-  --color-subject-secondary: var(--subject-secondary, #c084fc);
+  --color-subject-primary: var(--subject-primary, #6c8eef);
+  --color-subject-secondary: var(--subject-secondary, #8ba4f7);
   --color-success: var(--success);
   --color-error: var(--error);
 }
 
-:root {
-  --bg-color: #000000;
-  --surface-color: #0a0a0c;
-  --border-color: #1a1a1e;
-  --fg-primary: #ffffff;
-  --fg-muted: #888888;
-  --fg-subtle: #444444;
-  --bg-surface: #0a0a0c;
-  --bg-surface-hover: #151518;
-  --bg-elevated: #1a1a1e;
-  --border-default: rgba(255, 255, 255, 0.05);
-  --border-hover: rgba(255, 255, 255, 0.1);
-  --button-bg: #0000001a;
-  --success: #10b981;
-  --error: #ef4444;
-  --subject-primary: #55b9f7;
-  --subject-secondary: #84c2fc;
-  --modal-bg: #000000;
-  --primary-color: #3b82f6;
+/* ============================================================================
+   Theme: Default Dark
+   ============================================================================ */
+
+:root,
+[data-theme="dark"] {
+  --bg-color: #101014;
+  --surface-color: #18181c;
+  --border-color: #27272e;
+  --fg-primary: #e4e4e8;
+  --fg-muted: #8a8a96;
+  --fg-subtle: #4a4a54;
+  --bg-surface: #18181c;
+  --bg-surface-hover: #1f1f24;
+  --bg-elevated: #1f1f24;
+  --border-default: #27272e;
+  --border-hover: #38383f;
+  --button-bg: #1f1f24;
+  --success: #34d399;
+  --error: #f87171;
+  --subject-primary: #6c8eef;
+  --subject-secondary: #8ba4f7;
+  --modal-bg: #101014;
+  --primary-color: #6c8eef;
+  --accent-glow: rgba(108, 142, 239, 0.15);
+  --code-bg: #1a1a20;
 }
 
+/* ============================================================================
+   Theme: Default Light
+   ============================================================================ */
+
 [data-theme="light"] {
-  --bg-color: #dde2ee;
+  --bg-color: #f4f4f6;
   --surface-color: #ffffff;
-  --border-color: #bac2ca;
-  --fg-primary: #0f172a;
-  --fg-muted: #475569;
-  --fg-subtle: #94a3b8;
+  --border-color: #e0e0e4;
+  --fg-primary: #1a1a2e;
+  --fg-muted: #6b6b80;
+  --fg-subtle: #a0a0b0;
   --bg-surface: #ffffff;
-  --bg-surface-hover: #f8fafc;
+  --bg-surface-hover: #f8f8fa;
   --bg-elevated: #ffffff;
-  --border-default: rgba(0, 0, 0, 0.08);
-  --border-hover: rgba(0, 0, 0, 0.15);
-  --button-bg: rgba(255, 255, 255, 0.9);
+  --border-default: #e0e0e4;
+  --border-hover: #c8c8d0;
+  --button-bg: #ffffff;
+  --success: #059669;
+  --error: #dc2626;
+  --subject-primary: #4a6cf7;
+  --subject-secondary: #6b8af9;
   --modal-bg: #ffffff;
-  --subject-primary: #0f74d1;
-  --shadow-color: rgba(0, 0, 0, 0.0968);
+  --primary-color: #4a6cf7;
+  --accent-glow: rgba(74, 108, 247, 0.1);
+  --code-bg: #f0f0f4;
 }
+
+/* ============================================================================
+   Theme: Catppuccin Mocha
+   ============================================================================ */
+
+[data-theme="catppuccin-mocha"] {
+  --bg-color: #1e1e2e;
+  --surface-color: #313244;
+  --border-color: #45475a;
+  --fg-primary: #cdd6f4;
+  --fg-muted: #a6adc8;
+  --fg-subtle: #585b70;
+  --bg-surface: #313244;
+  --bg-surface-hover: #3b3d52;
+  --bg-elevated: #313244;
+  --border-default: #45475a;
+  --border-hover: #585b70;
+  --button-bg: #313244;
+  --success: #a6e3a1;
+  --error: #f38ba8;
+  --subject-primary: #89b4fa;
+  --subject-secondary: #b4d0fb;
+  --modal-bg: #1e1e2e;
+  --primary-color: #89b4fa;
+  --accent-glow: rgba(137, 180, 250, 0.12);
+  --code-bg: #2a2a3c;
+}
+
+/* ============================================================================
+   Theme: Catppuccin Latte
+   ============================================================================ */
+
+[data-theme="catppuccin-latte"] {
+  --bg-color: #eff1f5;
+  --surface-color: #e6e9ef;
+  --border-color: #ccd0da;
+  --fg-primary: #4c4f69;
+  --fg-muted: #6c6f85;
+  --fg-subtle: #9ca0b0;
+  --bg-surface: #e6e9ef;
+  --bg-surface-hover: #dce0e8;
+  --bg-elevated: #e6e9ef;
+  --border-default: #ccd0da;
+  --border-hover: #bcc0cc;
+  --button-bg: #e6e9ef;
+  --success: #40a02b;
+  --error: #d20f39;
+  --subject-primary: #1e66f5;
+  --subject-secondary: #4a80f7;
+  --modal-bg: #eff1f5;
+  --primary-color: #1e66f5;
+  --accent-glow: rgba(30, 102, 245, 0.1);
+  --code-bg: #dce0e8;
+}
+
+/* ============================================================================
+   Theme: Tokyo Night
+   ============================================================================ */
+
+[data-theme="tokyo-night"] {
+  --bg-color: #1a1b26;
+  --surface-color: #24283b;
+  --border-color: #3b4261;
+  --fg-primary: #c0caf5;
+  --fg-muted: #565f89;
+  --fg-subtle: #3b4261;
+  --bg-surface: #24283b;
+  --bg-surface-hover: #2a2e42;
+  --bg-elevated: #24283b;
+  --border-default: #3b4261;
+  --border-hover: #565f89;
+  --button-bg: #24283b;
+  --success: #9ece6a;
+  --error: #f7768e;
+  --subject-primary: #7aa2f7;
+  --subject-secondary: #a9c1f8;
+  --modal-bg: #1a1b26;
+  --primary-color: #7aa2f7;
+  --accent-glow: rgba(122, 162, 247, 0.12);
+  --code-bg: #20223a;
+}
+
+/* ============================================================================
+   Theme: Tokyo Night Light
+   ============================================================================ */
+
+[data-theme="tokyo-night-light"] {
+  --bg-color: #d5d6db;
+  --surface-color: #e4e5ea;
+  --border-color: #c0c1c8;
+  --fg-primary: #343b58;
+  --fg-muted: #6172b0;
+  --fg-subtle: #9aa5ce;
+  --bg-surface: #e4e5ea;
+  --bg-surface-hover: #d8d9de;
+  --bg-elevated: #e4e5ea;
+  --border-default: #c0c1c8;
+  --border-hover: #a0a1a8;
+  --button-bg: #e4e5ea;
+  --success: #587539;
+  --error: #8c4351;
+  --subject-primary: #34548a;
+  --subject-secondary: #4a6ca0;
+  --modal-bg: #d5d6db;
+  --primary-color: #34548a;
+  --accent-glow: rgba(52, 84, 138, 0.1);
+  --code-bg: #d0d1d6;
+}
+
+/* ============================================================================
+   Base Styles
+   ============================================================================ */
+
+body {
+  background-color: var(--bg-color);
+  color: var(--fg-primary);
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+  min-height: 100vh;
+}
+
+/* ============================================================================
+   Card — one unified card style
+   ============================================================================ */
+
+.card,
+.glass-card-themed {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-default);
+  border-radius: 0.75rem;
+  pointer-events: auto;
+}
+
+/* ============================================================================
+   Landing Background — subtle accent glow
+   ============================================================================ */
 
 .landing-background {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background-image: radial-gradient(circle at top center, #007bff, transparent);
-  background-size: cover;
-  background-position: center;
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    var(--accent-glow) 0%,
+    transparent 60%
+  );
   opacity: 0;
-  transition: opacity 1.5s ease;
+  transition: opacity 0.3s ease;
   pointer-events: none;
-}
-
-.landing-background::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 0% 0%, transparent 80%, var(--bg-color) 85%),
-    linear-gradient(to bottom, transparent 0%, var(--bg-color) 100%);
 }
 
 .landing-page-active .landing-background {
   opacity: 1;
 }
 
-[data-theme="light"] .glass-card-themed {
-  background:
-    padding-box
-      linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.7),
-        rgba(255, 255, 255, 0.6)
-      ),
-    border-box
-      linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.9) 0%,
-        rgba(255, 255, 255, 0.1) 40%,
-        rgba(255, 255, 255, 0) 50%,
-        rgba(255, 255, 255, 0.1) 60%,
-        rgba(255, 255, 255, 0.4) 100%
-      );
-  border: 1px solid transparent;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow:
-    0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.4);
-}
-
-.glass-card-themed {
-  background-color: rgba(25, 24, 24, 0.632);
-  border: 1px solid rgb(35, 33, 33);
-  border-radius: 1.7rem;
-  backdrop-filter: blur(30px);
-  pointer-events: auto;
-}
-
-body {
-  background-color: var(--bg-color);
-  background-image:
-    radial-gradient(at 20% 30%, rgba(168, 85, 247, 0.03) 0px, transparent 50%),
-    radial-gradient(at 80% 70%, rgba(192, 132, 252, 0.03) 0px, transparent 50%);
-  color: var(--fg-primary);
-  font-family:
-    system-ui,
-    -apple-system,
-    sans-serif;
-  min-height: 100vh;
-}
+/* ============================================================================
+   Utilities
+   ============================================================================ */
 
 @layer utilities {
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
-
-  @keyframes star-pop {
-    0% {
-      transform: scale(1);
-    }
-
-    50% {
-      transform: scale(1.3);
-    }
-
-    100% {
-      transform: scale(1);
-    }
-  }
-
-  .animate-star-pop {
-    animation: star-pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-
-  .star-glow {
-    filter: drop-shadow(0 0 8px rgba(250, 204, 21, 0.6));
-  }
-
-  .animate-spin-slow {
-    animation: spin 8s linear infinite;
-  }
-
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-
-    to {
-      transform: rotate(360deg);
-    }
-  }
 }
+
+/* Spin — for loaders */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Star favorite */
+@keyframes star-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+.animate-star-pop {
+  animation: star-pop 0.15s ease;
+}
+.star-glow {
+  filter: drop-shadow(0 0 3px rgba(250, 204, 21, 0.5));
+}
+
+/* Monospace — for IDs, stats, code */
+.font-mono {
+  font-family:
+    "JetBrains Mono",
+    "Fira Code",
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
+}
+
+/* ============================================================================
+   Monospace Mode — apply mono font to the entire app
+   Must use !important to override Tailwind/body font-family
+   ============================================================================ */
+
+[data-monospace="true"],
+[data-monospace="true"] body,
+[data-monospace="true"] input,
+[data-monospace="true"] select,
+[data-monospace="true"] textarea,
+[data-monospace="true"] button {
+  font-family:
+    "JetBrains Mono",
+    "Fira Code",
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace !important;
+}
+
+[data-monospace="true"] body {
+  font-size: 0.92em;
+  letter-spacing: -0.01em;
+}
+

@@ -48,7 +48,7 @@ export function PeerNotifications() {
             {notifications.map((notif) => (
                 <div
                     key={notif.id}
-                    className="glass-card-themed px-4 py-2 flex items-center gap-2 animate-in slide-in-from-right fade-in"
+                    className="card px-4 py-2 flex items-center gap-2"
                 >
                     {notif.type === 'join' ? (
                         <>

@@ -154,7 +154,7 @@ export function QuestionComments({ questionHash }: QuestionCommentsProps) {
   if (!showComments) return null;
 
   return (
-    <div className="mt-8 animate-in fade-in slide-in-from-bottom-4 duration-300">
+    <div className="mt-8">
       <div className="flex items-center gap-2 mb-6 px-1">
         <MessageCircle size={18} className="text-[var(--subject-primary)]" />
         <h3 className="text-sm font-bold uppercase tracking-wider text-[var(--fg-muted)]">
@@ -261,14 +261,14 @@ function CommentInput({
             onChange={(e) => onChange(e.target.value)}
             maxLength={200}
             placeholder={placeholder}
-            className={`w-full bg-[var(--fg-primary)]/5 border border-[var(--border-default)] text-[var(--fg-primary)] rounded-2xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--subject-primary)] transition-all pr-12 ${
+            className={`w-full bg-[var(--fg-primary)]/5 border border-[var(--border-default)] text-[var(--fg-primary)] rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--subject-primary)] transition-colors pr-12 ${
               small ? "py-1.5 text-xs" : "py-2.5"
             }`}
           />
           <button
             type="submit"
             disabled={!value.trim() || !token || isSubmitting}
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-[var(--subject-primary)] hover:bg-[var(--subject-primary)]/10 rounded-xl transition-all disabled:opacity-30"
+            className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-[var(--subject-primary)] hover:bg-[var(--subject-primary)]/10 rounded-xl transition-colors disabled:opacity-30"
           >
             <Send size={small ? 14 : 18} />
           </button>
@@ -367,7 +367,7 @@ function CommentItem({
           <p
             className={`${
               depth === 0 ? "text-sm" : "text-[13px]"
-            } text-[var(--fg-primary)]/90 leading-relaxed bg-[var(--fg-primary)]/[0.02] p-3 rounded-2xl rounded-tl-none border border-[var(--border-default)]/50 shadow-sm`}
+            } text-[var(--fg-primary)]/90 leading-relaxed bg-[var(--fg-primary)]/[0.02] p-3 rounded-lg rounded-tl-none border border-[var(--border-default)]/50 shadow-sm`}
           >
             {comment.text}
           </p>

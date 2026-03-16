@@ -24,7 +24,7 @@ const COLORS = [
 // Get the question card element as the reference for positioning
 function getReferenceElement(): HTMLElement | null {
   // Find the question card - it's the main element with glass-card-themed class
-  return document.querySelector("main.glass-card-themed") as HTMLElement;
+  return document.querySelector("main.card") as HTMLElement;
 }
 
 export function PeerCursors() {

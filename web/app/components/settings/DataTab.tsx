@@ -51,7 +51,7 @@ export function DataTab() {
   };
 
   return (
-    <div className="animate-in fade-in slide-in-from-right-2 md:slide-in-from-right-4 duration-300">
+    <div className="">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-3">
         <h2 className="text-xl md:text-2xl font-bold text-[var(--fg-primary)]">
           Zdroje dat
@@ -70,7 +70,7 @@ export function DataTab() {
       </div>
 
       {isAdding && (
-        <div className="mb-8 space-y-4 p-4 md:p-5 rounded-3xl bg-[var(--fg-primary)]/[0.03] border border-[var(--border-default)] animate-in zoom-in-95 duration-200">
+        <div className="mb-8 space-y-4 p-4 md:p-5 rounded-lg bg-[var(--fg-primary)]/[0.03] border border-[var(--border-default)]">
           <div className="flex flex-col sm:flex-row gap-2">
             <input
               type="text"
@@ -113,7 +113,7 @@ export function DataTab() {
         {settings.dataSources.map((source) => (
           <div
             key={source.id}
-            className={`group flex items-center justify-between p-3 md:p-4 rounded-2xl md:rounded-3xl bg-[var(--fg-primary)]/5 border border-transparent hover:border-[var(--border-default)] transition-all duration-300 ${
+            className={`group flex items-center justify-between p-3 md:p-4 rounded-lg bg-[var(--fg-primary)]/5 border border-transparent hover:border-[var(--border-default)] transition-colors ${
               !source.enabled ? "opacity-60 grayscale-[0.4]" : ""
             }`}
           >

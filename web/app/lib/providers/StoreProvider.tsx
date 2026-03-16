@@ -2,6 +2,8 @@
 
 import { ReactNode } from "react";
 import { useDataLoader, useThemeSync, useQueueSync } from "../hooks";
+import { useSettingsStore } from "../stores/settingsStore";
+import { OnboardingModal } from "../../components/layout/OnboardingModal";
 
 // ============================================================================
 // App Initializer - Sets up data loading, theme sync, and queue sync
@@ -12,7 +14,15 @@ function AppInitializer({ children }: { children: ReactNode }) {
   useThemeSync();
   useQueueSync();
 
-  return <>{children}</>;
+  const isLoaded = useSettingsStore((s) => s.isLoaded);
+  const onboardingDone = useSettingsStore((s) => s.onboardingDone);
+
+  return (
+    <>
+      {children}
+      {isLoaded && !onboardingDone && <OnboardingModal />}
+    </>
+  );
 }
 
 // ============================================================================

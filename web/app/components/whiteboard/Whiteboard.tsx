@@ -10,7 +10,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 
 // Get the question card element as the reference for positioning
 function getReferenceElement(): HTMLElement | null {
-  return document.querySelector("main.glass-card-themed") as HTMLElement;
+  return document.querySelector("main.card") as HTMLElement;
 }
 
 export function Whiteboard() {

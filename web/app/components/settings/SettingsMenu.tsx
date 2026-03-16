@@ -35,7 +35,7 @@ export function SettingsMenu() {
   );
 
   return (
-    <div className="flex flex-col md:flex-row -m-6 h-[80vh] md:h-[500px] bg-[var(--bg-surface)] overflow-hidden rounded-b-3xl">
+    <div className="flex flex-col md:flex-row -m-6 h-[80vh] md:h-[500px] bg-[var(--bg-surface)] overflow-hidden rounded-b-lg">
       {/* Sidebar / Tabs */}
       <div className="md:w-56 border-b md:border-b-0 md:border-r border-[var(--border-default)] p-4 flex md:flex-col gap-1.5 md:gap-1 bg-[var(--fg-primary)]/[0.02] overflow-x-auto scrollbar-hide shrink-0">
         <SidebarItem id="general" label="Obecné" icon={LayoutGrid} />

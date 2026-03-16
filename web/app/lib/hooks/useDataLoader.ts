@@ -30,10 +30,12 @@ export function useDataLoader() {
 
 export function useThemeSync() {
   const theme = useSettingsStore((s) => s.theme);
+  const monospaceFont = useSettingsStore((s) => s.monospaceFont);
 
   useEffect(() => {
     if (typeof document !== "undefined") {
       document.documentElement.setAttribute("data-theme", theme);
+      document.documentElement.setAttribute("data-monospace", String(monospaceFont));
     }
-  }, [theme]);
+  }, [theme, monospaceFont]);
 }

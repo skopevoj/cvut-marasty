@@ -87,7 +87,7 @@ export function RoomManager() {
       </div>
 
       {!isConnected ? (
-        <div className="space-y-3 p-4 rounded-3xl bg-[var(--bg-elevated)]/50 backdrop-blur-sm border border-[var(--border-default)]">
+        <div className="space-y-3 p-4 rounded-lg bg-[var(--bg-elevated)]/50 border border-[var(--border-default)]">
           <div className="flex gap-2">
             <button
               onClick={handleCreateRoom}
@@ -120,7 +120,7 @@ export function RoomManager() {
               }}
               onKeyPress={handleKeyPress}
               placeholder="Zadejte kód..."
-              className="flex-1 rounded-2xl border border-[var(--border-default)] bg-[var(--bg-surface)]/50 px-4 py-2 text-sm text-[var(--fg-primary)] placeholder-[var(--fg-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--subject-primary)] transition-colors backdrop-blur-sm"
+              className="flex-1 rounded-2xl border border-[var(--border-default)] bg-[var(--bg-surface)]/50 px-4 py-2 text-sm text-[var(--fg-primary)] placeholder-[var(--fg-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--subject-primary)] transition-colors"
             />
             <button
               onClick={handleJoinRoom}
@@ -138,7 +138,7 @@ export function RoomManager() {
           )}
         </div>
       ) : (
-        <div className="space-y-3 p-4 rounded-3xl bg-[var(--bg-elevated)]/50 backdrop-blur-sm border border-[var(--subject-primary)]/30">
+        <div className="space-y-3 p-4 rounded-lg bg-[var(--bg-elevated)]/50 border border-[var(--subject-primary)]/30">
           {/* Room Status */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">

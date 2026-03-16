@@ -97,7 +97,7 @@ export function QuestionActions({
         <button
           onClick={onToggleQuizPhoto}
           title="Zobrazit detailní obrázek"
-          className={`p-1 transition-all duration-200 hover:scale-110 active:scale-90 ${
+          className={`p-1 ${
             showQuizPhoto
               ? "text-[var(--subject-primary)]"
               : "text-[var(--fg-muted)] hover:text-[var(--fg-primary)]"
@@ -113,7 +113,7 @@ export function QuestionActions({
             toggleStats();
           }}
           title="Komunita - Komentáře a globální statistiky"
-          className={`relative p-1 transition-all duration-200 hover:scale-110 active:scale-90 ${
+          className={`relative p-1 ${
             showComments
               ? "text-[var(--subject-primary)]"
               : "text-[var(--fg-muted)] hover:text-[var(--fg-primary)]"
@@ -130,7 +130,7 @@ export function QuestionActions({
       <button
         onClick={handleToggleFavorite}
         title={isFavorite ? "Odebrat z oblíbených" : "Přidat do oblíbených"}
-        className={`p-1 transition-all duration-300 hover:scale-110 active:scale-90 ${
+        className={`p-1 ${
           isFavorite
             ? "fill-yellow-400 text-yellow-400 star-glow"
             : "text-[var(--fg-muted)] hover:text-yellow-400"

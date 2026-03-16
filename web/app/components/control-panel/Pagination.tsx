@@ -52,7 +52,7 @@ export function Pagination({
         icon={ChevronLeft}
         variant="frosted"
         size={18}
-        className="scale-90 md:scale-100"
+        className=""
         title={isInPeerRoom ? "Předchozí (sdílené)" : "Předchozí otázka"}
       />
 
@@ -76,7 +76,7 @@ export function Pagination({
         icon={ChevronRight}
         variant="frosted"
         size={18}
-        className="scale-90 md:scale-100"
+        className=""
         title={isInPeerRoom ? "Další (sdílené)" : "Další otázka"}
       />
     </div>

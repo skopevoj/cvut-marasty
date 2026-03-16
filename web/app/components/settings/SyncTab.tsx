@@ -8,7 +8,7 @@ export function SyncTab() {
   const settings = useSettingsStore();
 
   return (
-    <div className="animate-in fade-in slide-in-from-right-2 md:slide-in-from-right-4 duration-300 space-y-8">
+    <div className="space-y-8">
       <section>
         <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-[var(--fg-primary)]">
           P2P Synchronizace

@@ -74,7 +74,7 @@ export function GeneralTab() {
   };
 
   return (
-    <div className="animate-in fade-in slide-in-from-right-2 md:slide-in-from-right-4 duration-300 space-y-8 pb-10">
+    <div className="space-y-8 pb-10">
       {/* User Section - Simplified & Centered */}
       <div className="flex flex-col items-center justify-center py-6 text-center">
         <UserAvatar name={settings.username} size={96} className="mb-4" />
@@ -105,13 +105,13 @@ export function GeneralTab() {
       <div className="flex flex-row gap-3 px-2">
         <button
           onClick={() => setIsExportModalOpen(true)}
-          className="flex-1 flex items-center justify-center gap-2 py-3 bg-[var(--fg-primary)]/[0.03] border border-[var(--border-default)] text-[var(--fg-primary)] rounded-2xl text-sm font-semibold hover:bg-[var(--fg-primary)]/5 transition-all"
+          className="flex-1 flex items-center justify-center gap-2 py-3 bg-[var(--fg-primary)]/[0.03] border border-[var(--border-default)] text-[var(--fg-primary)] rounded-lg text-sm font-semibold hover:bg-[var(--fg-primary)]/5 transition-colors"
         >
           <Download size={18} className="text-[var(--fg-muted)]" />
           Exportovat
         </button>
 
-        <label className="flex-1 flex items-center justify-center gap-2 py-3 bg-[var(--fg-primary)]/[0.03] border border-[var(--border-default)] text-[var(--fg-primary)] rounded-2xl text-sm font-semibold hover:bg-[var(--fg-primary)]/5 transition-all cursor-pointer text-center">
+        <label className="flex-1 flex items-center justify-center gap-2 py-3 bg-[var(--fg-primary)]/[0.03] border border-[var(--border-default)] text-[var(--fg-primary)] rounded-lg text-sm font-semibold hover:bg-[var(--fg-primary)]/5 transition-colors cursor-pointer text-center">
           <Upload size={18} className="text-[var(--fg-muted)]" />
           Importovat
           <input
@@ -180,7 +180,7 @@ export function GeneralTab() {
                 onClick={() =>
                   setExportOptions((prev) => ({ ...prev, [key]: !prev[key] }))
                 }
-                className={`flex items-center justify-between p-4 rounded-2xl border transition-all ${
+                className={`flex items-center justify-between p-4 rounded-lg border transition-colors ${
                   exportOptions[key]
                     ? "bg-[var(--subject-primary)]/5 border-[var(--subject-primary)]/30"
                     : "bg-[var(--fg-primary)]/5 border-transparent hover:bg-[var(--fg-primary)]/10"
@@ -223,7 +223,7 @@ export function GeneralTab() {
 
           <button
             onClick={handleExport}
-            className="w-full py-4 bg-[var(--subject-primary)] text-white rounded-2xl text-base font-bold hover:opacity-90 transition-all shadow-xl shadow-[var(--subject-primary)]/20 mt-4"
+            className="w-full py-4 bg-[var(--subject-primary)] text-white rounded-lg text-base font-bold hover:opacity-90 transition-colors shadow-xl shadow-[var(--subject-primary)]/20 mt-4"
           >
             Stáhnout .json soubor
           </button>

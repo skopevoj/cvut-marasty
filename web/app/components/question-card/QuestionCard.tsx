@@ -43,7 +43,7 @@ export function QuestionCard() {
   ).toLowerCase();
 
   return (
-    <main className="glass-card-themed relative rounded-3xl p-4 transition-all duration-300 md:p-8">
+    <main className="card relative p-4 md:p-6">
       <BadgeList
         topics={topics}
         topicMap={topicMap}

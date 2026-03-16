@@ -55,12 +55,12 @@ export const Toggle = ({
 }) => (
   <button
     onClick={onClick}
-    className={`relative w-10 md:w-11 h-5 md:h-6 rounded-full transition-all duration-300 ${
+    className={`relative w-10 md:w-11 h-5 md:h-6 rounded-full transition-colors ${
       active ? "bg-[var(--subject-primary)]" : "bg-[var(--fg-muted)]/20"
     }`}
   >
     <div
-      className={`absolute top-0.5 md:top-1 left-0.5 md:left-1 w-4 h-4 rounded-full bg-white transition-all duration-300 shadow-sm ${
+      className={`absolute top-0.5 md:top-1 left-0.5 md:left-1 w-4 h-4 rounded-full bg-white transition-all shadow-sm ${
         active ? "translate-x-5" : ""
       }`}
     />

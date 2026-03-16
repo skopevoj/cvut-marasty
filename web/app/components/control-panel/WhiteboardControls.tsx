@@ -21,7 +21,7 @@ export function WhiteboardControls() {
   if (!settings.whiteboardEnabled) return null;
 
   return (
-    <div className="hidden md:flex items-center gap-0.5 mx-2 opacity-30 hover:opacity-100 transition-opacity duration-300">
+    <div className="hidden md:flex items-center gap-0.5 mx-2 opacity-30 hover:opacity-100 transition-opacity">
       <div className="relative">
         <button
           onClick={() => {
@@ -43,7 +43,7 @@ export function WhiteboardControls() {
         </button>
 
         {showColors && (
-          <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 flex gap-1.5 bg-[var(--modal-bg)]/80 backdrop-blur-md border border-[var(--fg-primary)]/10 p-2 rounded-xl shadow-2xl animate-in fade-in slide-in-from-bottom-2">
+          <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 flex gap-1.5 bg-[var(--modal-bg)]/80 border border-[var(--fg-primary)]/10 p-2 rounded-xl shadow-2xl">
             {COLORS.map((c) => (
               <button
                 key={c}

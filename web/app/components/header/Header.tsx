@@ -75,9 +75,7 @@ export function Header() {
 
   return (
     <>
-      <header className="glass-card-themed relative z-50 rounded-3xl p-2 md:p-4 transition-all duration-300">
-        <div className="absolute bottom-0 left-0 right-0 h-px opacity-50" />
-
+      <header className="card relative z-50 p-2 md:p-3">
         <div className="relative flex items-center justify-between gap-2 md:gap-3">
           {isSearchOpen ? (
             <div className="flex flex-1 items-center gap-2 md:gap-3">

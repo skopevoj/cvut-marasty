@@ -22,7 +22,13 @@ export interface DataSource {
   enabled: boolean;
 }
 
-export type Theme = "light" | "dark";
+export type Theme =
+  | "dark"
+  | "light"
+  | "catppuccin-mocha"
+  | "catppuccin-latte"
+  | "tokyo-night"
+  | "tokyo-night-light";
 
 export type BackgroundType = "none" | "gradient" | "image" | "video";
 
@@ -45,6 +51,8 @@ export interface Settings {
   whiteboardEnabled: boolean;
   checkUpdatesOnStartup: boolean;
   theme: Theme;
+  monospaceFont: boolean;
+  onboardingDone: boolean;
   dataSources: DataSource[];
   backgroundEnabled: boolean;
   backgroundId: string;

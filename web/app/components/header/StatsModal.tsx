@@ -100,7 +100,7 @@ export function StatsModal() {
             <div key={i} className="flex flex-1 flex-col items-center gap-3">
               <div className="relative w-full flex flex-col items-center justify-end h-32 group">
                 {/* Tooltip on hover */}
-                <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-bg-surface border border-border-default rounded-lg px-2 py-1 text-[10px] opacity-0 group-hover:opacity-100 transition-all duration-200 whitespace-nowrap z-10 shadow-xl backdrop-blur-md">
+                <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-bg-surface border border-border-default rounded-lg px-2 py-1 text-[10px] opacity-0 group-hover:opacity-100 transition-all duration-200 whitespace-nowrap z-10 shadow-xl ">
                   <span className="font-bold">{day.total}</span> celkem (
                   <span className="text-success">{day.correct} ✓</span>,{" "}
                   <span className="text-error">{day.incorrect} ✕</span>)

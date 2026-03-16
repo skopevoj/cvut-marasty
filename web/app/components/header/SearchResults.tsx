@@ -18,10 +18,10 @@ export function SearchResults({ results, topicMap, onQuestionClick, className = 
     return (
         <div
             className={isDropdown
-                ? `bg-[var(--bg-elevated)] border border-[var(--border-default)] absolute top-[calc(100%+8px)] z-[100] overflow-hidden rounded-3xl ${className || "left-[-8px] right-[-8px] md:left-[-16px] md:right-[-16px]"}`
+                ? `bg-[var(--bg-elevated)] border border-[var(--border-default)] absolute top-[calc(100%+8px)] z-[100] overflow-hidden rounded-lg ${className || "left-[-8px] right-[-8px] md:left-[-16px] md:right-[-16px]"}`
                 : `w-full ${className}`}
         >
-            <div className={`${isDropdown ? "max-h-96" : ""} overflow-y-auto overflow-x-hidden scrollbar-hide rounded-3xl`}>
+            <div className={`${isDropdown ? "max-h-96" : ""} overflow-y-auto overflow-x-hidden scrollbar-hide rounded-lg`}>
                 {results.length === 0 ? (
                     <div className="p-8 text-center text-[var(--fg-muted)]">
                         <p className="text-sm">Žádné výsledky</p>

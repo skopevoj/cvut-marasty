@@ -177,6 +177,8 @@ const DEFAULT_SETTINGS: Omit<Settings, "uid" | "username"> = {
   whiteboardEnabled: true,
   checkUpdatesOnStartup: true,
   theme: "dark",
+  monospaceFont: false,
+  onboardingDone: false,
   dataSources: [],
   backgroundEnabled: false,
   backgroundId: "gradient-sunset",

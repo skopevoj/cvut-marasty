@@ -27,7 +27,7 @@ export function LoadingScreen({}: LoadingScreenProps) {
         {/* Minimal progress bar */}
         <div className="relative h-1.5 overflow-hidden rounded-full bg-[var(--border-default)]">
           <div
-            className="h-full rounded-full bg-[var(--subject-primary)] transition-all duration-500 ease-out"
+            className="h-full rounded-full bg-[var(--subject-primary)] transition-[width] duration-300 ease-out"
             style={{
               width: `${loadingProgress}%`,
             }}
