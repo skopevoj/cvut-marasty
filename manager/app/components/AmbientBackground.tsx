@@ -14,6 +14,7 @@ export function AmbientBackground() {
                     style={{
                         background: 'radial-gradient(circle, rgba(94,106,210,0.4) 0%, transparent 70%)',
                         animation: 'float 10s ease-in-out infinite',
+                        willChange: 'transform',
                     }}
                 />
 
@@ -23,6 +24,7 @@ export function AmbientBackground() {
                     style={{
                         background: 'radial-gradient(circle, rgba(139,92,246,0.3) 0%, transparent 70%)',
                         animation: 'float 12s ease-in-out infinite 2s',
+                        willChange: 'transform',
                     }}
                 />
 
@@ -32,6 +34,7 @@ export function AmbientBackground() {
                     style={{
                         background: 'radial-gradient(circle, rgba(59,130,246,0.3) 0%, transparent 70%)',
                         animation: 'float 8s ease-in-out infinite 4s',
+                        willChange: 'transform',
                     }}
                 />
 
@@ -41,6 +44,7 @@ export function AmbientBackground() {
                     style={{
                         background: 'radial-gradient(circle, rgba(94,106,210,0.3) 0%, transparent 70%)',
                         animation: 'pulse-glow 6s ease-in-out infinite',
+                        willChange: 'opacity',
                     }}
                 />
             </div>

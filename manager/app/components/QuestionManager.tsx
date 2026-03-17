@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Subject, Config, Question } from '../types';
 import { Sidebar } from './Sidebar';
 import { QuestionEditor } from './QuestionEditorNew';
@@ -15,6 +15,7 @@ import { SubjectEditorDialog } from './SubjectEditorDialog';
 import { SimilarQuestionsDetector } from './SimilarQuestionsDetector';
 import { LatexRenderer } from './LatexRenderer';
 import { Copy, Download, FolderPlus, Loader2, Plus, Edit, RefreshCw } from 'lucide-react';
+import { ExportDialog } from './ExportDialog';
 
 export function QuestionManager() {
     const [config, setConfig] = useState<Config>({ folders: [] });
@@ -32,12 +33,21 @@ export function QuestionManager() {
         additionalPrompt: string;
         forcedTopics: string[];
     }>({ selectedImages: [], additionalPrompt: '', forcedTopics: [] });
-    const [filteredQuestions, setFilteredQuestions] = useState<Question[]>([]);
     const [loading, setLoading] = useState(false);
     const [showAddFolder, setShowAddFolder] = useState(false);
     const [showSubjectEditor, setShowSubjectEditor] = useState(false);
     const [editingSubject, setEditingSubject] = useState<Subject | null>(null);
     const [dataHash, setDataHash] = useState<string>('');
+    const [showExportDialog, setShowExportDialog] = useState(false);
+
+    // Computed synchronously — avoids extra render cycle from useEffect+setState
+    const filteredQuestions = useMemo<Question[]>(() => {
+        if (!selectedSubject) return [];
+        if (selectedCategory) {
+            return selectedSubject.questions?.filter((q) => q.topics?.includes(selectedCategory)) || [];
+        }
+        return selectedSubject.questions || [];
+    }, [selectedSubject, selectedCategory]);
 
     useEffect(() => {
         loadConfig();
@@ -49,24 +59,6 @@ export function QuestionManager() {
         }
     }, [selectedFolder]);
 
-    // Update filtered questions when selection changes
-    useEffect(() => {
-        if (!selectedSubject) {
-            setFilteredQuestions([]);
-            return;
-        }
-
-        if (selectedCategory) {
-            // Filter by category
-            const filtered = selectedSubject.questions?.filter((q) =>
-                q.topics?.includes(selectedCategory)
-            ) || [];
-            setFilteredQuestions(filtered);
-        } else {
-            // Show all questions for the subject
-            setFilteredQuestions(selectedSubject.questions || []);
-        }
-    }, [selectedSubject, selectedCategory]);
 
     async function loadConfig() {
         try {
@@ -135,15 +127,8 @@ export function QuestionManager() {
         await loadSubjects(true);
     }
 
-    async function handleExport() {
+    async function handleExport(quality: number) {
         if (!selectedFolder) return;
-
-        // Prompt for image quality (0-100, where 100 is highest quality)
-        const qualityInput = prompt('Enter image quality (0-100, where 100 is highest quality, 80 recommended):', '80');
-        if (!qualityInput) return;
-
-        const quality = Math.max(0, Math.min(100, parseInt(qualityInput) || 80));
-
         setLoading(true);
         try {
             const res = await fetch('/api/fs', {
@@ -164,6 +149,7 @@ export function QuestionManager() {
             a.download = 'questions-export.json';
             a.click();
             URL.revokeObjectURL(url);
+            setShowExportDialog(false);
         } catch (error) {
             console.error('Error exporting:', error);
         } finally {
@@ -273,9 +259,11 @@ export function QuestionManager() {
         }
     }
 
-    const selectedQuestion = selectedQuestionId && selectedQuestionId !== 'new'
-        ? selectedSubject?.questions?.find((q) => q.id === selectedQuestionId)
-        : undefined;
+    const selectedQuestion = useMemo(() =>
+        selectedQuestionId && selectedQuestionId !== 'new'
+            ? selectedSubject?.questions?.find((q) => q.id === selectedQuestionId)
+            : undefined,
+        [selectedQuestionId, selectedSubject]);
 
     const isCreatingNew = selectedQuestionId === 'new';
 
@@ -346,7 +334,7 @@ export function QuestionManager() {
                             </>
                         )}
                         <button
-                            onClick={handleExport}
+                            onClick={() => setShowExportDialog(true)}
                             disabled={!selectedFolder || loading}
                             className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 glow-accent"
                         >
@@ -525,6 +513,14 @@ export function QuestionManager() {
                     )}
                 </main>
             </div>
+
+            {/* Export Dialog */}
+            <ExportDialog
+                isOpen={showExportDialog}
+                onClose={() => setShowExportDialog(false)}
+                onExport={handleExport}
+                loading={loading}
+            />
 
             {/* Add Folder Dialog */}
             <AddFolderDialog
