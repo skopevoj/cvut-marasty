@@ -6,7 +6,7 @@ import { selectSubject } from "../../lib/actions/subjectActions";
 import { useNavigation } from "../../lib/hooks";
 import { SortType } from "../../lib/types/enums";
 import { MultiSelect } from "../ui/MultiSelect";
-import { Search, Star, Settings, Clipboard, ClipboardCheck } from "lucide-react";
+import { Search, Star, Settings} from "lucide-react";
 import { SubjectSelector } from "./SubjectSelector";
 import { SearchBar } from "./SearchBar";
 import { SearchResults } from "./SearchResults";
@@ -169,42 +169,6 @@ export function Header() {
                     </>
                   )}
                 </div>
-              </div>
-
-              <div className="flex shrink-0 items-center gap-1.5 md:gap-2">
-                {currentSubject && (
-                  <IconButton
-                    onClick={handleExportSubject}
-                    icon={copiedExport ? ClipboardCheck : Clipboard}
-                    variant="frosted"
-                    title="Kopírovat otázky jako JSON"
-                  />
-                )}
-
-                <IconButton
-                  onClick={() => {
-                    setIsSearchOpen(true);
-                  }}
-                  variant="frosted"
-                  icon={Search}
-                  title="Hledat"
-                />
-
-                <IconButton
-                  onClick={() => setIsFavoritesOpen(true)}
-                  icon={Star}
-                  variant="frosted"
-                  title="Oblíbené"
-                  active={isFavoritesOpen}
-                />
-
-                <IconButton
-                  onClick={() => setIsSettingsOpen(true)}
-                  icon={Settings}
-                  variant="frosted"
-                  title="Nastavení"
-                  active={isSettingsOpen}
-                />
               </div>
             </>
           )}
