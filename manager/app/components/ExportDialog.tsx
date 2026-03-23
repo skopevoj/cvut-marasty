@@ -62,13 +62,13 @@ export function ExportDialog({ isOpen, onClose, onExport, loading }: ExportDialo
                 if (!blob) return;
                 setCompressedSize(blob.size);
                 const url = URL.createObjectURL(blob);
-                setPreviewUrl((prev) => {
+                setPreviewUrl(() => {
                     if (prevPreviewUrl.current) URL.revokeObjectURL(prevPreviewUrl.current);
                     prevPreviewUrl.current = url;
                     return url;
                 });
             },
-            'image/jpeg',
+            'image/avif',
             quality / 100,
         );
     }, [quality]);
@@ -217,7 +217,7 @@ export function ExportDialog({ isOpen, onClose, onExport, loading }: ExportDialo
                                             )}
                                         </div>
                                         <div className="flex items-center justify-between px-1">
-                                            <span className="text-xs text-muted-foreground">JPEG q={quality}</span>
+                                            <span className="text-xs text-muted-foreground">AVIF q={quality}</span>
                                             <div className="flex items-center gap-1.5">
                                                 <span className="text-xs font-mono font-medium text-foreground">
                                                     {compressedSize > 0 ? formatBytes(compressedSize) : '—'}

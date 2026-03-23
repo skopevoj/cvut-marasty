@@ -12,42 +12,22 @@ async function compressImage(
   quality: number,
 ): Promise<string> {
   try {
-    // Try to use sharp if available
     const sharp = await import("sharp").catch(() => null);
 
     if (sharp) {
-      const ext = path.extname(fileName).toLowerCase();
-      let compressedBuffer: Buffer;
-
-      // Resize large images and apply compression based on quality
-      const sharpInstance = sharp.default(imageBuffer).resize(1920, 1080, {
-        fit: "inside",
-        withoutEnlargement: true,
-      });
-
-      // Apply quality-based compression for different formats
-      if (ext === ".png") {
-        compressedBuffer = await sharpInstance
-          .png({
-            quality: quality,
-            compressionLevel: Math.floor((100 - quality) / 10), // 0-9 scale
-          })
-          .toBuffer();
-      } else if (ext === ".webp") {
-        compressedBuffer = await sharpInstance.webp({ quality }).toBuffer();
-      } else {
-        // Convert to JPEG for compression (works for .jpg, .jpeg, and others)
-        compressedBuffer = await sharpInstance.jpeg({ quality }).toBuffer();
-      }
-
-      return compressedBuffer.toString("base64");
+      const compressedBuffer = await sharp
+        .default(imageBuffer)
+        .resize(1920, 1080, { fit: "inside", withoutEnlargement: true })
+        .avif({ quality })
+        .toBuffer();
+      return `data:image/avif;base64,${compressedBuffer.toString("base64")}`;
     }
   } catch (error) {
     console.warn("Sharp compression failed, using original image:", error);
   }
 
-  // Fallback: return original image base64
-  return imageBuffer.toString("base64");
+  // Fallback: return original image as-is
+  return `data:${getMimeType(fileName)};base64,${imageBuffer.toString("base64")}`;
 }
 
 export async function GET(req: NextRequest) {
@@ -442,12 +422,11 @@ async function loadQuestionsWithImages(
                 const imageBuffer = await fs.readFile(
                   path.join(questionFolder, imageFile),
                 );
-                const base64 = await compressImage(
+                return await compressImage(
                   imageBuffer,
                   imageFile,
                   imageQuality,
                 );
-                return `data:${getMimeType(imageFile)};base64,${base64}`;
               }
               return "";
             })(),
@@ -459,12 +438,11 @@ async function loadQuestionsWithImages(
                 const quizImageBuffer = await fs.readFile(
                   path.join(questionFolder, quizImageFile),
                 );
-                const base64 = await compressImage(
+                return await compressImage(
                   quizImageBuffer,
                   quizImageFile,
                   imageQuality,
                 );
-                return `data:${getMimeType(quizImageFile)};base64,${base64}`;
               }
               return "";
             })(),
