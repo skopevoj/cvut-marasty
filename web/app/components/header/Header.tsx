@@ -170,6 +170,33 @@ export function Header() {
                   )}
                 </div>
               </div>
+
+              <div className="flex shrink-0 items-center gap-1.5 md:gap-2">
+                <IconButton
+                  onClick={() => {
+                    setIsSearchOpen(true);
+                  }}
+                  variant="frosted"
+                  icon={Search}
+                  title="Hledat"
+                />
+
+                <IconButton
+                  onClick={() => setIsFavoritesOpen(true)}
+                  icon={Star}
+                  variant="frosted"
+                  title="Oblíbené"
+                  active={isFavoritesOpen}
+                />
+
+                <IconButton
+                  onClick={() => setIsSettingsOpen(true)}
+                  icon={Settings}
+                  variant="frosted"
+                  title="Nastavení"
+                  active={isSettingsOpen}
+                />
+              </div>
             </>
           )}
         </div>
