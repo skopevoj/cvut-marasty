@@ -28,7 +28,10 @@ export type Theme =
   | "catppuccin-mocha"
   | "catppuccin-latte"
   | "tokyo-night"
-  | "tokyo-night-light";
+  | "tokyo-night-light"
+  | "ayu-dark"
+  | "night-owl"
+  | "marast";
 
 export type BackgroundType = "none" | "gradient" | "image" | "video";
 

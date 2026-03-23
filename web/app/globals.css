@@ -179,6 +179,87 @@
 }
 
 /* ============================================================================
+   Theme: MARAST
+   ============================================================================ */
+
+[data-theme="marast"] {
+  --bg-color: #2d2d2d;
+  --surface-color: #383838;
+  --border-color: #484848;
+  --fg-primary: #e8e8e8;
+  --fg-muted: #a0a0a0;
+  --fg-subtle: #686868;
+  --bg-surface: #383838;
+  --bg-surface-hover: #424242;
+  --bg-elevated: #404040;
+  --border-default: #484848;
+  --border-hover: #5a5a5a;
+  --button-bg: #383838;
+  --success: #5aabbd;
+  --error: #e05555;
+  --subject-primary: #5aabbd;
+  --subject-secondary: #7ec4d4;
+  --modal-bg: #2d2d2d;
+  --primary-color: #5aabbd;
+  --accent-glow: rgba(90, 171, 189, 0.15);
+  --code-bg: #333333;
+}
+
+/* ============================================================================
+   Theme: Ayu Dark
+   ============================================================================ */
+
+[data-theme="ayu-dark"] {
+  --bg-color: #0a0e14;
+  --surface-color: #0d1117;
+  --border-color: #1a2233;
+  --fg-primary: #b3b1ad;
+  --fg-muted: #626a73;
+  --fg-subtle: #3a4152;
+  --bg-surface: #0d1117;
+  --bg-surface-hover: #131a26;
+  --bg-elevated: #131a26;
+  --border-default: #1a2233;
+  --border-hover: #253347;
+  --button-bg: #0d1117;
+  --success: #91b362;
+  --error: #ff3333;
+  --subject-primary: #e6b450;
+  --subject-secondary: #ffb454;
+  --modal-bg: #0a0e14;
+  --primary-color: #e6b450;
+  --accent-glow: rgba(230, 180, 80, 0.12);
+  --code-bg: #0d1117;
+}
+
+/* ============================================================================
+   Theme: Night Owl
+   ============================================================================ */
+
+[data-theme="night-owl"] {
+  --bg-color: #03243d;
+  --surface-color: #0b3255;
+  --border-color: #1a4a6a;
+  --fg-primary: #d6deeb;
+  --fg-muted: #7e9ab5;
+  --fg-subtle: #2d4f68;
+  --bg-surface: #0b3255;
+  --bg-surface-hover: #123d64;
+  --bg-elevated: #0b3255;
+  --border-default: #1a4a6a;
+  --border-hover: #2a6090;
+  --button-bg: #0b3255;
+  --success: #addb67;
+  --error: #ef5350;
+  --subject-primary: #82aaff;
+  --subject-secondary: #a8c4ff;
+  --modal-bg: #03243d;
+  --primary-color: #82aaff;
+  --accent-glow: rgba(130, 170, 255, 0.15);
+  --code-bg: #021d33;
+}
+
+/* ============================================================================
    Base Styles
    ============================================================================ */
 
