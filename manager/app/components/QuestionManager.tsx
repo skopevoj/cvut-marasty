@@ -14,8 +14,9 @@ import { SearchBar } from './SearchBar';
 import { SubjectEditorDialog } from './SubjectEditorDialog';
 import { SimilarQuestionsDetector } from './SimilarQuestionsDetector';
 import { LatexRenderer } from './LatexRenderer';
-import { Copy, Download, FolderPlus, Loader2, Plus, Edit, RefreshCw } from 'lucide-react';
+import { Copy, Download, FolderPlus, Loader2, Plus, Edit, RefreshCw, FileText } from 'lucide-react';
 import { ExportDialog } from './ExportDialog';
+import { TextImportProcessor } from './TextImportProcessor';
 
 export function QuestionManager() {
     const [config, setConfig] = useState<Config>({ folders: [] });
@@ -39,6 +40,7 @@ export function QuestionManager() {
     const [editingSubject, setEditingSubject] = useState<Subject | null>(null);
     const [dataHash, setDataHash] = useState<string>('');
     const [showExportDialog, setShowExportDialog] = useState(false);
+    const [showTextImport, setShowTextImport] = useState(false);
 
     // Computed synchronously — avoids extra render cycle from useEffect+setState
     const filteredQuestions = useMemo<Question[]>(() => {
@@ -174,6 +176,7 @@ export function QuestionManager() {
         setShowUnprocessedBatch(false);
         setShowBatchProcessor(false);
         setShowSimilarDetector(false);
+        setShowTextImport(false);
     }
 
     function handleQuestionSelect(subject: Subject, questionId: string) {
@@ -183,6 +186,7 @@ export function QuestionManager() {
         setShowUnprocessedBatch(false);
         setShowBatchProcessor(false);
         setShowSimilarDetector(false);
+        setShowTextImport(false);
         // Find category if needed
         const question = subject.questions?.find(q => q.id === questionId);
         if (question?.topics && question.topics.length > 0) {
@@ -334,6 +338,24 @@ export function QuestionManager() {
                             </>
                         )}
                         <button
+                            onClick={() => {
+                                if (selectedSubject) {
+                                    setShowTextImport(true);
+                                    setSelectedQuestionId(null);
+                                    setSelectedUnprocessedImage(null);
+                                    setShowUnprocessedBatch(false);
+                                    setShowBatchProcessor(false);
+                                    setShowSimilarDetector(false);
+                                }
+                            }}
+                            disabled={!selectedSubject}
+                            className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-foreground hover:bg-accent rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                            title="Import questions from text"
+                        >
+                            <FileText className="w-4 h-4" />
+                            Import Text
+                        </button>
+                        <button
                             onClick={() => setShowExportDialog(true)}
                             disabled={!selectedFolder || loading}
                             className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 glow-accent"
@@ -394,6 +416,13 @@ export function QuestionManager() {
                                 </button>
                             </div>
                         </div>
+                    ) : showTextImport && selectedSubject ? (
+                        <TextImportProcessor
+                            subject={selectedSubject}
+                            folderPath={selectedFolder}
+                            onBack={() => setShowTextImport(false)}
+                            onRefresh={loadSubjects}
+                        />
                     ) : showBatchProcessor && selectedSubject ? (
                         <BatchAIProcessor
                             subject={selectedSubject}
