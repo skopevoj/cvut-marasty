@@ -6,7 +6,7 @@ import { selectSubject } from "../../lib/actions/subjectActions";
 import { useNavigation } from "../../lib/hooks";
 import { SortType } from "../../lib/types/enums";
 import { MultiSelect } from "../ui/MultiSelect";
-import { Search, Star, Settings } from "lucide-react";
+import { Search, Star, Settings, Clipboard, ClipboardCheck } from "lucide-react";
 import { SubjectSelector } from "./SubjectSelector";
 import { SearchBar } from "./SearchBar";
 import { SearchResults } from "./SearchResults";
@@ -26,6 +26,7 @@ export function Header() {
   const currentSubject = useDataStore((s) => s.currentSubject);
   const currentSubjectDetails = useDataStore((s) => s.currentSubjectDetails);
   const questions = useDataStore((s) => s.questions);
+  const allData = useDataStore((s) => s.allData);
   const selectedTopics = useFilterStore((s) => s.selectedTopics);
   const sortType = useFilterStore((s) => s.sortType);
   const toggleTopic = useFilterStore((s) => s.toggleTopic);
@@ -72,6 +73,44 @@ export function Header() {
   const searchResults = useMemo(() => {
     return helpers.filterSearchResults(questions, currentSubject, searchQuery);
   }, [searchQuery, currentSubject, questions]);
+
+  const [copiedExport, setCopiedExport] = useState(false);
+
+  const handleExportSubject = async () => {
+    if (!currentSubject || !allData) return;
+
+    const subData = allData.subjects.find(
+      (s) => s.code === currentSubject.code,
+    );
+    if (!subData) return;
+
+    const { questions: subjectQuestions, ...subjectMeta } = subData;
+    const exportData = {
+      ...subjectMeta,
+      questions: (subjectQuestions as unknown[])?.map((q) => {
+        const raw = q as Record<string, unknown>;
+        const { photo, image, quizPhoto, ...rest } = raw;
+        return rest;
+      }) || [],
+    };
+
+    try {
+      await navigator.clipboard.writeText(JSON.stringify(exportData, null, 2));
+      setCopiedExport(true);
+      setTimeout(() => setCopiedExport(false), 2000);
+    } catch {
+      // Fallback: download
+      const blob = new Blob([JSON.stringify(exportData, null, 2)], {
+        type: "application/json",
+      });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${currentSubject.code}-questions.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  };
 
   return (
     <>
@@ -133,6 +172,15 @@ export function Header() {
               </div>
 
               <div className="flex shrink-0 items-center gap-1.5 md:gap-2">
+                {currentSubject && (
+                  <IconButton
+                    onClick={handleExportSubject}
+                    icon={copiedExport ? ClipboardCheck : Clipboard}
+                    variant="frosted"
+                    title="Kopírovat otázky jako JSON"
+                  />
+                )}
+
                 <IconButton
                   onClick={() => {
                     setIsSearchOpen(true);

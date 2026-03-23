@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { Subject, Config, Question } from '../types';
 import { Sidebar } from './Sidebar';
 import { QuestionEditor } from './QuestionEditorNew';
@@ -14,7 +14,7 @@ import { SearchBar } from './SearchBar';
 import { SubjectEditorDialog } from './SubjectEditorDialog';
 import { SimilarQuestionsDetector } from './SimilarQuestionsDetector';
 import { LatexRenderer } from './LatexRenderer';
-import { Copy, Download, FolderPlus, Loader2, Plus, Edit, RefreshCw, FileText } from 'lucide-react';
+import { Clipboard, ClipboardCheck, Copy, Download, EllipsisVertical, FolderPlus, Loader2, Plus, Edit, RefreshCw, FileText } from 'lucide-react';
 import { ExportDialog } from './ExportDialog';
 import { TextImportProcessor } from './TextImportProcessor';
 
@@ -41,6 +41,8 @@ export function QuestionManager() {
     const [dataHash, setDataHash] = useState<string>('');
     const [showExportDialog, setShowExportDialog] = useState(false);
     const [showTextImport, setShowTextImport] = useState(false);
+    const [showMoreMenu, setShowMoreMenu] = useState(false);
+    const [copiedToClipboard, setCopiedToClipboard] = useState(false);
 
     // Computed synchronously — avoids extra render cycle from useEffect+setState
     const filteredQuestions = useMemo<Question[]>(() => {
@@ -127,6 +129,40 @@ export function QuestionManager() {
 
     async function forceCheckUpdate() {
         await loadSubjects(true);
+    }
+
+    const moreMenuRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        function handleClickOutside(e: MouseEvent) {
+            if (moreMenuRef.current && !moreMenuRef.current.contains(e.target as Node)) {
+                setShowMoreMenu(false);
+            }
+        }
+        if (showMoreMenu) {
+            document.addEventListener('mousedown', handleClickOutside);
+            return () => document.removeEventListener('mousedown', handleClickOutside);
+        }
+    }, [showMoreMenu]);
+
+    async function handleCopySubjectJson() {
+        if (!selectedSubject) return;
+        const questions = selectedSubject.questions || [];
+        const exportData = questions.map(q => ({
+            id: q.id,
+            question: q.question,
+            questionType: q.questionType,
+            topics: q.topics,
+            answers: q.answers,
+            originalText: q.originalText,
+        }));
+        try {
+            await navigator.clipboard.writeText(JSON.stringify(exportData, null, 2));
+            setCopiedToClipboard(true);
+            setTimeout(() => setCopiedToClipboard(false), 2000);
+        } catch {
+            alert('Failed to copy to clipboard');
+        }
     }
 
     async function handleExport(quality: number) {
@@ -276,97 +312,125 @@ export function QuestionManager() {
             <AmbientBackground />
 
             {/* Header */}
-            <header className="flex-shrink-0 border-b border-border bg-card/50 backdrop-blur-xl">
-                <div className="flex items-center justify-between h-14 px-4 gap-4">
-                    <div className="flex items-center gap-4">
-                        <h1 className="text-lg font-semibold tracking-tight bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-transparent">
-                            Question Manager
+            <header className="flex-shrink-0 border-b border-border bg-card/50 backdrop-blur-xl relative z-50 overflow-visible">
+                <div className="flex items-center justify-between h-12 px-4 gap-3">
+                    <div className="flex items-center gap-3 min-w-0">
+                        <h1 className="text-sm font-semibold tracking-tight bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-transparent whitespace-nowrap">
+                            QM
                         </h1>
                         {selectedFolder && (
-                            <span className="text-xs text-muted-foreground font-mono px-2 py-1 bg-accent/50 rounded">
+                            <span className="text-[11px] text-muted-foreground font-mono px-1.5 py-0.5 bg-accent/50 rounded truncate max-w-[120px]">
                                 {selectedFolder.split('/').pop()}
                             </span>
                         )}
                     </div>
 
-                    {/* Search Bar */}
                     {subjects.length > 0 && (
                         <SearchBar subjects={subjects} onQuestionSelect={handleQuestionSelect} />
                     )}
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1">
                         <button
                             onClick={() => setShowAddFolder(true)}
-                            className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-foreground hover:bg-accent rounded-lg transition-all duration-200"
+                            className="p-2 text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg transition-all"
+                            title="Add Folder"
                         >
                             <FolderPlus className="w-4 h-4" />
-                            Add Folder
                         </button>
+
                         {selectedFolder && (
                             <>
                                 <button
                                     onClick={handleNewSubject}
-                                    className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-foreground hover:bg-accent rounded-lg transition-all duration-200"
+                                    className="p-2 text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg transition-all"
+                                    title="New Subject"
                                 >
                                     <Plus className="w-4 h-4" />
-                                    New Subject
                                 </button>
                                 <button
                                     onClick={forceCheckUpdate}
                                     disabled={loading}
-                                    className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-foreground hover:bg-accent rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                                    title="Check for updates"
+                                    className="p-2 text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg transition-all disabled:opacity-40"
+                                    title="Check Updates"
                                 >
                                     <RefreshCw className="w-4 h-4" />
-                                    Check Updates
+                                </button>
+                            </>
+                        )}
+
+                        {selectedSubject && (
+                            <>
+                                <button
+                                    onClick={handleCopySubjectJson}
+                                    className="p-2 text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg transition-all"
+                                    title="Copy questions JSON"
+                                >
+                                    {copiedToClipboard ? (
+                                        <ClipboardCheck className="w-4 h-4 text-primary" />
+                                    ) : (
+                                        <Clipboard className="w-4 h-4" />
+                                    )}
                                 </button>
                                 <button
                                     onClick={() => {
-                                        setShowSimilarDetector(true);
+                                        setShowTextImport(true);
                                         setSelectedQuestionId(null);
                                         setSelectedUnprocessedImage(null);
                                         setShowUnprocessedBatch(false);
                                         setShowBatchProcessor(false);
+                                        setShowSimilarDetector(false);
                                     }}
-                                    disabled={subjects.length === 0}
-                                    className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-foreground hover:bg-accent rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                                    title="Find similar / duplicate questions"
+                                    className="p-2 text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg transition-all"
+                                    title="Import from Text"
                                 >
-                                    <Copy className="w-4 h-4" />
-                                    Find Duplicates
+                                    <FileText className="w-4 h-4" />
                                 </button>
                             </>
                         )}
-                        <button
-                            onClick={() => {
-                                if (selectedSubject) {
-                                    setShowTextImport(true);
-                                    setSelectedQuestionId(null);
-                                    setSelectedUnprocessedImage(null);
-                                    setShowUnprocessedBatch(false);
-                                    setShowBatchProcessor(false);
-                                    setShowSimilarDetector(false);
-                                }
-                            }}
-                            disabled={!selectedSubject}
-                            className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-foreground hover:bg-accent rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                            title="Import questions from text"
-                        >
-                            <FileText className="w-4 h-4" />
-                            Import Text
-                        </button>
-                        <button
-                            onClick={() => setShowExportDialog(true)}
-                            disabled={!selectedFolder || loading}
-                            className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 glow-accent"
-                        >
-                            {loading ? (
-                                <Loader2 className="w-4 h-4 animate-spin" />
-                            ) : (
-                                <Download className="w-4 h-4" />
-                            )}
-                            Export
-                        </button>
+
+                        {/* More menu */}
+                        {selectedFolder && (
+                            <div className="relative" ref={moreMenuRef}>
+                                <button
+                                    onClick={() => setShowMoreMenu(!showMoreMenu)}
+                                    className="p-2 text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg transition-all"
+                                    title="More actions"
+                                >
+                                    <EllipsisVertical className="w-4 h-4" />
+                                </button>
+                                {showMoreMenu && (
+                                    <div className="absolute right-0 top-full mt-1 w-48 bg-card border border-border rounded-lg shadow-lg py-1 z-50">
+                                        <button
+                                            onClick={() => {
+                                                setShowSimilarDetector(true);
+                                                setSelectedQuestionId(null);
+                                                setSelectedUnprocessedImage(null);
+                                                setShowUnprocessedBatch(false);
+                                                setShowBatchProcessor(false);
+                                                setShowMoreMenu(false);
+                                            }}
+                                            disabled={subjects.length === 0}
+                                            className="w-full flex items-center gap-2 px-3 py-2 text-sm text-foreground hover:bg-accent transition-all disabled:opacity-40"
+                                        >
+                                            <Copy className="w-4 h-4" />
+                                            Find Duplicates
+                                        </button>
+                                        <button
+                                            onClick={() => {
+                                                setShowExportDialog(true);
+                                                setShowMoreMenu(false);
+                                            }}
+                                            disabled={loading}
+                                            className="w-full flex items-center gap-2 px-3 py-2 text-sm text-foreground hover:bg-accent transition-all disabled:opacity-40"
+                                        >
+                                            <Download className="w-4 h-4" />
+                                            Export All
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
                         <ThemeToggle />
                     </div>
                 </div>
