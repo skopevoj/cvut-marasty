@@ -38,7 +38,7 @@ async function compressImage(
       const compressedBuffer = await sharp
         .default(imageBuffer)
         .resize(1920, 1080, { fit: "inside", withoutEnlargement: true })
-        .avif({ quality, speed: 8 })
+        .avif({ quality })
         .toBuffer();
       return `data:image/avif;base64,${compressedBuffer.toString("base64")}`;
     }
