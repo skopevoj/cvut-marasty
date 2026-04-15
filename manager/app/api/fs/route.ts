@@ -1,6 +1,26 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs/promises";
 import path from "path";
+import os from "os";
+
+function createSemaphore(limit: number) {
+  let running = 0;
+  const queue: (() => void)[] = [];
+  return async function <T>(fn: () => Promise<T>): Promise<T> {
+    if (running >= limit) {
+      await new Promise<void>((resolve) => queue.push(resolve));
+    }
+    running++;
+    try {
+      return await fn();
+    } finally {
+      running--;
+      if (queue.length > 0) queue.shift()!();
+    }
+  };
+}
+
+const COMPRESS_CONCURRENCY = os.cpus().length * 2;
 
 /**
  * Compresses an image buffer to reduce size.
@@ -18,7 +38,7 @@ async function compressImage(
       const compressedBuffer = await sharp
         .default(imageBuffer)
         .resize(1920, 1080, { fit: "inside", withoutEnlargement: true })
-        .avif({ quality })
+        .avif({ quality, speed: 8 })
         .toBuffer();
       return `data:image/avif;base64,${compressedBuffer.toString("base64")}`;
     }
@@ -397,6 +417,8 @@ async function loadQuestionsWithImages(
       withFileTypes: true,
     });
 
+    const sem = createSemaphore(COMPRESS_CONCURRENCY);
+
     const questionPromises = questionFolders
       .filter((folder) => folder.isDirectory())
       .map(async (folder) => {
@@ -422,10 +444,8 @@ async function loadQuestionsWithImages(
                 const imageBuffer = await fs.readFile(
                   path.join(questionFolder, imageFile),
                 );
-                return await compressImage(
-                  imageBuffer,
-                  imageFile,
-                  imageQuality,
+                return await sem(() =>
+                  compressImage(imageBuffer, imageFile, imageQuality),
                 );
               }
               return "";
@@ -438,10 +458,8 @@ async function loadQuestionsWithImages(
                 const quizImageBuffer = await fs.readFile(
                   path.join(questionFolder, quizImageFile),
                 );
-                return await compressImage(
-                  quizImageBuffer,
-                  quizImageFile,
-                  imageQuality,
+                return await sem(() =>
+                  compressImage(quizImageBuffer, quizImageFile, imageQuality),
                 );
               }
               return "";

@@ -5,6 +5,75 @@ import { storageHelper } from "../helper/storageHelper";
 import { toast } from "sonner";
 
 // ============================================================================
+// Decryption
+// ============================================================================
+
+const TROLL_KEY = "go_touch_grass_pls_no_need_to_look_at_source";
+
+async function deriveAesKey(): Promise<CryptoKey> {
+  const keyBytes = await crypto.subtle.digest(
+    "SHA-256",
+    new TextEncoder().encode(TROLL_KEY),
+  );
+  return crypto.subtle.importKey("raw", keyBytes, { name: "AES-GCM" }, false, ["decrypt"]);
+}
+
+async function decompress(data: Uint8Array): Promise<Uint8Array> {
+  const ds = new DecompressionStream("gzip");
+  const writer = ds.writable.getWriter();
+  const reader = ds.readable.getReader();
+  writer.write(new Uint8Array(data.buffer as ArrayBuffer, data.byteOffset, data.byteLength));
+  writer.close();
+
+  const chunks: Uint8Array[] = [];
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    chunks.push(value);
+  }
+
+  const total = chunks.reduce((n, c) => n + c.length, 0);
+  const out = new Uint8Array(total);
+  let offset = 0;
+  for (const chunk of chunks) {
+    out.set(chunk, offset);
+    offset += chunk.length;
+  }
+  return out;
+}
+
+// magic bytes written by encrypt-questions.mjs
+const MAGIC = [0xec, 0x51, 0x4a, 0x01];
+
+function isEncrypted(bytes: Uint8Array): boolean {
+  return MAGIC.every((b, i) => bytes[i] === b);
+}
+
+async function decryptIfNeeded(bytes: Uint8Array): Promise<string> {
+  if (!isEncrypted(bytes)) return new TextDecoder().decode(bytes);
+
+  // format: magic(4) + iv(12) + authTag(16) + ciphertext
+  const iv = bytes.slice(4, 16);
+  const tag = bytes.slice(16, 32);
+  const ciphertext = bytes.slice(32);
+
+  // Web Crypto expects ciphertext with auth tag appended at the end
+  const ciphertextWithTag = new Uint8Array(ciphertext.length + 16);
+  ciphertextWithTag.set(ciphertext);
+  ciphertextWithTag.set(tag, ciphertext.length);
+
+  const key = await deriveAesKey();
+  const decryptedBytes = await crypto.subtle.decrypt(
+    { name: "AES-GCM", iv, tagLength: 128 },
+    key,
+    ciphertextWithTag,
+  );
+
+  const decompressed = await decompress(new Uint8Array(decryptedBytes));
+  return new TextDecoder().decode(decompressed);
+}
+
+// ============================================================================
 // Data Loading Actions
 // ============================================================================
 
@@ -217,7 +286,7 @@ async function fetchSource(
     }
 
     const data = silent
-      ? await res.json()
+      ? JSON.parse(await decryptIfNeeded(new Uint8Array(await res.arrayBuffer())))
       : await parseResponseWithProgress(res, source, sourceIndex, totalSources);
 
     if (!data || !data.subjects) {
@@ -284,8 +353,7 @@ async function parseResponseWithProgress(
   );
   store.addMessage(`Parsing JSON from ${source.name}...`);
 
-  const text = new TextDecoder().decode(allChunks);
-  const data = JSON.parse(text);
+  const data = JSON.parse(await decryptIfNeeded(allChunks));
   store.addMessage(`Parsed ${source.name} successfully`);
 
   return data;

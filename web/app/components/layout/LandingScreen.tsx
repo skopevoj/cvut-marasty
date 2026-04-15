@@ -87,10 +87,10 @@ export function LandingScreen() {
 
         {/* Fun stats — always show if backend available */}
         {funStats && (
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 w-full max-w-2xl mb-8">
+          <div className="grid grid-cols-3 sm:grid-cols-3 gap-2 w-full max-w-2xl mb-8">
             <StatCard icon={Brain} value={formatNumber(funStats.totalAttempts)} label="odpovědí celkem" />
             <StatCard icon={Zap} value={formatNumber(funStats.attemptsToday)} label="odpovědí dnes" />
-            <StatCard icon={Users} value={formatNumber(funStats.totalUsers)} label="uživatelů" />
+            {/* <StatCard icon={Users} value={formatNumber(funStats.totalUsers)} label="uživatelů" /> */}
             <StatCard icon={MessageSquare} value={formatNumber(funStats.totalComments)} label="komentářů" />
           </div>
         )}
