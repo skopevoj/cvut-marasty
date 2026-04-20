@@ -2,8 +2,10 @@
 
 import { useEffect } from "react";
 import { ChevronLeft, ChevronRight, Users } from "lucide-react";
+import { toast } from "sonner";
 import { IconButton } from "../ui/IconButton";
-import { usePeerStore } from "../../lib/stores";
+import { usePeerStore, useQuizStore } from "../../lib/stores";
+import { selectCurrentQuestion } from "../../lib/stores/quizStore";
 
 interface PaginationProps {
   currentIndex: number;
@@ -19,10 +21,10 @@ export function Pagination({
   onNext,
 }: PaginationProps) {
   const isInPeerRoom = usePeerStore((s) => s.isConnected);
+  const currentQuestion = useQuizStore(selectCurrentQuestion);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Check if user is typing in an input, textarea, using a select, or has focus in the header
       const activeElement = document.activeElement;
       const isInputFocused =
         activeElement?.tagName === "INPUT" ||
@@ -37,12 +39,26 @@ export function Pagination({
         if (currentIndex > 0) onPrev();
       } else if (e.key === "ArrowRight") {
         if (currentIndex < total - 1) onNext();
+      } else if (e.key === "c" && (e.ctrlKey || e.metaKey)) {
+        if (window.getSelection()?.toString()) return;
+        if (!currentQuestion) return;
+        const payload = {
+          question: currentQuestion.question,
+          type: currentQuestion.questionType,
+          answers: currentQuestion.answers.map((a) => ({
+            text: a.text,
+            isCorrect: a.isCorrect,
+          })),
+        };
+        navigator.clipboard.writeText(JSON.stringify(payload, null, 2)).then(() => {
+          toast.success("Otázka zkopírována do schránky");
+        });
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [currentIndex, total, onPrev, onNext]);
+  }, [currentIndex, total, onPrev, onNext, currentQuestion]);
 
   return (
     <div className="flex items-center justify-center gap-1 md:gap-3">
